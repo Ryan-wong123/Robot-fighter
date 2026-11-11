@@ -1,0 +1,53 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 596' width='1200' height='596'>
+<rect width='1200' height='596' fill='#fdfaf2'/>
+<rect x='20' y='60' width='1160' height='400' rx='14' fill='#dff3c4' stroke='#2b2b3a' stroke-width='4'/>
+<rect x='46.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='126.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='206.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='286.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='366.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='446.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='526.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='606.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='686.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='766.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='846.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='926.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='1006.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='1086.0' y='226.0' width='68.0' height='192.0' fill='#d9b27a' stroke='#2b2b3a' stroke-width='3'/>
+<text x='600.0' y='202.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>plastic fence + garden</text>
+<rect x='20' y='450' width='1160' height='70' fill='#e8c98c' stroke='#2b2b3a' stroke-width='4'/>
+<rect x='528.0' y='362.0' width='144.0' height='88.0' rx='6' fill='#f3d28b' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<text x='600.0' y='354.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>sandcastle (safe zone)</text>
+<rect x='136.0' y='378.0' width='72.0' height='72.0' rx='6' fill='#ff7a3d' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<text x='172.0' y='370.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>bucket</text>
+<line x1='992.0' y1='386.0' x2='1048.0' y2='442.0' stroke='#3b8fe0' stroke-width='8' stroke-linecap='round'/>
+<text x='1016.0' y='370.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>shovel</text>
+<ellipse cx='448.0' cy='456' rx='55' ry='14' fill='#b78a4d' stroke='#2b2b3a' stroke-width='3'/><path d='M 433.0 456 q 15 -8 30 0 q -15 8 -30 0' fill='none' stroke='#2b2b3a' stroke-width='3'/>
+<text x='448.0' y='490' font-size='11' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>sinking sand (x0.5)</text>
+<line x1='56.0' y1='386.0' x2='1028.0' y2='386.0' stroke='#d33' stroke-width='5'/><polygon points='1040.0,386.0 1028.0,378.0 1028.0,394.0' fill='#d33'/>
+<text x='520.0' y='374.0' font-size='11' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>cat paw sweep path (shadow telegraphs from the left, &gt;= 1.5 s; safe behind the sandcastle)</text>
+<line x1='40.0' y1='70' x2='40.0' y2='520' stroke='#d33' stroke-width='3' stroke-dasharray='10 8'/>
+<line x1='1160.0' y1='70' x2='1160.0' y2='520' stroke='#d33' stroke-width='3' stroke-dasharray='10 8'/>
+<text x='46.0' y='88' font-size='12' fill='#d33' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>bound -7 m</text>
+<text x='1154.0' y='88' font-size='12' fill='#d33' text-anchor='end' font-weight='normal' font-family='Verdana, Arial, sans-serif'>bound +7 m</text>
+<g stroke='#2b2b3a' stroke-width='3' stroke-linejoin='round'><rect x='346.0' y='342.0' width='28.0' height='108.0' rx='10' fill='#9fd0ff'/><circle cx='360.0' cy='326.0' r='17.6' fill='#9fd0ff'/></g>
+<g stroke='#2b2b3a' stroke-width='3' stroke-linejoin='round'><rect x='826.0' y='342.0' width='28.0' height='108.0' rx='10' fill='#ffb3a7'/><circle cx='840.0' cy='326.0' r='17.6' fill='#ffb3a7'/></g>
+<text x='360.0' y='298.0' font-size='12' fill='#2b2b3a' text-anchor='middle' font-weight='bold' font-family='Verdana, Arial, sans-serif'>P1</text>
+<text x='840.0' y='298.0' font-size='12' fill='#2b2b3a' text-anchor='middle' font-weight='bold' font-family='Verdana, Arial, sans-serif'>P2 / AI</text>
+<polygon points='240.0,356.0 244.2,365.8 254.0,370.0 244.2,374.2 240.0,384.0 235.8,374.2 226.0,370.0 235.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='480.0,356.0 484.2,365.8 494.0,370.0 484.2,374.2 480.0,384.0 475.8,374.2 466.0,370.0 475.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='720.0,356.0 724.2,365.8 734.0,370.0 724.2,374.2 720.0,384.0 715.8,374.2 706.0,370.0 715.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='960.0,356.0 964.2,365.8 974.0,370.0 964.2,374.2 960.0,384.0 955.8,374.2 946.0,370.0 955.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<text x='240.0' y='488' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>item spawn points</text>
+<line x1='40' y1='506' x2='120' y2='506' stroke='#2b2b3a' stroke-width='4'/>
+<text x='128.0' y='511' font-size='12' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>1 m (fight plane 14 m wide, fighter 1.8 m)</text>
+<text x='30' y='36' font-size='26' fill='#2b2b3a' text-anchor='start' font-weight='bold' font-family='Verdana, Arial, sans-serif'>Giant Sandbox</text>
+<text x='251' y='36' font-size='14' fill='#666' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>Stage 4</text>
+<rect x='40' y='536' width='18' height='18' rx='4' fill='#ff5a36' stroke='#2b2b3a' stroke-width='2'/>
+<text x='66' y='550' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>cat paw sweep zone</text>
+<rect x='420' y='536' width='18' height='18' rx='4' fill='#b78a4d' stroke='#2b2b3a' stroke-width='2'/>
+<text x='446' y='550' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>sinking sand</text>
+<rect x='800' y='536' width='18' height='18' rx='4' fill='#f3d28b' stroke='#2b2b3a' stroke-width='2'/>
+<text x='826' y='550' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>sandcastle safe zone</text>
+</svg>

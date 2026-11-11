@@ -1,0 +1,68 @@
+{
+  "_doc": "Per-task verification. Each task lists shell commands; ALL must exit 0 for the task to be ticked [x]. Exit code 3 = 'cannot verify in this environment' (task becomes [~]). A task with no entry can only become [~]. Commands under \"_always\" run before every --complete; if one fails nothing is ticked.",
+  "_always": [
+    "python3 -B Tools/tasks/check_docs.py",
+    "python3 -B Tools/docs_art/make_diagrams.py --check"
+  ],
+  "M0-02": [
+    "python3 Tools/tasks/checks.py file-exists .gitignore",
+    "python3 Tools/tasks/checks.py file-contains .gitignore Library/"
+  ],
+  "M0-03": [
+    "python3 Tools/tasks/checks.py file-contains .gitattributes filter=lfs"
+  ],
+  "M0-06": [
+    "python3 Tools/tasks/checks.py no-pattern 'Revive|reviveBtnPressed|deadCount' scripts Assets/_Project/Scripts"
+  ],
+  "M0-08": [
+    "python3 Tools/tasks/checks.py no-pattern 'NotImplementedException' scripts Assets/_Project/Scripts"
+  ],
+  "M0-15": [
+    "python3 Tools/tasks/checks.py no-pattern 'GameObject\\\\.Find|FindObjectOfType|SendMessage|SendMessageUpwards' Assets/_Project/Scripts/Gameplay Assets/_Project/Scripts/Core Assets/_Project/Scripts/Flow"
+  ],
+  "M0-13": [
+    "Tools/tasks/run_unity_tests.sh EditMode Block"
+  ],
+  "M0-12": [
+    "Tools/tasks/run_unity_tests.sh EditMode Round"
+  ],
+  "M0-16": [
+    "Tools/tasks/run_unity_tests.sh EditMode"
+  ],
+  "M1-02": [
+    "Tools/tasks/run_unity_tests.sh EditMode DamageResolver"
+  ],
+  "M3-07": [
+    "Tools/tasks/run_unity_tests.sh EditMode SaveService"
+  ],
+  "CI-01": [
+    "python3 -m unittest discover -s Tools/tasks -p 'test_*.py'"
+  ],
+  "M2-09": [
+    "python3 Tools/tasks/checks.py no-pattern 'GameObject\\\\.Find|FindObjectOfType|SendMessage|SendMessageUpwards' scripts Assets/_Project/Scripts"
+  ],
+  "D-07": [
+    "python3 Tools/tasks/checks.py file-exists docs/characters.md",
+    "python3 Tools/tasks/checks.py file-exists docs/vfx_style.md",
+    "python3 Tools/tasks/checks.py file-exists docs/maps.md"
+  ],
+  "D-09": [
+    "python3 -B Tools/tasks/check_docs.py",
+    "python3 -B -m unittest discover -s Tools/tasks -p 'test_*.py'",
+    "python3 Tools/tasks/checks.py file-contains AGENTS.md 'Keep Docs Current'"
+  ],
+  "D-10": [
+    "python3 -B Tools/docs_art/make_diagrams.py --check",
+    "python3 -B Tools/tasks/check_docs.py",
+    "python3 Tools/tasks/checks.py file-exists docs/images/maps/toy_chest_showdown.svg",
+    "python3 Tools/tasks/checks.py file-exists docs/images/characters/cast_lineup.svg",
+    "python3 Tools/tasks/checks.py file-exists docs/images/vfx/hit_effect_sheet.svg"
+  ],
+  "D-12": [
+    "python3 Tools/tasks/checks.py file-exists docs/art_prompts.md",
+    "python3 -B Tools/tasks/check_docs.py"
+  ],
+  "D-11": [
+    "python3 -B Tools/tasks/check_concept_art.py"
+  ]
+}

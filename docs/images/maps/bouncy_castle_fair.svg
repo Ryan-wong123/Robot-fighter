@@ -1,0 +1,46 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 596' width='1200' height='596'>
+<rect width='1200' height='596' fill='#fdfaf2'/>
+<rect x='20' y='60' width='1160' height='400' rx='14' fill='#bfe3ff' stroke='#2b2b3a' stroke-width='4'/>
+<circle cx='936.0' cy='178.0' r='60' fill='none' stroke='#9aa' stroke-width='5'/><line x1='936.0' y1='178.0' x2='936.0' y2='410.0' stroke='#9aa' stroke-width='4'/>
+<ellipse cx='440.0' cy='178.0' rx='20' ry='26' fill='#ff5a8a' stroke='#2b2b3a' stroke-width='3'/><line x1='440.0' y1='204.0' x2='440.0' y2='258.0' stroke='#2b2b3a' stroke-width='2'/>
+<ellipse cx='584.0' cy='226.0' rx='20' ry='26' fill='#ffd23f' stroke='#2b2b3a' stroke-width='3'/><line x1='584.0' y1='252.0' x2='584.0' y2='258.0' stroke='#2b2b3a' stroke-width='2'/>
+<ellipse cx='728.0' cy='178.0' rx='20' ry='26' fill='#5ad1ff' stroke='#2b2b3a' stroke-width='3'/><line x1='728.0' y1='204.0' x2='728.0' y2='258.0' stroke='#2b2b3a' stroke-width='2'/>
+<rect x='20' y='450' width='1160' height='70' fill='#ffe36e' stroke='#2b2b3a' stroke-width='4'/>
+<rect x='40.0' y='226.0' width='112.0' height='224.0' rx='6' fill='#ff7ab0' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<polygon points='40.0,226.0 152.0,226.0 96.0,162.0' fill='#ffd23f' stroke='#2b2b3a' stroke-width='3'/>
+<rect x='1048.0' y='226.0' width='112.0' height='224.0' rx='6' fill='#6ec6ff' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<polygon points='1048.0,226.0 1160.0,226.0 1104.0,162.0' fill='#ffd23f' stroke='#2b2b3a' stroke-width='3'/>
+<text x='96.0' y='338.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>tower</text>
+<text x='1104.0' y='338.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>tower</text>
+<rect x='448.0' y='437.2' width='96.0' height='12.8' rx='6' fill='#ff5a36' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<line x1='496.0' y1='426.0' x2='496.0' y2='286.0' stroke='#ff5a36' stroke-width='5'/><polygon points='496.0,274.0 488.0,286.0 504.0,286.0' fill='#ff5a36'/>
+<text x='496.0' y='254.0' font-size='10' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>trampoline pad</text>
+<rect x='656.0' y='437.2' width='96.0' height='12.8' rx='6' fill='#ff5a36' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<line x1='704.0' y1='426.0' x2='704.0' y2='286.0' stroke='#ff5a36' stroke-width='5'/><polygon points='704.0,274.0 696.0,286.0 712.0,286.0' fill='#ff5a36'/>
+<text x='704.0' y='254.0' font-size='10' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>trampoline pad</text>
+<line x1='40.0' y1='70' x2='40.0' y2='520' stroke='#d33' stroke-width='3' stroke-dasharray='10 8'/>
+<line x1='1160.0' y1='70' x2='1160.0' y2='520' stroke='#d33' stroke-width='3' stroke-dasharray='10 8'/>
+<text x='46.0' y='88' font-size='12' fill='#d33' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>bound -7 m</text>
+<text x='1154.0' y='88' font-size='12' fill='#d33' text-anchor='end' font-weight='normal' font-family='Verdana, Arial, sans-serif'>bound +7 m</text>
+<line x1='180.0' y1='70' x2='180.0' y2='450' stroke='#ff5a36' stroke-width='3' stroke-dasharray='4 6'/><line x1='1020.0' y1='70' x2='1020.0' y2='450' stroke='#ff5a36' stroke-width='3' stroke-dasharray='4 6'/>
+<text x='184.0' y='104' font-size='11' fill='#ff5a36' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>squeezed bound -5.25 m</text>
+<g stroke='#2b2b3a' stroke-width='3' stroke-linejoin='round'><rect x='346.0' y='342.0' width='28.0' height='108.0' rx='10' fill='#9fd0ff'/><circle cx='360.0' cy='326.0' r='17.6' fill='#9fd0ff'/></g>
+<g stroke='#2b2b3a' stroke-width='3' stroke-linejoin='round'><rect x='826.0' y='342.0' width='28.0' height='108.0' rx='10' fill='#ffb3a7'/><circle cx='840.0' cy='326.0' r='17.6' fill='#ffb3a7'/></g>
+<text x='360.0' y='298.0' font-size='12' fill='#2b2b3a' text-anchor='middle' font-weight='bold' font-family='Verdana, Arial, sans-serif'>P1</text>
+<text x='840.0' y='298.0' font-size='12' fill='#2b2b3a' text-anchor='middle' font-weight='bold' font-family='Verdana, Arial, sans-serif'>P2 / AI</text>
+<polygon points='240.0,356.0 244.2,365.8 254.0,370.0 244.2,374.2 240.0,384.0 235.8,374.2 226.0,370.0 235.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='480.0,356.0 484.2,365.8 494.0,370.0 484.2,374.2 480.0,384.0 475.8,374.2 466.0,370.0 475.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='720.0,356.0 724.2,365.8 734.0,370.0 724.2,374.2 720.0,384.0 715.8,374.2 706.0,370.0 715.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='960.0,356.0 964.2,365.8 974.0,370.0 964.2,374.2 960.0,384.0 955.8,374.2 946.0,370.0 955.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<text x='240.0' y='488' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>item spawn points</text>
+<line x1='40' y1='506' x2='120' y2='506' stroke='#2b2b3a' stroke-width='4'/>
+<text x='128.0' y='511' font-size='12' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>1 m (fight plane 14 m wide, fighter 1.8 m)</text>
+<text x='30' y='36' font-size='26' fill='#2b2b3a' text-anchor='start' font-weight='bold' font-family='Verdana, Arial, sans-serif'>Bouncy Castle Fair</text>
+<text x='336' y='36' font-size='14' fill='#666' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>Stage 3</text>
+<rect x='40' y='536' width='18' height='18' rx='4' fill='#ff5a36' stroke='#2b2b3a' stroke-width='2'/>
+<text x='66' y='550' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>trampoline pads</text>
+<rect x='420' y='536' width='18' height='18' rx='4' fill='#ff7ab0' stroke='#2b2b3a' stroke-width='2'/>
+<text x='446' y='550' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>inflating towers (walls squeeze up to 25%)</text>
+<rect x='800' y='536' width='18' height='18' rx='4' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2'/>
+<text x='826' y='550' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>item spawns</text>
+</svg>
