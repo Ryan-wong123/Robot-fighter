@@ -88,7 +88,13 @@ Stats are **(start)** values. The prototype baseline is HP 200, walk speed 3, ju
 - **Concept:** a cheerful, translucent jelly-bean body with stubby limbs and a permanent grin. Looks like it could split in two.
 - **Personality:** enthusiastic and clumsy. Taunt: wobbles and does a little shimmy. Win: bounces three times.
 - **Silhouette:** bean-shaped torso, short thick limbs, large round hands and feet. Height about 1.7 m.
-- **Concept art:** [turnaround sheet](images/characters/concept/blobby_turnaround.png) (approved style reference), [expressions](images/characters/concept/blobby_expressions.png), [key poses](images/characters/concept/blobby_poses.png) (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)).
+- **Concept art:** turnaround sheet (approved style reference), expressions and key poses (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)):
+
+  ![Blobby turnaround](images/characters/concept/blobby_turnaround.png)
+
+  ![Blobby expressions](images/characters/concept/blobby_expressions.png)
+
+  ![Blobby key poses](images/characters/concept/blobby_poses.png)
 - **Look:** glossy, semi-translucent look faked with a rim-light and a flat inner color (no real refraction on mobile). Default colors: lime green; skins: grape, strawberry, orange.
 - **Gimmick, "Rebound":** when launched into a wall, Blobby bounces back and can act earlier than other fighters (wall-bounce combo extender, limited to one per combo).
 - **Stats:** HP 200, speed 3.0, jump 10, guard meter 100, damage x1.0, reach x1.0.
@@ -102,7 +108,13 @@ Stats are **(start)** values. The prototype baseline is HP 200, walk speed 3, ju
 - **Concept:** a knight made of colored pool noodles, with a tin-pot helmet and a foam sword he rarely uses properly. Long, bendy limbs.
 - **Personality:** pompous and dramatic. Taunt: bows with a flourish and bends all the way down. Win: noodle-bends into a heroic pose.
 - **Silhouette:** tall (about 2.0 m), thin, extremely long arms and legs with segment rings.
-- **Concept art:** [turnaround sheet](images/characters/concept/sir_noodle_turnaround.png), [expressions](images/characters/concept/sir_noodle_expressions.png), [key poses](images/characters/concept/sir_noodle_poses.png) (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)).
+- **Concept art:** turnaround sheet, expressions and key poses (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)):
+
+  ![Sir Noodle turnaround](images/characters/concept/sir_noodle_turnaround.png)
+
+  ![Sir Noodle expressions](images/characters/concept/sir_noodle_expressions.png)
+
+  ![Sir Noodle key poses](images/characters/concept/sir_noodle_poses.png)
 - **Look:** bright segmented pastel noodles (two-color alternating), foil helmet, cardboard shield.
 - **Gimmick, "Long Reach":** attacks reach about 40% farther. His limbs ragdoll the most (floppiness 5/5).
 - **Stats:** HP 170, speed 3.2, jump 10, guard meter 60 (weak), damage x0.9, reach x1.4.
@@ -115,7 +127,13 @@ Stats are **(start)** values. The prototype baseline is HP 200, walk speed 3, ju
 - **Concept:** an inflatable bouncy-castle penguin with a visible valve on his back and a patch on one flipper.
 - **Personality:** laid-back and gloating. Taunt: pats his belly like a drum. Win: slides on his belly.
 - **Silhouette:** round, short (about 1.5-1.6 m), tiny feet, flippers instead of arms. Wide and low. Height deviation noted.
-- **Concept art:** [turnaround sheet](images/characters/concept/puffin_pete_turnaround.png), [expressions](images/characters/concept/puffin_pete_expressions.png), [key poses](images/characters/concept/puffin_pete_poses.png) (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)).
+- **Concept art:** turnaround sheet, expressions and key poses (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)):
+
+  ![Puffin Pete turnaround](images/characters/concept/puffin_pete_turnaround.png)
+
+  ![Puffin Pete expressions](images/characters/concept/puffin_pete_expressions.png)
+
+  ![Puffin Pete key poses](images/characters/concept/puffin_pete_poses.png)
 - **Look:** primary-color vinyl with seam lines and a shine. Skins: pirate, astronaut, disco.
 - **Gimmick, "Inflate":** while blocking at full guard he inflates: takes -30% damage and cannot be launched, but a "pop meter" fills when hit. If it fills, he **pops** and zips around deflating (a short helpless state, then refills to normal size). Gives a comeback and a risk.
 - **Stats:** HP 220, speed 2.6, jump 8, guard meter 100, damage x1.0, reach x0.9.
@@ -128,7 +146,13 @@ Stats are **(start)** values. The prototype baseline is HP 200, walk speed 3, ju
 - **Concept:** a worn teddy-bear boxer with patches, button eyes and a boxing sash. She loses cotton stuffing as the match goes on.
 - **Personality:** tough but sweet. Taunt: fixes her stitches and cracks her knuckles. Win: holds the belt and hugs the camera.
 - **Silhouette:** big head and large round boxing-glove paws, short legs. About 1.8 m.
-- **Concept art:** [turnaround sheet](images/characters/concept/madame_plush_turnaround.png), [expressions](images/characters/concept/madame_plush_expressions.png), [key poses](images/characters/concept/madame_plush_poses.png) (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)).
+- **Concept art:** turnaround sheet, expressions and key poses (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)):
+
+  ![Madame Plush turnaround](images/characters/concept/madame_plush_turnaround.png)
+
+  ![Madame Plush expressions](images/characters/concept/madame_plush_expressions.png)
+
+  ![Madame Plush key poses](images/characters/concept/madame_plush_poses.png)
 - **Look:** brown fabric with visible stitches and mismatched patches. Skins: panda, polar bear, pink.
 - **Gimmick, "Stuffing Loss":** at 75/50/25% health a seam opens and stuffing puffs out (VFX + mesh swap/shape key). Purely visual, except at 25% she gets a small damage bonus ("tough it out", +10% damage **(start)**).
 - **Stats:** HP 240, speed 2.4, jump 9, guard meter 100, damage x1.2, reach x0.9.
@@ -140,7 +164,13 @@ Stats are **(start)** values. The prototype baseline is HP 200, walk speed 3, ju
 ### 4.5 Mr. Jack (Boss, Arcade Ladder finale) [PROPOSED concept]
 The owner confirmed a boss fighter is needed. The concept below is a proposal.
 - **Concept:** a jack-in-the-box jester on a coiled spring, with a wide painted grin and a crank handle on his side.
-- **Concept art:** [turnaround sheet](images/characters/concept/mr_jack_turnaround.png), [expressions](images/characters/concept/mr_jack_expressions.png), [key poses](images/characters/concept/mr_jack_poses.png) (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)).
+- **Concept art:** turnaround sheet, expressions and key poses (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)):
+
+  ![Mr. Jack turnaround](images/characters/concept/mr_jack_turnaround.png)
+
+  ![Mr. Jack expressions](images/characters/concept/mr_jack_expressions.png)
+
+  ![Mr. Jack key poses](images/characters/concept/mr_jack_poses.png)
 - **Role:** final opponent of Arcade Ladder. **AI-only at launch (decided).** Making him playable is revisited after release; building his moves from `MoveDef` data keeps that option cheap.
 - **Gimmick, two phases:**
   1. **In the box:** only his torso pops out; slow, heavy slams, a spring-loaded headbutt, and a lid-slam shockwave.
@@ -153,18 +183,19 @@ The owner confirmed a boss fighter is needed. The concept below is a proposal.
 ## Reference images
 The lineup and ragdoll diagrams are generated schematics (proportions, relative heights, proposed palettes). They are regenerated with `python3 Tools/docs_art/make_diagrams.py`; the palette chips there are the **proposed** colors, so update the generator when the final colors are chosen.
 
-**Ready-to-use prompts for generating this art are in [`art_prompts.md`](art_prompts.md).** **Concept art is provided by the owner** (task D-11). Put each file in `docs/images/characters/concept/` and link it from the fighter's sheet once it exists (the docs link check fails on missing files, so do not link a file before adding it). Suggested set per fighter:
+**Ready-to-use prompts for generating this art are in [`art_prompts.md`](art_prompts.md).** **Concept art is provided by the owner** (task D-11), lives in `docs/images/characters/concept/` and is embedded in each fighter's sheet above. Provenance for every image is in [`SOURCES.md`](images/characters/concept/SOURCES.md). Core set (checked by `Tools/tasks/check_concept_art.py`):
 
-| File | What it should show |
-|---|---|
-| `<name>_turnaround.png` | front, side and back views at the same scale, in the flat toon style with outlines |
-| `<name>_expressions.png` | neutral, hurt, angry, dizzy (KO) and happy (win) faces |
-| `<name>_poses.png` | idle, a punch, a kick, block, knockdown and win poses (key poses for the animator) |
-| `<name>_silhouette.png` | solid black silhouette at phone size, to check readability |
-| `<name>_materials.png` | material and color callouts (base, shade, outline, accent) |
-| `<name>_moodboard.png` | 4-8 references for the material (jelly, pool noodle, vinyl, plush fabric) |
+| Fighter | Files | Status |
+|---|---|---|
+| Blobby | [`blobby_turnaround.png`](images/characters/concept/blobby_turnaround.png), [`blobby_expressions.png`](images/characters/concept/blobby_expressions.png), [`blobby_poses.png`](images/characters/concept/blobby_poses.png) | supplied |
+| Sir Noodle | [`sir_noodle_turnaround.png`](images/characters/concept/sir_noodle_turnaround.png), [`sir_noodle_expressions.png`](images/characters/concept/sir_noodle_expressions.png), [`sir_noodle_poses.png`](images/characters/concept/sir_noodle_poses.png) | supplied |
+| Puffin Pete | [`puffin_pete_turnaround.png`](images/characters/concept/puffin_pete_turnaround.png), [`puffin_pete_expressions.png`](images/characters/concept/puffin_pete_expressions.png), [`puffin_pete_poses.png`](images/characters/concept/puffin_pete_poses.png) | supplied |
+| Madame Plush | [`madame_plush_turnaround.png`](images/characters/concept/madame_plush_turnaround.png), [`madame_plush_expressions.png`](images/characters/concept/madame_plush_expressions.png), [`madame_plush_poses.png`](images/characters/concept/madame_plush_poses.png) | supplied |
+| Mr. Jack | [`mr_jack_turnaround.png`](images/characters/concept/mr_jack_turnaround.png), [`mr_jack_expressions.png`](images/characters/concept/mr_jack_expressions.png), [`mr_jack_poses.png`](images/characters/concept/mr_jack_poses.png) | supplied |
 
-Names: `blobby`, `sir_noodle`, `puffin_pete`, `madame_plush`, `mr_jack`. Rules: record the source and license of anything you did not create (`SOURCES.md` next to the images), save them as PNG at least 2048 px wide (upscaled downloads are fine because these are references for Blender modeling), and keep each file under about 5 MB (they are stored directly in the repo, not in Git LFS). The Blender models (tasks M1-11, M4-01 to M4-03, M4-10) should be built from these sheets.
+Optional extras per fighter, **not yet supplied**: `<name>_silhouette.png` (solid black silhouette at phone size, to check readability), `<name>_materials.png` (material and color callouts: base, shade, outline, accent) and `<name>_moodboard.png` (4-8 references for the material: jelly, pool noodle, vinyl, plush fabric).
+
+Rules: record the source and license of anything you did not create (`SOURCES.md` next to the images), save them as PNG at least 2048 px wide (upscaled downloads are fine because these are references for Blender modeling), and keep each file under about 5 MB (they are stored directly in the repo, not in Git LFS). The Blender models (tasks M1-11, M4-01 to M4-03, M4-10) should be built from these sheets.
 
 ## 5. Costumes (Skins)
 - A skin is a **material/texture swap**, optionally with an accessory prefab (hat, bandana). It never changes stats or hitboxes.

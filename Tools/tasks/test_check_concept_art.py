@@ -38,6 +38,12 @@ class Concept(unittest.TestCase):
         self.assertTrue(any('no SOURCES.md entry' in p for p in probs))
         self.assertTrue(any('not linked' in p for p in probs))
 
+    def test_link_from_wrong_doc_fails(self):
+        make_png(os.path.join(self.root, 'docs/images/maps/concept/a_colorkey.png'), 2048)
+        self.write('docs/images/maps/concept/SOURCES.md', '## a_colorkey.png\n')
+        self.write('docs/characters.md', '![x](images/maps/concept/a_colorkey.png)\n')
+        self.assertTrue(any('not linked from docs/maps.md' in p for p in c.problems(self.root, self.exp)))
+
     def test_not_a_png(self):
         self.write('docs/images/maps/concept/a_colorkey.png', 'hello')
         self.assertTrue(any('not a valid PNG' in p for p in c.problems(self.root, self.exp)))

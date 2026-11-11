@@ -4,11 +4,11 @@
 For each expected image (the sheets generated from docs/art_prompts.md) it verifies that
   - the file exists and is a real PNG at least 2048 px wide,
   - it has a "## <file name>" entry in the SOURCES.md next to it,
-  - it is linked from one of the docs (docs/*.md).
+  - it is linked from the sheet that owns its area (characters.md, maps.md or vfx_style.md).
 Optional extras (silhouettes, materials sheets, moodboards) are not required.
 Exit code: 0 = the core set is complete, 1 = something is missing (listed on stdout).
 """
-import glob, os, struct, sys
+import os, struct, sys
 
 FIGHTERS = ['blobby', 'sir_noodle', 'puffin_pete', 'madame_plush', 'mr_jack']
 EXPECTED = {
@@ -17,6 +17,7 @@ EXPECTED = {
     'vfx': ['hit_light_heavy_frames.png', 'comic_text_samples.png', 'ko_sequence.png', 'hazard_telegraph_examples.png'],
 }
 MIN_WIDTH = 2048
+SHEETS = {'characters': 'characters.md', 'maps': 'maps.md', 'vfx': 'vfx_style.md'}
 
 
 def png_size(path):
@@ -29,10 +30,12 @@ def png_size(path):
 
 def problems(root='.', expected=EXPECTED):
     out = []
-    docs = ''.join(open(p, encoding='utf-8').read() for p in glob.glob(os.path.join(root, 'docs', '*.md')))
     for area, files in expected.items():
         folder = os.path.join(root, 'docs', 'images', area, 'concept')
         sources_path = os.path.join(folder, 'SOURCES.md')
+        sheet = SHEETS.get(area, area + '.md')
+        sheet_path = os.path.join(root, 'docs', sheet)
+        doc = open(sheet_path, encoding='utf-8').read() if os.path.exists(sheet_path) else ''
         sources = open(sources_path, encoding='utf-8').read() if os.path.exists(sources_path) else None
         for name in files:
             path = os.path.join(folder, name)
@@ -46,8 +49,8 @@ def problems(root='.', expected=EXPECTED):
                 out.append('too narrow (%d px, need %d): docs/images/%s/concept/%s' % (size[0], MIN_WIDTH, area, name))
             if sources is None or ('## ' + name) not in sources:
                 out.append('no SOURCES.md entry for %s' % name)
-            if ('images/%s/concept/%s' % (area, name)) not in docs:
-                out.append('not linked from any doc: %s' % name)
+            if ('images/%s/concept/%s' % (area, name)) not in doc:
+                out.append('not linked from docs/%s: %s' % (sheet, name))
     return out
 
 
