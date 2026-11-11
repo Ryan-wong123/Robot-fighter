@@ -39,7 +39,9 @@
 ### 3.1 Bathtub Brawl (Stage 1, default)
 - **Setting:** a giant tub: porcelain floor and walls, soap bars, a rubber duck, bubbles, a faucet and tiles in the background.
 - **Mood / palette:** bright cyan, white and yellow; soft and clean.
-- **Concept art:** [color key](images/maps/concept/bathtub_brawl_colorkey.png) (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)).
+- **Concept art:** color key (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)):
+
+  ![Bathtub Brawl color key](images/maps/concept/bathtub_brawl_colorkey.png)
 - **Layout (to-scale side view of the fight plane):**
 
   ![Bathtub Brawl layout](images/maps/bathtub_brawl.svg)
@@ -56,7 +58,9 @@
 ### 3.2 Kitchen Counter (Stage 2)
 - **Setting:** a giant countertop: a cutting board, a toaster, a stand mixer, spilled cereal and a fruit bowl in the background.
 - **Mood / palette:** warm yellow, red and wood tones.
-- **Concept art:** [color key](images/maps/concept/kitchen_counter_colorkey.png) (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)).
+- **Concept art:** color key (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)):
+
+  ![Kitchen Counter color key](images/maps/concept/kitchen_counter_colorkey.png)
 - **Layout (to-scale side view of the fight plane):**
 
   ![Kitchen Counter layout](images/maps/kitchen_counter.svg)
@@ -73,7 +77,9 @@
 ### 3.3 Bouncy Castle Fair (Stage 3)
 - **Setting:** an inflatable castle on a fairground: striped towers, flag bunting, balloons and a ticket booth in the background.
 - **Mood / palette:** vivid primaries with party lights; playful and loud.
-- **Concept art:** [color key](images/maps/concept/bouncy_castle_fair_colorkey.png) (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)).
+- **Concept art:** color key (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)):
+
+  ![Bouncy Castle Fair color key](images/maps/concept/bouncy_castle_fair_colorkey.png)
 - **Layout (to-scale side view of the fight plane):**
 
   ![Bouncy Castle Fair layout](images/maps/bouncy_castle_fair.svg)
@@ -91,7 +97,9 @@
 ### 3.4 Giant Sandbox (Stage 4)
 - **Setting:** a sandbox in a backyard: toy shovels and buckets, a half-built sandcastle and a plastic fence in the background, grass at the edges.
 - **Mood / palette:** warm sand, bright toy plastics and green.
-- **Concept art:** [color key](images/maps/concept/giant_sandbox_colorkey.png) (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)).
+- **Concept art:** color key (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)):
+
+  ![Giant Sandbox color key](images/maps/concept/giant_sandbox_colorkey.png)
 - **Layout (to-scale side view of the fight plane):**
 
   ![Giant Sandbox layout](images/maps/giant_sandbox.svg)
@@ -108,7 +116,9 @@
 ### 3.5 Toy Chest Showdown (Boss Stage, Arcade finale) [PROPOSED concept]
 - **Setting:** inside a giant open toy chest: a wooden floor, alphabet blocks, a teddy peeking over the edge, the lid propped open overhead, and a music box in the corner (Mr. Jack's lair).
 - **Mood / palette:** deeper, warmer purple and wood tones with bright toy accents, so the boss and fighters pop.
-- **Concept art:** [color key](images/maps/concept/toy_chest_showdown_colorkey.png) (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)).
+- **Concept art:** color key (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)):
+
+  ![Toy Chest Showdown color key](images/maps/concept/toy_chest_showdown_colorkey.png)
 - **Layout (to-scale side view of the fight plane):**
 
   ![Toy Chest Showdown layout](images/maps/toy_chest_showdown.svg)
@@ -127,16 +137,17 @@
 ## Reference images
 The layout diagrams above are generated schematics showing the 14 m fight plane, bounds, fighter scale (1.8 m), item spawn points and hazard zones. They are regenerated with `python3 Tools/docs_art/make_diagrams.py` when layout numbers change.
 
-**Ready-to-use prompts for generating this art are in [`art_prompts.md`](art_prompts.md).** **Concept art and moodboards are provided by the owner** (task D-11). Put each file in `docs/images/maps/concept/` and link it from the stage's section once it exists (the docs link check fails on missing files, so do not link a file before adding it). Suggested set per stage:
+**Ready-to-use prompts for generating this art are in [`art_prompts.md`](art_prompts.md).** **Concept art is provided by the owner** (task D-11), lives in `docs/images/maps/concept/` and is embedded in each stage's section above. Provenance for every image is in [`SOURCES.md`](images/maps/concept/SOURCES.md). Core set (checked by `Tools/tasks/check_concept_art.py`):
 
-| Stage | File to add | What it should show |
+| Stage | Color key | Status |
 |---|---|---|
-| Bathtub Brawl | `bathtub_brawl_colorkey.png` | color key: lighting, palette, tile and porcelain material look |
-| Bathtub Brawl | `bathtub_brawl_moodboard.png` | 4-8 reference photos/illustrations (toy-scale bathtub, soap, rubber duck) |
-| Kitchen Counter | `kitchen_counter_colorkey.png`, `kitchen_counter_moodboard.png` | same set |
-| Bouncy Castle Fair | `bouncy_castle_fair_colorkey.png`, `bouncy_castle_fair_moodboard.png` | same set |
-| Giant Sandbox | `giant_sandbox_colorkey.png`, `giant_sandbox_moodboard.png` | same set |
-| Toy Chest Showdown | `toy_chest_showdown_colorkey.png`, `toy_chest_showdown_moodboard.png` | same set |
+| Bathtub Brawl | [`bathtub_brawl_colorkey.png`](images/maps/concept/bathtub_brawl_colorkey.png) | supplied |
+| Kitchen Counter | [`kitchen_counter_colorkey.png`](images/maps/concept/kitchen_counter_colorkey.png) | supplied |
+| Bouncy Castle Fair | [`bouncy_castle_fair_colorkey.png`](images/maps/concept/bouncy_castle_fair_colorkey.png) | supplied |
+| Giant Sandbox | [`giant_sandbox_colorkey.png`](images/maps/concept/giant_sandbox_colorkey.png) | supplied |
+| Toy Chest Showdown | [`toy_chest_showdown_colorkey.png`](images/maps/concept/toy_chest_showdown_colorkey.png) | supplied |
+
+Optional extras per stage, **not yet supplied**: `<stage>_moodboard.png` (4-8 reference photos/illustrations, e.g. toy-scale bathtub, soap, rubber duck for Bathtub Brawl).
 
 Rules for reference images: record the source and license of anything you did not create (a `SOURCES.md` next to the images), prefer your own art or properly licensed images, save them as PNG at least 2048 px wide, and keep each file under about 5 MB (they are stored directly in the repo, not in Git LFS).
 
