@@ -1,0 +1,41 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 740 560' width='740' height='560'>
+<rect width='740' height='560' fill='#fdfaf2'/>
+<text x='30' y='36' font-size='22' fill='#2b2b3a' text-anchor='start' font-weight='bold' font-family='Verdana, Arial, sans-serif'>Ragdoll bodies (12 rigid bodies per fighter)</text>
+<text x='30' y='58' font-size='12' fill='#666' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>Hands and feet follow their parent bone. Hitboxes follow the animated pose, never these bodies.</text>
+<line x1='380' y1='130' x2='620' y2='110' stroke='#999' stroke-width='1.5'/>
+<line x1='380' y1='215' x2='620' y2='165' stroke='#999' stroke-width='1.5'/>
+<line x1='380' y1='280' x2='620' y2='270' stroke='#999' stroke-width='1.5'/>
+<line x1='380' y1='335' x2='620' y2='365' stroke='#999' stroke-width='1.5'/>
+<line x1='302' y1='215' x2='140' y2='190' stroke='#999' stroke-width='1.5'/>
+<line x1='296' y1='285' x2='140' y2='290' stroke='#999' stroke-width='1.5'/>
+<line x1='458' y1='215' x2='620' y2='220' stroke='#999' stroke-width='1.5'/>
+<line x1='464' y1='285' x2='620' y2='320' stroke='#999' stroke-width='1.5'/>
+<line x1='354' y1='408' x2='140' y2='420' stroke='#999' stroke-width='1.5'/>
+<line x1='354' y1='490' x2='140' y2='490' stroke='#999' stroke-width='1.5'/>
+<line x1='406' y1='408' x2='620' y2='420' stroke='#999' stroke-width='1.5'/>
+<line x1='406' y1='490' x2='620' y2='490' stroke='#999' stroke-width='1.5'/>
+<ellipse cx='380' cy='130' rx='30' ry='34' fill='#9fd0ff' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='380' cy='215' rx='44' ry='40' fill='#ffd23f' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='380' cy='280' rx='38' ry='28' fill='#9ee79a' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='380' cy='335' rx='40' ry='24' fill='#ff9ec7' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='302' cy='215' rx='14' ry='38' fill='#c7a6ff' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='296' cy='285' rx='12' ry='36' fill='#ffb27a' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='458' cy='215' rx='14' ry='38' fill='#9fd0ff' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='464' cy='285' rx='12' ry='36' fill='#ffd23f' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='354' cy='408' rx='16' ry='44' fill='#9ee79a' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='354' cy='490' rx='14' ry='42' fill='#ff9ec7' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='406' cy='408' rx='16' ry='44' fill='#c7a6ff' stroke='#2b2b3a' stroke-width='3'/>
+<ellipse cx='406' cy='490' rx='14' ry='42' fill='#ffb27a' stroke='#2b2b3a' stroke-width='3'/>
+<text x='628' y='114' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>Head</text>
+<text x='628' y='169' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>Chest</text>
+<text x='628' y='274' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>Spine</text>
+<text x='628' y='369' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>Pelvis</text>
+<text x='132' y='194' font-size='13' fill='#2b2b3a' text-anchor='end' font-weight='normal' font-family='Verdana, Arial, sans-serif'>UpperArm.L</text>
+<text x='132' y='294' font-size='13' fill='#2b2b3a' text-anchor='end' font-weight='normal' font-family='Verdana, Arial, sans-serif'>LowerArm.L</text>
+<text x='628' y='224' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>UpperArm.R</text>
+<text x='628' y='324' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>LowerArm.R</text>
+<text x='132' y='424' font-size='13' fill='#2b2b3a' text-anchor='end' font-weight='normal' font-family='Verdana, Arial, sans-serif'>UpperLeg.L</text>
+<text x='132' y='494' font-size='13' fill='#2b2b3a' text-anchor='end' font-weight='normal' font-family='Verdana, Arial, sans-serif'>LowerLeg.L</text>
+<text x='628' y='424' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>UpperLeg.R</text>
+<text x='628' y='494' font-size='13' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>LowerLeg.R</text>
+</svg>
