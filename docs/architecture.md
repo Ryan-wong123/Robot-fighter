@@ -18,7 +18,7 @@
 | Match flow | `GameManager` polls state in `FixedUpdate` once per second | Win checks are tick-delayed, tie unhandled |
 | Items | `Throwables` with `GameObject.Find` + `Debug.Log` every frame, exact-float rotation checks | Fragile, slow, single-item only |
 | UI | `GameObject.Find("PlayerHealth")` etc. | Breaks on rename; logic and UI coupled |
-| Repo | Repo root == Assets contents; no `ProjectSettings`/`.gitignore` | Unity project settings unversioned; no layout standard |
+| Repo | Unity project at repo root with `Assets/`, `ProjectSettings/`, and `Packages/` | Prototype code lives in `Assets/_Project/Scripts/Legacy/` and vendor assets live in `Assets/ThirdParty/` |
 
 Nothing here is wasted: the joystick pack, particle prefabs, scene HUD layout, and animation event pattern carry forward.
 
@@ -43,7 +43,7 @@ Nothing here is wasted: the joystick pack, particle prefabs, scene HUD layout, a
 Dependencies point **downward only**. UI observes gameplay through events; gameplay never references UI.
 
 ## 4. Folder & Assembly Layout (target)
-Move into a standard Unity project (`Assets/` root, `ProjectSettings/`, `Packages/`) **[VERIFY: depends on how the owner keeps the project]**.
+The repository root is a standard Unity project. The layout below describes the target organization within `Assets/`. Graphics settings reference the mobile URP asset from the installed Unity template. Prototype model materials use URP Lit and particle materials use URP Particles Unlit. The mobile pipeline settings originate from the Unity Editor Universal 3D template. Unity 6.3 updated the prototype scripts to use `Rigidbody.linearVelocity`.
 
 ```
 Assets/
@@ -66,6 +66,8 @@ Assets/
   ThirdParty/       (Joystick Pack, etc. — never edited in place)
 ```
 Assembly definitions: `WobbleBrawl.Core`, `.Data`, `.Gameplay`, `.Flow`, `.UI`, plus test assemblies. Each depends only on those below it (enforces the layering and speeds compile times).
+
+The prototype uses `RoundRules` in Flow and `BlockRules` in Gameplay. Legacy adapters handle knockout events, update the timer, and forward touch and keyboard intent. The rules are covered by the EditMode test assembly.
 
 ## 5. Fighter Architecture
 A fighter is a prefab composed of small components, replacing the two monolithic behaviours.

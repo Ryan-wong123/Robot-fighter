@@ -13,16 +13,20 @@ SKIP = {'ThirdParty', 'Joystick Pack', 'Library', '.git'}
 
 def no_pattern(regex, dirs):
     rx, bad = re.compile(regex), []
+    def scan(path):
+        for n, line in enumerate(open(path, encoding='utf-8-sig', errors='replace'), 1):
+            if rx.search(line):
+                bad.append('%s:%d: %s' % (path, n, line.strip()))
+
     for d in dirs:
+        if os.path.isfile(d):
+            scan(d)
+            continue
         for root, subdirs, files in os.walk(d):
             subdirs[:] = [s for s in subdirs if s not in SKIP]
             for f in files:
-                if not f.endswith('.cs'):
-                    continue
-                p = os.path.join(root, f)
-                for n, line in enumerate(open(p, encoding='utf-8-sig', errors='replace'), 1):
-                    if rx.search(line):
-                        bad.append('%s:%d: %s' % (p, n, line.strip()))
+                if f.endswith('.cs'):
+                    scan(os.path.join(root, f))
     for b in bad:
         print(b)
     return 1 if bad else 0

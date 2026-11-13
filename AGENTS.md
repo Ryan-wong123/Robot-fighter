@@ -12,14 +12,14 @@ This file tells AI agents (Claude Code and similar) how to work in this reposito
 Do not start implementing before you have read the sections relevant to your task.
 
 ## 2. Project Snapshot
-- **Engine:** Unity **6.3 or newer** with **URP** (exact patch not yet pinned; see [`docs/PRD.md`](docs/PRD.md) section 16). C#.
+- **Engine:** Unity **6.3 or newer** with **URP** (pinned to 6000.3.11f1; see [`docs/PRD.md`](docs/PRD.md) section 16). C#.
 - **Genre:** 2.5D mobile fighting game; the prototype is a robot-vs-robot mock-up being rebuilt into **WOBBLE BRAWL** (working title).
-- **Repo layout today:** the repo root *is* the Assets content (`scripts/`, `prefabs/`, `Models/`, `Scenes/`, `Sprites/`, `VFX/`, `Font/`, `Joystick Pack/`). There is no `ProjectSettings/`, `Packages/` or `.gitignore`. Do not assume the target layout from [`docs/architecture.md`](docs/architecture.md) section 4 exists yet.
+- **Repo layout today:** the repository root is the Unity project. Prototype assets and their metadata are under `Assets/`. Unity configuration lives in `ProjectSettings/` and `Packages/`.
 - **Third party:** `Joystick Pack/` is a vendor asset. Do not edit it in place.
-- **Prototype scripts** (`scripts/*.cs`) are the legacy baseline. They contain known bugs (see [`docs/architecture.md`](docs/architecture.md) section 2). They are scheduled for replacement, not extension.
+- **Prototype scripts** (`Assets/_Project/Scripts/Legacy/*.cs`) are the legacy baseline. They contain known bugs (see [`docs/architecture.md`](docs/architecture.md) section 2). They are scheduled for replacement, not extension.
 
 ## 3. Hard Rules
-1. **Branching:** work only on the branch you were assigned (currently `claude/brave-franklin-m7e1yi`). Never push elsewhere without explicit permission.
+1. **Branching:** work only on the branch you were assigned (currently `codex/m0-foundations`). Never push elsewhere without explicit permission.
 2. **Commits:** small, focused, imperative messages. Push only when the owner asks or the task says to. Do not open pull requests unless asked.
 3. **Scope discipline:** do exactly what the task says. Note unrelated problems in your summary; do not fix them silently. Refactors and bug fixes are separate commits from features.
 4. **No surprise sweeps:** do not mass-rename, reformat, or move files (especially anything with a `.meta` file) unless that is the task.

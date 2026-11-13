@@ -4,6 +4,11 @@
     "python3 -B Tools/tasks/check_docs.py",
     "python3 -B Tools/docs_art/make_diagrams.py --check"
   ],
+  "M0-01": [
+    "python3 Tools/tasks/checks.py file-contains ProjectSettings/ProjectVersion.txt 6000.3.11f1",
+    "python3 Tools/tasks/checks.py file-exists Packages/manifest.json",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Scripts/Legacy/PlayerBehaviour.cs.meta"
+  ],
   "M0-02": [
     "python3 Tools/tasks/checks.py file-exists .gitignore",
     "python3 Tools/tasks/checks.py file-contains .gitignore Library/"
@@ -12,22 +17,22 @@
     "python3 Tools/tasks/checks.py file-contains .gitattributes filter=lfs"
   ],
   "M0-06": [
-    "python3 Tools/tasks/checks.py no-pattern 'Revive|reviveBtnPressed|deadCount' scripts Assets/_Project/Scripts"
+    "python3 Tools/tasks/checks.py no-pattern \"Revive|reviveBtnPressed|deadCount\" Assets/_Project/Scripts"
   ],
   "M0-08": [
-    "python3 Tools/tasks/checks.py no-pattern 'NotImplementedException' scripts Assets/_Project/Scripts"
+    "python3 Tools/tasks/checks.py no-pattern \"NotImplementedException\" Assets/_Project/Scripts"
   ],
   "M0-15": [
-    "python3 Tools/tasks/checks.py no-pattern 'GameObject\\\\.Find|FindObjectOfType|SendMessage|SendMessageUpwards' Assets/_Project/Scripts/Gameplay Assets/_Project/Scripts/Core Assets/_Project/Scripts/Flow"
+    "python3 Tools/tasks/checks.py no-pattern \"GameObject[.]Find|FindObjectOfType|SendMessage|SendMessageUpwards\" Assets/_Project/Scripts/Core Assets/_Project/Scripts/Gameplay Assets/_Project/Scripts/Flow Assets/_Project/Scripts/Legacy/GameManager.cs Assets/_Project/Scripts/Legacy/TouchInput.cs Assets/_Project/Scripts/Legacy/KeyboardInput.cs"
   ],
   "M0-13": [
-    "Tools/tasks/run_unity_tests.sh EditMode Block"
+    "bash Tools/tasks/run_unity_tests.sh EditMode Block"
   ],
   "M0-12": [
-    "Tools/tasks/run_unity_tests.sh EditMode Round"
+    "bash Tools/tasks/run_unity_tests.sh EditMode Round"
   ],
   "M0-16": [
-    "Tools/tasks/run_unity_tests.sh EditMode"
+    "bash Tools/tasks/run_unity_tests.sh EditMode"
   ],
   "M1-02": [
     "Tools/tasks/run_unity_tests.sh EditMode DamageResolver"
@@ -39,7 +44,7 @@
     "python3 -m unittest discover -s Tools/tasks -p 'test_*.py'"
   ],
   "M2-09": [
-    "python3 Tools/tasks/checks.py no-pattern 'GameObject\\\\.Find|FindObjectOfType|SendMessage|SendMessageUpwards' scripts Assets/_Project/Scripts"
+    "python3 Tools/tasks/checks.py no-pattern 'GameObject\\\\.Find|FindObjectOfType|SendMessage|SendMessageUpwards' Assets/scripts Assets/_Project/Scripts"
   ],
   "D-07": [
     "python3 Tools/tasks/checks.py file-exists docs/characters.md",
@@ -64,5 +69,27 @@
   ],
   "D-11": [
     "python3 -B Tools/tasks/check_concept_art.py"
+  ],
+  "M0-05": [
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Scripts/Gameplay/WobbleBrawl.Gameplay.asmdef",
+    "python3 Tools/tasks/checks.py file-exists \"Assets/ThirdParty/Joystick Pack.meta\""
+  ],
+  "M0-07": [
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Scripts/Legacy/EnemyBehaviour.cs \"Random.Range(0, 4)\""
+  ],
+  "M0-09": [
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Scripts/Legacy/PlayerBehaviour.cs \"pendingJump && JumpCount == 0\""
+  ],
+  "M0-10": [
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Scripts/Legacy/TouchInput.cs FacingRight"
+  ],
+  "M0-11": [
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Scripts/Legacy/GameManager.cs \"Time.time >= crateSpawnTime\""
+  ],
+  "M0-04": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode PrototypeMaterialsReferenceUrpShaders"
+  ],
+  "M0-14": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode BattleSceneHasRoundReferencesAndInput"
   ]
 }

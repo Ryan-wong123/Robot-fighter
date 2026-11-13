@@ -1,0 +1,13 @@
+{
+  "name": "WobbleBrawl.EditMode",
+  "references": [
+    "WobbleBrawl.Gameplay",
+    "WobbleBrawl.Flow"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

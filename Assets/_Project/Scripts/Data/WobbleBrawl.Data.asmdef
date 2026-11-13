@@ -1,0 +1,6 @@
+{
+  "name": "WobbleBrawl.Data",
+  "references": [
+    "WobbleBrawl.Core"
+  ]
+}

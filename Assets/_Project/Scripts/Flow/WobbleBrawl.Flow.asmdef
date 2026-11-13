@@ -1,0 +1,7 @@
+{
+  "name": "WobbleBrawl.Flow",
+  "references": [
+    "WobbleBrawl.Core",
+    "WobbleBrawl.Gameplay"
+  ]
+}

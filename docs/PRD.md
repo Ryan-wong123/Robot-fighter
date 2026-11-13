@@ -47,7 +47,7 @@ A mobile-first, 2.5D brawler in the spirit of Street Fighter, rebuilt around **c
 
 ### 7.1 Rules
 - Best-of-3 rounds; a round lasts 60 s **(start)**; a round ends on KO or timeout.
-- Timeout: higher health wins. Equal health triggers **sudden death**: 10 s with both fighters at 1 HP **(start)**. A round can never be left unresolved.
+- Timeout: higher health wins. Equal health triggers **sudden death**: 10 s with both fighters at 1 HP **(start)**. A second tied timeout ends the prototype round as a draw and enables restart.
 - Max health 200 **(start)**, matching the prototype.
 
 ### 7.2 Moves
@@ -59,9 +59,9 @@ Carried over from the prototype and generalized into data:
 ### 7.3 Block (required)
 - Block is a **held state**, not a one-shot animation.
 - Blocked hits do **reduced damage: 75% reduction (start)** and push the defender back.
-- Sustained blocking fills a **guard meter**; when it empties the fighter is **guard-broken** (stunned, wobbling, takes full damage for ~1 s **(start)**). This prevents turtling.
+- Blocked hits drain the **guard meter**. When guard is depleted, the breaking hit deals full damage and the fighter is stunned for 1 s **(start)**. Prototype guard starts at 100 and recovers at 20 per second when released.
 - Block cannot be held during attacks, and does **not** stop thrown items from knocking the fighter over **[PROPOSED]** (items are a counter to turtling).
-- Specials deal **chip damage** through block.
+- Specials deal **chip damage** through block (50% of base damage in the prototype).
 
 ### 7.4 Special Gauge
 - Gauge fills with hits landed and (smaller) hits taken **[PROPOSED]**.
@@ -188,7 +188,7 @@ Deadline: **5 months (about 20 weeks)**, solo. Dates are relative to the start. 
 ## 16. Decisions & Open Questions
 
 ### Decided by the owner
-1. **Unity version:** Unity 6.3 or newer (exact patch pinned at project setup).
+1. **Unity version:** Unity 6.3 LTS (6000.3.11f1).
 2. **Render pipeline:** **URP** (confirmed by the owner).
 3. **Theme and cast:** approved ("wobble toys": Blobby, Sir Noodle, Puffin Pete, Madame Plush).
 4. **Third-party ragdoll tooling:** allowed (check license and mobile cost per package).
