@@ -59,7 +59,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 
 ## M1 — Combat slice (weeks 3-5)
 - [ ] **M1-01** `Fighter` base + parts (state machine, health, guard meter, special gauge, motor) (after: M0-17)
-- [ ] **M1-02** `DamageResolver` (pure C#, frame/integer based) + tests (after: M0-16)
+- [x] **M1-02** `DamageResolver` (pure C#, frame/integer based) + tests (after: M0-16)
 - [ ] **M1-03** `MoveDef` / `CharacterDef` ScriptableObjects; combos from data (after: M1-02)
 - [ ] **M1-04** `Hitbox`/`Hurtbox` components and layers; replace name-based hit detection (after: M1-01)
 - [ ] **M1-05** Hit-stop service (after: M1-01)
