@@ -19,7 +19,7 @@ Do not start implementing before you have read the sections relevant to your tas
 - **Prototype scripts** (`Assets/_Project/Scripts/Legacy/*.cs`) are the legacy baseline. They contain known bugs (see [`docs/architecture.md`](docs/architecture.md) section 2). They are scheduled for replacement, not extension.
 
 ## 3. Hard Rules
-1. **Branching:** work only on the branch you were assigned (currently `codex/m0-foundations`). Never push elsewhere without explicit permission.
+1. **Branching:** work only on the branch you were assigned (currently `codex/m1-combat-slice`). Never push elsewhere without explicit permission.
 2. **Commits:** small, focused, imperative messages. Push only when the owner asks or the task says to. Do not open pull requests unless asked.
 3. **Scope discipline:** do exactly what the task says. Note unrelated problems in your summary; do not fix them silently. Refactors and bug fixes are separate commits from features.
 4. **No surprise sweeps:** do not mass-rename, reformat, or move files (especially anything with a `.meta` file) unless that is the task.

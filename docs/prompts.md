@@ -265,6 +265,8 @@ Do task <ID> from docs/task.md.
 - **Notes:** Owner task. Give the owner an Android build checklist (build settings, URP, touch controls reachable, block/jump/attack work, round ends correctly) and record results.
 - **Done when:** The owner uses File > Build Profiles > Android > Build and Run with BattleScene 1 enabled, then confirms landscape rendering, joystick movement, jump and landing, block and guard break, all attack buttons, crate pickup and throw, KO, tied timeout and restart on the device. Record the device and result here.
 
+**Verification record:** Owner confirmed M0-17 passed on 2026-11-13.
+
 ### M1-01 — `Fighter` base + parts (state machine, health, guard meter, special gauge, motor)
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M0-17

@@ -35,7 +35,7 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode"
   ],
   "M1-02": [
-    "Tools/tasks/run_unity_tests.sh EditMode DamageResolver"
+    "bash Tools/tasks/run_unity_tests.sh EditMode DamageResolver"
   ],
   "M3-07": [
     "Tools/tasks/run_unity_tests.sh EditMode SaveService"
@@ -91,5 +91,8 @@
   ],
   "M0-14": [
     "bash Tools/tasks/run_unity_tests.sh EditMode BattleSceneHasRoundReferencesAndInput"
+  ],
+  "M0-17": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed M0-17 passed\""
   ]
 }

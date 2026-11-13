@@ -89,6 +89,8 @@ Fighter (prefab root)
  └─ IFighterInput (one of)   TouchInput | KeyboardInput | AIInput
 ```
 
+The M1 implementation introduces shared Fighter, Hitbox and Hurtbox components alongside the M0 scene. CharacterDef and MoveDef define stats and frame windows. The shared components still require a playable scene and prefab setup.
+
 ### 5.1 Input abstraction
 ```csharp
 public struct FighterIntent {

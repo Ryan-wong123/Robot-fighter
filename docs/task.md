@@ -55,7 +55,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **M0-13** Real block: held state, 75% reduction, pushback, guard meter and guard break (after: M0-16)
 - [x] **M0-14** `IFighterInput`/`FighterIntent` + `TouchInput` (replaces `Controller` and `*Btn`) + keyboard input for editor (after: M0-05)
 - [x] **M0-15** New M0 code (input, block, round flow) has no `GameObject.Find`/`SendMessage`/name matching (after: M0-13, M0-14)
-- [ ] **M0-17** Prototype plays correctly on an Android device (owner) (after: M0-04, M0-06, M0-07, M0-08, M0-09, M0-10, M0-11, M0-12, M0-13, M0-14, M0-15, M0-16)
+- [x] **M0-17** Prototype plays correctly on an Android device (owner) (after: M0-04, M0-06, M0-07, M0-08, M0-09, M0-10, M0-11, M0-12, M0-13, M0-14, M0-15, M0-16)
 
 ## M1 — Combat slice (weeks 3-5)
 - [ ] **M1-01** `Fighter` base + parts (state machine, health, guard meter, special gauge, motor) (after: M0-17)
