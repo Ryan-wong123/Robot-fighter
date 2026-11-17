@@ -83,12 +83,12 @@ Carried over from the prototype and generalized into data:
 Spawn from the sky/stage on a timer and are picked up by walking over them (replaces the single crate). One item held at a time; thrown via the Throw button or used on pickup depending on type.
 | Item (examples) | Effect |
 |---|---|
-| Banana peel | Placed on floor; slips the next fighter to step on it |
-| Giant foam glove | Next 3 hits have huge knockback |
-| Rubber chicken | Thrown; bounces twice and boinks |
-| Rocket plunger | Launches the holder across the stage |
-| Whoopee cushion | Area stun/pushback on self-activation |
-| Anvil / piano | Drops from above on a marked spot |
+| Banana peel | Placed on the floor. The first opponent to step on it takes 18 frames of base stun and 4 m/s knockback. |
+| Giant foam glove | Activates on pickup and adds 5 m/s knockback to the next three unblocked melee hits. |
+| Rubber chicken | A throw that can bounce twice. Opponent contact deals a base 10 damage and consumes the chicken. |
+| Rocket plunger | Launches the holder in their facing direction at 9 m/s horizontally and 3.5 m/s upward. |
+| Whoopee cushion | Activates around the holder. Opponents within 2.4 m take 24 frames of base stun and 5 m/s knockback. |
+| Anvil | Marks the floor for 90 physics steps (about 1.8 seconds), then drops and deals a base 18 damage to an opponent it hits. |
 - Each item is a data asset (see [`architecture.md`](architecture.md)). Target at launch: **12 items**.
 - Spawn logic is deterministic from a seed so Daily Chaos and tests are reproducible.
 

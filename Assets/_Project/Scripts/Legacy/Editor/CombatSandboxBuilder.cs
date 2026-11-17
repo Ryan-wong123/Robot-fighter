@@ -8,7 +8,7 @@ using WobbleBrawl.Flow;
 using WobbleBrawl.Gameplay;
 using WobbleBrawl.UI;
 
-public static class CombatSandboxBuilder
+public static partial class CombatSandboxBuilder
 {
     // This FBX needs a centimetre-to-metre root scale for its baked skin.
     private const float BlobbyImportScale = 0.01f;
@@ -67,6 +67,7 @@ public static class CombatSandboxBuilder
         Set(round, "opponentSpawn", Spawn("Opponent Spawn", 2));
         Set(flow.AddComponent<MatchController>(), "round", round);
         ConfigureTestPickup(round);
+        ConfigureCombatItems(round);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
         AssetDatabase.SaveAssets();

@@ -15,8 +15,12 @@ namespace WobbleBrawl.Gameplay
         private ItemState state;
         private int facing;
         private int remainingFrames;
+        private int telegraphFrames;
+        private int bouncesRemaining;
+        private float groundHeight;
+        private bool falling;
 
-        internal ItemDef Definition { get; private set; }
+        public ItemDef Definition { get; private set; }
         internal bool IsAvailable => state == ItemState.Available;
 
         internal void Initialize(ItemDef definition, Transform root)
@@ -45,8 +49,6 @@ namespace WobbleBrawl.Gameplay
             state = ItemState.Held;
             holder = itemHolder;
             sensor.enabled = false;
-            body.linearVelocity = Vector3.zero;
-            body.angularVelocity = Vector3.zero;
             body.isKinematic = true;
             transform.SetParent(socket, false);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
@@ -60,6 +62,11 @@ namespace WobbleBrawl.Gameplay
             state = ItemState.Deployed;
             remainingFrames = Mathf.Max(1, Definition.LifetimeFrames);
             transform.SetParent(poolRoot, true);
+            Vector3 placement = owner.transform.position + Vector3.right * (direction * Definition.PlacementOffset);
+            groundHeight = owner.GetItemGroundHeight(placement) + Definition.GroundClearance;
+            telegraphFrames = Definition.TelegraphFrames;
+            bouncesRemaining = Definition.GroundBounces;
+            falling = false;
             bool thrown = Definition.Mode == ItemUseMode.Thrown;
             if (thrown)
             {
@@ -68,11 +75,15 @@ namespace WobbleBrawl.Gameplay
                 transform.position = position;
             }
             else
-                transform.position = owner.transform.position + Vector3.right * (direction * Definition.PlacementOffset);
+            {
+                placement.y = groundHeight;
+                transform.position = placement;
+            }
             body.isKinematic = !thrown;
+            body.useGravity = Definition.GroundBounces > 0 || Definition.DropHeight > 0;
             if (thrown)
-                body.linearVelocity = Vector3.right * (direction * Definition.ThrowSpeed);
-            sensor.enabled = true;
+                body.linearVelocity = new Vector3(direction * Definition.ThrowSpeed, Definition.ThrowLift, 0f);
+            sensor.enabled = telegraphFrames == 0;
         }
 
         internal void Consume(Fighter source, Fighter target, int direction)
@@ -102,7 +113,35 @@ namespace WobbleBrawl.Gameplay
         private void FixedUpdate()
         {
             if ((state == ItemState.Pickup || state == ItemState.Deployed) && --remainingFrames <= 0)
+            {
                 Recycle();
+                return;
+            }
+            if (state != ItemState.Deployed)
+                return;
+            if (telegraphFrames > 0)
+            {
+                if (--telegraphFrames == 0)
+                {
+                    body.position += Vector3.up * Definition.DropHeight;
+                    body.isKinematic = false;
+                    sensor.enabled = true;
+                    falling = true;
+                }
+                return;
+            }
+            if (!body.useGravity || body.position.y > groundHeight || body.linearVelocity.y >= 0)
+                return;
+            if (falling || bouncesRemaining == 0)
+            {
+                Recycle();
+                return;
+            }
+            bouncesRemaining--;
+            Vector3 position = body.position;
+            position.y = groundHeight;
+            body.position = position;
+            body.linearVelocity = new Vector3(body.linearVelocity.x, Definition.BounceSpeed, 0f);
         }
 
         private void OnTriggerEnter(Collider other) => CheckContact(other);

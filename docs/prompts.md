@@ -413,15 +413,15 @@ To review the revised standalone clips, select a Blobby clip in the Project pane
 
 **CombatSandbox smoke test**
 
-1. Open CombatSandbox and enter Play mode. A test cube appears just to the right of the player at the start of each round.
-2. Walk over the cube and press **U**. Confirm it attaches to the test socket, leaves the hand in the fighter's facing direction, and returns to the pool on opponent contact or expiry. The placeholder has no damage effect.
-3. Confirm it can spawn again on the interval and that remaining pickups and held items clear on round end.
+The owner verified pickup, throws in both directions, recycling, respawn, and cleanup at round reset with the test cube. The M2-02 lineup supersedes the cube in CombatSandbox.
 
 ### M2-02 — Six items implemented (banana peel, foam glove, rubber chicken, rocket plunger, whoopee cushion, anvil)
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M2-01
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `CombatItemTests` confirms the six opening pickups and a chicken pickup and throw in CombatSandbox.
+
+**Playtest:** Open CombatSandbox and press Play. Walk over an item and press **U** to use it. The foam glove activates on contact with the pickup. The opening lineup from left to right is banana peel (yellow), foam glove (red), rubber chicken (orange), rocket plunger (blue), whoopee cushion (pink), and anvil (purple). To see both chicken bounces, throw it along a clear stretch of floor. For the cushion, use it near the opponent. To test the anvil, place it ahead of an approaching opponent and watch the marked spot through the drop.
 
 ### M2-03 — `HazardDef` + `HazardController` (telegraph, active, cooldown)
 - **Section:** M2 — Chaos layer (weeks 6-8)

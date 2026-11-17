@@ -40,6 +40,11 @@ namespace WobbleBrawl.Gameplay
         public int Facing { get; private set; } = 1;
         public int Team => team;
         public bool CanInteractWithItems => roundActive && IsAlive;
+        private const int ItemLaunchFrames = 22;
+        private int itemHitCharges;
+        private float itemHitPushback;
+        internal Fighter ItemOpponent { get; private set; }
+        public void SetItemOpponent(Fighter opponent) => ItemOpponent = opponent;
         internal ItemHolder Items { get; private set; }
         public int Health { get; private set; }
         public int Guard { get; private set; }
@@ -77,6 +82,7 @@ namespace WobbleBrawl.Gameplay
             body.position = position;
             body.linearVelocity = Vector3.zero;
             Facing = facing;
+            itemHitCharges = 0;
             Health = character.MaxHealth;
             Guard = character.MaxGuard;
             Special = 0;
@@ -231,13 +237,44 @@ namespace WobbleBrawl.Gameplay
             body.linearVelocity = current;
         }
 
-        public bool ReceiveHit(HitInfo info)
+        internal void BoostItemHits(int charges, float pushback)
+        {
+            itemHitCharges = charges;
+            itemHitPushback = pushback;
+        }
+
+        internal float GetItemGroundHeight(Vector3 position)
+        {
+            return Physics.Raycast(position + Vector3.up, Vector3.down, out var hit, Mathf.Infinity,
+                groundLayers, QueryTriggerInteraction.Ignore) ? hit.point.y : transform.position.y;
+        }
+
+        internal void LaunchFromItem(Vector2 velocity)
+        {
+            State = FighterState.Airborne;
+            PlayClip("JumpRise");
+            stun = ItemLaunchFrames;
+            body.linearVelocity = new Vector3(velocity.x, velocity.y, 0f);
+        }
+
+        private float ConsumeItemPushback()
+        {
+            if (itemHitCharges <= 0)
+                return 0f;
+            itemHitCharges--;
+            return itemHitPushback;
+        }
+
+        public bool ReceiveHit(HitInfo info) => ResolveHit(info, false);
+        internal bool ReceiveItemHit(HitInfo info) => ResolveHit(info, true);
+
+        private bool ResolveHit(HitInfo info, bool itemHit)
         {
             if (!roundActive || !IsAlive || immunity > 0)
                 return false;
             var result = DamageResolver.Resolve(info.Zone, info.Move.BodyDamage, info.Move.LegDamage,
                 Guard, info.Move.GuardCost, info.Move.StunFrames, comboHits, accumulatedStun,
-                State == FighterState.Blocking, info.Move == info.Attacker.character.Special, false);
+                State == FighterState.Blocking, !itemHit && info.Move == info.Attacker.character.Special, false);
             Health = Mathf.Max(0, Health - result.Damage);
             Guard = result.Guard;
             move = null;
@@ -247,7 +284,8 @@ namespace WobbleBrawl.Gameplay
             comboHits++;
             State = !IsAlive ? FighterState.KnockedOut : result.GuardBroken ? FighterState.GuardBreak : FighterState.HitStun;
             PlayClip(!IsAlive ? "Knockdown" : result.GuardBroken ? "HitHeavy" : "HitLight");
-            body.AddForce(info.Direction * info.Move.Pushback, ForceMode.VelocityChange);
+            float bonusPushback = itemHit || result.Blocked ? 0f : info.Attacker.ConsumeItemPushback();
+            body.AddForce(info.Direction * (info.Move.Pushback + bonusPushback), ForceMode.VelocityChange);
             Special = Mathf.Min(character.MaxSpecial, Special + info.Move.GaugeGain / 2);
             info.Attacker.Special = Mathf.Min(info.Attacker.character.MaxSpecial, info.Attacker.Special + info.Move.GaugeGain);
             HitStopService.Apply(info.Attacker, this, info.Move.HitStopFrames);

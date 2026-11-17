@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b6e67fd57e4a399b8c4acfe898092d, type: 3}
+  m_Name: Anvil
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemDef
+  Id: Anvil
+  Prefab: {fileID: 54134063258576147, guid: 6f5ba44f110fbf944acf8bb26dfe7fc5, type: 3}
+  Mode: 2
+  Effects:
+  - {fileID: 11400000, guid: 7b2772cdac961ee448c5eb6e13534102, type: 2}
+  ThrowSpeed: 8
+  PlacementOffset: 1.3
+  ThrowLift: 0
+  GroundBounces: 0
+  BounceSpeed: 0
+  GroundClearance: 0.18
+  TelegraphFrames: 90
+  DropHeight: 3.5
+  LifetimeFrames: 300

@@ -27,6 +27,8 @@ namespace WobbleBrawl.Flow
             if (Running)
                 throw new InvalidOperationException("The round is already running.");
 
+            player.SetItemOpponent(opponent);
+            opponent.SetItemOpponent(player);
             player.ResetRound(playerSpawn.position, 1);
             opponent.ResetRound(opponentSpawn.position, -1);
             player.KnockedOut += OnKnockout;
