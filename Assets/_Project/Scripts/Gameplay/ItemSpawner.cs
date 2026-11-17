@@ -15,6 +15,7 @@ namespace WobbleBrawl.Gameplay
 
         [SerializeField] private Entry[] table;
         [SerializeField] private Transform[] spawnPoints;
+        [SerializeField] private bool spawnAtRoundStart;
         [SerializeField, Min(1)] private int intervalFrames = 300;
         [SerializeField] private int seed = 1;
 
@@ -48,6 +49,8 @@ namespace WobbleBrawl.Gameplay
             EndRound();
             random = new System.Random(unchecked(seed + roundIndex));
             remainingFrames = Mathf.Max(1, intervalFrames);
+            if (spawnAtRoundStart && isActiveAndEnabled)
+                SpawnNext();
         }
 
         public void EndRound()
@@ -68,6 +71,11 @@ namespace WobbleBrawl.Gameplay
             if (random == null || --remainingFrames > 0)
                 return;
             remainingFrames = Mathf.Max(1, intervalFrames);
+            SpawnNext();
+        }
+
+        private void SpawnNext()
+        {
             if (spawnPoints == null || spawnPoints.Length == 0)
                 return;
             for (int index = 0; index < pools.Length; index++)

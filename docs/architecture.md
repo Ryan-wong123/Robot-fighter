@@ -170,7 +170,7 @@ The Blobby sandbox temporarily simulates a jointed torso or leg bone on unblocke
 }
 public abstract class ItemEffect : ScriptableObject { public abstract void Apply(ItemContext ctx); }
 ```
-- `ItemSpawner` prewarms a capped pool per weighted table entry in Awake. It starts a seeded sequence for each round, selects among entries with free instances, and returns all borrowed instances when the round ends. Stage transforms mark pickup positions on the fight plane.
+- `ItemSpawner` prewarms a capped pool per weighted table entry in Awake. It starts a seeded sequence for each round, selects among entries with free instances, and returns all borrowed instances when the round ends. Stage transforms mark pickup positions on the fight plane. CombatSandbox enables the optional immediate spawn for its test pickup.
 - `ItemHolder` on the fighter manages pickup (trigger), held state, and use/throw. The facing direction comes from the fighter's explicit `Facing` value, not rotation float comparisons.
 - `PooledItem` handles pickup and deployed contact through fighter hurtboxes. Held items attach to an explicit socket. OnPickup and Held effects receive the user as the target. Thrown and Placed effects run on opponent contact. Effects receive the user, target, world position, and facing through `ItemContext`. The item types themselves are authored in M2-02.
 

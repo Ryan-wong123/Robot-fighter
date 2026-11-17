@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &224349059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224349060}
+  m_Layer: 0
+  m_Name: Test Item Socket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &224349060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 224349059}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: -0.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 716022901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &322341491
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +180,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &530830281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 530830282}
+  m_Layer: 0
+  m_Name: Test Item Socket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &530830282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 530830281}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.85, z: -0.55}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1239269666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &716022896
 PrefabInstance:
@@ -212,7 +274,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5036891000231317853, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 224349060}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8192874075973648344, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
       insertIndex: -1
@@ -220,6 +285,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8192874075973648344, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
       insertIndex: -1
       addedObject: {fileID: 716022899}
+    - targetCorrespondingSourceObject: {fileID: 8192874075973648344, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 716022902}
   m_SourcePrefab: {fileID: 100100000, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
 --- !u!114 &716022897 stripped
 MonoBehaviour:
@@ -269,6 +337,109 @@ MonoBehaviour:
   duration: 1.4
   slowMotion: 0.35
   zoom: 0.62
+--- !u!4 &716022901 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5036891000231317853, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+  m_PrefabInstance: {fileID: 716022896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &716022902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716022898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
+  handSocket: {fileID: 224349060}
+--- !u!1 &732437270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 732437272}
+  - component: {fileID: 732437271}
+  m_Layer: 0
+  m_Name: Sandbox Item Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &732437271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732437270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee4c81f54704e3f9f7158b89e932b2c, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemSpawner
+  table:
+  - Item: {fileID: 11400000, guid: ad26de8ea1c2db14f91a9ef2541f6f90, type: 2}
+    Weight: 1
+    Capacity: 1
+  spawnPoints:
+  - {fileID: 1066415190}
+  spawnAtRoundStart: 1
+  intervalFrames: 300
+  seed: 1
+--- !u!4 &732437272
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732437270}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1066415190}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1066415189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066415190}
+  m_Layer: 0
+  m_Name: Test Pickup Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1066415190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066415189}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1, y: 0.65, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 732437272}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1165869327
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +594,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5036891000231317853, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 530830282}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8192874075973648344, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
       insertIndex: -1
@@ -431,6 +605,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8192874075973648344, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1239269664}
+    - targetCorrespondingSourceObject: {fileID: 8192874075973648344, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1239269667}
   m_SourcePrefab: {fileID: 100100000, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
 --- !u!114 &1239269662 stripped
 MonoBehaviour:
@@ -477,6 +654,24 @@ MonoBehaviour:
   duration: 1.4
   slowMotion: 0.35
   zoom: 0.62
+--- !u!4 &1239269666 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5036891000231317853, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+  m_PrefabInstance: {fileID: 1239269661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1239269667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239269663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
+  handSocket: {fileID: 530830282}
 --- !u!1 &1333782013
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +961,7 @@ MonoBehaviour:
   opponent: {fileID: 716022897}
   playerSpawn: {fileID: 322341492}
   opponentSpawn: {fileID: 1382847818}
+  itemSpawner: {fileID: 732437271}
 --- !u!4 &1426010692
 Transform:
   m_ObjectHideFlags: 0
@@ -1063,3 +1259,4 @@ SceneRoots:
   - {fileID: 1426010692}
   - {fileID: 322341492}
   - {fileID: 1382847818}
+  - {fileID: 732437272}

@@ -66,9 +66,86 @@ public static class CombatSandboxBuilder
         Set(round, "playerSpawn", Spawn("Player Spawn", -2));
         Set(round, "opponentSpawn", Spawn("Opponent Spawn", 2));
         Set(flow.AddComponent<MatchController>(), "round", round);
+        ConfigureTestPickup(round);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
         AssetDatabase.SaveAssets();
+    }
+
+    [MenuItem("Wobble Brawl/Configure Combat Sandbox Test Pickup")]
+    public static void AddTestPickup()
+    {
+        if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+            return;
+        var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        foreach (var root in scene.GetRootGameObjects())
+        {
+            if (!root.TryGetComponent<RoundController>(out var round))
+                continue;
+            ConfigureTestPickup(round);
+            EditorSceneManager.SaveScene(scene);
+            AssetDatabase.SaveAssets();
+            return;
+        }
+        throw new System.InvalidOperationException("CombatSandbox requires a round controller.");
+    }
+
+    private static void ConfigureTestPickup(RoundController round)
+    {
+        var roundProperties = new SerializedObject(round);
+        if (roundProperties.FindProperty("itemSpawner").objectReferenceValue != null)
+            return;
+
+        const string prefabPath = "Assets/_Project/Prefabs/SandboxTestPickup.prefab";
+        var prefab = AssetDatabase.LoadAssetAtPath<PooledItem>(prefabPath);
+        if (prefab == null)
+        {
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.name = "Sandbox Test Pickup";
+            cube.transform.localScale = Vector3.one * 0.45f;
+            cube.AddComponent<PooledItem>();
+            cube.GetComponent<Rigidbody>().useGravity = false;
+            cube.GetComponent<Collider>().isTrigger = true;
+            prefab = PrefabUtility.SaveAsPrefabAsset(cube, prefabPath).GetComponent<PooledItem>();
+            Object.DestroyImmediate(cube);
+        }
+
+        var definition = GetData<ItemDef>("SandboxTestPickup");
+        definition.Id = "sandbox-test-pickup";
+        definition.Prefab = prefab;
+        definition.Mode = ItemUseMode.Thrown;
+        EditorUtility.SetDirty(definition);
+
+        var spawner = new GameObject("Sandbox Item Spawner").AddComponent<ItemSpawner>();
+        var point = new GameObject("Test Pickup Spawn").transform;
+        point.SetParent(spawner.transform);
+        point.position = new Vector3(-1f, 0.65f, 0f);
+        var properties = new SerializedObject(spawner);
+        properties.FindProperty("spawnAtRoundStart").boolValue = true;
+        var points = properties.FindProperty("spawnPoints");
+        points.arraySize = 1;
+        points.GetArrayElementAtIndex(0).objectReferenceValue = point;
+        var table = properties.FindProperty("table");
+        table.arraySize = 1;
+        var entry = table.GetArrayElementAtIndex(0);
+        entry.FindPropertyRelative("Item").objectReferenceValue = definition;
+        entry.FindPropertyRelative("Weight").intValue = 1;
+        entry.FindPropertyRelative("Capacity").intValue = 1;
+        properties.ApplyModifiedPropertiesWithoutUndo();
+
+        ConfigureItemHolder((Fighter)roundProperties.FindProperty("player").objectReferenceValue);
+        ConfigureItemHolder((Fighter)roundProperties.FindProperty("opponent").objectReferenceValue);
+        Set(round, "itemSpawner", spawner);
+    }
+
+    private static void ConfigureItemHolder(Fighter fighter)
+    {
+        if (fighter.TryGetComponent<ItemHolder>(out _))
+            return;
+        var socket = new GameObject("Test Item Socket").transform;
+        socket.SetParent(fighter.transform, false);
+        socket.localPosition = new Vector3(0f, 0.85f, -0.55f);
+        Set(fighter.gameObject.AddComponent<ItemHolder>(), "handSocket", socket);
     }
 
     private static Transform Spawn(string name, float x)

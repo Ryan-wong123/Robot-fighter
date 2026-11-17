@@ -61,7 +61,13 @@ namespace WobbleBrawl.Gameplay
             remainingFrames = Mathf.Max(1, Definition.LifetimeFrames);
             transform.SetParent(poolRoot, true);
             bool thrown = Definition.Mode == ItemUseMode.Thrown;
-            if (!thrown)
+            if (thrown)
+            {
+                Vector3 position = transform.position;
+                position.z = owner.transform.position.z;
+                transform.position = position;
+            }
+            else
                 transform.position = owner.transform.position + Vector3.right * (direction * Definition.PlacementOffset);
             body.isKinematic = !thrown;
             if (thrown)
