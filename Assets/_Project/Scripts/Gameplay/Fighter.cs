@@ -39,6 +39,8 @@ namespace WobbleBrawl.Gameplay
         private VisualRagdoll ragdoll;
         public int Facing { get; private set; } = 1;
         public int Team => team;
+        public bool CanInteractWithItems => roundActive && IsAlive;
+        internal ItemHolder Items { get; private set; }
         public int Health { get; private set; }
         public int Guard { get; private set; }
         public int Special { get; private set; }
@@ -51,6 +53,7 @@ namespace WobbleBrawl.Gameplay
         {
             body = GetComponent<Rigidbody>();
             hitbox = GetComponent<Hitbox>();
+            Items = GetComponent<ItemHolder>();
             input = inputSource as IFighterInput;
             if (groundLayers.value == 0)
                 groundLayers = SandboxGroundMask;
@@ -85,7 +88,11 @@ namespace WobbleBrawl.Gameplay
             roundActive = true;
         }
 
-        public void StopRound() => roundActive = false;
+        public void StopRound()
+        {
+            roundActive = false;
+            Items?.Clear();
+        }
         public void SetSuddenDeath() => Health = 1;
 
         private void FixedUpdate()
@@ -126,6 +133,9 @@ namespace WobbleBrawl.Gameplay
                 }
                 return;
             }
+
+            if (intent.Throw && Items != null && Items.TryUse())
+                return;
 
             bool grounded = Physics.Raycast(body.position + Vector3.up * 0.15f, Vector3.down, 0.25f,
                 groundLayers, QueryTriggerInteraction.Ignore);

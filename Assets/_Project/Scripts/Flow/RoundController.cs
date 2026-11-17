@@ -16,6 +16,9 @@ namespace WobbleBrawl.Flow
         public bool Running { get; private set; }
         public int SecondsRemaining => Mathf.Max(0, Mathf.CeilToInt(deadline - Time.time));
 
+        [SerializeField] private ItemSpawner itemSpawner;
+
+        private int roundIndex;
         private float deadline;
         private bool suddenDeath;
 
@@ -31,6 +34,8 @@ namespace WobbleBrawl.Flow
             suddenDeath = false;
             deadline = Time.time + RoundRules.RoundSeconds;
             Running = true;
+            if (itemSpawner != null)
+                itemSpawner.BeginRound(roundIndex++);
         }
 
         private void Update()
@@ -66,6 +71,7 @@ namespace WobbleBrawl.Flow
                 return;
 
             Running = false;
+            itemSpawner?.EndRound();
             player.KnockedOut -= OnKnockout;
             opponent.KnockedOut -= OnKnockout;
             player.StopRound();

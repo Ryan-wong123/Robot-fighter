@@ -409,7 +409,14 @@ To review the revised standalone clips, select a Blobby clip in the Project pane
 - **Prerequisites:** M1-01, M1-04
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13
 - **Notes:** ItemDef/ItemEffect, ItemHolder (explicit hand socket and facing), seeded ItemSpawner, pooled items. Replaces Throwables and RightHandPickup.
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** EditMode checks pass for seeded weighted selection and exhausted tables. The manual CombatSandbox smoke test below covers pickup, use, and reuse once a stage and item prefab are configured.
+
+**CombatSandbox setup**
+
+1. Add `ItemHolder` to both fighters and assign each fighter's child hand transform to **Hand Socket**.
+2. Create an item prefab with `PooledItem`, a Rigidbody and a trigger collider on the same GameObject. Create an item via **Assets > Create > Wobble Brawl > Item** and assign the prefab. Use **Thrown** to test the projectile lifecycle. A prefab and definition with an empty effects list are sufficient to check pickup and pooling.
+3. Add an `ItemSpawner` to the scene. Assign it to the round component's **Item Spawner** field, add the item to **Table** with a positive weight and capacity, and assign reachable stage transforms in **Spawn Points** at the same depth as the fighters.
+4. Enter Play mode, walk over a pickup and press **U**. Confirm it leaves the hand in the fighter's facing direction, returns to the pool on opponent contact or expiry, and can spawn again. Confirm remaining pickups and held items clear on round end.
 
 ### M2-02 — Six items implemented (banana peel, foam glove, rubber chicken, rocket plunger, whoopee cushion, anvil)
 - **Section:** M2 — Chaos layer (weeks 6-8)

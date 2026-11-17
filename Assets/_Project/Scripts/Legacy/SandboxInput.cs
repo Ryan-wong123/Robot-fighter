@@ -15,12 +15,13 @@ public sealed class SandboxInput : MonoBehaviour, IFighterInput
         pending.Punch |= current.Punch;
         pending.Kick |= current.Kick;
         pending.Special |= current.Special;
+        pending.Throw |= current.Throw;
     }
 
     public FighterIntent ReadIntent()
     {
         FighterIntent result = pending;
-        pending.Jump = pending.Punch = pending.Kick = pending.Special = false;
+        pending.Jump = pending.Punch = pending.Kick = pending.Special = pending.Throw = false;
         return result;
     }
 }

@@ -74,7 +74,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **M1-14** Blobby playable 1v1 vs AI at 60 FPS on a mid-range phone (owner) (after: M1-07, M1-08, M1-10, M1-12, M1-13)
 
 ## M2 — Chaos layer (weeks 6-8)
-- [ ] **M2-01** `ItemDef`/`ItemEffect`, `ItemHolder`, seeded `ItemSpawner`, pooling (after: M1-01, M1-04)
+- [x] **M2-01** `ItemDef`/`ItemEffect`, `ItemHolder`, seeded `ItemSpawner`, pooling (after: M1-01, M1-04)
 - [ ] **M2-02** Six items implemented (banana peel, foam glove, rubber chicken, rocket plunger, whoopee cushion, anvil) (after: M2-01)
 - [ ] **M2-03** `HazardDef` + `HazardController` (telegraph, active, cooldown) (after: M1-07)
 - [ ] **M2-04** Stage 1: Bathtub Brawl (art + hazard) (after: M2-03)

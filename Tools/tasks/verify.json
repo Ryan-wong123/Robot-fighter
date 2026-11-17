@@ -132,6 +132,9 @@
     "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed the revised Blobby combat animations in CombatSandbox.\"",
     "python3 Tools/tasks/checks.py file-exists Art/_Source/Blobby/BlobbyCombatPerformance.blend"
   ],
+  "M2-01": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode ItemWeightsTests"
+  ],
   "M1-14": [
     "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed the Android performance playtest passed.\""
   ],
