@@ -16,20 +16,27 @@ namespace WobbleBrawl.Gameplay
         [SerializeField] private CharacterDef character;
         [SerializeField] private MonoBehaviour inputSource;
         [SerializeField] private Animator animator;
-        [SerializeField] private LayerMask groundLayers;
+        private const int SandboxGroundMask = 1 << 8;
+        [SerializeField] private LayerMask groundLayers = SandboxGroundMask;
         [SerializeField] private int team;
 
         private Rigidbody body;
         private Hitbox hitbox;
         private IFighterInput input;
-        private MoveDef move, comboMove;
+        private MoveDef move, comboMove, moveRoot, comboRoot;
         private int moveFrame, comboWindow, stun, immunity, comboHits, accumulatedStun, guardRecovery;
         private bool hit, roundActive;
         private int freeze;
         private bool wasKinematic;
         private float animationSpeed;
+        private bool frozen;
         private int frozenAtFrame;
         private Vector3 velocity;
+        private string playingClip;
+        private AnimationClip activeClip;
+        [SerializeField] private AnimationClip[] visualClips;
+        private float clipTime;
+        private VisualRagdoll ragdoll;
         public int Facing { get; private set; } = 1;
         public int Team => team;
         public int Health { get; private set; }
@@ -45,11 +52,24 @@ namespace WobbleBrawl.Gameplay
             body = GetComponent<Rigidbody>();
             hitbox = GetComponent<Hitbox>();
             input = inputSource as IFighterInput;
+            if (groundLayers.value == 0)
+                groundLayers = SandboxGroundMask;
+            if (animator != null)
+            {
+                if ((visualClips == null || visualClips.Length == 0) && animator.runtimeAnimatorController != null)
+                    visualClips = animator.runtimeAnimatorController.animationClips;
+                foreach (var skin in animator.GetComponentsInChildren<SkinnedMeshRenderer>())
+                    skin.updateWhenOffscreen = true;
+                // The imported Generic controller enters states but does not drive this rig's transforms.
+                animator.enabled = false;
+                ragdoll = new VisualRagdoll(animator.transform);
+            }
             body.constraints |= RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         }
 
         public void ResetRound(Vector3 position, int facing)
         {
+            ragdoll?.Reset();
             EndFreeze();
             body.position = position;
             body.linearVelocity = Vector3.zero;
@@ -57,9 +77,11 @@ namespace WobbleBrawl.Gameplay
             Health = character.MaxHealth;
             Guard = character.MaxGuard;
             Special = 0;
-            move = comboMove = null;
+            move = comboMove = moveRoot = comboRoot = null;
             moveFrame = comboWindow = stun = immunity = comboHits = accumulatedStun = guardRecovery = 0;
             State = FighterState.Idle;
+            playingClip = null;
+            PlayClip("Idle");
             roundActive = true;
         }
 
@@ -68,7 +90,7 @@ namespace WobbleBrawl.Gameplay
 
         private void FixedUpdate()
         {
-            if (freeze > 0)
+            if (frozen)
             {
                 if (frozenAtFrame != Time.frameCount && --freeze == 0)
                     EndFreeze();
@@ -98,6 +120,7 @@ namespace WobbleBrawl.Gameplay
                 if (++moveFrame >= move.Duration)
                 {
                     comboMove = move;
+                    comboRoot = moveRoot;
                     comboWindow = ComboWindowFrames;
                     move = null;
                 }
@@ -111,8 +134,9 @@ namespace WobbleBrawl.Gameplay
             if (next != null && grounded)
             {
                 move = comboWindow > 0 && comboMove != null && comboMove.NextInCombo != null &&
-                    ((intent.Punch && next == character.Punch) || (intent.Kick && next == character.Kick))
+                    next == comboRoot
                     ? comboMove.NextInCombo : next;
+                moveRoot = next;
                 if (next == character.Special)
                     Special = 0;
                 moveFrame = 0;
@@ -120,13 +144,14 @@ namespace WobbleBrawl.Gameplay
                 State = FighterState.Attacking;
                 SetHorizontal(0);
                 if (animator != null && !string.IsNullOrEmpty(move.AnimationTrigger))
-                    animator.SetTrigger(move.AnimationTrigger);
+                    PlayClip(move.AnimationTrigger);
                 return;
             }
 
             if (intent.Block && grounded)
             {
                 State = FighterState.Blocking;
+                PlayClip("Block");
                 SetHorizontal(0);
                 return;
             }
@@ -145,6 +170,48 @@ namespace WobbleBrawl.Gameplay
                 body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed, 0f);
             State = !grounded || intent.Jump ? FighterState.Airborne :
                 horizontal == 0f ? FighterState.Idle : FighterState.Moving;
+            PlayClip(State == FighterState.Airborne ? (body.linearVelocity.y > 0f ? "JumpRise" : "JumpFall") :
+                State == FighterState.Moving ? "Walk" : "Idle");
+        }
+
+        private void PlayClip(string clip)
+        {
+            if (visualClips == null || playingClip == clip)
+                return;
+
+            foreach (var candidate in visualClips)
+            {
+                if (candidate == null || !candidate.name.EndsWith("Blobby_" + clip, StringComparison.Ordinal))
+                    continue;
+                playingClip = clip;
+                activeClip = candidate;
+                clipTime = 0f;
+                SamplePose();
+                return;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (activeClip == null || frozen)
+                return;
+
+            clipTime += Time.deltaTime;
+            SamplePose();
+        }
+
+        private void SamplePose()
+        {
+            float time = activeClip.isLooping ? Mathf.Repeat(clipTime, activeClip.length) :
+                Mathf.Min(clipTime, activeClip.length);
+            if (ragdoll != null && ragdoll.Full)
+                return;
+
+            ragdoll?.CaptureHitPose();
+            activeClip.SampleAnimation(animator.gameObject, time);
+            // Blobby's face is on local +Z, while the fight camera sits on world -Z.
+            animator.transform.localRotation = Quaternion.Euler(0f, 180f - 45f * Facing, 0f);
+            ragdoll?.BlendHit(Time.deltaTime);
         }
 
         private void SetHorizontal(float value)
@@ -169,10 +236,16 @@ namespace WobbleBrawl.Gameplay
             accumulatedStun += stun;
             comboHits++;
             State = !IsAlive ? FighterState.KnockedOut : result.GuardBroken ? FighterState.GuardBreak : FighterState.HitStun;
+            PlayClip(!IsAlive ? "Knockdown" : result.GuardBroken ? "HitHeavy" : "HitLight");
             body.AddForce(info.Direction * info.Move.Pushback, ForceMode.VelocityChange);
             Special = Mathf.Min(character.MaxSpecial, Special + info.Move.GaugeGain / 2);
             info.Attacker.Special = Mathf.Min(info.Attacker.character.MaxSpecial, info.Attacker.Special + info.Move.GaugeGain);
             HitStopService.Apply(info.Attacker, this, info.Move.HitStopFrames);
+            if (!IsAlive)
+                ragdoll?.Launch(info.Direction);
+            else if (!result.Blocked)
+                ragdoll?.React(info.Direction, info.Zone);
+
             HitResolved?.Invoke(info, result);
             if (!IsAlive)
                 KnockedOut?.Invoke(this);
@@ -183,8 +256,9 @@ namespace WobbleBrawl.Gameplay
         {
             if (frames <= 0)
                 return;
-            if (freeze == 0)
+            if (!frozen)
             {
+                frozen = true;
                 velocity = body.linearVelocity;
                 wasKinematic = body.isKinematic;
                 body.isKinematic = true;
@@ -198,9 +272,15 @@ namespace WobbleBrawl.Gameplay
             frozenAtFrame = Time.frameCount;
         }
 
+        private void OnDisable()
+        {
+            ragdoll?.Reset();
+            EndFreeze();
+        }
+
         private void EndFreeze()
         {
-            if (body == null || !body.isKinematic || freeze < 0)
+            if (!frozen)
                 return;
             body.isKinematic = wasKinematic;
             if (!wasKinematic)
@@ -208,6 +288,7 @@ namespace WobbleBrawl.Gameplay
             if (animator != null)
                 animator.speed = animationSpeed;
             freeze = 0;
+            frozen = false;
         }
     }
 }

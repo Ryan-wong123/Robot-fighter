@@ -164,3 +164,13 @@ Rules: record sources and licenses (`SOURCES.md`), save them as PNG at least 204
 1. Comic font choice and license.
 2. Should the screen-space comic text be localized, or stay universal?
 3. Which post-processing (URP volume) effects are allowed on the lowest tier?
+
+### M1 impact feedback wiring
+
+Attach `SquashStretch` to a fighter and assign its visual child. Attach `ComicImpactPopup` to a screen-space overlay Canvas and assign the fighter, camera, and a dedicated text label. Both components subscribe to the shared fighter hit event and use unscaled time.
+
+### M1 knockout presentation
+
+CombatSandbox wires both Fighter knockout events to `KnockoutPresentation`. It applies 1.4 seconds of unscaled presentation at 35% game speed and holds the orthographic camera at 62% of its normal size near the midpoint and pans toward the defeated fighter. The component restores the original camera and time scale on completion or disable. Ragdoll integration remains tracked separately.
+
+Blobby uses the URP ToonJellySurface Shader Graph for two lighting bands and a view-dependent rim. A front-culled inverted hull draws the outline at 0.018 m. Setting Outline Width to zero disables the visible outline. The owner verified the previous material. The replacement graph and separate outline material were imported and assigned to the shared prefab. The replacement needs a Game view check.

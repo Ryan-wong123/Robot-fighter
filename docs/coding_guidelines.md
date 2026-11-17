@@ -138,6 +138,8 @@ Characters are modeled, textured, rigged, and animated in Blender, then exported
 - Animation compression: keyframe reduction on; check that loops close.
 - Textures: compression per platform; no uncompressed textures on mobile.
 
+Run the pre-export gate with `blender -b Art/_Source/Blobby/Blobby.blend --python-exit-code 1 --python Tools/Blender/validate_export.py`. It checks the active scene. Export only the armature and its skinned meshes, using FBX with Forward **-Z**, Up **Y**, and Add Leaf Bones disabled. In Unity, select **Generic**, disable root motion on the Animator, and check that the feet sit at the root and the model faces +Z. Review every imported clip before wiring it to a move.
+
 ## 10. Git & Commits
 - Branch from the assigned branch only; do not push elsewhere.
 - Commit messages: imperative mood, <= 72-char subject, blank line, then a body explaining *why* when non-obvious. Examples: `Add DamageResolver with block reduction`, `Remove revive code from PlayerBehaviour`.

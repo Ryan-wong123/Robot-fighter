@@ -85,6 +85,8 @@ Same list for everyone: idle, walk, jump (rise/fall/land), block (loop), punch 1
 Stats are **(start)** values. The prototype baseline is HP 200, walk speed 3, jump force 10, damage 10/5/15.
 
 ### 4.1 Blobby (default fighter)
+
+The procedural Blender blockout uses a 16-bone rig and UV-mapped skinned meshes with one flat green material. The source is `Art/_Source/Blobby/BlobbyBlockout.blend` and the FBX is `Assets/_Project/Art/Characters/Blobby/BlobbyBlockout.fbx`. It is a pipeline fixture. The first-pass in-place actions are in `Art/_Source/Blobby/BlobbyAnimated.blend`. The sandbox uses the shared `BlobbyFighter.prefab` and `Assets/_Project/Data/Combat/Blobby.controller`. The replacement character source is `Art/_Source/Blobby/BlobbyCharacter.blend`, with a continuous skinned shell, a 1024px lime-green face atlas, and all 19 first-pass actions. Its FBX and atlas are under `Assets/_Project/Art/Characters/Blobby/`. Both sandbox fighters now use the replacement FBX and its 2D face atlas on the URP Toon Jelly material. Import checks confirmed two skinned meshes at 1.55 m. The sandbox angles Blobby 45 degrees toward the gameplay facing direction from a camera-facing pose. The owner verified the replacement texture, forward direction, feet placement, and clip playback. Full clip review remains open.
 - **Concept:** a cheerful, translucent jelly-bean body with stubby limbs and a permanent grin. Looks like it could split in two.
 - **Personality:** enthusiastic and clumsy. Taunt: wobbles and does a little shimmy. Win: bounces three times.
 - **Silhouette:** bean-shaped torso, short thick limbs, large round hands and feet. Height about 1.7 m.
@@ -269,3 +271,7 @@ Rules: record the source and license of anything you did not create (`SOURCES.md
 **Still open [OPEN]:**
 1. VoxCPM2 license, output rights, hardware needs and clip quality (task D-08).
 2. Boss concept sign-off (Mr. Jack's look, moves and phases).
+
+CombatSandbox samples the imported Blobby clips directly on the visual hierarchy. Unity entered the Generic controller’s Walk state without changing the rig’s bone rotations, while direct clip sampling moved the intended bones. Hit-stop pauses the visual clip clock.
+
+The sandbox animation set builds on `Art/_Source/Blobby/BlobbyPerformance.blend`. The six revised combat actions are in `Art/_Source/Blobby/BlobbyCombatPerformance.blend`. The punch chain reads as a jab, rear cross, uppercut, and hook. Block uses a braced stance with alternating forearm and knee shifts. The special compresses, launches both fists, and rebounds into recovery. The punches and special reach their main impact poses inside the existing four-frame active window.

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0c15fe649e40de903ca1cc7e85ef57, type: 3}
+  m_Name: SandboxFighter
+  m_EditorClassIdentifier: WobbleBrawl.Data::WobbleBrawl.Data.CharacterDef
+  Prefab: {fileID: 0}
+  MaxHealth: 200
+  MaxGuard: 100
+  MaxSpecial: 100
+  MoveSpeed: 4
+  JumpSpeed: 10
+  Punch: {fileID: 11400000, guid: 8163329b125ae7a438b4704d6c0e7412, type: 2}
+  Kick: {fileID: 11400000, guid: 473ea48aa63e7d54e9d1855909c93a8c, type: 2}
+  Special: {fileID: 11400000, guid: 07d2d1d82b21f2f448975b8837f27151, type: 2}

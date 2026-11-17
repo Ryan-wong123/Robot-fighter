@@ -94,5 +94,57 @@
   ],
   "M0-17": [
     "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed M0-17 passed\""
+  ],
+  "M1-01": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed both shared-prefab fighters spawned\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Prefabs/BlobbyFighter.prefab",
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Scenes/CombatSandbox.unity f64957660585fc348ad4a78ee8dac291"
+  ],
+  "M1-06": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed block and hit feedback\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Scripts/UI/ComicImpactPopup.cs",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Scripts/Gameplay/SquashStretch.cs"
+  ],
+  "M1-10": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed KO ragdoll, camera zoom and slow motion\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Scripts/Gameplay/KnockoutPresentation.cs",
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed KO and next-round reset on the replacement Blobby.\""
+  ],
+  "M1-03": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"PASS combo order and expiry\""
+  ],
+  "M1-04": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"PASS hitbox range and active frame\""
+  ],
+  "M1-05": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"PASS hit-stop freezes both and restores physics\""
+  ],
+  "M1-08": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"PASS AI enters block and reduces incoming damage\""
+  ],
+  "M1-07": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"PASS sudden death sets 1 HP, adds 10 seconds and resolves draw\""
+  ],
+  "M1-13": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed replacement Blobby export and import verification.\""
+  ],
+  "M1-12": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed the revised Blobby combat animations in CombatSandbox.\"",
+    "python3 Tools/tasks/checks.py file-exists Art/_Source/Blobby/BlobbyCombatPerformance.blend"
+  ],
+  "M1-14": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed the Android performance playtest passed.\""
+  ],
+  "M0-18": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner verified the replacement Shader Graph\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Characters/Blobby/Materials/ToonJellySurface.shadergraph"
+  ],
+  "M1-11": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner verified the textured replacement Blobby rig\"",
+    "python3 Tools/tasks/checks.py file-exists Art/_Source/Blobby/BlobbyCharacter.blend"
+  ],
+  "M1-09": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"The stronger partial-ragdoll deflection and recovery passed\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Scripts/Gameplay/VisualRagdoll.cs"
   ]
 }

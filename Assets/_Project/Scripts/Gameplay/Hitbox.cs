@@ -22,7 +22,8 @@ namespace WobbleBrawl.Gameplay
 
     public sealed class Hitbox : MonoBehaviour
     {
-        [SerializeField] private LayerMask hurtLayers;
+        private const int SandboxHurtMask = 1 << 9;
+        [SerializeField] private LayerMask hurtLayers = SandboxHurtMask;
         private readonly Collider[] overlaps = new Collider[16];
 
         public bool TryHit(Fighter attacker, MoveDef move)
@@ -32,7 +33,7 @@ namespace WobbleBrawl.Gameplay
             offset.x *= attacker.Facing;
             Vector3 center = attacker.transform.position + offset;
             int count = Physics.OverlapBoxNonAlloc(center, move.HitboxSize * 0.5f, overlaps,
-                Quaternion.identity, hurtLayers, QueryTriggerInteraction.Collide);
+                Quaternion.identity, hurtLayers.value == 0 ? SandboxHurtMask : hurtLayers.value, QueryTriggerInteraction.Collide);
             Hurtbox target = null;
             float closest = float.PositiveInfinity;
             for (int index = 0; index < count; index++)

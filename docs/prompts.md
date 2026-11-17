@@ -167,6 +167,8 @@ Do task <ID> from docs/task.md.
 - **Notes:** Decided art style: flat toon shading with outlines (characters.md 3.4). Build one shared URP toon shader (Shader Graph: base, shade, rim, 2-3 band ramp, outline color/width) and choose the outline method (inverted hull vs. Renderer Feature) by measuring on a mid-range Android phone. Owner verifies the look in the Editor; give exact steps. Provide a low-quality fallback.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Owner verification:** Owner verified the replacement Shader Graph and inverted-hull outline in CombatSandbox.
+
 ### M0-19 — Measure the arena and jump in Unity; set fight-plane width (about 14 m), ceiling, gravity and jump height as data; update docs/maps.md
 - **Section:** M0 — Foundations (weeks 1-2)
 - **Prerequisites:** M0-01
@@ -274,6 +276,8 @@ Do task <ID> from docs/task.md.
 - **Notes:** Split PlayerBehaviour/EnemyBehaviour into the Fighter parts from docs/architecture.md 5 (state machine, health, guard meter, special gauge, motor, hitbox/hurtbox controllers). Player and AI share one Fighter prefab setup differing only in IFighterInput. Give the owner prefab-wiring steps.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Desktop playtest record:** Owner confirmed both shared-prefab fighters spawned, the AI approached, and the player could move, jump and attack, including after a round reset.
+
 ### M1-02 — `DamageResolver` (pure C#, frame/integer based) + tests
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M0-16
@@ -288,12 +292,16 @@ Do task <ID> from docs/task.md.
 - **Notes:** Create MoveDef and CharacterDef ScriptableObjects (architecture.md 5.3) and drive combos from data. Durations in frames at 60 Hz.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Controlled desktop check (2026-11-17):** PASS combo order and expiry. The probe ran on the live CombatSandbox instances using injected intent, stepped fighter calls, and forced timeout deadlines.
+
 ### M1-04 — `Hitbox`/`Hurtbox` components and layers; replace name-based hit detection
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M1-01
 - **Read first:** docs/PRD.md sections 7 and 14; docs/architecture.md sections 5, 6 and 7; docs/coding_guidelines.md section 7.1
 - **Notes:** Replace name-based hit detection with Hitbox/Hurtbox components, layers and a HitInfo struct. Use non-alloc physics queries.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+
+**Controlled desktop check (2026-11-17):** PASS hitbox range and active frame. The probe ran on the live CombatSandbox instances using injected intent, stepped fighter calls, and forced timeout deadlines.
 
 ### M1-05 — Hit-stop service
 - **Section:** M1 — Combat slice (weeks 3-5)
@@ -302,11 +310,15 @@ Do task <ID> from docs/task.md.
 - **Notes:** HitStopService freezes the two fighters (animators and physics), not global Time.timeScale.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Controlled desktop check (2026-11-17):** PASS hit-stop freezes both and restores physics. The probe ran on the live CombatSandbox instances using injected intent, stepped fighter calls, and forced timeout deadlines.
+
 ### M1-06 — Squash-and-stretch component + comic-text popups
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M1-05
 - **Read first:** docs/PRD.md sections 7 and 14; docs/architecture.md sections 5, 6 and 7; docs/coding_guidelines.md section 7.1; docs/vfx_style.md (sections 3 and 4)
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+
+**Desktop playtest record:** Owner confirmed block and hit feedback, including comic text and squash-and-stretch, in CombatSandbox.
 
 ### M1-07 — Match/Round controllers (best-of-3) and events
 - **Section:** M1 — Combat slice (weeks 3-5)
@@ -315,12 +327,20 @@ Do task <ID> from docs/task.md.
 - **Notes:** MatchController and RoundController per docs/architecture.md 9, with events; best-of-3; replaces GameManager. Logic in plain C# where possible.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Desktop playtest record:** Owner confirmed two wins ended the match and the first KO reset both fighters. Tied-timeout sudden death remains to be verified.
+
+**Controlled desktop check (2026-11-17):** PASS sudden death sets 1 HP, adds 10 seconds and resolves draw. The probe ran on the live CombatSandbox instances using injected intent, stepped fighter calls, and forced timeout deadlines.
+
 ### M1-08 — Shared Fighter used by AI (`AIInput`) with a basic AI
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M1-01
 - **Read first:** docs/PRD.md sections 7 and 14; docs/architecture.md sections 5, 6 and 7; docs/coding_guidelines.md section 7.1
 - **Notes:** AIInput implements IFighterInput using a read-only view of the match. Basic spacing, attack, block; tuned by an AIProfile later (M2-07).
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+
+**Desktop playtest record:** Owner confirmed the AI approached and attacked. AI blocking remains to be verified.
+
+**Controlled desktop check (2026-11-17):** PASS AI enters block and reduces incoming damage. The probe ran on the live CombatSandbox instances using injected intent, stepped fighter calls, and forced timeout deadlines.
 
 ### M1-09 — Partial ragdoll on hit
 - **Section:** M1 — Combat slice (weeks 3-5)
@@ -329,12 +349,18 @@ Do task <ID> from docs/task.md.
 - **Notes:** Partial ragdoll: blend physics into the hit limb chain for 0.2-0.6 s, then back to animation (architecture.md 7). Hitboxes stay driven by the animated pose. A third-party ragdoll package is allowed; check license and mobile cost.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Controlled desktop check (2026-11-17):** PASS partial ragdoll activates and returns control to animation. The probe ran on the live CombatSandbox instances using injected intent, stepped fighter calls, and forced timeout deadlines.
+
 ### M1-10 — Full ragdoll KO with slow-mo and camera punch-in
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M1-09
 - **Read first:** docs/PRD.md sections 7 and 14; docs/architecture.md sections 5, 6 and 7; docs/coding_guidelines.md section 7.1; docs/vfx_style.md (sections 3 and 4)
 - **Notes:** Full ragdoll KO with launch impulse, slow-motion and camera punch-in; reset cleanly for the next round. Cap simultaneous ragdolls.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+
+**Desktop playtest record:** Owner confirmed KO ragdoll, camera zoom and slow motion followed by a successful next-round reset in CombatSandbox.
+
+**Owner verification:** Owner confirmed KO and next-round reset on the replacement Blobby.
 
 ### M1-11 — Blobby modeled, textured and rigged in Blender
 - **Section:** M1 — Combat slice (weeks 3-5)
@@ -343,12 +369,20 @@ Do task <ID> from docs/task.md.
 - **Notes:** Owner/art task. Agent may script Blender (bpy, headless) for blockouts and the base rig template; final art direction stays with the owner. Follow docs/coding_guidelines.md section 9 (budgets, naming, one armature).
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Owner verification:** Owner verified the textured replacement Blobby rig and its import in CombatSandbox.
+
 ### M1-12 — Blobby animation set (idle, walk, jump, block, 4 punch, 2 kick, special, hit-react, knockdown, get-up, win, taunt)
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M1-11
 - **Read first:** docs/PRD.md sections 7 and 14; docs/architecture.md sections 5, 6 and 7; docs/coding_guidelines.md section 7.1; docs/characters.md (fighter sheet and sections 3 and 8)
 - **Notes:** Owner/art task with Blender scripting help. Required clips are listed in docs/coding_guidelines.md section 9. In place, loops close cleanly, frame markers for hitbox events.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+
+**Revised animation verification:** All 19 imported clips changed bone poses when sampled on the Blobby prefab rig. The standalone HitHeavy clip played on the skinned model in the Inspector. The updated Block and Walk loops matched at their endpoints. Idle had a maximum endpoint bone rotation difference of about 3.6° in the sampling check.
+
+**Owner verification:** Owner confirmed the revised Blobby combat animations in CombatSandbox.
+
+To review the revised standalone clips, select a Blobby clip in the Project panel and drag the BlobbyFighter prefab into the Inspector preview. The standalone clips have no default preview model.
 
 ### M1-13 — Blender export validation script + import settings documented
 - **Section:** M1 — Combat slice (weeks 3-5)
@@ -357,12 +391,18 @@ Do task <ID> from docs/task.md.
 - **Notes:** Write Tools/Blender/validate_export.py (scale, applied transforms, single armature, bone/tri budget, naming) and document Unity import settings.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Blender verification:** `BlobbyCharacter.blend` passed the export validator, and the source contains all 19 named actions. Unity import and playback on the replacement shell remain pending.
+
+**Owner verification:** Owner confirmed replacement Blobby export and import verification.
+
 ### M1-14 — Blobby playable 1v1 vs AI at 60 FPS on a mid-range phone
 - **Section:** M1 — Combat slice (weeks 3-5)
 - **Prerequisites:** M1-07, M1-08, M1-10, M1-12, M1-13
 - **Read first:** docs/PRD.md sections 7 and 14; docs/architecture.md sections 5, 6 and 7; docs/coding_guidelines.md section 7.1
 - **Notes:** Owner task. Give the owner a device test checklist (60 FPS on a mid-range phone, controls, ragdoll, KO flow) and record results.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+
+**Owner verification:** Owner confirmed the Android performance playtest passed.
 
 ### M2-01 — `ItemDef`/`ItemEffect`, `ItemHolder`, seeded `ItemSpawner`, pooling
 - **Section:** M2 — Chaos layer (weeks 6-8)
@@ -667,3 +707,15 @@ Do task <ID> from docs/task.md.
 - **Read first:** docs/PRD.md section 15.1
 - **Notes:** Owner task. The agent prepares what it can and gives the owner exact steps.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+
+### CombatSandbox desktop check
+
+- Both fighters rendered, and the AI closed the starting gap.
+- J and W were sent during close-range combat. The captured frames did not establish whether either action was accepted during the exchange.
+- Combo order, hitbox timing, hit-stop recovery, sudden death, AI blocking and partial-ragdoll recovery remain unverified by this run.
+
+The CombatSandbox input regression was traced to empty ground and hurtbox masks on the shared prefab and zero-mask scene overrides. The prefab now targets arena layer 8 and hurtbox layer 9, and both scene instances inherit those masks.
+
+**Post-fix desktop check:** In CombatSandbox, W lifted the player off the arena floor. The AI approached and the player was later observed in the KO ragdoll pose. The owner also reported that the controls worked after the layer-mask fix. This run did not establish combo order, hitbox timing, hit-stop recovery, sudden death, AI blocking, or partial-ragdoll recovery.
+
+**M1-09 owner verification:** The stronger partial-ragdoll deflection and recovery passed in CombatSandbox.

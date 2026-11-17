@@ -89,7 +89,7 @@ Fighter (prefab root)
  └─ IFighterInput (one of)   TouchInput | KeyboardInput | AIInput
 ```
 
-The M1 implementation introduces shared Fighter, Hitbox and Hurtbox components alongside the M0 scene. CharacterDef and MoveDef define stats and frame windows. The shared components still require a playable scene and prefab setup.
+The M1 implementation introduces shared Fighter, Hitbox and Hurtbox components alongside the M0 scene. CharacterDef and MoveDef define stats and frame windows. RoundController consumes fighter knockout events and resolves timed rounds. MatchController counts round wins and schedules the next round. AIInput reads the opponent's position and attack state and produces the same intent as human input. Open `Assets/_Project/Scenes/CombatSandbox.unity` to exercise these components with Blobby’s imported Blender blockout on both fighters. Use the arrow keys, W to jump, S to block, J to punch, K to kick, and L for special. The sandbox uses keyboard input and the legacy battle scene remains available.
 
 ### 5.1 Input abstraction
 ```csharp
@@ -157,6 +157,8 @@ Rules to keep it fair and cheap:
 - Characters differ in ragdoll tuning (e.g., Sir Noodle floppier) through `CharacterDef`.
 
 Squash-and-stretch is a separate cosmetic layer: a small `SquashStretch` component (scale spring on the visual root / blendshape / vertex shader) triggered by hit events.
+
+The Blobby sandbox temporarily simulates a jointed torso or leg bone on unblocked hits and blends its pose back into the sampled animation and activates jointed visual rigidbodies on KO. Round reset disables the ragdoll colliders and returns the visual to clip sampling.
 
 ## 8. Items & Hazards
 
@@ -294,3 +296,9 @@ Prototype classes map onto the new design in small, reviewable steps (details to
 | 5-month solo schedule vs. full-game scope | Milestone plan with explicit cut lines; online is the first cut (PRD section 15.1) |
 | Ad/IAP policy and consent issues | Isolate behind interfaces; review store policies in M5 |
 | I cannot run the Unity Editor here | Agents write scripts and give editor wiring steps; the owner validates in the Editor (see [`AGENTS.md`](../AGENTS.md)) |
+
+The Combat Sandbox builder generates and reuses the BlobbyFighter prefab for both sides. It assigns team, input, and camera references on the scene instances.
+
+The combat sandbox uses layer 8 for the arena floor and layer 9 for fighter hurtboxes. Empty masks on older shared-fighter instances fall back to these layers at runtime. Direct animation sampling uses the serialized clips even if the imported Animator has no controller.
+
+The partial hit reaction starts with a 40-degree rotation on the selected dynamic bone, then blends its simulated pose back into animation over the 0.48-second reaction.
