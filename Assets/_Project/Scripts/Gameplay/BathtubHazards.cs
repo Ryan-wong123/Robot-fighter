@@ -45,6 +45,8 @@ namespace WobbleBrawl.Gameplay
 
         private void Awake()
         {
+            if (audioSource != null && !audioSource.TryGetComponent<SettingsAudioSource>(out _))
+                audioSource.gameObject.AddComponent<SettingsAudioSource>();
             cycle = GetComponent<HazardController>();
             duckHome = duck.localPosition;
             waveHits = new bool[fighters.Length];

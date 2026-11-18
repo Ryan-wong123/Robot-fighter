@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using WobbleBrawl.Core;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -46,6 +47,17 @@ public sealed class AppFlowTests
         Assert.That(artwork.gameObject.activeSelf, Is.True);
         var primary = panel.Find("Safe Content/Primary Action").GetComponent<Button>();
         var secondary = panel.Find("Safe Content/Secondary Action").GetComponent<Button>();
+        var settings = panel.Find("Safe Content/Settings Action").GetComponent<Button>();
+        settings.onClick.Invoke();
+        var settingsPanel = panel.Find("Safe Content/Settings Controls");
+        Assert.That(settingsPanel.gameObject.activeSelf, Is.True);
+        settingsPanel.Find("Master Slider").GetComponent<Slider>().value = .4f;
+        Assert.That(AudioListener.volume, Is.EqualTo(.4f).Within(.01f));
+        settingsPanel.Find("Controls").GetComponent<Button>().onClick.Invoke();
+        Assert.That(GameSettings.Layout, Is.EqualTo(ControlLayout.Mirrored));
+        secondary.onClick.Invoke();
+        Assert.That(app.State, Is.EqualTo(AppState.MainMenu));
+        Assert.That(settingsPanel.gameObject.activeSelf, Is.False);
         Assert.That(EventSystem.current.currentSelectedGameObject, Is.SameAs(primary.gameObject));
         primary.onClick.Invoke();
         Assert.That(app.State, Is.EqualTo(AppState.Selection));
@@ -68,6 +80,7 @@ public sealed class AppFlowTests
         Assert.That(panel.gameObject.activeSelf, Is.False);
 
         var match = Object.FindFirstObjectByType<MatchController>();
+        Assert.That(Object.FindFirstObjectByType<WobbleBrawl.UI.MatchTouchControls>(), Is.Not.Null);
         var pauseButton = app.transform.Find("App Canvas/Pause Match").GetComponent<Button>();
         Assert.That(pauseButton.gameObject.activeSelf, Is.True, "Pause must appear when round one starts.");
         var round = match.GetComponent<RoundController>();
@@ -78,6 +91,12 @@ public sealed class AppFlowTests
         Assert.That(app.IsPaused, Is.True);
         Assert.That(panel.gameObject.activeSelf, Is.True);
         Assert.That(Time.timeScale, Is.Zero);
+        settings.onClick.Invoke();
+        Assert.That(settingsPanel.gameObject.activeSelf, Is.True);
+        settingsPanel.Find("Controls").GetComponent<Button>().onClick.Invoke();
+        Assert.That(GameSettings.Layout, Is.EqualTo(ControlLayout.Standard));
+        secondary.onClick.Invoke();
+        Assert.That(app.IsPaused, Is.True);
         yield return new WaitForSecondsRealtime(1.2f);
         Assert.That(round.SecondsRemaining, Is.EqualTo(seconds));
         Assert.That(hazard.PhaseElapsed, Is.EqualTo(hazardTime));

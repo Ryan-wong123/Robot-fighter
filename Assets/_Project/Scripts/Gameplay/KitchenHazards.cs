@@ -51,7 +51,12 @@ namespace WobbleBrawl.Gameplay
             return false;
         }
 
-        private void Awake() => cycle = GetComponent<HazardController>();
+        private void Awake()
+        {
+            cycle = GetComponent<HazardController>();
+            if (warningAudio != null && !warningAudio.TryGetComponent<SettingsAudioSource>(out _))
+                warningAudio.gameObject.AddComponent<SettingsAudioSource>();
+        }
         private void OnEnable() => cycle.PhaseChanged += OnPhaseChanged;
 
         private void OnDisable()

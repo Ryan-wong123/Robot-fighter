@@ -21,6 +21,9 @@ namespace WobbleBrawl.UI
         private Button primary;
         private Button secondary;
         private Button pauseButton;
+        private Button settingsButton;
+        private GameObject settingsPanel;
+        private bool settingsOpen;
         private Button[] stageButtons;
         private Text primaryText;
         private Text secondaryText;
@@ -68,6 +71,13 @@ namespace WobbleBrawl.UI
             }
             primary.onClick.AddListener(PrimaryAction);
             secondary.onClick.AddListener(SecondaryAction);
+            settingsButton = CreateButton("Settings Action", -173f, Cream, out var settingsCaption);
+            settingsCaption.text = "Settings";
+            settingsButton.onClick.AddListener(() => { settingsOpen = true; Render(); });
+            settingsPanel = Child(safeContent, "Settings Controls", typeof(RectTransform));
+            Stretch((RectTransform)settingsPanel.transform, Vector2.zero, Vector2.one);
+            settingsPanel.AddComponent<SettingsView>().Build(font);
+            settingsPanel.SetActive(false);
             pauseButton = CreateButton("Pause Match", 0f, Cream, out var pauseCaption);
             pauseCaption.text = "Pause";
             var pauseRect = (RectTransform)pauseButton.transform;
@@ -99,7 +109,9 @@ namespace WobbleBrawl.UI
         {
             if (app.IsPrimary && Input.GetKeyDown(KeyCode.Escape))
             {
-                if (app.State == AppState.Match)
+                if (settingsOpen)
+                    SecondaryAction();
+                else if (app.State == AppState.Match)
                     app.TogglePause();
                 else if (app.State == AppState.Selection)
                     app.ReturnToMenu();
@@ -144,6 +156,8 @@ namespace WobbleBrawl.UI
         private void Render()
         {
             bool visible = app.State != AppState.Match || app.IsLoading || app.IsPaused;
+            if (!visible || app.IsLoading)
+                settingsOpen = false;
             pauseButton.gameObject.SetActive(app.State == AppState.Match && !app.IsLoading && !app.IsPaused);
             pauseButton.interactable = app.CanPause;
             panel.SetActive(visible);
@@ -152,7 +166,10 @@ namespace WobbleBrawl.UI
             if (!visible)
                 return;
 
-            bool mainMenu = !app.IsLoading && app.State == AppState.MainMenu;
+            settingsPanel.SetActive(settingsOpen);
+            settingsButton.gameObject.SetActive(!app.IsLoading && !settingsOpen &&
+                (app.State == AppState.MainMenu || app.IsPaused));
+            bool mainMenu = !settingsOpen && !app.IsLoading && app.State == AppState.MainMenu;
             bool stageSelection = !app.IsLoading && app.State == AppState.Selection && app.Step == SelectionStep.Stage;
             menuArt.gameObject.SetActive(mainMenu);
             menuRail.SetActive(mainMenu && menuArt.texture != null);
@@ -160,18 +177,28 @@ namespace WobbleBrawl.UI
                 LayoutMainMenu();
             else
                 LayoutFlowScreen();
-            primary.gameObject.SetActive(!app.IsLoading);
-            secondary.gameObject.SetActive(!app.IsLoading && app.State != AppState.MainMenu);
+            primary.gameObject.SetActive(!app.IsLoading && !settingsOpen);
+            secondary.gameObject.SetActive(!app.IsLoading && (settingsOpen || app.State != AppState.MainMenu));
             primary.interactable = !stageSelection || app.CanStartMatch;
             for (int index = 0; index < stageButtons.Length; index++)
             {
-                stageButtons[index].gameObject.SetActive(stageSelection);
+                stageButtons[index].gameObject.SetActive(stageSelection && !settingsOpen);
                 stageButtons[index].targetGraphic.color = index == app.StageIndex ? Green : Cream;
             }
             if (app.IsLoading)
             {
                 title.text = "Loading";
                 description.text = "";
+                return;
+            }
+            if (settingsOpen)
+            {
+                title.text = "Settings";
+                Place(title.rectTransform, 640f, 78f, 250f);
+                description.text = "";
+                secondaryText.text = "Back";
+                Place((RectTransform)secondary.transform, 310f, 58f, -255f);
+                input.SetSelectedGameObject(settingsPanel.transform.Find("Master Slider").gameObject);
                 return;
             }
 
@@ -181,6 +208,7 @@ namespace WobbleBrawl.UI
                     title.text = "WOBBLE\nBRAWL";
                     description.text = "";
                     primaryText.text = "Quick Fight";
+                    Place((RectTransform)settingsButton.transform, 350f, 58f, -173f, new Vector2(.2f, .5f));
                     break;
                 case AppState.Selection:
                     title.text = stageSelection ? "Choose Arena" : "Choose Fighter";
@@ -208,6 +236,7 @@ namespace WobbleBrawl.UI
                     description.text = "";
                     primaryText.text = "Resume";
                     secondaryText.text = "Main Menu";
+                    Place((RectTransform)settingsButton.transform, 310f, 58f, -190f);
                     break;
             }
             input.SetSelectedGameObject(stageSelection && stageButtons.Length > 0
@@ -253,7 +282,16 @@ namespace WobbleBrawl.UI
                 app.StartMatch();
         }
 
-        private void SecondaryAction() => app.ReturnToMenu();
+        private void SecondaryAction()
+        {
+            if (settingsOpen)
+            {
+                settingsOpen = false;
+                Render();
+            }
+            else
+                app.ReturnToMenu();
+        }
 
         private Button CreateButton(string name, float y, Color background, out Text caption)
         {

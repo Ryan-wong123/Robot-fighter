@@ -318,3 +318,5 @@ The combat sandbox uses layer 8 for the arena floor and layer 9 for fighter hurt
 The partial hit reaction starts with a 40-degree rotation on the selected dynamic bone, then blends its simulated pose back into animation over the 0.48-second reaction.
 
 The app pause overlay uses MatchPause to freeze simulation time during a live round. Results records the final match score and offers rematch and menu navigation. Escape toggles pause.
+
+GameSettings holds session volume, haptics, layout and quality choices. SettingsAudioSource applies a music or SFX multiplier to its original volume. Stage warning sources use SFX. MatchTouchControls mirrors the movement and attack groups within the HUD safe area.

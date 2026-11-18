@@ -23,6 +23,18 @@ namespace WobbleBrawl.Gameplay
         private Rigidbody body;
         private Hitbox hitbox;
         private IFighterInput input;
+        private FighterIntent touchIntent;
+
+        public void SubmitTouchIntent(FighterIntent intent)
+        {
+            touchIntent.Move = intent.Move;
+            touchIntent.Block = intent.Block;
+            touchIntent.Jump |= intent.Jump;
+            touchIntent.Punch |= intent.Punch;
+            touchIntent.Kick |= intent.Kick;
+            touchIntent.Special |= intent.Special;
+            touchIntent.Throw |= intent.Throw;
+        }
         private MoveDef move, comboMove, moveRoot, comboRoot;
         private int moveFrame, comboWindow, stun, immunity, comboHits, accumulatedStun, guardRecovery;
         private bool hit, roundActive;
@@ -151,6 +163,15 @@ namespace WobbleBrawl.Gameplay
             if (comboWindow > 0)
                 comboWindow--;
             FighterIntent intent = input?.ReadIntent() ?? default;
+            if (touchIntent.Move != 0f)
+                intent.Move = touchIntent.Move;
+            intent.Block |= touchIntent.Block;
+            intent.Jump |= touchIntent.Jump;
+            intent.Punch |= touchIntent.Punch;
+            intent.Kick |= touchIntent.Kick;
+            intent.Special |= touchIntent.Special;
+            intent.Throw |= touchIntent.Throw;
+            touchIntent.Jump = touchIntent.Punch = touchIntent.Kick = touchIntent.Special = touchIntent.Throw = false;
             if (input is AIInput { IsPaused: true })
                 move = null;
             if (move != null)

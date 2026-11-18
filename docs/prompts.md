@@ -557,7 +557,9 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Section:** M3 — Game shell (weeks 9-10)
 - **Prerequisites:** M3-02
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** AppFlowTests exercises settings from the menu and pause screen, verifies master volume, and changes the touch layout.
+
+**Playtest:** Open Settings from the menu. Change Master, Music, SFX, Haptics, Controls, and Graphics. In a fight open Pause > Settings, switch Standard/Mirrored, return and resume. Verify movement and attack controls exchange sides and work. Check stage warnings get quieter with SFX. Haptics require an Android device. Music bus playback is checked when music is added in M3-08. Values last for the current app session; M3-07 adds saving.
 
 ### M3-07 — `SaveService` (versioned JSON, atomic write) + tests
 - **Section:** M3 — Game shell (weeks 9-10)

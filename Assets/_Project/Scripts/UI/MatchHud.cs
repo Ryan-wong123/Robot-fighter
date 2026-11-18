@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using WobbleBrawl.Flow;
 using WobbleBrawl.Gameplay;
 
@@ -50,6 +51,7 @@ namespace WobbleBrawl.UI
             canvasNode.transform.SetParent(transform, false);
             var canvas = canvasNode.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvasNode.AddComponent<GraphicRaycaster>();
             canvas.sortingOrder = -1;
             var scaler = canvasNode.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
@@ -58,6 +60,12 @@ namespace WobbleBrawl.UI
 
             safeArea = Rect(canvasNode.transform, "Safe Area");
             Fit(safeArea, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+            if (EventSystem.current == null)
+            {
+                var events = new GameObject("Match Event System", typeof(EventSystem), typeof(StandaloneInputModule));
+                events.transform.SetParent(transform, false);
+            }
+            gameObject.AddComponent<MatchTouchControls>().Initialize(round.Player, safeArea, font);
             player = BuildSide("Player", Mint, false);
             opponent = BuildSide("Opponent", Coral, true);
 
