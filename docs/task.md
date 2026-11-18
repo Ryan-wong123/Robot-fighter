@@ -83,6 +83,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [ ] **M2-07** AI difficulty tiers (`AIProfile`) and item/hazard awareness (after: M1-08, M2-01, M2-03)
 - [ ] **M2-08** Playtest: chaos feels fair (owner) (after: M2-02, M2-05, M2-07)
 - [ ] **M2-09** No `GameObject.Find`/`FindObjectOfType`/`SendMessage` left anywhere in project scripts, prototype code included (after: M1-01, M1-07, M2-01)
+- [x] **M2-10** Model the six combat pickups in Blender and integrate their visuals into the Unity prefabs (after: M2-02)
 
 ## M3 — Game shell (weeks 9-10)
 - [ ] **M3-01** App state flow and boot scene (after: M1-07)

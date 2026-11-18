@@ -50,7 +50,7 @@
 - **Hazards:**
   - **Rising Water:** the water level rises over about 3 s and then drains. While water is high: movement x0.8, jump height x1.2, floaty ragdoll. *Telegraph:* the faucet drips and rattles, a blue wave line on the wall. *Counterplay:* fight on the soap bars (platforms) to stay dry **[PROPOSED]**.
   - **Rubber Duck Wave:** a giant duck floats across the back and sends a wave from one side. *Telegraph:* duck shadow and a "quack" sound from the incoming side. *Effect:* pushes fighters (knockback, no damage) **(start)**.
-- **Items:** spawn on soap bars and floor; slippery soap makes the banana peel feel at home.
+- **Items:** spawn on soap bars and floor; slippery soap makes the banana peel feel at home. The combat pickup art borrows the rounded toy shapes and saturated colors from the Bathtub Brawl and Kitchen Counter color keys.
 - **Ambient:** floating bubbles (low count), drip sounds.
 - **Music:** lighthearted ukulele and bubble pops.
 - **Unlock:** default.

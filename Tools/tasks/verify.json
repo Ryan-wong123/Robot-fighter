@@ -138,6 +138,21 @@
   "M2-02": [
     "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests"
   ],
+  "M2-10": [
+    "python3 Tools/tasks/checks.py file-exists Art/_Source/Items/CombatPickups.blend",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/BananaPeel.fbx",
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Prefabs/BananaPeel.prefab \"Blender Visual\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/FoamGlove.fbx",
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Prefabs/FoamGlove.prefab \"Blender Visual\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/RubberChicken.fbx",
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Prefabs/RubberChicken.prefab \"Blender Visual\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/RocketPlunger.fbx",
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Prefabs/RocketPlunger.prefab \"Blender Visual\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/WhoopeeCushion.fbx",
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Prefabs/WhoopeeCushion.prefab \"Blender Visual\"",
+    "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/Anvil.fbx",
+    "python3 Tools/tasks/checks.py file-contains Assets/_Project/Prefabs/Anvil.prefab \"Blender Visual\""
+  ],
   "M1-14": [
     "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner confirmed the Android performance playtest passed.\""
   ],

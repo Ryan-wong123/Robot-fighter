@@ -162,6 +162,8 @@ The Blobby sandbox temporarily simulates a jointed torso or leg bone on unblocke
 
 ## 8. Items & Hazards
 
+The six combat pickups use static meshes from `Art/_Source/Items/CombatPickups.blend`. The Unity prefabs keep their pooled root and trigger collider. An imported FBX child supplies the visuals with shared URP palette materials.
+
 ### 8.1 Items
 ```csharp
 [CreateAssetMenu] public class ItemDef : ScriptableObject {

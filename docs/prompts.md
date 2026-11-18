@@ -423,6 +423,13 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** Open CombatSandbox and press Play. Walk over an item and press **U** to use it. The foam glove activates on contact with the pickup. The opening lineup from left to right is banana peel (yellow), foam glove (red), rubber chicken (orange), rocket plunger (blue), whoopee cushion (pink), and anvil (purple). To see both chicken bounces, throw it along a clear stretch of floor. For the cushion, use it near the opponent. To test the anvil, place it ahead of an approaching opponent and watch the marked spot through the drop.
 
+### M2-10 — Blender models for the six combat pickups
+
+- **Prerequisite:** M2-02.
+- **References:** the pickup descriptions in [PRD section 8](PRD.md#8-items-absurd-pickups), the [art brief](art_prompts.md), and the stage color keys in [maps.md](maps.md). The color keys inform the palette and toy-like proportions. The six pickup silhouettes are original to this project.
+- **Source:** `Art/_Source/Items/CombatPickups.blend`. To regenerate, run `blender -b --factory-startup --python-exit-code 1 --python Tools/Blender/build_combat_items.py -- <new-source.blend> <export-directory>`. The exporter writes static FBXs with Forward -Z and Up Y. Unity's **Wobble Brawl > Apply Combat Pickup Art** links the meshes and palette materials to the existing prefabs.
+- **Done when:** all six FBXs are available and each corresponding pooled prefab has its Blender mesh assigned. In CombatSandbox, check readability from the fight camera and their placement while held and deployed.
+
 ### M2-03 — `HazardDef` + `HazardController` (telegraph, active, cooldown)
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M1-07
