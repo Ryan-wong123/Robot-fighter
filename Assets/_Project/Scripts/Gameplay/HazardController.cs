@@ -23,6 +23,7 @@ namespace WobbleBrawl.Gameplay
 
         public event Action<HazardPhase> PhaseChanged;
         public HazardPhase Phase { get; private set; }
+        public float PhaseElapsed => phaseDuration - remaining;
         public float PhaseProgress => phaseDuration <= 0f ? 1f : Mathf.Clamp01(1f - remaining / phaseDuration);
 
         public void BeginRound(int roundIndex)

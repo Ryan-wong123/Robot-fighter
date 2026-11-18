@@ -451,11 +451,15 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** Open **BathtubBrawl** and press Play. Press **Space** to pause the AI. At about 15 seconds, look for faucet drips and a blue waterline and listen for the drip cue. Water should rise over three seconds, remain high briefly, then drain. Compare running and jumping before, during, and after the rise. On the next warning, watch for a shadow and left-pointing chevron on the right and listen for the quack. Stand in the wave's path to check for leftward knockback with no health loss. On a later wave, jump above the crest to avoid it. If a round ends during a hazard, verify the visuals and water modifiers clear and the next round starts with the faucet warning again.
 
+**Owner playtest:** The owner verified rising water, soap platforms, duck-wave behavior at the faster 3.4-second crossing, and round reset.
+
 ### M2-05 — Stage 2: Kitchen Counter (art + hazard)
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M2-03
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `KitchenStageTests` confirms a safe toast warning, damage at the toast landing point, directional conveyor movement, reversal, and no damage from the conveyor.
+
+**Playtest:** Open **KitchenCounter** and press Play. Press **Space** to pause the AI. At about 15 seconds, watch for red coils, two floor crosses, and a ticking cue. Stand on a cross on one pass and step clear on another. The toast should deal damage and push the fighter it hits. At the following warning, stand on the black tread and check for arrows and a mixer whir. Release movement and step back onto the belt after the arrows reverse to check both directions. The belt should move you without damage and clear its direction arrows after the activation. A new round should start with toast again.
 
 ### M2-06 — Comic/impact VFX set
 - **Section:** M2 — Chaos layer (weeks 6-8)

@@ -78,7 +78,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **M2-02** Six items implemented (banana peel, foam glove, rubber chicken, rocket plunger, whoopee cushion, anvil) (after: M2-01)
 - [x] **M2-03** `HazardDef` + `HazardController` (telegraph, active, cooldown) (after: M1-07)
 - [x] **M2-04** Stage 1: Bathtub Brawl (art + hazard) (after: M2-03)
-- [ ] **M2-05** Stage 2: Kitchen Counter (art + hazard) (after: M2-03)
+- [x] **M2-05** Stage 2: Kitchen Counter (art + hazard) (after: M2-03)
 - [ ] **M2-06** Comic/impact VFX set (after: M1-06)
 - [ ] **M2-07** AI difficulty tiers (`AIProfile`) and item/hazard awareness (after: M1-08, M2-01, M2-03)
 - [ ] **M2-08** Playtest: chaos feels fair (owner) (after: M2-02, M2-05, M2-07)

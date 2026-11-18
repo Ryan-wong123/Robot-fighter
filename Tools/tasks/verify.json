@@ -144,6 +144,9 @@
   "M2-04": [
     "bash Tools/tasks/run_unity_tests.sh EditMode BathtubStageTests"
   ],
+  "M2-05": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode KitchenStageTests"
+  ],
   "M2-10": [
     "python3 Tools/tasks/checks.py file-exists Art/_Source/Items/CombatPickups.blend",
     "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/BananaPeel.fbx",

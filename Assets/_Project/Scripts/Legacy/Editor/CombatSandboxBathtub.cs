@@ -21,26 +21,8 @@ public static partial class CombatSandboxBuilder
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
             return;
 
-        var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
-        RoundController round = null;
-        Transform floor = null;
-        foreach (var root in scene.GetRootGameObjects())
-        {
-            if (root.TryGetComponent<RoundController>(out var controller))
-                round = controller;
-            if (root.layer == 8 && root.GetComponent<BoxCollider>() != null)
-                floor = root.transform;
-            if (root.TryGetComponent<Camera>(out var camera) && !root.TryGetComponent<AudioListener>(out _))
-                camera.gameObject.AddComponent<AudioListener>();
-        }
-        if (round == null || floor == null)
-            throw new InvalidOperationException("Bathtub Brawl requires the CombatSandbox round and arena floor.");
-
+        var (scene, round, floor) = OpenStageTemplate();
         var roundData = new SerializedObject(round);
-        var prior = (HazardController)roundData.FindProperty("hazard").objectReferenceValue;
-        if (prior != null)
-            Object.DestroyImmediate(prior.gameObject);
-
         var stage = new GameObject("Bathtub Brawl Environment").transform;
         var porcelain = StageMaterial("Porcelain", new Color(.94f, .99f, 1f));
         var trim = StageMaterial("Tub Trim", new Color(.34f, .78f, .85f));
@@ -178,6 +160,30 @@ public static partial class CombatSandboxBuilder
         AssetDatabase.SaveAssets();
     }
 
+    private static (UnityEngine.SceneManagement.Scene Scene, RoundController Round, Transform Floor) OpenStageTemplate()
+    {
+        var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        RoundController round = null;
+        Transform floor = null;
+        foreach (var root in scene.GetRootGameObjects())
+        {
+            if (root.TryGetComponent<RoundController>(out var controller))
+                round = controller;
+            if (root.layer == 8 && root.GetComponent<BoxCollider>() != null)
+                floor = root.transform;
+            if (root.TryGetComponent<Camera>(out var camera) && !root.TryGetComponent<AudioListener>(out _))
+                camera.gameObject.AddComponent<AudioListener>();
+        }
+        if (round == null || floor == null)
+            throw new InvalidOperationException("Stage template requires the CombatSandbox round and arena floor.");
+
+        var roundData = new SerializedObject(round);
+        var prior = (HazardController)roundData.FindProperty("hazard").objectReferenceValue;
+        if (prior != null)
+            Object.DestroyImmediate(prior.gameObject);
+        return (scene, round, floor);
+    }
+
     private static Transform Group(Transform parent, string label, Vector3 position)
     {
         var group = new GameObject(label).transform;
@@ -218,9 +224,9 @@ public static partial class CombatSandboxBuilder
         return part;
     }
 
-    private static Material StageMaterial(string label, Color color, float metallic = 0f)
+    private static Material StageMaterial(string label, Color color, float metallic = 0f, string folder = BathtubArt)
     {
-        string path = BathtubArt + "/" + label.Replace(" ", "") + ".mat";
+        string path = folder + "/" + label.Replace(" ", "") + ".mat";
         var material = AssetDatabase.LoadAssetAtPath<Material>(path);
         if (material != null)
             return material;

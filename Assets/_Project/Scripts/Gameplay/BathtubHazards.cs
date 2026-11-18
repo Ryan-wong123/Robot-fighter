@@ -18,6 +18,7 @@ namespace WobbleBrawl.Gameplay
         [SerializeField] private MoveDef waveHit;
         [SerializeField] private float waterHeight = 1.2f;
         [SerializeField] private float waveStartX = 7f;
+        [SerializeField, Min(.1f)] private float waveTravelSeconds = 3.4f;
         [SerializeField, Min(.1f)] private float waveHalfWidth = .75f;
         [SerializeField, Min(.1f)] private float waveHeight = .65f;
         [SerializeField] private Vector3 wetMultipliers = new Vector3(.8f, 1.2f, .55f);
@@ -83,7 +84,7 @@ namespace WobbleBrawl.Gameplay
             if (cycle.Phase == HazardPhase.Active)
             {
                 if (isDuckCycle)
-                    UpdateWave(progress);
+                    UpdateWave(cycle.PhaseElapsed / waveTravelSeconds);
                 else
                     UpdateWater(Mathf.Clamp01(progress * 4f / 3f) * waterHeight);
             }
@@ -109,6 +110,12 @@ namespace WobbleBrawl.Gameplay
 
         private void UpdateWave(float progress)
         {
+            if (progress >= 1f)
+            {
+                SetX(duck, -waveStartX);
+                wave.gameObject.SetActive(false);
+                return;
+            }
             float x = Mathf.Lerp(waveStartX, -waveStartX, progress);
             SetX(wave, x);
             SetX(duck, x);

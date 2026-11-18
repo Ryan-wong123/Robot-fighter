@@ -38,6 +38,7 @@ namespace WobbleBrawl.Gameplay
         private float clipTime;
         private VisualRagdoll ragdoll;
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
+        private float conveyorSpeed;
         public int Facing { get; private set; } = 1;
         public int Team => team;
         public bool CanInteractWithItems => roundActive && IsAlive;
@@ -80,6 +81,7 @@ namespace WobbleBrawl.Gameplay
         {
             ragdoll?.Reset();
             SetWater(1f, 1f, 1f);
+            conveyorSpeed = 0f;
             EndFreeze();
             body.position = position;
             body.linearVelocity = Vector3.zero;
@@ -163,7 +165,7 @@ namespace WobbleBrawl.Gameplay
                 moveFrame = 0;
                 hit = false;
                 State = FighterState.Attacking;
-                SetHorizontal(0);
+                SetHorizontal(conveyorSpeed);
                 if (animator != null && !string.IsNullOrEmpty(move.AnimationTrigger))
                     PlayClip(move.AnimationTrigger);
                 return;
@@ -173,7 +175,7 @@ namespace WobbleBrawl.Gameplay
             {
                 State = FighterState.Blocking;
                 PlayClip("Block");
-                SetHorizontal(0);
+                SetHorizontal(conveyorSpeed);
                 return;
             }
             if (Guard < character.MaxGuard && ++guardRecovery >= GuardRecoveryInterval)
@@ -186,7 +188,7 @@ namespace WobbleBrawl.Gameplay
             float horizontal = Mathf.Clamp(intent.Move, -1f, 1f);
             if (horizontal != 0f)
                 Facing = horizontal > 0f ? 1 : -1;
-            SetHorizontal(horizontal * character.MoveSpeed * waterMove);
+            SetHorizontal(horizontal * character.MoveSpeed * waterMove + (grounded ? conveyorSpeed : 0f));
             if (intent.Jump && grounded)
                 body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump, 0f);
             State = !grounded || intent.Jump ? FighterState.Airborne :
@@ -273,6 +275,7 @@ namespace WobbleBrawl.Gameplay
         public bool ReceiveHit(HitInfo info) => ResolveHit(info, false);
         internal bool ReceiveItemHit(HitInfo info) => ResolveHit(info, true);
         internal bool ReceiveHazardHit(HitInfo info) => ResolveHit(info, true);
+        internal void SetConveyorSpeed(float speed) => conveyorSpeed = speed;
 
         internal void SetWater(float moveMultiplier, float jumpMultiplier, float gravityMultiplier)
         {

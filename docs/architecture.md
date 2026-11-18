@@ -189,6 +189,8 @@ A `HazardController` uses fixed-step timing, emits phase events, and enforces a 
 
 Bathtub Brawl is a standalone scene wired to the existing match flow. Its `BathtubHazards` component uses the shared hazard clock to alternate water and duck-wave activations. Water sets movement, jump, and ragdoll gravity multipliers on submerged fighters. The moving wave uses the same attacker-less hit resolution as the sandbox hazard.
 
+Kitchen Counter is a standalone scene with a `KitchenHazards` component that alternates toast and mixer activations on the same clock. Toast checks hurtboxes along two authored arcs and uses attacker-less hit resolution. The belt adds signed speed to the grounded fighter motor. The stage component clears that speed on phase changes and round end.
+
 ## 9. Match Flow
 ```
 AppStateMachine:  Boot -> MainMenu -> Selection -> Match -> Results -> MainMenu
