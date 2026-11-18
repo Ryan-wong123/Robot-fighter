@@ -32,6 +32,8 @@
 *Generated schematic: the launch shape vocabulary (star bursts, rings, speed lines, dust, confetti, dizzy stars, comic text).*
 
 ### 2.3 Comic text
+
+M2-06 applies six event-driven cues in CombatSandbox, Bathtub Brawl, and Kitchen Counter. BONK uses a small yellow burst, POW uses a larger orange burst and ring, KABOOM uses a violet special burst, CLANG uses a cool segmented ring, CRACK uses uneven violet shards, and KO uses radial speed lines. Heavy and special bursts flash white briefly. One label and burst graphic per fighter are reused, with scale-pop and fade driven by unscaled time. The palette is in `CombatImpactPalette.json`.
 - Onomatopoeia popups: `BONK`, `POW`, `SPLAT`, `BOING`, `HONK`, `FWAP`, `SQUEAK`, `KO!`, `PERFECT`.
 - Spawned at the impact point, scale-pop overshoot (0.6 -> 1.3 -> 1.0), slight random rotation (+/- 12 deg), 0.5-0.8 s life, fades with a small upward drift.
 - Heavier hits use bigger text and more letters; blocks use `BLOCK`/`CLANG` in a cool color.

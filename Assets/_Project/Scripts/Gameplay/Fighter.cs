@@ -39,6 +39,8 @@ namespace WobbleBrawl.Gameplay
         private VisualRagdoll ragdoll;
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
         private float conveyorSpeed;
+        public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
+
         public int Facing { get; private set; } = 1;
         public int Team => team;
         public bool CanInteractWithItems => roundActive && IsAlive;
@@ -291,7 +293,7 @@ namespace WobbleBrawl.Gameplay
             var result = DamageResolver.Resolve(info.Zone, info.Move.BodyDamage, info.Move.LegDamage,
                 Guard, info.Move.GuardCost, info.Move.StunFrames, comboHits, accumulatedStun,
                 State == FighterState.Blocking, !externalHit && info.Attacker != null &&
-                info.Move == info.Attacker.character.Special, false);
+                info.Attacker.IsSpecialMove(info.Move), false);
             Health = Mathf.Max(0, Health - result.Damage);
             Guard = result.Guard;
             move = null;

@@ -467,7 +467,9 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M1-06
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13; docs/vfx_style.md (sections 3 and 4)
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `CombatImpactTests` verifies the six impact outcomes and the sandbox shows heavy and KO cues on the same reusable graphic.
+
+**Playtest:** In CombatSandbox, press Space to pause the AI and use J and K for clean punches and kicks. Look for a small BONK burst and a larger POW burst with a ring. Resume the AI and hold S through incoming attacks to see CLANG and the guard-break CRACK. Charge special with landed attacks and press L to check KABOOM. Finish a round and look for KO text and speed lines during the existing KO camera effect.
 
 ### M2-07 — AI difficulty tiers (`AIProfile`) and item/hazard awareness
 - **Section:** M2 — Chaos layer (weeks 6-8)

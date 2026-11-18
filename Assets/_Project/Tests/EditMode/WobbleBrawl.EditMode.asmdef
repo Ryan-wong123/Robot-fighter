@@ -2,7 +2,10 @@
   "name": "WobbleBrawl.EditMode",
   "references": [
     "WobbleBrawl.Gameplay",
-    "WobbleBrawl.Flow"
+    "WobbleBrawl.Flow",
+    "WobbleBrawl.Data",
+    "WobbleBrawl.UI",
+    "UnityEngine.UI"
   ],
   "includePlatforms": [
     "Editor"

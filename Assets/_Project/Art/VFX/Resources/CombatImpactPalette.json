@@ -1,0 +1,11 @@
+{
+  "heavyDamage": 12,
+  "styles": [
+    { "text": "BONK!",  "tint": "#FFE357", "lifetime": 0.52, "size": 0.8 },
+    { "text": "POW!",   "tint": "#FF9C48", "lifetime": 0.64, "size": 1.1 },
+    { "text": "KABOOM!", "tint": "#E995FF", "lifetime": 0.8, "size": 1.38 },
+    { "text": "CLANG!", "tint": "#83EAFF", "lifetime": 0.56, "size": 0.86 },
+    { "text": "CRACK!", "tint": "#D7ACFF", "lifetime": 1.0, "size": 1.15 },
+    { "text": "KO!",    "tint": "#FFE053", "lifetime": 1.5, "size": 1.65 }
+  ]
+}

@@ -2,6 +2,7 @@
   "name": "WobbleBrawl.UI",
   "references": [
     "WobbleBrawl.Core",
+    "WobbleBrawl.Data",
     "WobbleBrawl.Flow",
     "WobbleBrawl.Gameplay",
     "UnityEngine.UI"

@@ -141,6 +141,8 @@ Takes `HitInfo` + defender state -> `HitResult` (final damage, blocked?, guard-b
 - Wake-up invulnerability.
 
 ### 6.3 Hit-stop & game feel
+
+The UI subscribes to `Fighter.HitResolved` and selects an impact cue from `CombatImpactPalette.json`. Each fighter reuses one label and one unlit Canvas mesh to render comic text, bursts, and rings during hit-stop and KO slow motion.
 `HitStopService` briefly freezes the two fighters' animators (not global `Time.timeScale`, so the UI/VFX continue) for the move's hit-stop duration. Camera shake and comic-text popups are triggered by `OnHitResolved` events, never by combat code directly.
 
 ## 7. Ragdoll System (key differentiator)
