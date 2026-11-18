@@ -46,6 +46,7 @@ namespace WobbleBrawl.UI
 
         private void Awake()
         {
+            gameObject.AddComponent<MatchAudio>();
             font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             var canvasNode = new GameObject("Match HUD Canvas", typeof(Canvas), typeof(CanvasScaler));
             canvasNode.transform.SetParent(transform, false);

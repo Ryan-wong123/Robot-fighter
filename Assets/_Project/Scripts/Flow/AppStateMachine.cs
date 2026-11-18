@@ -57,6 +57,7 @@ namespace WobbleBrawl.Flow
             }
             running = this;
             DontDestroyOnLoad(gameObject);
+            AudioManager.Ensure(transform);
         }
 
         private void Start()

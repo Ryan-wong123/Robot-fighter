@@ -232,6 +232,8 @@ Evolves `MoveCamera`: frames all fighters, clamps to stage bounds, adds shake, p
 
 Services are reached via a small explicit locator or injected through `MatchController`/scene bootstrapper. No static singletons with hidden state beyond the `Boot` scene.
 
+AudioManager is attached to the persistent Boot app root. Direct arena play creates a scene-local manager through MatchAudio. It preallocates eight SFX sources, one menu source, and a looping music source. Music changes on scene load and ducks briefly for KO and win cues. MatchAudio subscribes to fighter and match events. Stage warning sources retain their existing cues through SettingsAudioSource. Generated placeholder clips and their generator are recorded in Tools/Audio.
+
 ## 14. Performance Budget (mobile)
 - Draw calls: < 150; SRP batching/GPU instancing **[VERIFY]**.
 - Per fighter: <= 12k tris, <= 30 bones, 1-2 materials, a 1024 atlas.

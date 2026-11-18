@@ -7,6 +7,7 @@ namespace WobbleBrawl.Core
         [SerializeField] private SoundBus bus = SoundBus.Sfx;
         private AudioSource source;
         private float originalVolume;
+        private bool wasPaused;
 
         private void Awake()
         {
@@ -15,6 +16,14 @@ namespace WobbleBrawl.Core
         }
         private void OnEnable() { GameSettings.Changed += Apply; Apply(); }
         private void OnDisable() => GameSettings.Changed -= Apply;
+        private void Update()
+        {
+            if (wasPaused == MatchPause.IsPaused || bus == SoundBus.Music)
+                return;
+            wasPaused = MatchPause.IsPaused;
+            if (wasPaused) source.Pause();
+            else source.UnPause();
+        }
         private void Apply() => source.volume = originalVolume * (bus == SoundBus.Music ? GameSettings.Music : GameSettings.Sfx);
     }
 }

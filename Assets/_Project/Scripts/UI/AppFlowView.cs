@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using WobbleBrawl.Flow;
+using WobbleBrawl.Core;
 
 namespace WobbleBrawl.UI
 {
@@ -303,6 +304,7 @@ namespace WobbleBrawl.UI
             caption.fontStyle = FontStyle.Bold;
             var button = target.GetComponent<Button>();
             button.targetGraphic = target.GetComponent<Image>();
+            button.onClick.AddListener(() => AudioManager.Play(AudioCue.Click));
             return button;
         }
 

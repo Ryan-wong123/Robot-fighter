@@ -576,7 +576,11 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Section:** M3 — Game shell (weeks 9-10)
 - **Prerequisites:** M3-01
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** AudioManagerTests checks all placeholder clips, the music setting, bounded source allocation, and menu audio during pause.
+
+**Playtest:** Start from Boot and listen for looping menu music and button clicks. Enter each arena and check its music changes. Land punches, kicks, blocks and a special, then finish the match to hear the combat and result cues. Check that Music mutes only the loop, SFX mutes clicks and impacts, and Master mutes everything. Pause during a warning and check gameplay sound pauses while menu clicks still work. Resume, then return to the menu and confirm its music resumes without duplicate loops.
+
+**Owner playtest:** The owner verified M3-07 settings persistence.
 
 ### M3-09 — Voice pipeline: clip list, VoxCPM2 generation script, edit/export steps and per-clip license record in `Tools/Audio/`
 - **Section:** M3 — Game shell (weeks 9-10)
