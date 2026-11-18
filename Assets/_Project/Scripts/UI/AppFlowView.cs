@@ -13,6 +13,9 @@ namespace WobbleBrawl.UI
         private static readonly Color Green = new Color(.64f, .93f, .38f);
         private AppStateMachine app;
         private GameObject panel;
+        private RectTransform safeContent;
+        private RawImage menuArt;
+        private GameObject menuRail;
         private Text title;
         private Text description;
         private Button primary;
@@ -20,6 +23,9 @@ namespace WobbleBrawl.UI
         private Text primaryText;
         private Text secondaryText;
         private Font font;
+        private EventSystem input;
+        private Rect lastSafeArea;
+        private Vector2Int lastScreenSize;
 
         private void Awake()
         {
@@ -37,19 +43,61 @@ namespace WobbleBrawl.UI
             scaler.matchWidthOrHeight = .5f;
             panel = Child(canvas.transform, "App Screen", typeof(CanvasRenderer), typeof(Image));
             panel.GetComponent<Image>().color = Navy;
-            var bounds = (RectTransform)panel.transform;
-            bounds.anchorMin = Vector2.zero;
-            bounds.anchorMax = Vector2.one;
-            bounds.offsetMin = bounds.offsetMax = Vector2.zero;
-            title = Label(panel.transform, "Title", 60, 126f);
-            description = Label(panel.transform, "Description", 24, 47f);
+            Stretch((RectTransform)panel.transform, Vector2.zero, Vector2.one);
+            BuildMenuArtwork();
+            safeContent = (RectTransform)Child(panel.transform, "Safe Content", typeof(RectTransform)).transform;
+            Stretch(safeContent, Vector2.zero, Vector2.one);
+            title = Label(safeContent, "Title", 60, 126f);
+            description = Label(safeContent, "Description", 24, 47f);
             primary = CreateButton("Primary Action", -38f, Green, out primaryText);
             secondary = CreateButton("Secondary Action", -114f, Cream, out secondaryText);
             primary.onClick.AddListener(PrimaryAction);
             secondary.onClick.AddListener(SecondaryAction);
-            var input = new GameObject("App Event System", typeof(EventSystem), typeof(StandaloneInputModule));
-            input.transform.SetParent(transform, false);
+            var inputObject = new GameObject("App Event System", typeof(EventSystem), typeof(StandaloneInputModule));
+            inputObject.transform.SetParent(transform, false);
+            input = inputObject.GetComponent<EventSystem>();
             panel.SetActive(false);
+        }
+
+        private void BuildMenuArtwork()
+        {
+            var art = Child(panel.transform, "Bathtub Brawl Illustration", typeof(CanvasRenderer), typeof(RawImage));
+            menuArt = art.GetComponent<RawImage>();
+            menuArt.texture = Resources.Load<Texture2D>("MainMenuArtwork");
+            menuArt.raycastTarget = false;
+            Stretch(menuArt.rectTransform, Vector2.zero, Vector2.one);
+            menuRail = Child(panel.transform, "Menu Backing", typeof(CanvasRenderer), typeof(Image));
+            var backing = menuRail.GetComponent<Image>();
+            backing.color = new Color(.075f, .094f, .16f, .84f);
+            backing.raycastTarget = false;
+            Stretch(backing.rectTransform, Vector2.zero, new Vector2(.40f, 1f));
+        }
+
+        private void Update()
+        {
+            if (!app.IsPrimary || !panel.activeSelf)
+                return;
+            var screenSize = new Vector2Int(Screen.width, Screen.height);
+            var safeArea = Screen.safeArea;
+            if (screenSize == lastScreenSize && safeArea == lastSafeArea)
+                return;
+            lastScreenSize = screenSize;
+            lastSafeArea = safeArea;
+            if (screenSize.x <= 0 || screenSize.y <= 0)
+                return;
+            if (safeArea.width > 0 && safeArea.height > 0)
+            {
+                Stretch(safeContent, new Vector2(safeArea.xMin / screenSize.x, safeArea.yMin / screenSize.y),
+                    new Vector2(safeArea.xMax / screenSize.x, safeArea.yMax / screenSize.y));
+            }
+            if (menuArt.texture != null)
+            {
+                float screenAspect = (float)screenSize.x / screenSize.y;
+                float artAspect = (float)menuArt.texture.width / menuArt.texture.height;
+                float width = Mathf.Min(1f, screenAspect / artAspect);
+                float height = Mathf.Min(1f, artAspect / screenAspect);
+                menuArt.uvRect = new Rect((1f - width) * .5f, (1f - height) * .5f, width, height);
+            }
         }
 
         private void OnEnable()
@@ -68,9 +116,18 @@ namespace WobbleBrawl.UI
         {
             bool visible = app.State != AppState.Match || app.IsLoading;
             panel.SetActive(visible);
+            if (!visible || app.IsLoading)
+                input.SetSelectedGameObject(null);
             if (!visible)
                 return;
 
+            bool mainMenu = !app.IsLoading && app.State == AppState.MainMenu;
+            menuArt.gameObject.SetActive(mainMenu);
+            menuRail.SetActive(mainMenu && menuArt.texture != null);
+            if (mainMenu)
+                LayoutMainMenu();
+            else
+                LayoutFlowScreen();
             primary.gameObject.SetActive(!app.IsLoading);
             secondary.gameObject.SetActive(!app.IsLoading && app.State != AppState.MainMenu);
             if (app.IsLoading)
@@ -83,7 +140,7 @@ namespace WobbleBrawl.UI
             switch (app.State)
             {
                 case AppState.MainMenu:
-                    title.text = "Wobble Brawl";
+                    title.text = "WOBBLE\nBRAWL";
                     description.text = "";
                     primaryText.text = "Quick Fight";
                     break;
@@ -101,6 +158,32 @@ namespace WobbleBrawl.UI
                     secondaryText.text = "Main Menu";
                     break;
             }
+            input.SetSelectedGameObject(primary.gameObject);
+        }
+
+        private void LayoutMainMenu()
+        {
+            var left = new Vector2(.2f, .5f);
+            title.alignment = TextAnchor.MiddleLeft;
+            title.fontStyle = FontStyle.Bold;
+            title.fontSize = 82;
+            title.lineSpacing = .85f;
+            title.resizeTextForBestFit = true;
+            title.resizeTextMinSize = 44;
+            title.resizeTextMaxSize = 82;
+            Place(title.rectTransform, 350f, 205f, 78f, left);
+            Place((RectTransform)primary.transform, 350f, 74f, -89f, left);
+        }
+
+        private void LayoutFlowScreen()
+        {
+            title.alignment = TextAnchor.MiddleCenter;
+            title.fontStyle = FontStyle.Normal;
+            title.fontSize = 60;
+            title.lineSpacing = 1f;
+            title.resizeTextForBestFit = false;
+            Place(title.rectTransform, 640f, 78f, 126f);
+            Place((RectTransform)primary.transform, 310f, 58f, -38f);
         }
 
         private void PrimaryAction()
@@ -115,7 +198,7 @@ namespace WobbleBrawl.UI
 
         private Button CreateButton(string name, float y, Color background, out Text caption)
         {
-            var target = Child(panel.transform, name, typeof(CanvasRenderer), typeof(Image), typeof(Button));
+            var target = Child(safeContent, name, typeof(CanvasRenderer), typeof(Image), typeof(Button));
             Place((RectTransform)target.transform, 310f, 58f, y);
             target.GetComponent<Image>().color = background;
             caption = Label(target.transform, "Caption", 27, 0f);
@@ -139,11 +222,18 @@ namespace WobbleBrawl.UI
             return label;
         }
 
-        private static void Place(RectTransform rect, float width, float height, float y)
+        private static void Place(RectTransform rect, float width, float height, float y, Vector2? anchor = null)
         {
-            rect.anchorMin = rect.anchorMax = new Vector2(.5f, .5f);
+            rect.anchorMin = rect.anchorMax = anchor ?? new Vector2(.5f, .5f);
             rect.sizeDelta = new Vector2(width, height);
             rect.anchoredPosition = new Vector2(0f, y);
+        }
+
+        private static void Stretch(RectTransform rect, Vector2 min, Vector2 max)
+        {
+            rect.anchorMin = min;
+            rect.anchorMax = max;
+            rect.offsetMin = rect.offsetMax = Vector2.zero;
         }
 
         private static GameObject Child(Transform parent, string name, params System.Type[] components)

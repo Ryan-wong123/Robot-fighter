@@ -507,11 +507,19 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** Open **Boot**, press Play, choose **Quick Fight**, and choose **Start Match**. Complete a best-of-three fight. Watch the last KO presentation, then check that Results shows the outcome. Test **Rematch** to start a fresh fight and **Main Menu** from the next Results screen.
 
+**Owner playtest:** The owner verified the Boot flow through Quick Fight, results, and return navigation.
+
 ### M3-02 — Main menu
 - **Section:** M3 — Game shell (weeks 9-10)
 - **Prerequisites:** M3-01
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `AppFlowTests` confirms the illustration and initial focus appear on the main menu, Quick Fight opens setup, and the menu is restored on return.
+
+**Playtest:** Open **Boot** and press Play. At 16:9 and a second landscape ratio, verify Blobby and the duck remain readable, the two-line title fits, and Quick Fight stays inside the screen. Activate Quick Fight by clicking, then press Back and repeat using Enter or controller Submit with the Game view focused. Start a fight and confirm the illustration clears. On returning to the menu, check artwork and focus are restored.
+
+**Main menu artwork:** `Assets/_Project/Art/Menu/Resources/MainMenuArtwork.png` is a project-generated illustration using [Blobby's poses](images/characters/concept/blobby_poses.png) and the [Bathtub Brawl color key](images/maps/concept/bathtub_brawl_colorkey.png) as style references. The built-in image generator used this prompt:
+
+> Create a landscape 3:2 main menu illustration for Wobble Brawl, using first image as Blobby character reference and second as the Bathtub Brawl stage color and prop reference. One original view: Blobby, a lime-green jellybean fighter with small limbs and mischievous expressive face, lunges playfully toward the viewer from atop a pink soap bar at the right, with a giant yellow rubber duck and chrome faucet behind amid pale blue square tiles and water droplets. Thick colored outlines, flat two-tone cel shading, chunky toy shapes, controlled cyan/green/yellow with warm pink accents. Only in the RIGHT 65 percent pack the readable character and action; the LEFT 35 percent shows darker navy-teal bathroom tile and low-detail shadows, dark enough for a game title overlay. Full bleed, no words, no letters, no logos, no UI.
 
 ### M3-03 — Fighter select and stage select
 - **Section:** M3 — Game shell (weeks 9-10)

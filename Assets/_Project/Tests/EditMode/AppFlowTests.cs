@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
@@ -38,10 +39,15 @@ public sealed class AppFlowTests
         yield return WaitFor(() => app.State == AppState.MainMenu, "initial menu");
         var panel = app.transform.Find("App Canvas/App Screen");
         Assert.That(panel, Is.Not.Null, "Boot must create its navigation panel.");
-        var primary = panel.Find("Primary Action").GetComponent<Button>();
-        var secondary = panel.Find("Secondary Action").GetComponent<Button>();
+        var artwork = panel.Find("Bathtub Brawl Illustration").GetComponent<RawImage>();
+        Assert.That(artwork.texture, Is.Not.Null);
+        Assert.That(artwork.gameObject.activeSelf, Is.True);
+        var primary = panel.Find("Safe Content/Primary Action").GetComponent<Button>();
+        var secondary = panel.Find("Safe Content/Secondary Action").GetComponent<Button>();
+        Assert.That(EventSystem.current.currentSelectedGameObject, Is.SameAs(primary.gameObject));
         primary.onClick.Invoke();
         Assert.That(app.State, Is.EqualTo(AppState.Selection));
+        Assert.That(artwork.gameObject.activeSelf, Is.False);
         secondary.onClick.Invoke();
         Assert.That(app.State, Is.EqualTo(AppState.MainMenu));
         primary.onClick.Invoke();
@@ -73,6 +79,8 @@ public sealed class AppFlowTests
         yield return WaitFor(() => app.State == AppState.MainMenu && !app.IsLoading, "menu return");
         Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("Boot"));
         Assert.That(Object.FindObjectsByType<AppStateMachine>(FindObjectsSortMode.None).Length, Is.EqualTo(1));
+        Assert.That(artwork.gameObject.activeSelf, Is.True);
+        Assert.That(EventSystem.current.currentSelectedGameObject, Is.SameAs(primary.gameObject));
         Object.Destroy(move);
 
     }

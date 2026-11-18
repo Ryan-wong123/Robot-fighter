@@ -200,7 +200,7 @@ MatchController:  holds best-of-3 state, creates fighters from CharacterDefs, ow
 RoundController:  Intro -> Fight -> (KO | TimeUp | SuddenDeath) -> RoundEnd
 ```
 - The `Boot` scene is first in the build. Its app root survives scene loads, and the active match registers its `MatchEnded` event with that root. Results wait for the KO presentation and support rematch or a return to Boot. Opening an arena directly still starts its standalone match.
-- M3-01 uses a minimal uGUI navigation screen and a fixed Blobby-versus-AI match in CombatSandbox. M3-02 and M3-03 add the main menu and selection features.
+- The Boot view renders the illustrated Quick Fight menu and keeps its controls within the display safe area. It selects the primary button when a screen opens so keyboard and controller navigation have a starting focus. M3-03 expands the fixed Blobby-versus-AI setup to fighter and stage selection.
 - `MatchRules` (`HazardsEnabled`, `ItemsEnabled`; the Classic options, see [`maps.md`](maps.md) section 5) is part of the match setup and is read by `HazardController` and `ItemSpawner`. It must be part of the synchronized match config for online play.
 - Round end is evaluated **on the event** (`OnFighterKO`, `OnTimerExpired`), not by polling once a second.
 - Tie at timeout enters **sudden death**; there is no unresolved state.
