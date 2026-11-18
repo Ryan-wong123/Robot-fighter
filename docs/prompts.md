@@ -461,6 +461,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** Open **KitchenCounter** and press Play. Press **Space** to pause the AI. At about 15 seconds, watch for red coils, two floor crosses, and a ticking cue. Stand on a cross on one pass and step clear on another. The toast should deal damage and push the fighter it hits. At the following warning, stand on the black tread and check for arrows and a mixer whir. Release movement and step back onto the belt after the arrows reverse to check both directions. The belt should move you without damage and clear its direction arrows after the activation. A new round should start with toast again.
 
+**Owner playtest:** The owner verified Toast Launch, Mixer Belt, and the round reset.
+
 ### M2-06 — Comic/impact VFX set
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M1-06

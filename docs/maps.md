@@ -40,6 +40,7 @@
 ### 3.1 Bathtub Brawl (Stage 1, default)
 - **Setting:** a giant tub: porcelain floor and walls, soap bars, a rubber duck, bubbles, a faucet and tiles in the background.
 - **Mood / palette:** bright cyan, white and yellow; soft and clean.
+- **Rendering:** Opaque props, including the faucet, use the stage toon palette. The rising water and duck wave use a transparent toon shader so fighters remain visible through them.
 - **Concept art:** color key (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)):
 
   ![Bathtub Brawl color key](images/maps/concept/bathtub_brawl_colorkey.png)
@@ -59,6 +60,7 @@
 ### 3.2 Kitchen Counter (Stage 2)
 - **Setting:** a giant countertop: a cutting board, a toaster, a stand mixer, spilled cereal and a fruit bowl in the background.
 - **Mood / palette:** warm yellow, red and wood tones.
+- **Rendering:** The full arena, including the toaster shell, mixer trim, and hazard markers, uses the opaque toon palette.
 - **Concept art:** color key (sources in [`SOURCES.md`](images/maps/concept/SOURCES.md)):
 
   ![Kitchen Counter color key](images/maps/concept/kitchen_counter_colorkey.png)

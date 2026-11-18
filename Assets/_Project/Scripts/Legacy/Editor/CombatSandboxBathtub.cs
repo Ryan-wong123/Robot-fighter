@@ -29,7 +29,7 @@ public static partial class CombatSandboxBuilder
         var grout = StageMaterial("Grout", new Color(.56f, .82f, .86f));
         var lightTile = StageMaterial("Light Tile", new Color(.82f, .96f, .98f));
         var blueTile = StageMaterial("Blue Tile", new Color(.66f, .88f, .95f));
-        var chrome = StageMaterial("Faucet Chrome", new Color(.47f, .69f, .79f), .45f);
+        var chrome = StageMaterial("Faucet Chrome", new Color(.47f, .69f, .79f));
         var soapPink = StageMaterial("Rose Soap", new Color(.98f, .46f, .65f));
         var soapBlue = StageMaterial("Blue Soap", new Color(.26f, .77f, .93f));
         var duckYellow = StageMaterial("Duck Yellow", new Color(1f, .76f, .13f));
@@ -224,35 +224,44 @@ public static partial class CombatSandboxBuilder
         return part;
     }
 
-    private static Material StageMaterial(string label, Color color, float metallic = 0f, string folder = BathtubArt)
+    private static Material StageMaterial(string label, Color color, string folder = BathtubArt)
     {
         string path = folder + "/" + label.Replace(" ", "") + ".mat";
         var material = AssetDatabase.LoadAssetAtPath<Material>(path);
-        if (material != null)
-            return material;
-        bool useToon = color.a >= 1f && metallic == 0f;
-        material = new Material(useToon
-            ? AssetDatabase.LoadAssetAtPath<Shader>("Assets/_Project/Art/Items/ToonPickupSurface.shadergraph")
-            : Shader.Find("Universal Render Pipeline/Lit"));
+        var shader = AssetDatabase.LoadAssetAtPath<Shader>(color.a < 1f
+            ? BathtubArt + "/ToonStageWater.shader"
+            : "Assets/_Project/Art/Items/ToonPickupSurface.shadergraph");
+        if (shader == null || ShaderUtil.ShaderHasError(shader))
+            throw new InvalidOperationException("The stage toon shader failed to import.");
+        if (material == null)
+        {
+            material = new Material(shader);
+            AssetDatabase.CreateAsset(material, path);
+        }
+
+        material.shader = shader;
+        material.renderQueue = -1;
+        material.SetOverrideTag("RenderType", "");
         material.SetColor("_BaseColor", color);
-        if (useToon)
+        if (material.HasProperty("_BaseMap"))
             material.SetTexture("_BaseMap", Texture2D.whiteTexture);
-        else
-        {
-            material.SetFloat("_Metallic", metallic);
-            material.SetFloat("_Smoothness", .35f);
-        }
-        if (color.a < 1f)
-        {
-            material.SetFloat("_Surface", 1f);
-            material.SetFloat("_SrcBlend", (float)BlendMode.SrcAlpha);
-            material.SetFloat("_DstBlend", (float)BlendMode.OneMinusSrcAlpha);
-            material.SetFloat("_ZWrite", 0f);
-            material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
-            material.SetOverrideTag("RenderType", "Transparent");
-            material.renderQueue = (int)RenderQueue.Transparent;
-        }
-        AssetDatabase.CreateAsset(material, path);
+        EditorUtility.SetDirty(material);
         return material;
+    }
+
+    [MenuItem("Wobble Brawl/Refresh Stage Toon Materials")]
+    public static void RefreshStageToonMaterials()
+    {
+        foreach (string folder in new[] { BathtubArt, KitchenArt })
+        {
+            foreach (string guid in AssetDatabase.FindAssets("t:Material", new[] { folder }))
+            {
+                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var existing = AssetDatabase.LoadAssetAtPath<Material>(path);
+                var material = StageMaterial(existing.name, existing.GetColor("_BaseColor"), folder);
+                Debug.Log($"Stage toon verified: {material.name}, {material.shader.name}, queue {material.renderQueue}.");
+            }
+        }
+        AssetDatabase.SaveAssets();
     }
 }

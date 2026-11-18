@@ -27,7 +27,7 @@ public static partial class CombatSandboxBuilder
         var tileAlt = KitchenMaterial("Butter Tile", "F2C674");
         var cupboard = KitchenMaterial("Cupboard", "97532F");
         var cupboardInset = KitchenMaterial("Cupboard Inset", "C98D54");
-        var silver = KitchenMaterial("Brushed Silver", "B5C4D4", .55f);
+        var silver = KitchenMaterial("Brushed Silver", "B5C4D4");
         var ink = KitchenMaterial("Appliance Dark", "2F293B");
         var red = KitchenMaterial("Mixer Red", "D9454B");
         var ember = KitchenMaterial("Hot Coil", "FF5233");
@@ -188,9 +188,9 @@ public static partial class CombatSandboxBuilder
         Material material, bool keepCollider = false) =>
         StagePart(parent, label, PrimitiveType.Cube, position, scale, material, keepCollider);
 
-    private static Material KitchenMaterial(string label, string hex, float metallic = 0f)
+    private static Material KitchenMaterial(string label, string hex)
     {
         ColorUtility.TryParseHtmlString("#" + hex, out var color);
-        return StageMaterial(label, color, metallic, KitchenArt);
+        return StageMaterial(label, color, KitchenArt);
     }
 }
