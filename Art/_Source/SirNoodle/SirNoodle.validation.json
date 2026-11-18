@@ -1,0 +1,33 @@
+{
+  "triangles": 6616,
+  "bones": 25,
+  "deform_bones": 24,
+  "materials": 1,
+  "height_metres": 1.985,
+  "actions": [
+    "SirNoodle_Block",
+    "SirNoodle_GetUp",
+    "SirNoodle_GuardBreak",
+    "SirNoodle_HitHeavy",
+    "SirNoodle_HitLight",
+    "SirNoodle_Idle",
+    "SirNoodle_JumpFall",
+    "SirNoodle_JumpLand",
+    "SirNoodle_JumpRise",
+    "SirNoodle_KO",
+    "SirNoodle_Kick1",
+    "SirNoodle_Kick2",
+    "SirNoodle_Knockdown",
+    "SirNoodle_Punch1",
+    "SirNoodle_Punch2",
+    "SirNoodle_Punch3",
+    "SirNoodle_Punch4",
+    "SirNoodle_Special",
+    "SirNoodle_Taunt",
+    "SirNoodle_Throw",
+    "SirNoodle_Walk",
+    "SirNoodle_Win"
+  ],
+  "validation_errors": [],
+  "reference": "docs/images/characters/concept/sir_noodle_turnaround.png"
+}

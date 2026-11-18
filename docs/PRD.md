@@ -55,6 +55,7 @@ Carried over from the prototype and generalized into data:
 - **Punch chain** (up to 4 hits), **Kick chain** (up to 2 hits), a 0.5 s combo window **(start)**.
 - **Jump** (single, optional double jump per fighter), **Block**, **Throw item**, **Special**.
 - Damage tiers (start): body hit 10, leg hit 5, special 15, thrown item 10. Each character overrides via data.
+- Sir Noodle's starting overrides: HP 170, guard 60, speed 3.2, jump 10; punches 9/5 body/leg, kicks 11/5 and 1.4x hitbox reach. Helicopter Joust uses four alternating front/back hit windows (two per side) at 7/5 damage each, startup/active/recovery 12/24/30 frames, full gauge cost, and 0.25 pushback. Detailed windows and frame data are in [his source notes](../Art/_Source/SirNoodle/README.md). These overrides follow the approved fighter sheet; Blobby's current sandbox speed remains 4.0 and is not retuned by M4-01.
 
 ### 7.3 Block (required)
 - Block is a **held state**, not a one-shot animation.
@@ -116,6 +117,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - Pause menu: resume, settings, quit-to-menu.
 - Settings: master/music/SFX volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply immediately and are saved locally between sessions.
 - Quick Fight arena selection includes independent **Hazards** and **Items** checkboxes. Both default on for a fresh setup; choices carry through all rounds and Rematch. Returning to a fresh setup restores both on. With both off, only the core fight runs. Arcade and boss encounters force both on and lock the setup controls. Opening an arena directly uses both on.
+- Fighter selection offers Blobby and Sir Noodle, with an **AI: ...** button to choose either opponent. Both fighter choices carry through Rematch. Development keyboard **T** previews a fighter's taunt where available.
 
 ## 12. Progression & Economy [PROPOSED]
 - **Coins** earned per match; unlock new fighters, costumes ("skins" made from alternate materials/textures), and taunts.

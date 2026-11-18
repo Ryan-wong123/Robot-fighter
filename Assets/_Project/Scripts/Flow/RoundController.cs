@@ -33,6 +33,7 @@ namespace WobbleBrawl.Flow
         internal void ConfigureRules(MatchRules matchRules) => rules = matchRules;
 
         internal void ConfigurePlayer(CharacterDef fighter) => player.ConfigureCharacter(fighter);
+        internal void ConfigureOpponent(CharacterDef fighter) => opponent.ConfigureCharacter(fighter);
 
         public void Begin()
         {
@@ -86,6 +87,10 @@ namespace WobbleBrawl.Flow
             }
 
             Stop();
+            if (result == RoundResult.PlayerWins)
+                player.CelebrateVictory();
+            else if (result == RoundResult.OpponentWins)
+                opponent.CelebrateVictory();
             Ended?.Invoke(result);
         }
 

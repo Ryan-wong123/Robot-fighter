@@ -19,10 +19,14 @@ namespace WobbleBrawl.Gameplay
         private Quaternion simulatedRotation;
         private Vector3 simulatedPosition;
         private float reactionTime;
+        private readonly float duration;
+        private readonly float strength;
         public bool Full { get; private set; }
 
-        public VisualRagdoll(Transform visual)
+        public VisualRagdoll(Transform visual, float reactionScale = 1f, float reactionSeconds = ReactionDuration)
         {
+            strength = reactionScale;
+            duration = reactionSeconds;
             fighterCollider = visual.parent.GetComponent<Collider>();
             foreach (var bone in visual.GetComponentsInChildren<Transform>())
             {
@@ -62,7 +66,7 @@ namespace WobbleBrawl.Gameplay
         }
 
         private static bool IsPhysicalBone(string name) =>
-            name == "Pelvis" || name == "Spine" || name == "Head" ||
+            name == "Pelvis" || name == "Spine" || name == "Chest" || name == "Head" ||
             name.StartsWith("Upper_Arm.") || name.StartsWith("Lower_Arm.") ||
             name.StartsWith("Upper_Leg.") || name.StartsWith("Lower_Leg.");
 
@@ -73,11 +77,11 @@ namespace WobbleBrawl.Gameplay
             if (Full || bone == null || !bone.TryGetComponent(out reactingBody))
                 return;
 
-            reactionTime = ReactionDuration;
+            reactionTime = duration;
             reactingBody.useGravity = false;
             reactingBody.isKinematic = false;
-            reactingBody.rotation = Quaternion.AngleAxis(-InitialDeflectionDegrees * Mathf.Sign(direction.x), Vector3.forward) * reactingBody.rotation;
-            reactingBody.AddTorque(Vector3.forward * -Mathf.Sign(direction.x) * ImpactAngularSpeed,
+            reactingBody.rotation = Quaternion.AngleAxis(-InitialDeflectionDegrees * strength * Mathf.Sign(direction.x), Vector3.forward) * reactingBody.rotation;
+            reactingBody.AddTorque(Vector3.forward * -Mathf.Sign(direction.x) * ImpactAngularSpeed * strength,
                 ForceMode.VelocityChange);
         }
 
@@ -102,7 +106,7 @@ namespace WobbleBrawl.Gameplay
                 return;
             }
 
-            float weight = Mathf.SmoothStep(0f, 1f, reactionTime / ReactionDuration);
+            float weight = Mathf.SmoothStep(0f, 1f, reactionTime / duration);
             var bone = reactingBody.transform;
             bone.SetPositionAndRotation(Vector3.Lerp(bone.position, simulatedPosition, weight),
                 Quaternion.Slerp(bone.rotation, simulatedRotation, weight));

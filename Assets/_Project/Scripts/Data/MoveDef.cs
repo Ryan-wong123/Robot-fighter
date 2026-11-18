@@ -20,6 +20,9 @@ namespace WobbleBrawl.Data
         public Vector3 HitboxOffset = new Vector3(0.7f, 0.8f, 0f);
         public Vector3 HitboxSize = Vector3.one;
         public MoveDef NextInCombo;
+        [Min(0)] public int HitIntervalFrames;
+        public bool AlternateSides;
+        public bool HeavyReaction;
 
         public int Duration => Startup + Active + Recovery;
     }

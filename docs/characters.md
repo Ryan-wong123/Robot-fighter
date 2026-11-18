@@ -120,9 +120,11 @@ The procedural Blender blockout uses a 16-bone rig and UV-mapped skinned meshes 
 - **Look:** bright segmented pastel noodles (two-color alternating), foil helmet, cardboard shield.
 - **Gimmick, "Long Reach":** attacks reach about 40% farther. His limbs ragdoll the most (floppiness 5/5).
 - **Stats:** HP 170, speed 3.2, jump 10, guard meter 60 (weak), damage x0.9, reach x1.4.
+- **Implemented content:** [Sir Noodle source and import notes](../Art/_Source/SirNoodle/README.md). The Blender export has 6,616 triangles, one 1024 atlas and 25 bones, plus all 22 actions in section 3.5. The Unity importer builds Generic clips/controller, shared toon surface and purple outline, Fighter/visual prefabs and the character/move assets on first Editor import. Boot supports choosing Sir Noodle as player or AI; direct arenas retain their default Blobby setup. Unity import/playback and phone performance are pending verification.
+- **Move data (start):** punches deal 9 body / 5 leg damage; kicks 11 / 5. Forward hitbox extent is 2.03 m (1.4 times the current Blobby move extent). Helicopter Joust has startup 12, active 24 and recovery 30 frames, with four six-frame front/back/front/back hit windows; each window allows one hit for 7 body / 5 leg damage, 7 stun frames, 3 hit-stop frames and 0.25 pushback. Gauge cost remains full. Partial ragdoll uses 1.25 reaction strength and 0.6 s duration. See the source README for every move's frame data.
 - **Specials:** *Helicopter Joust*: spins like a propeller, hitting twice on each side; vulnerable during recovery.
 - **Move flavor:** whip-like jabs, sweeping kicks, a lunging stab with the foam sword on punch 4.
-- **Blender notes:** limbs are chains of 3-4 extra bones for the segmented bend; for ragdoll, **simplify to the standard 12 physics bodies** and drive the extra bones as follow bones (visual only). Height deviation: 2.0 m.
+- **Blender notes:** each limb uses four deform segments (two standard and two intermediate follow bones), plus hand/foot. This keeps the rig within the 30-bone budget. For ragdoll, **simplify to 12 physics bodies** and drive the intermediate bones as follow bones (visual only). Height deviation: 2.0 m; source mesh 1.985 m, normalized on import.
 - **Sounds:** foam squeak, trumpet-like "huzzah".
 
 ### 4.3 Puffin Pete

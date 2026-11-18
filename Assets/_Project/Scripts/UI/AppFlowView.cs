@@ -28,6 +28,9 @@ namespace WobbleBrawl.UI
         private Button[] stageButtons;
         private Toggle hazardsToggle;
         private Toggle itemsToggle;
+        private Button sirNoodleButton;
+        private Button opponentButton;
+        private Text opponentCaption;
         private Text primaryText;
         private Text secondaryText;
         private Font font;
@@ -74,6 +77,11 @@ namespace WobbleBrawl.UI
             }
             primary.onClick.AddListener(PrimaryAction);
             secondary.onClick.AddListener(SecondaryAction);
+            sirNoodleButton = CreateButton("Sir Noodle Fighter", -70f, Green, out var noodleCaption);
+            noodleCaption.text = "Sir Noodle";
+            sirNoodleButton.onClick.AddListener(app.SelectSirNoodle);
+            opponentButton = CreateButton("AI Fighter", -144f, Cream, out opponentCaption);
+            opponentButton.onClick.AddListener(app.ToggleOpponent);
             hazardsToggle = CreateRuleToggle("Hazards", -160f);
             itemsToggle = CreateRuleToggle("Items", 160f);
             hazardsToggle.onValueChanged.AddListener(app.SetHazardsEnabled);
@@ -178,6 +186,11 @@ namespace WobbleBrawl.UI
                 (app.State == AppState.MainMenu || app.IsPaused));
             bool mainMenu = !settingsOpen && !app.IsLoading && app.State == AppState.MainMenu;
             bool stageSelection = !app.IsLoading && app.State == AppState.Selection && app.Step == SelectionStep.Stage;
+            bool fighterSelection = !app.IsLoading && !settingsOpen && app.State == AppState.Selection &&
+                app.Step == SelectionStep.Fighter;
+            sirNoodleButton.gameObject.SetActive(fighterSelection && app.HasSirNoodle);
+            opponentButton.gameObject.SetActive(fighterSelection && app.HasSirNoodle);
+            opponentCaption.text = "AI: " + app.OpponentName;
             hazardsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             itemsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             hazardsToggle.SetIsOnWithoutNotify(app.Rules.HazardsEnabled);
@@ -233,6 +246,13 @@ namespace WobbleBrawl.UI
                             description.text = "Arcade and boss matches always use items and hazards.";
                         Place(description.rectTransform, 640f, 52f, -6f);
                         Place((RectTransform)primary.transform, 310f, 58f, -144f);
+                        Place((RectTransform)secondary.transform, 310f, 58f, -218f);
+                    }
+                    else if (app.HasSirNoodle)
+                    {
+                        Place(title.rectTransform, 640f, 78f, 190f);
+                        Place(description.rectTransform, 640f, 52f, 116f);
+                        Place((RectTransform)primary.transform, 310f, 58f, 4f);
                         Place((RectTransform)secondary.transform, 310f, 58f, -218f);
                     }
                     primaryText.text = stageSelection ? "Start Match" : "Blobby";

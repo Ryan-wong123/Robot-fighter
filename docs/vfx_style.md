@@ -80,6 +80,8 @@ Hit effects scale with `damage / maxDamage` and combo count: bigger burst, more 
 | **Squash and stretch** | `SquashStretch` component on the visual root: spring to 0.8-1.2 scale on impact, 0.15-0.3 s |
 | **Haptics** | light tap on hit, stronger on heavy/KO, none on block; respects the user's haptics setting |
 
+Sir Noodle reuses the shared comic impacts and KO presentation. His CharacterDef sets partial-ragdoll reaction strength to 1.25 and duration to 0.6 s for the floppier noodle rig; intermediate bend bones remain visual. Helicopter Joust's four alternating hit windows use 3 hit-stop frames each. The imported visual uses the shared toon graph with its original pink/blue atlas and a dark-purple outline (width 0.009). No separate particle or voice content is added by M4-01.
+
 ![Heavy-hit timing chart](images/vfx/hit_timing.svg)
 
 *Generated schematic of the start timings for a heavy hit.*

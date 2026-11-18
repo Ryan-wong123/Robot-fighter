@@ -13,6 +13,7 @@ namespace WobbleBrawl.Gameplay
         private const int ComboWindowFrames = 30;
         private const int WakeupFrames = 20;
         private const int GuardRecoveryInterval = 3;
+        private const float HurtboxHeightPadding = .2f;
         [SerializeField] private CharacterDef character;
         [SerializeField] private MonoBehaviour inputSource;
         [SerializeField] private Animator animator;
@@ -38,6 +39,7 @@ namespace WobbleBrawl.Gameplay
         private MoveDef move, comboMove, moveRoot, comboRoot;
         private int moveFrame, comboWindow, stun, immunity, comboHits, accumulatedStun, guardRecovery;
         private bool hit, roundActive;
+        private int hitPulse = -1;
         private int freeze;
         private bool wasKinematic;
         private float animationSpeed;
@@ -56,7 +58,53 @@ namespace WobbleBrawl.Gameplay
         public void ConfigureCharacter(CharacterDef definition)
         {
             if (!roundActive && definition != null)
+            {
                 character = definition;
+                if (definition.VisualPrefab != null)
+                {
+                    ragdoll?.Reset();
+                    var previous = animator != null ? animator.gameObject : null;
+                    var visual = Instantiate(definition.VisualPrefab, transform);
+                    animator = visual.GetComponent<Animator>();
+                    animator.enabled = false;
+                    visualClips = definition.VisualClips;
+                    activeClip = null;
+                    playingClip = null;
+                    ragdoll = new VisualRagdoll(visual.transform, definition.RagdollReactionScale,
+                        definition.PartialRagdollSeconds);
+                    if (TryGetComponent<SquashStretch>(out var squash))
+                        squash.SetVisual(visual.transform);
+                    if (visual.TryGetComponent<FighterVisual>(out var references))
+                        Items?.SetSocket(references.ItemSocket);
+                    if (previous != null)
+                    {
+                        previous.SetActive(false);
+                        Destroy(previous);
+                    }
+                    if (TryGetComponent<CapsuleCollider>(out var capsule))
+                    {
+                        capsule.height = definition.Height;
+                        capsule.center = Vector3.up * definition.Height * .5f;
+                        capsule.radius = definition.BodyWidth * .5f;
+                    }
+                    foreach (var hurt in GetComponentsInChildren<Hurtbox>())
+                        if (hurt.Zone == HurtZone.Body && hurt.TryGetComponent<BoxCollider>(out var shape))
+                        {
+                            hurt.transform.localPosition = Vector3.up * definition.Height * .5f;
+                            shape.size = new Vector3(definition.BodyWidth,
+                                definition.Height - HurtboxHeightPadding, shape.size.z);
+                        }
+                }
+            }
+        }
+
+        public float AttackRange => character != null && character.Punch != null
+            ? character.Punch.HitboxOffset.x + character.Punch.HitboxSize.x * .5f : 0f;
+
+        public void PlayTaunt()
+        {
+            if (roundActive && (State == FighterState.Idle || State == FighterState.Moving))
+                PlayClip("Taunt");
         }
 
         public int Facing { get; private set; } = 1;
@@ -96,7 +144,8 @@ namespace WobbleBrawl.Gameplay
                     skin.updateWhenOffscreen = true;
                 // The imported Generic controller enters states but does not drive this rig's transforms.
                 animator.enabled = false;
-                ragdoll = new VisualRagdoll(animator.transform);
+                ragdoll = new VisualRagdoll(animator.transform, character.RagdollReactionScale,
+                    character.PartialRagdollSeconds);
             }
             body.constraints |= RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotation;
         }
@@ -124,6 +173,12 @@ namespace WobbleBrawl.Gameplay
         {
             roundActive = false;
             Items?.Clear();
+        }
+
+        public void CelebrateVictory()
+        {
+            if (!roundActive && IsAlive)
+                PlayClip("Win");
         }
         public void SetSuddenDeath() => SetVitals(1, Guard, Special);
 
@@ -156,6 +211,8 @@ namespace WobbleBrawl.Gameplay
                 {
                     SetVitals(Health, MaxGuard, Special);
                     immunity = WakeupFrames;
+                    if (playingClip == "GuardBreak")
+                        PlayClip("GetUp");
                 }
                 return;
             }
@@ -176,8 +233,15 @@ namespace WobbleBrawl.Gameplay
                 move = null;
             if (move != null)
             {
-                if (!hit && moveFrame >= move.Startup && moveFrame < move.Startup + move.Active)
-                    hit = hitbox.TryHit(this, move);
+                int pulse = MoveHitSchedule.Pulse(moveFrame, move.Startup, move.Active, move.HitIntervalFrames);
+                if (pulse != hitPulse)
+                {
+                    hitPulse = pulse;
+                    hit = false;
+                }
+                if (!hit && pulse >= 0)
+                    hit = hitbox.TryHit(this, move,
+                        MoveHitSchedule.Direction(Facing, pulse, move.AlternateSides));
                 if (++moveFrame >= move.Duration)
                 {
                     comboMove = move;
@@ -189,7 +253,10 @@ namespace WobbleBrawl.Gameplay
             }
 
             if (intent.Throw && Items != null && Items.TryUse())
+            {
+                PlayClip("Throw");
                 return;
+            }
 
             bool grounded = Physics.Raycast(body.position + Vector3.up * 0.15f, Vector3.down, 0.25f,
                 groundLayers, QueryTriggerInteraction.Ignore);
@@ -204,6 +271,7 @@ namespace WobbleBrawl.Gameplay
                 if (next == character.Special)
                     SetVitals(Health, Guard, 0);
                 moveFrame = 0;
+                hitPulse = -1;
                 hit = false;
                 State = FighterState.Attacking;
                 SetHorizontal(conveyorSpeed);
@@ -232,6 +300,8 @@ namespace WobbleBrawl.Gameplay
             SetHorizontal(horizontal * character.MoveSpeed * waterMove + (grounded ? conveyorSpeed : 0f));
             if (intent.Jump && grounded)
                 body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump, 0f);
+            if (grounded && State == FighterState.Airborne && !intent.Jump)
+                PlayClip("JumpLand");
             State = !grounded || intent.Jump ? FighterState.Airborne :
                 horizontal == 0f ? FighterState.Idle : FighterState.Moving;
             PlayClip(State == FighterState.Airborne ? (body.linearVelocity.y > 0f ? "JumpRise" : "JumpFall") :
@@ -242,10 +312,13 @@ namespace WobbleBrawl.Gameplay
         {
             if (visualClips == null || playingClip == clip)
                 return;
+            if ((clip == "Idle" || clip == "Walk") && activeClip != null && clipTime < activeClip.length &&
+                (playingClip == "JumpLand" || playingClip == "Throw" || playingClip == "GetUp" || playingClip == "Taunt"))
+                return;
 
             foreach (var candidate in visualClips)
             {
-                if (candidate == null || !candidate.name.EndsWith("Blobby_" + clip, StringComparison.Ordinal))
+                if (candidate == null || !candidate.name.EndsWith(character.AnimationPrefix + "_" + clip, StringComparison.Ordinal))
                     continue;
                 playingClip = clip;
                 activeClip = candidate;
@@ -253,6 +326,8 @@ namespace WobbleBrawl.Gameplay
                 SamplePose();
                 return;
             }
+            if (clip == "GuardBreak")
+                PlayClip("HitHeavy");
         }
 
         private void LateUpdate()
@@ -268,6 +343,9 @@ namespace WobbleBrawl.Gameplay
         {
             float time = activeClip.isLooping ? Mathf.Repeat(clipTime, activeClip.length) :
                 Mathf.Min(clipTime, activeClip.length);
+            // Authored attack frames follow the move clock even with a 50 Hz physics step.
+            if (move != null && activeClip == move.Clip)
+                time = Mathf.Min(moveFrame / activeClip.frameRate, activeClip.length);
             if (ragdoll != null && ragdoll.Full)
                 return;
 
@@ -341,7 +419,8 @@ namespace WobbleBrawl.Gameplay
             accumulatedStun += stun;
             comboHits++;
             State = !IsAlive ? FighterState.KnockedOut : result.GuardBroken ? FighterState.GuardBreak : FighterState.HitStun;
-            PlayClip(!IsAlive ? "Knockdown" : result.GuardBroken ? "HitHeavy" : "HitLight");
+            PlayClip(!IsAlive ? "Knockdown" : result.GuardBroken ? "GuardBreak" :
+                info.Move.HeavyReaction ? "HitHeavy" : "HitLight");
             float bonusPushback = externalHit || result.Blocked || info.Attacker == null
                 ? 0f : info.Attacker.ConsumeItemPushback();
             float pushback = info.Direction.x * (info.Move.Pushback + bonusPushback);

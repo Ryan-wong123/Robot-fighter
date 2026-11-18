@@ -26,11 +26,13 @@ namespace WobbleBrawl.Gameplay
         [SerializeField] private LayerMask hurtLayers = SandboxHurtMask;
         private readonly Collider[] overlaps = new Collider[16];
 
-        public bool TryHit(Fighter attacker, MoveDef move)
+        public bool TryHit(Fighter attacker, MoveDef move) => TryHit(attacker, move, attacker.Facing);
+
+        public bool TryHit(Fighter attacker, MoveDef move, int facing)
         {
-            Vector3 direction = Vector3.right * attacker.Facing;
+            Vector3 direction = Vector3.right * facing;
             Vector3 offset = move.HitboxOffset;
-            offset.x *= attacker.Facing;
+            offset.x *= facing;
             Vector3 center = attacker.transform.position + offset;
             int count = Physics.OverlapBoxNonAlloc(center, move.HitboxSize * 0.5f, overlaps,
                 Quaternion.identity, hurtLayers.value == 0 ? SandboxHurtMask : hurtLayers.value, QueryTriggerInteraction.Collide);

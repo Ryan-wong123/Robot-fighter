@@ -32,6 +32,10 @@ namespace WobbleBrawl.Flow
         private Coroutine pendingResults;
         private string matchScene;
         private CharacterDef selectedFighter;
+        private CharacterDef sirNoodle;
+        private CharacterDef selectedOpponent;
+        public bool HasSirNoodle => sirNoodle != null;
+        public string OpponentName => selectedOpponent != null ? selectedOpponent.DisplayName : "Blobby";
         private MatchRules requestedRules = MatchRules.Default;
         public MatchMode Mode { get; private set; }
         public bool RulesLocked => Mode == MatchMode.Arcade ||
@@ -63,6 +67,7 @@ namespace WobbleBrawl.Flow
                 return;
             }
             running = this;
+            sirNoodle = Resources.Load<CharacterDef>("Characters/SirNoodle");
             DontDestroyOnLoad(gameObject);
             AudioManager.Ensure(transform);
         }
@@ -104,6 +109,7 @@ namespace WobbleBrawl.Flow
                 Mode = mode;
                 requestedRules = MatchRules.Default;
                 selectedFighter = null;
+                selectedOpponent = blobby;
                 Enter(AppState.Selection);
             }
         }
@@ -119,11 +125,22 @@ namespace WobbleBrawl.Flow
             Changed?.Invoke();
         }
 
-        public void SelectBlobby()
+        public void SelectBlobby() => SelectFighter(blobby);
+        public void SelectSirNoodle() => SelectFighter(sirNoodle);
+
+        public void ToggleOpponent()
         {
-            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || blobby == null)
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || sirNoodle == null)
                 return;
-            selectedFighter = blobby;
+            selectedOpponent = selectedOpponent == sirNoodle ? blobby : sirNoodle;
+            Changed?.Invoke();
+        }
+
+        private void SelectFighter(CharacterDef definition)
+        {
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || definition == null)
+                return;
+            selectedFighter = definition;
             Step = SelectionStep.Stage;
             Changed?.Invoke();
         }
@@ -177,6 +194,7 @@ namespace WobbleBrawl.Flow
             running.DetachMatch();
             running.match = controller;
             controller.ConfigurePlayer(running.selectedFighter);
+            controller.ConfigureOpponent(running.selectedOpponent);
             controller.ConfigureRules(running.Rules);
             controller.MatchEnded += running.OnMatchEnded;
             controller.RoundStarted += running.OnRoundStarted;

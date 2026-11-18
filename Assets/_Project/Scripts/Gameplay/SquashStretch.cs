@@ -10,6 +10,13 @@ namespace WobbleBrawl.Gameplay
         private Vector3 restScale;
         private float elapsed;
 
+        internal void SetVisual(Transform target)
+        {
+            visual = target;
+            restScale = target.localScale;
+            elapsed = recoverySeconds;
+        }
+
         private void OnEnable()
         {
             restScale = visual.localScale;

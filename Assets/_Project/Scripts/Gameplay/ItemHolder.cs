@@ -15,6 +15,12 @@ namespace WobbleBrawl.Gameplay
         private void Awake() => owner = GetComponent<Fighter>();
         private void OnDisable() => Clear();
 
+        internal void SetSocket(Transform socket)
+        {
+            Clear();
+            handSocket = socket;
+        }
+
         internal bool TryPickup(PooledItem item)
         {
             if (!owner.CanInteractWithItems || HasItem)

@@ -1,0 +1,12 @@
+{
+  "source": "Original procedural Blender geometry and atlas, following the owner-provided character references. No external meshes, textures or animations.",
+  "reference": "docs/images/characters/concept/sir_noodle_turnaround.png",
+  "blender": "4.5.3 LTS",
+  "validation": "Tools/Blender/verify_sir_noodle.py passed all 22 actions, loop closure and skin/budget checks.",
+  "files": {
+    "Tools/Blender/build_sir_noodle.py": "641a50bf9460df94b69c4b11ed12f5a95d5c472bd6376197ce0b405108864fa5",
+    "Art/_Source/SirNoodle/SirNoodle.blend": "927b7becd18faa475b63544716a8807f070d7ce255c894ccc6688a2f98539061",
+    "Assets/_Project/Art/Characters/SirNoodle/SirNoodle.fbx": "1a74c348632c57507adc218e44d279067368779f90d08a63702e8ee65d812ca4",
+    "Assets/_Project/Art/Characters/SirNoodle/SirNoodle_Body_Albedo.png": "8e6c3ab567179f327fc2e21a0f0dd0df1bd9af9ca86709ee20ab921261c1e7a5"
+  }
+}

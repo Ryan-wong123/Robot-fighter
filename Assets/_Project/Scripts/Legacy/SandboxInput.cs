@@ -31,6 +31,8 @@ public sealed class SandboxInput : MonoBehaviour, IFighterInput
         }
 
         FighterIntent current = keyboard.ReadIntent();
+        if (Input.GetKeyDown(KeyCode.T))
+            player?.PlayTaunt();
         pending.Move = current.Move;
         pending.Block = current.Block;
         pending.Jump |= current.Jump;

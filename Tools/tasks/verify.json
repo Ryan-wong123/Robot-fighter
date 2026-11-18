@@ -184,6 +184,11 @@
   "M3-10": [
     "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests"
   ],
+  "M4-01": [
+    "python3 Tools/tasks/check_sir_noodle.py",
+    "bash Tools/tasks/run_unity_tests.sh EditMode SirNoodleTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests"
+  ],
   "M3-08": [
     "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
   ],

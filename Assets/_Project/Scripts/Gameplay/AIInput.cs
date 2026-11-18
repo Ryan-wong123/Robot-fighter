@@ -6,6 +6,7 @@ namespace WobbleBrawl.Gameplay
 {
     public sealed class AIInput : MonoBehaviour, IFighterInput
     {
+        private const float ReachMargin = .2f;
         [SerializeField] private Fighter opponent;
         [SerializeField] private AIProfile profile;
         [SerializeField, Min(0.1f)] private float attackRange = 1.25f;
@@ -19,6 +20,7 @@ namespace WobbleBrawl.Gameplay
         private int reaction;
         private bool kick;
         private FighterIntent sustainedIntent;
+        private float EffectiveRange => Mathf.Max(attackRange, self != null ? self.AttackRange - ReachMargin : attackRange);
         public bool IsPaused { get; private set; }
 
         private void Awake()
@@ -81,7 +83,7 @@ namespace WobbleBrawl.Gameplay
             float offset = opponent.transform.position.x - position.x;
             float distance = Mathf.Abs(offset);
             float towardOpponent = Mathf.Sign(offset);
-            bool threatened = opponent.State == FighterState.Attacking && distance <= attackRange + .2f;
+            bool threatened = opponent.State == FighterState.Attacking && distance <= opponent.AttackRange;
 
             if (hazard != null && hazard.TryGetAvoidance(position, out var avoidance) &&
                 Roll(profile != null ? profile.HazardAvoidance : 0f))
@@ -100,7 +102,7 @@ namespace WobbleBrawl.Gameplay
                         return new FighterIntent { Move = towardOpponent };
                     return new FighterIntent { Throw = true };
                 }
-                if (holder != null && !holder.HasItem && distance > attackRange && items != null &&
+                if (holder != null && !holder.HasItem && distance > EffectiveRange && items != null &&
                     items.TryGetPickup(position, profile.PickupRange, out var pickup) && Roll(profile.ItemUseChance))
                     return new FighterIntent
                     {
@@ -111,7 +113,7 @@ namespace WobbleBrawl.Gameplay
             else if (profile != null)
                 return default;
 
-            if (distance > attackRange)
+            if (distance > EffectiveRange)
                 return new FighterIntent { Move = towardOpponent };
             if (attackRecovery > 0 || !Roll(profile != null ? profile.Aggression : 1f))
                 return default;

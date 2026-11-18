@@ -27,6 +27,7 @@ namespace WobbleBrawl.Flow
         public MatchRules Rules { get; private set; } = MatchRules.Default;
 
         internal void ConfigurePlayer(CharacterDef fighter) => round.ConfigurePlayer(fighter);
+        internal void ConfigureOpponent(CharacterDef fighter) => round.ConfigureOpponent(fighter);
 
         /// <summary>Apply setup before round one; rules stay fixed for the match.</summary>
         public void ConfigureRules(MatchRules rules)
