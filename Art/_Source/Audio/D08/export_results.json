@@ -1,0 +1,25 @@
+[
+  {
+    "id": "announcer_fight_v01",
+    "export": "passed"
+  },
+  {
+    "id": "blobby_attack_light_v01",
+    "export": "rejected",
+    "reason": "Export duration 1.55s needs manual editing before import."
+  },
+  {
+    "id": "blobby_hit_heavy_v01",
+    "export": "rejected",
+    "reason": "Export duration 4.46s needs manual editing before import."
+  },
+  {
+    "id": "mrjack_win_v01",
+    "export": "rejected",
+    "reason": "Export duration 4.30s needs manual editing before import."
+  },
+  {
+    "id": "sirnoodle_taunt_v01",
+    "export": "passed"
+  }
+]

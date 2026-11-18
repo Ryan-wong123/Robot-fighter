@@ -4,6 +4,9 @@
     "python3 -B Tools/tasks/check_docs.py",
     "python3 -B Tools/docs_art/make_diagrams.py --check"
   ],
+  "D-08": [
+    "python3 Tools/Audio/check_d08.py"
+  ],
   "M0-01": [
     "python3 Tools/tasks/checks.py file-contains ProjectSettings/ProjectVersion.txt 6000.3.11f1",
     "python3 Tools/tasks/checks.py file-exists Packages/manifest.json",

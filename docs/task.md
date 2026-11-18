@@ -26,7 +26,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **D-10** Schematic diagrams (stage layouts, cast lineup, ragdoll bodies, VFX sheets) generated and embedded in characters.md, maps.md and vfx_style.md
 - [x] **D-11** Owner supplies concept art and reference images (fighter turnarounds, stage color keys, VFX references) into docs/images/*/concept/ with sources (owner)
 - [x] **D-12** art_prompts.md written (prompt pack for the fighter, stage and VFX reference art)
-- [ ] **D-08** Verify VoxCPM2: model and weights license, commercial use and output rights, hardware needs, sample quality, and Google Play AI-content policy (owner)
+- [~] **D-08** Verify VoxCPM2: model and weights license, commercial use and output rights, hardware needs, sample quality, and Google Play AI-content policy (owner)
 - [ ] **D-06** Verify Photon Quantum 3 licensing, free-tier limits and Unity 6.3+ compatibility (owner)
 
 ## CI & Tooling

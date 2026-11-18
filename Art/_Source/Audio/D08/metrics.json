@@ -1,0 +1,39 @@
+{
+  "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+  "torch": "2.11.0+cu128",
+  "package": "0.0.post1+g300e4260b",
+  "snapshot": "7936080b41163874f38610f46f438e2c0757f9fd",
+  "max_allocated_bytes": 5857154560,
+  "clips": [
+    {
+      "id": "announcer_fight",
+      "generation_seconds": 11.33936340000946,
+      "audio_seconds": 0.64,
+      "rtf": 17.717755312514782
+    },
+    {
+      "id": "sirnoodle_taunt",
+      "generation_seconds": 15.145111699937843,
+      "audio_seconds": 1.44,
+      "rtf": 10.517438680512392
+    },
+    {
+      "id": "blobby_attack_light",
+      "generation_seconds": 23.402582500013523,
+      "audio_seconds": 1.92,
+      "rtf": 12.188845052090377
+    },
+    {
+      "id": "blobby_hit_heavy",
+      "generation_seconds": 41.23529189999681,
+      "audio_seconds": 4.48,
+      "rtf": 9.204306227677858
+    },
+    {
+      "id": "mrjack_win",
+      "generation_seconds": 67.59300620004069,
+      "audio_seconds": 11.52,
+      "rtf": 5.867448454864643
+    }
+  ]
+}

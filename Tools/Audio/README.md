@@ -10,7 +10,7 @@ The manifest voice_lines.json contains 48 event lines across five fighters and t
 
 ### Setup and generation
 
-Use a separate Python 3.10–3.12 environment. Install voxcpm using the upstream installation guide and download a VoxCPM2 model snapshot to a local directory outside Assets. Record its full commit SHA. The generator loads that directory and records the installed package version. It uses voice descriptions with no reference audio.
+Use a separate Python 3.10–3.12 environment. Install voxcpm using the upstream installation guide and download a VoxCPM2 model snapshot to a local directory outside Assets. Record its full commit SHA. The generator loads that directory and records the installed package version. It uses voice descriptions with no reference audio and disables model compilation for the verified Windows configuration. The tested upstream revision and dependency workaround are recorded in [D08_REVIEW.md](D08_REVIEW.md).
 
 Inspect a plan without loading the model.
 
@@ -42,7 +42,7 @@ Copy approved WAVs and sidecars to Assets/_Project/Art/Audio/Voices/<fighter>/. 
 
 ### Source and review status
 
-The upstream code and model card identify Apache-2.0 licensing. The published hardware estimate is approximately 8 GB VRAM. D-08 still requires output-rights review, Google Play policy review, a measured local generation run, and owner sample-quality review. This machine has an 8 GB RTX 4070 Laptop GPU, while the current Python environment lacks voxcpm. Actual inference and owner audition are pending. The unit tests use a synthetic test backend and ffmpeg to verify the file workflow.
+The code and weights license, commercial-use statement and Google Play policy were reviewed, and five real samples were generated on the local RTX 4070 Laptop GPU. Two passed the export limits; three vocalizations need editing or regeneration. See [D08_REVIEW.md](D08_REVIEW.md) for pinned versions, Windows setup limitations, timings, sources and outstanding owner listening checks. D-08 remains open until sample quality is accepted. The unit tests separately verify the file workflow with a synthetic backend and ffmpeg.
 
 [Upstream installation](https://github.com/OpenBMB/VoxCPM) · [Model card](https://huggingface.co/openbmb/VoxCPM2) · [License](https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE)
 

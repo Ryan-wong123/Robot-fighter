@@ -1,0 +1,28 @@
+{
+  "id": "sirnoodle_taunt",
+  "fighter": "SirNoodle",
+  "event": "taunt",
+  "text": "Have at thee!",
+  "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+  "variants": 2,
+  "max_seconds": 1.5,
+  "candidate": "sirnoodle_taunt_v01",
+  "seed": 1442,
+  "model": "openbmb/VoxCPM2",
+  "model_revision": "7936080b41163874f38610f46f438e2c0757f9fd",
+  "package_version": "0.0.post1+g300e4260b",
+  "generation": {
+    "cfg_value": 2.0,
+    "inference_timesteps": 10,
+    "optimize": false
+  },
+  "generated_utc": "2026-11-18T22:07:17.798833+00:00",
+  "code_license": "Apache-2.0",
+  "weights_license": "Apache-2.0",
+  "license_source": "https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE",
+  "weights_source": "https://huggingface.co/openbmb/VoxCPM2",
+  "reference_audio": null,
+  "license_note": "Voice design; no reference recording. D-08 review remains open.",
+  "review": "pending",
+  "sha256": "10e83475a8b04caaeb635c5e64378440ae2df9f4a6587c1144d6ce4cf47b18fd"
+}

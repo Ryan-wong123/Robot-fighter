@@ -86,7 +86,7 @@ def generate_one(model, candidate, manifest, output, revision, package):
         write_pcm(temporary, samples, model.tts_model.sample_rate)
         temporary.replace(wav)
         write_record(record, {**candidate, "model": manifest["model"], "model_revision": revision,
-            "package_version": package, "generation": {"cfg_value":2.0,"inference_timesteps":10},
+            "package_version": package, "generation": {"cfg_value":2.0,"inference_timesteps":10,"optimize":False},
             "generated_utc": datetime.now(timezone.utc).isoformat(),
             "code_license": manifest["code_license"], "weights_license": manifest["weights_license"],
             "license_source": manifest["license_source"], "weights_source": manifest["weights_source"],
@@ -173,7 +173,7 @@ def main():
     from voxcpm import VoxCPM
     package = importlib.metadata.version("voxcpm")
     args.output.mkdir(parents=True, exist_ok=True)
-    model = VoxCPM.from_pretrained(str(args.model_dir.resolve()), load_denoiser=False)
+    model = VoxCPM.from_pretrained(str(args.model_dir.resolve()), load_denoiser=False, optimize=False)
     for candidate in candidates:
         print(generate_one(model, candidate, manifest, args.output, args.revision, package))
 

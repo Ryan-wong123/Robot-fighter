@@ -1,0 +1,28 @@
+{
+  "id": "announcer_fight",
+  "fighter": "Announcer",
+  "event": "fight",
+  "text": "Fight!",
+  "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+  "variants": 2,
+  "max_seconds": 1.5,
+  "candidate": "announcer_fight_v01",
+  "seed": 4042,
+  "model": "openbmb/VoxCPM2",
+  "model_revision": "7936080b41163874f38610f46f438e2c0757f9fd",
+  "package_version": "0.0.post1+g300e4260b",
+  "generation": {
+    "cfg_value": 2.0,
+    "inference_timesteps": 10,
+    "optimize": false
+  },
+  "generated_utc": "2026-11-18T22:07:02.599218+00:00",
+  "code_license": "Apache-2.0",
+  "weights_license": "Apache-2.0",
+  "license_source": "https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE",
+  "weights_source": "https://huggingface.co/openbmb/VoxCPM2",
+  "reference_audio": null,
+  "license_note": "Voice design; no reference recording. D-08 review remains open.",
+  "review": "pending",
+  "sha256": "cc876631caa8f671e562f094fd0261b71f23a0c9476194eb983573f95065a60d"
+}
