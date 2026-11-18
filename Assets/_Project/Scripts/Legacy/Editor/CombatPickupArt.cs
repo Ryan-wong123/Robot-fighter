@@ -8,6 +8,8 @@ public static class CombatPickupArt
     private const string ArtFolder = "Assets/_Project/Art/Items";
     private const string PrefabFolder = "Assets/_Project/Prefabs";
     private const string VisualName = "Blender Visual";
+    private const string ToonGraph =
+        ArtFolder + "/ToonPickupSurface.shadergraph";
 
     [MenuItem("Wobble Brawl/Apply Combat Pickup Art")]
     public static void Apply()
@@ -78,12 +80,32 @@ public static class CombatPickupArt
 
         string path = $"{ArtFolder}/Materials/{name}.mat";
         var material = AssetDatabase.LoadAssetAtPath<Material>(path);
-        if (material != null)
-            return material;
-        material = new Material(Shader.Find("Universal Render Pipeline/Lit"));
+        var shader = AssetDatabase.LoadAssetAtPath<Shader>(ToonGraph);
+        if (shader == null || ShaderUtil.ShaderHasError(shader))
+            throw new InvalidOperationException("The pickup toon Shader Graph failed to import.");
+        if (material == null)
+        {
+            material = new Material(shader);
+            AssetDatabase.CreateAsset(material, path);
+        }
+        else
+            material.shader = shader;
+        material.SetTexture("_BaseMap", Texture2D.whiteTexture);
         material.SetColor("_BaseColor", color);
-        material.SetFloat("_Smoothness", .24f);
-        AssetDatabase.CreateAsset(material, path);
+        EditorUtility.SetDirty(material);
         return material;
+    }
+
+    [MenuItem("Wobble Brawl/Refresh Combat Pickup Toon Materials")]
+    public static void RefreshToonMaterials()
+    {
+        string folder = ArtFolder + "/Materials";
+        foreach (string guid in AssetDatabase.FindAssets("t:Material", new[] { folder }))
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+            var material = ImportPaletteMaterial(System.IO.Path.GetFileNameWithoutExtension(path));
+            Debug.Log($"Pickup toon verified: {material.name} uses {material.shader.name}.");
+        }
+        AssetDatabase.SaveAssets();
     }
 }
