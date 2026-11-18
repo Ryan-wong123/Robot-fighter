@@ -128,6 +128,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - Replaces the prototype's "walk to player, attack every 2 s at random".
 - Behavior-driven: spacing, blocking, punishing whiffs, item use, hazard awareness.
 - 3 difficulty tiers via data (reaction time, aggression, block probability, mistake rate), not separate code.
+- Initial Easy, Normal, and Hard reaction intervals are 16, 8, and 4 physics steps. Hard also uses items and avoids stage hazards more consistently. Sandbox scenes support **1**, **2**, and **3** for live comparison.
 - Bosses (Arcade finale) get unique behavior sets.
 
 ## 14. Art, Animation & Audio

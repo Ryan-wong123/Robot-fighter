@@ -471,11 +471,15 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** In CombatSandbox, press Space to pause the AI and use J and K for clean punches and kicks. Look for a small BONK burst and a larger POW burst with a ring. Resume the AI and hold S through incoming attacks to see CLANG and the guard-break CRACK. Charge special with landed attacks and press L to check KABOOM. Finish a round and look for KO text and speed lines during the existing KO camera effect.
 
+**Owner playtest:** The owner verified all six comic impact cues.
+
 ### M2-07 — AI difficulty tiers (`AIProfile`) and item/hazard awareness
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M1-08, M2-01, M2-03
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `SandboxAITests` verifies the tier settings and confirms the AI seeks a pickup, requests item use, and steps away from a live warning.
+
+**Playtest:** In CombatSandbox, Bathtub Brawl, or Kitchen Counter, press **1** for Easy, **2** for Normal, or **3** for Hard. Compare how quickly the AI approaches, blocks, and attacks. On Hard, leave pickups available and watch for the AI to approach and use one. In CombatSandbox, let it approach the center warning zone. In Kitchen Counter, watch it step away from toast markers or the mixer belt. In Bathtub Brawl, watch for a jump as the duck wave approaches. Press **Space** to pause or resume the AI.
 
 ### M2-08 — Playtest: chaos feels fair
 - **Section:** M2 — Chaos layer (weeks 6-8)

@@ -1,10 +1,11 @@
 using UnityEngine;
+using WobbleBrawl.Core;
 using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Gameplay
 {
     [RequireComponent(typeof(HazardController))]
-    public sealed class KitchenHazards : MonoBehaviour
+    public sealed class KitchenHazards : MonoBehaviour, IHazardAwareness
     {
         [SerializeField] private Fighter[] fighters;
         [SerializeField] private MoveDef toastHit;
@@ -32,6 +33,23 @@ namespace WobbleBrawl.Gameplay
         private HazardController cycle;
         private bool beltCycle;
         private bool nextIsBelt;
+
+        public bool TryGetAvoidance(Vector3 position, out FighterIntent intent)
+        {
+            if (beltCycle)
+                return HazardController.TryMoveAway(position.x, belt.position.x, beltHalfWidth + .45f, out intent);
+
+            foreach (var marker in landingMarkers)
+                if (marker.gameObject.activeSelf &&
+                    HazardController.TryMoveAway(position.x, marker.position.x, .9f, out intent))
+                    return true;
+            foreach (var toast in toastSlices)
+                if (toast.gameObject.activeSelf && toast.position.y < 2f &&
+                    HazardController.TryMoveAway(position.x, toast.position.x, .75f, out intent))
+                    return true;
+            intent = default;
+            return false;
+        }
 
         private void Awake() => cycle = GetComponent<HazardController>();
         private void OnEnable() => cycle.PhaseChanged += OnPhaseChanged;

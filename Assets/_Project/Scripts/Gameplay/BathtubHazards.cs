@@ -1,10 +1,11 @@
 using UnityEngine;
+using WobbleBrawl.Core;
 using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Gameplay
 {
     [RequireComponent(typeof(HazardController))]
-    public sealed class BathtubHazards : MonoBehaviour
+    public sealed class BathtubHazards : MonoBehaviour, IHazardAwareness
     {
         [SerializeField] private Fighter[] fighters;
         [SerializeField] private Transform waterSurface;
@@ -28,6 +29,19 @@ namespace WobbleBrawl.Gameplay
         private bool[] waveHits;
         private bool isDuckCycle;
         private bool nextIsDuck;
+
+        public bool TryGetAvoidance(Vector3 position, out FighterIntent intent)
+        {
+            intent = default;
+            if (!isDuckCycle || !wave.gameObject.activeSelf || position.y > waveHeight)
+                return false;
+            float distanceAhead = wave.position.x - position.x;
+            float lead = 2f * Mathf.Abs(waveStartX) / waveTravelSeconds * .45f;
+            if (distanceAhead < -waveHalfWidth || distanceAhead > lead)
+                return false;
+            intent.Jump = true;
+            return true;
+        }
 
         private void Awake()
         {

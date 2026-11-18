@@ -22,6 +22,7 @@ namespace WobbleBrawl.Gameplay
 
         public ItemDef Definition { get; private set; }
         internal bool IsAvailable => state == ItemState.Available;
+        internal bool IsPickup => state == ItemState.Pickup;
 
         internal void Initialize(ItemDef definition, Transform root)
         {

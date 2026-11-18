@@ -205,8 +205,8 @@ RoundController:  Intro -> Fight -> (KO | TimeUp | SuddenDeath) -> RoundEnd
 - `MatchController` emits events (`RoundStarted`, `RoundEnded`, `MatchEnded`); HUD/audio/results subscribe.
 
 ## 10. AI
-- `AIInput : IFighterInput` driven by an `AIProfile` ScriptableObject (reaction time, aggression, block chance, mistake rate, item-use weight).
-- Decision layer: a lightweight utility/state selection (approach, poke, block, punish, use item, avoid hazard) sampling the world through a read-only `FighterView` (distance, opponent state, active hazards). No direct access to the opponent's internals beyond what a human could perceive.
+- `AIInput : IFighterInput` uses Easy, Normal, and Hard `AIProfile` assets for reaction cadence, attack pacing, aggression, blocks, mistakes, item use, and hazard avoidance. It rolls decisions from a round-seeded sequence. Normal is the default when the input has no assigned profile.
+- The AI reads opponent distance and action state, the nearest available pickup, and avoidance directions from the active hazard. It prioritizes avoidance and blocks, then considers items before approaching or attacking. Bathtub wave avoidance uses a timed jump. Kitchen Counter and CombatSandbox use retreat directions. The same input and combat pipeline drive the fighter on all three tiers.
 - Randomness is seeded for reproducibility in tests.
 
 ## 11. Camera

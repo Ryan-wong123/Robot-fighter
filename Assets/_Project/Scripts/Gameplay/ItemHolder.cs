@@ -10,6 +10,7 @@ namespace WobbleBrawl.Gameplay
         private PooledItem held;
 
         public bool HasItem => held != null;
+        internal ItemDef HeldDefinition => held != null ? held.Definition : null;
 
         private void Awake() => owner = GetComponent<Fighter>();
         private void OnDisable() => Clear();

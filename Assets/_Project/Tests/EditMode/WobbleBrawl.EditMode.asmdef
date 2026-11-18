@@ -1,6 +1,7 @@
 {
   "name": "WobbleBrawl.EditMode",
   "references": [
+    "WobbleBrawl.Core",
     "WobbleBrawl.Gameplay",
     "WobbleBrawl.Flow",
     "WobbleBrawl.Data",

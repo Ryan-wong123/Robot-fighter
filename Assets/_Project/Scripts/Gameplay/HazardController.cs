@@ -1,11 +1,17 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WobbleBrawl.Core;
 using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Gameplay
 {
     public enum HazardPhase { Inactive, Idle, Telegraph, Active, Cooldown }
+
+    public interface IHazardAwareness
+    {
+        bool TryGetAvoidance(Vector3 position, out FighterIntent intent);
+    }
 
     public sealed class HazardController : MonoBehaviour
     {
@@ -20,11 +26,35 @@ namespace WobbleBrawl.Gameplay
         private System.Random random;
         private float remaining;
         private float phaseDuration;
+        private IHazardAwareness stageAwareness;
 
         public event Action<HazardPhase> PhaseChanged;
         public HazardPhase Phase { get; private set; }
         public float PhaseElapsed => phaseDuration - remaining;
         public float PhaseProgress => phaseDuration <= 0f ? 1f : Mathf.Clamp01(1f - remaining / phaseDuration);
+
+        private void Awake() => stageAwareness = GetComponent<IHazardAwareness>();
+
+        internal bool TryGetAvoidance(Vector3 position, out FighterIntent intent)
+        {
+            intent = default;
+            if (Phase != HazardPhase.Telegraph && Phase != HazardPhase.Active)
+                return false;
+            if (stageAwareness != null)
+                return stageAwareness.TryGetAvoidance(position, out intent);
+            return definition.Hit != null &&
+                TryMoveAway(position.x, transform.position.x, definition.Size.x * .5f + .7f, out intent);
+        }
+
+        internal static bool TryMoveAway(float position, float center, float range, out FighterIntent intent)
+        {
+            float offset = position - center;
+            intent = default;
+            if (Mathf.Abs(offset) > range)
+                return false;
+            intent.Move = offset < 0f ? -1f : 1f;
+            return true;
+        }
 
         public void BeginRound(int roundIndex)
         {

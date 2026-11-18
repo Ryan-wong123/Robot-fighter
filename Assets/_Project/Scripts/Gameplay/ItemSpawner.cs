@@ -25,6 +25,31 @@ namespace WobbleBrawl.Gameplay
         private System.Random random;
         private int remainingFrames;
 
+        internal bool TryGetPickup(Vector3 from, float range, out Vector3 position)
+        {
+            position = default;
+            if (pools == null)
+                return false;
+            bool found = false;
+            float nearest = range * range;
+            foreach (var pool in pools)
+            {
+                foreach (var item in pool)
+                {
+                    if (!item.IsPickup)
+                        continue;
+                    Vector3 point = item.transform.position;
+                    float distance = (point - from).sqrMagnitude;
+                    if (distance >= nearest)
+                        continue;
+                    nearest = distance;
+                    position = point;
+                    found = true;
+                }
+            }
+            return found;
+        }
+
         private void Awake()
         {
             int count = table?.Length ?? 0;

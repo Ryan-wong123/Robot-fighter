@@ -37,6 +37,8 @@ namespace WobbleBrawl.Flow
             suddenDeath = false;
             deadline = Time.time + RoundRules.RoundSeconds;
             Running = true;
+            if (opponent.TryGetComponent<AIInput>(out var ai))
+                ai.ConfigureRound(itemSpawner, hazard, roundIndex);
             if (itemSpawner != null)
                 itemSpawner.BeginRound(roundIndex);
             hazard?.BeginRound(roundIndex++);
