@@ -114,7 +114,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - In-match HUD: health bars, special gauge, guard meter, round timer, round pips, pause button.
 - Win/lose screens and the Restart button from the prototype become the Results screen.
 - Pause menu: resume, settings, quit-to-menu.
-- Settings: master/music/SFX volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply during the current session; cross-session persistence is implemented by M3-07.
+- Settings: master/music/SFX volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply immediately and are saved locally between sessions.
 
 ## 12. Progression & Economy [PROPOSED]
 - **Coins** earned per match; unlock new fighters, costumes ("skins" made from alternate materials/textures), and taunts.

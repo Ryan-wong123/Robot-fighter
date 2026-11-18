@@ -319,4 +319,6 @@ The partial hit reaction starts with a 40-degree rotation on the selected dynami
 
 The app pause overlay uses MatchPause to freeze simulation time during a live round. Results records the final match score and offers rematch and menu navigation. Escape toggles pause.
 
-GameSettings holds session volume, haptics, layout and quality choices. SettingsAudioSource applies a music or SFX multiplier to its original volume. Stage warning sources use SFX. MatchTouchControls mirrors the movement and attack groups within the HUD safe area.
+GameSettings loads volume, haptics, layout and quality before the first scene and saves changes through SaveService. SettingsAudioSource applies a music or SFX multiplier to its original volume. Stage warning sources use SFX. MatchTouchControls mirrors the movement and attack groups within the HUD safe area.
+
+SaveService writes version 2 JSON to persistentDataPath/save.json. It flushes a temporary file before atomically moving or replacing the primary file. The last readable primary becomes a backup. Load falls back to that backup or safe defaults. Version 1 flat settings migrate to nested settings. Newer versions are preserved as read-only. Coins and fighter unlocks round-trip without awarding progression yet.

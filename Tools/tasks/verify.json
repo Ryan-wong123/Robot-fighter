@@ -38,7 +38,7 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode DamageResolver"
   ],
   "M3-07": [
-    "Tools/tasks/run_unity_tests.sh EditMode SaveService"
+    "bash Tools/tasks/run_unity_tests.sh EditMode SaveService"
   ],
   "CI-01": [
     "python3 -m unittest discover -s Tools/tasks -p 'test_*.py'"
