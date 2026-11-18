@@ -215,7 +215,7 @@ RoundController:  Intro -> Fight -> (KO | TimeUp | SuddenDeath) -> RoundEnd
 Evolves `MoveCamera`: frames all fighters, clamps to stage bounds, adds shake, punch-in on KO, and a bounded zoom. (The current `/4` midpoint math looks like a bug and should be rechecked when migrating.)
 
 ## 12. UI
-- HUD is driven by **events/ViewModels**: `HealthBarView` listens to `FighterHealth.Changed`; no `GameObject.Find`.
+- The shared match HUD listens to `Fighter.VitalsChanged`, `RoundController.TimeChanged` and `SuddenDeathStarted`, and `MatchController.RoundStarted` and `RoundEnded`. The round publishes time only when the displayed second changes. The same safe-area layout is wired in all three playable arenas.
 - Menus: simple screen manager (stack of screens). Use Unity UI (uGUI) with TextMeshPro **[VERIFY]**; the prototype's legacy `UI.Text` is replaced.
 - Touch UI is a prefab with anchors respecting safe areas (notches) and user layout presets.
 

@@ -59,6 +59,10 @@ namespace WobbleBrawl.Gameplay
         public int Health { get; private set; }
         public int Guard { get; private set; }
         public int Special { get; private set; }
+        public int MaxHealth => character.MaxHealth;
+        public int MaxGuard => character.MaxGuard;
+        public int MaxSpecial => character.MaxSpecial;
+        public event Action<Fighter> VitalsChanged;
         public bool IsAlive => Health > 0;
         public FighterState State { get; private set; }
         public event Action<Fighter> KnockedOut;
@@ -95,9 +99,7 @@ namespace WobbleBrawl.Gameplay
             body.linearVelocity = Vector3.zero;
             Facing = facing;
             itemHitCharges = 0;
-            Health = character.MaxHealth;
-            Guard = character.MaxGuard;
-            Special = 0;
+            SetVitals(MaxHealth, MaxGuard, 0, true);
             move = comboMove = moveRoot = comboRoot = null;
             moveFrame = comboWindow = stun = immunity = comboHits = accumulatedStun = guardRecovery = 0;
             State = FighterState.Idle;
@@ -111,7 +113,17 @@ namespace WobbleBrawl.Gameplay
             roundActive = false;
             Items?.Clear();
         }
-        public void SetSuddenDeath() => Health = 1;
+        public void SetSuddenDeath() => SetVitals(1, Guard, Special);
+
+        private void SetVitals(int health, int guard, int special, bool force = false)
+        {
+            if (!force && Health == health && Guard == guard && Special == special)
+                return;
+            Health = health;
+            Guard = guard;
+            Special = special;
+            VitalsChanged?.Invoke(this);
+        }
 
         private void FixedUpdate()
         {
@@ -130,7 +142,7 @@ namespace WobbleBrawl.Gameplay
             {
                 if (--stun == 0 && State == FighterState.GuardBreak)
                 {
-                    Guard = character.MaxGuard;
+                    SetVitals(Health, MaxGuard, Special);
                     immunity = WakeupFrames;
                 }
                 return;
@@ -169,7 +181,7 @@ namespace WobbleBrawl.Gameplay
                     ? comboMove.NextInCombo : next;
                 moveRoot = next;
                 if (next == character.Special)
-                    Special = 0;
+                    SetVitals(Health, Guard, 0);
                 moveFrame = 0;
                 hit = false;
                 State = FighterState.Attacking;
@@ -188,7 +200,7 @@ namespace WobbleBrawl.Gameplay
             }
             if (Guard < character.MaxGuard && ++guardRecovery >= GuardRecoveryInterval)
             {
-                Guard++;
+                SetVitals(Health, Guard + 1, Special);
                 guardRecovery = 0;
             }
             if (accumulatedStun > 0 && --accumulatedStun == 0)
@@ -300,8 +312,8 @@ namespace WobbleBrawl.Gameplay
                 Guard, info.Move.GuardCost, info.Move.StunFrames, comboHits, accumulatedStun,
                 State == FighterState.Blocking, !externalHit && info.Attacker != null &&
                 info.Attacker.IsSpecialMove(info.Move), false);
-            Health = Mathf.Max(0, Health - result.Damage);
-            Guard = result.Guard;
+            SetVitals(Mathf.Max(0, Health - result.Damage), result.Guard,
+                Mathf.Min(MaxSpecial, Special + info.Move.GaugeGain / 2));
             move = null;
             comboMove = null;
             stun = result.StunFrames;
@@ -320,9 +332,12 @@ namespace WobbleBrawl.Gameplay
                 else
                     SetHorizontal(pushback);
             }
-            Special = Mathf.Min(character.MaxSpecial, Special + info.Move.GaugeGain / 2);
             if (info.Attacker != null)
-                info.Attacker.Special = Mathf.Min(info.Attacker.character.MaxSpecial, info.Attacker.Special + info.Move.GaugeGain);
+            {
+                var attacker = info.Attacker;
+                attacker.SetVitals(attacker.Health, attacker.Guard,
+                    Mathf.Min(attacker.MaxSpecial, attacker.Special + info.Move.GaugeGain));
+            }
             HitStopService.Apply(info.Attacker, this, info.Move.HitStopFrames);
             if (!IsAlive)
                 ragdoll?.Launch(info.Direction);

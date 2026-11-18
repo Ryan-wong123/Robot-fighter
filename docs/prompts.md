@@ -531,11 +531,15 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** From Boot, choose **Quick Fight**, choose **Blobby**, and select each arena in turn. Confirm the highlighted arena and hazard description match the actual stage after pressing **Start Match**. Check that **Back** goes to fighter selection and then the main menu. Finish a match and select **Rematch** to check that the same arena reloads.
 
+**Owner playtest:** The owner verified fighter and arena selection in Quick Fight.
+
 ### M3-04 — Match HUD (event-driven health, guard, special, timer, round pips)
 - **Section:** M3 — Game shell (weeks 9-10)
 - **Prerequisites:** M1-07
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `MatchHudTests` verifies damage, guard, special charge, the timer, a win pip, and the next-round HUD reset.
+
+**Playtest:** Start Quick Fight in any arena. Check both sides show full health and guard, empty special, and a running timer. Land a hit and watch the opponent's health drop and your special fill. Hold **S** through an attack and watch your guard fall, then release to let it recover. At full special, check for **READY** and press **L** to spend it. Win a round and check that a pip stays lit while the gauges and timer reset for the next round.
 
 ### M3-05 — Results screen and pause menu
 - **Section:** M3 — Game shell (weeks 9-10)

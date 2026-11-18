@@ -14,6 +14,9 @@ namespace WobbleBrawl.Flow
 
         public event Action<RoundResult> Ended;
         public event Action SuddenDeathStarted;
+        public event Action<int> TimeChanged;
+        public Fighter Player => player;
+        public Fighter Opponent => opponent;
         public bool Running { get; private set; }
         public int SecondsRemaining => Mathf.Max(0, Mathf.CeilToInt(deadline - Time.time));
 
@@ -23,6 +26,7 @@ namespace WobbleBrawl.Flow
         private int roundIndex;
         private float deadline;
         private bool suddenDeath;
+        private int displayedSeconds = -1;
 
         internal void ConfigurePlayer(CharacterDef fighter) => player.ConfigureCharacter(fighter);
 
@@ -40,6 +44,7 @@ namespace WobbleBrawl.Flow
             suddenDeath = false;
             deadline = Time.time + RoundRules.RoundSeconds;
             Running = true;
+            PublishTime();
             if (opponent.TryGetComponent<AIInput>(out var ai))
                 ai.ConfigureRound(itemSpawner, hazard, roundIndex);
             if (itemSpawner != null)
@@ -49,7 +54,10 @@ namespace WobbleBrawl.Flow
 
         private void Update()
         {
-            if (Running && Time.time >= deadline)
+            if (!Running)
+                return;
+            PublishTime();
+            if (Time.time >= deadline)
                 Resolve(true);
         }
 
@@ -67,12 +75,22 @@ namespace WobbleBrawl.Flow
                 opponent.SetSuddenDeath();
                 hazard?.BeginSuddenDeath();
                 deadline = Time.time + RoundRules.SuddenDeathSeconds;
+                PublishTime();
                 SuddenDeathStarted?.Invoke();
                 return;
             }
 
             Stop();
             Ended?.Invoke(result);
+        }
+
+        private void PublishTime()
+        {
+            int seconds = SecondsRemaining;
+            if (seconds == displayedSeconds)
+                return;
+            displayedSeconds = seconds;
+            TimeChanged?.Invoke(seconds);
         }
 
         private void Stop()

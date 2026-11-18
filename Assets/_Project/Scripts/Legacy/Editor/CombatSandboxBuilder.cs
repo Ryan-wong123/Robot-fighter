@@ -69,6 +69,7 @@ public static partial class CombatSandboxBuilder
         ConfigureTestPickup(round);
         ConfigureCombatItems(round);
         ConfigureHazard(round);
+        ConfigureMatchHud(flow, round);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
         AssetDatabase.SaveAssets();
