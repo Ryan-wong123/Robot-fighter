@@ -38,13 +38,13 @@ python Tools/Audio/voice_pipeline.py export Logs/VoiceStaging/audition-01/blobby
 
 Listen again after export. Set the final record's review field to approved only after listening. For a manual edit, update the source hash and add an edit description, keeping the original generation record for provenance.
 
-The owner's D-08 shortening request is reproducible with `python Tools/Audio/shorten_d08.py` into fresh `shortened_sources` and `shortened` directories under `Art/_Source/Audio/D08`. It preserves the original candidates and refuses to overwrite existing edits. These shortened samples still require listening approval.
+The owner's D-08 shortening request is reproducible with `python Tools/Audio/shorten_d08.py` into fresh `shortened_sources` and `shortened` directories under `Art/_Source/Audio/D08`. It preserves the original candidates and refuses to overwrite existing edits. The final five D-08 audition exports have owner listening approval; see the review record for exact files.
 
 Copy approved WAVs and sidecars to Assets/_Project/Art/Audio/Voices/<fighter>/. In Unity set Force To Mono, Preload Audio Data, Decompress On Load, and Vorbis quality around 60 as a starting point. Check build size against the approximately 5 MB launch voice budget. M4-09 connects final voices to events and handles throttling and announcer priority.
 
 ### Source and review status
 
-The code and weights license, commercial-use statement and Google Play policy were reviewed, and five real samples were generated on the local RTX 4070 Laptop GPU. Two passed the export limits; three vocalizations need editing or regeneration. See [D08_REVIEW.md](D08_REVIEW.md) for pinned versions, Windows setup limitations, timings, sources and outstanding owner listening checks. D-08 remains open until sample quality is accepted. The unit tests separately verify the file workflow with a synthetic backend and ffmpeg.
+The code and weights license, commercial-use statement and Google Play policy were reviewed, and five real samples were generated on the local RTX 4070 Laptop GPU. Two original phrase exports and three shortened vocalizations passed export limits and received owner listening approval. See [D08_REVIEW.md](D08_REVIEW.md) for pinned versions, Windows setup limitations, timings, sources and recorded owner acceptance. The remaining manifest lines still require generation and review in the content pass. The unit tests separately verify the file workflow with a synthetic backend and ffmpeg.
 
 [Upstream installation](https://github.com/OpenBMB/VoxCPM) · [Model card](https://huggingface.co/openbmb/VoxCPM2) · [License](https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE)
 

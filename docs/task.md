@@ -26,7 +26,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **D-10** Schematic diagrams (stage layouts, cast lineup, ragdoll bodies, VFX sheets) generated and embedded in characters.md, maps.md and vfx_style.md
 - [x] **D-11** Owner supplies concept art and reference images (fighter turnarounds, stage color keys, VFX references) into docs/images/*/concept/ with sources (owner)
 - [x] **D-12** art_prompts.md written (prompt pack for the fighter, stage and VFX reference art)
-- [~] **D-08** Verify VoxCPM2: model and weights license, commercial use and output rights, hardware needs, sample quality, and Google Play AI-content policy (owner)
+- [x] **D-08** Verify VoxCPM2: model and weights license, commercial use and output rights, hardware needs, sample quality, and Google Play AI-content policy (owner)
 - [ ] **D-06** Verify Photon Quantum 3 licensing, free-tier limits and Unity 6.3+ compatibility (owner)
 
 ## CI & Tooling
@@ -94,7 +94,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **M3-06** Settings (volume, haptics, control layout) (after: M3-02)
 - [x] **M3-07** `SaveService` (versioned JSON, atomic write) + tests (after: M0-16)
 - [x] **M3-08** `AudioManager` with buses; placeholder SFX/music (after: M3-01)
-- [ ] **M3-09** Voice pipeline: clip list, VoxCPM2 generation script, edit/export steps and per-clip license record in `Tools/Audio/` (after: D-08, M3-01)
+- [x] **M3-09** Voice pipeline: clip list, VoxCPM2 generation script, edit/export steps and per-clip license record in `Tools/Audio/` (after: D-08, M3-01)
 - [ ] **M3-10** Match rules: Hazards on/off and Items on/off toggles in match setup (Classic options) (after: M2-01, M2-03, M3-03)
 
 ## M4 — Content (weeks 11-14)

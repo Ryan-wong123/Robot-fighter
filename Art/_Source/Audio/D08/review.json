@@ -1,4 +1,11 @@
 {
-  "sample_quality_approved": false,
-  "review_note": "Awaiting owner audition of five generated candidates; technical and duration checks are not listening approval."
+  "sample_quality_approved": true,
+  "approved_samples": [
+    "exports/announcer_fight_v01.wav",
+    "exports/sirnoodle_taunt_v01.wav",
+    "shortened/blobby_attack_light_v02.wav",
+    "shortened/blobby_hit_heavy_v01.wav",
+    "shortened/mrjack_win_v01.wav"
+  ],
+  "review_note": "Owner: ok i approve all sound effects. Applies to these five final audition exports; other manifest lines still require generation and review."
 }

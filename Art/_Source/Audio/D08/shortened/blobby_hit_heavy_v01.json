@@ -23,7 +23,7 @@
   "weights_source": "https://huggingface.co/openbmb/VoxCPM2",
   "reference_audio": null,
   "license_note": "Voice design; no reference recording. D-08 review remains open.",
-  "review": "audition_required",
+  "review": "approved",
   "sha256": "9c9b10462968e99822b43d0208782feca21ad71a0c89300c3afa1f6c039f2597",
   "original_sha256": "23c8f820e5ad56eba148ea2e208913c77f99a6d810158c5b4c9a7164db3fa3e1",
   "manual_edit": {
@@ -42,5 +42,6 @@
     "normalization_lufs": -18,
     "trim_threshold_db": -45
   },
-  "exported_utc": "2026-11-18T22:33:05.017996+00:00"
+  "exported_utc": "2026-11-18T22:33:05.017996+00:00",
+  "review_note": "Owner approved all presented audition sounds after the second Blobby light-attack shortening."
 }
