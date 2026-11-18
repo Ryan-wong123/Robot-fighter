@@ -1,3 +1,4 @@
+using WobbleBrawl.Core;
 using System;
 using UnityEngine;
 using WobbleBrawl.Data;
@@ -19,6 +20,7 @@ namespace WobbleBrawl.Flow
         public int PlayerWins { get; private set; }
         public int OpponentWins { get; private set; }
         public int RoundNumber { get; private set; }
+        public bool IsRoundRunning => round.Running;
         private float nextRoundAt = float.PositiveInfinity;
 
         internal void ConfigurePlayer(CharacterDef fighter) => round.ConfigurePlayer(fighter);
@@ -38,7 +40,7 @@ namespace WobbleBrawl.Flow
 
         private void Update()
         {
-            if (Time.unscaledTime >= nextRoundAt)
+            if (!MatchPause.IsPaused && Time.unscaledTime >= nextRoundAt)
                 BeginRound();
         }
 

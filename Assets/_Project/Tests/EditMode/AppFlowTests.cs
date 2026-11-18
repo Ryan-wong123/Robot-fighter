@@ -68,6 +68,20 @@ public sealed class AppFlowTests
         Assert.That(panel.gameObject.activeSelf, Is.False);
 
         var match = Object.FindFirstObjectByType<MatchController>();
+        var round = match.GetComponent<RoundController>();
+        var hazard = Object.FindFirstObjectByType<HazardController>();
+        int seconds = round.SecondsRemaining;
+        float hazardTime = hazard.PhaseElapsed;
+        app.TogglePause();
+        Assert.That(app.IsPaused, Is.True);
+        Assert.That(panel.gameObject.activeSelf, Is.True);
+        Assert.That(Time.timeScale, Is.Zero);
+        yield return new WaitForSecondsRealtime(1.2f);
+        Assert.That(round.SecondsRemaining, Is.EqualTo(seconds));
+        Assert.That(hazard.PhaseElapsed, Is.EqualTo(hazardTime));
+        primary.onClick.Invoke();
+        Assert.That(app.IsPaused, Is.False);
+        Assert.That(Time.timeScale, Is.EqualTo(1f));
         var ai = Object.FindFirstObjectByType<AIInput>();
         ai.TogglePause();
         var defender = ai.GetComponent<Fighter>();
@@ -80,6 +94,7 @@ public sealed class AppFlowTests
         Assert.That(defender.ReceiveHit(hit), Is.True);
         yield return WaitFor(() => app.State == AppState.Results, "results");
         Assert.That(app.Result, Is.EqualTo(RoundResult.PlayerWins));
+        Assert.That(app.MatchSummary, Is.EqualTo("2 – 0"));
         Assert.That(panel.gameObject.activeSelf, Is.True);
 
         primary.onClick.Invoke();

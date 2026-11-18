@@ -20,6 +20,7 @@ namespace WobbleBrawl.UI
         private Text description;
         private Button primary;
         private Button secondary;
+        private Button pauseButton;
         private Button[] stageButtons;
         private Text primaryText;
         private Text secondaryText;
@@ -67,6 +68,13 @@ namespace WobbleBrawl.UI
             }
             primary.onClick.AddListener(PrimaryAction);
             secondary.onClick.AddListener(SecondaryAction);
+            pauseButton = CreateButton("Pause Match", 0f, Cream, out var pauseCaption);
+            pauseCaption.text = "Pause";
+            var pauseRect = (RectTransform)pauseButton.transform;
+            Place(pauseRect, 120f, 48f, -185f, new Vector2(.5f, 1f));
+            pauseRect.SetParent(canvas.transform, false);
+            pauseButton.onClick.AddListener(app.TogglePause);
+            pauseButton.gameObject.SetActive(false);
             var inputObject = new GameObject("App Event System", typeof(EventSystem), typeof(StandaloneInputModule));
             inputObject.transform.SetParent(transform, false);
             input = inputObject.GetComponent<EventSystem>();
@@ -89,6 +97,13 @@ namespace WobbleBrawl.UI
 
         private void Update()
         {
+            if (app.IsPrimary && Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (app.State == AppState.Match)
+                    app.TogglePause();
+                else if (app.State == AppState.Selection)
+                    app.ReturnToMenu();
+            }
             if (!app.IsPrimary || !panel.activeSelf)
                 return;
             var screenSize = new Vector2Int(Screen.width, Screen.height);
@@ -128,7 +143,8 @@ namespace WobbleBrawl.UI
 
         private void Render()
         {
-            bool visible = app.State != AppState.Match || app.IsLoading;
+            bool visible = app.State != AppState.Match || app.IsLoading || app.IsPaused;
+            pauseButton.gameObject.SetActive(app.CanPause && !app.IsPaused);
             panel.SetActive(visible);
             if (!visible || app.IsLoading)
                 input.SetSelectedGameObject(null);
@@ -182,8 +198,14 @@ namespace WobbleBrawl.UI
                 case AppState.Results:
                     title.text = app.Result == RoundResult.PlayerWins ? "You Win" :
                         app.Result == RoundResult.OpponentWins ? "Opponent Wins" : "Draw";
-                    description.text = "";
+                    description.text = app.MatchSummary;
                     primaryText.text = "Rematch";
+                    secondaryText.text = "Main Menu";
+                    break;
+                case AppState.Match:
+                    title.text = "Paused";
+                    description.text = "";
+                    primaryText.text = "Resume";
                     secondaryText.text = "Main Menu";
                     break;
             }
@@ -220,7 +242,9 @@ namespace WobbleBrawl.UI
 
         private void PrimaryAction()
         {
-            if (app.State == AppState.MainMenu)
+            if (app.IsPaused)
+                app.TogglePause();
+            else if (app.State == AppState.MainMenu)
                 app.OpenSelection();
             else if (app.State == AppState.Selection && app.Step == SelectionStep.Fighter)
                 app.SelectBlobby();

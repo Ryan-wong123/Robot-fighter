@@ -1,3 +1,4 @@
+using WobbleBrawl.Core;
 using UnityEngine;
 
 namespace WobbleBrawl.Gameplay
@@ -30,12 +31,12 @@ namespace WobbleBrawl.Gameplay
             originalPosition = fightCamera.transform.position;
             elapsed = 0f;
             playing = true;
-            Time.timeScale = originalScale * slowMotion;
+            MatchPause.SetGameplayScale(originalScale * slowMotion);
         }
 
         private void LateUpdate()
         {
-            if (!playing)
+            if (!playing || MatchPause.IsPaused)
                 return;
 
             elapsed += Time.unscaledDeltaTime;
@@ -59,7 +60,7 @@ namespace WobbleBrawl.Gameplay
                 return;
 
             playing = false;
-            Time.timeScale = originalScale;
+            MatchPause.SetGameplayScale(originalScale);
             if (fightCamera == null)
                 return;
             fightCamera.orthographicSize = originalSize;

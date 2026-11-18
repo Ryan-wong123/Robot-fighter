@@ -316,3 +316,5 @@ The Combat Sandbox builder generates and reuses the BlobbyFighter prefab for bot
 The combat sandbox uses layer 8 for the arena floor and layer 9 for fighter hurtboxes. Empty masks on older shared-fighter instances fall back to these layers at runtime. Direct animation sampling uses the serialized clips even if the imported Animator has no controller.
 
 The partial hit reaction starts with a 40-degree rotation on the selected dynamic bone, then blends its simulated pose back into animation over the 0.48-second reaction.
+
+The app pause overlay uses MatchPause to freeze simulation time during a live round. Results records the final match score and offers rematch and menu navigation. Escape toggles pause.

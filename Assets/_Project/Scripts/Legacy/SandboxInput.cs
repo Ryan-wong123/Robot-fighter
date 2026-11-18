@@ -12,6 +12,11 @@ public sealed class SandboxInput : MonoBehaviour, IFighterInput
 
     private void Update()
     {
+        if (MatchPause.IsPaused)
+        {
+            pending = default;
+            return;
+        }
         if (player != null && player.ItemOpponent != null &&
             player.ItemOpponent.TryGetComponent<AIInput>(out var opponent))
         {

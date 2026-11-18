@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using WobbleBrawl.Data;
+using WobbleBrawl.Core;
 
 namespace WobbleBrawl.Flow
 {
@@ -40,6 +41,11 @@ namespace WobbleBrawl.Flow
         public bool CanStartMatch => StageCount > 0 && selectedFighter != null &&
             Application.CanStreamedLevelBeLoaded(GetStage(StageIndex).Scene);
         public RoundResult Result { get; private set; }
+        public int PlayerWins { get; private set; }
+        public int OpponentWins { get; private set; }
+        public bool IsPaused => MatchPause.IsPaused;
+        public bool CanPause => State == AppState.Match && !IsLoading && match != null && match.IsRoundRunning;
+        public string MatchSummary => $"{PlayerWins} – {OpponentWins}";
         public event Action Changed;
 
         private void Awake()
@@ -63,7 +69,21 @@ namespace WobbleBrawl.Flow
         {
             DetachMatch();
             if (IsPrimary)
+            {
+                MatchPause.Resume();
                 running = null;
+            }
+        }
+
+        public void TogglePause()
+        {
+            if (IsPaused)
+                MatchPause.Resume();
+            else if (CanPause)
+                MatchPause.Pause();
+            else
+                return;
+            Changed?.Invoke();
         }
 
         public void OpenSelection()
@@ -146,6 +166,8 @@ namespace WobbleBrawl.Flow
 
         private void OnMatchEnded(RoundResult result)
         {
+            PlayerWins = match.PlayerWins;
+            OpponentWins = match.OpponentWins;
             DetachMatch();
             Result = result;
             pendingResults = StartCoroutine(ShowResults());
@@ -161,6 +183,7 @@ namespace WobbleBrawl.Flow
         private IEnumerator Load(string sceneName, AppState next)
         {
             IsLoading = true;
+            MatchPause.Resume();
             DetachMatch();
             if (pendingResults != null)
             {
