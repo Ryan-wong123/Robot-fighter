@@ -36,10 +36,38 @@ public static class SirNoodleContent
         }
         var installed = AssetDatabase.LoadAssetAtPath<CharacterDef>(DefinitionPath);
         if (EditorApplication.isPlayingOrWillChangePlaymode ||
-            (installed != null && installed.Prefab != null && installed.VisualPrefab != null) ||
             AssetDatabase.LoadAssetAtPath<GameObject>(ModelPath) == null)
             return;
+        if (installed != null && installed.Prefab != null && installed.VisualPrefab != null)
+        {
+            var material = AssetDatabase.LoadAssetAtPath<Material>(Art + "/Materials/NoodleToon.mat");
+            if (material != null && material.GetTexture("_BaseMap") == null)
+                RepairColors();
+            return;
+        }
         Build();
+    }
+
+    [MenuItem("Wobble Brawl/Characters/Repair Sir Noodle Colors")]
+    public static void RepairColors()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode)
+            return;
+        ConfigureTexture();
+        var material = AssetDatabase.LoadAssetAtPath<Material>(Art + "/Materials/NoodleToon.mat");
+        BindAtlas(material);
+        AssetDatabase.SaveAssets();
+    }
+
+    private static void BindAtlas(Material material)
+    {
+        var texture = AssetDatabase.LoadAssetAtPath<Texture2D>(Art + "/SirNoodle_Body_Albedo.png");
+        if (texture == null || material == null)
+            throw new InvalidOperationException("Sir Noodle requires its imported 2D atlas and toon material.");
+        material.SetTexture("_BaseMap", texture);
+        if (material.HasProperty("_MainTex"))
+            material.SetTexture("_MainTex", texture);
+        EditorUtility.SetDirty(material);
     }
 
     [MenuItem("Wobble Brawl/Characters/Build Sir Noodle")]
@@ -69,14 +97,14 @@ public static class SirNoodleContent
         if (clips.Length != 22)
             throw new InvalidOperationException("Expected 22 Sir Noodle clips, got " + clips.Length);
         var controller = CreateController(clips);
+        ConfigureTexture();
         var body = MakeMaterial("NoodleToon", "BlobbyJelly.mat");
-        body.SetTexture("_BaseMap", AssetDatabase.LoadAssetAtPath<Texture2D>(Art + "/SirNoodle_Body_Albedo.png"));
+        BindAtlas(body);
         var outline = MakeMaterial("NoodleOutline", "JellyOutline.mat");
         outline.SetColor("_Outline", new Color(.10f, .07f, .16f));
         outline.SetFloat("_OutlineWidth", .009f);
         EditorUtility.SetDirty(body);
         EditorUtility.SetDirty(outline);
-        ConfigureTexture();
         BuildVisual(controller, body, outline);
 
         // Create the resource definition last, so a failed import retries next domain reload.

@@ -16,6 +16,32 @@ public sealed class SirNoodleTests
     private const string Definition = "Assets/_Project/Resources/Characters/SirNoodle.asset";
 
     [Test]
+    public void ExistingWhiteMaterialIsRepairedWithTheCorrectAtlas()
+    {
+        EnsureContent();
+        var material = AssetDatabase.LoadAssetAtPath<Material>(
+            "Assets/_Project/Art/Characters/SirNoodle/Materials/NoodleToon.mat");
+        var expected = AssetDatabase.LoadAssetAtPath<Texture2D>(
+            "Assets/_Project/Art/Characters/SirNoodle/SirNoodle_Body_Albedo.png");
+        var previous = material.GetTexture("_BaseMap");
+        try
+        {
+            material.SetTexture("_BaseMap", null);
+            Type.GetType("SirNoodleContent, Assembly-CSharp-Editor", true)
+                .GetMethod("InstallIfMissing", System.Reflection.BindingFlags.NonPublic |
+                    System.Reflection.BindingFlags.Static).Invoke(null, null);
+            Assert.That(expected, Is.Not.Null);
+            Assert.That(material.GetTexture("_BaseMap"), Is.EqualTo(expected));
+        }
+        finally
+        {
+            material.SetTexture("_BaseMap", previous != null ? previous : expected);
+            EditorUtility.SetDirty(material);
+            AssetDatabase.SaveAssets();
+        }
+    }
+
+    [Test]
     public void FrameScheduleHasFourSeparatedAlternatingPulses()
     {
         Assert.That(MoveHitSchedule.Pulse(11, 12, 24, 6), Is.EqualTo(-1));

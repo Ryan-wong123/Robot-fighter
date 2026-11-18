@@ -40,6 +40,8 @@ Joust has four six-frame windows, alternating front/back/front/back: two chances
 
 The surface uses the existing shared URP toon Shader Graph; the outline is dark purple with width 0.009. The atlas uses ASTC 6x6 for Android. No scenes are rewritten. Boot loads the roster entry; choose Sir Noodle or Blobby and use **AI: ...** to choose the opponent. Rematch retains both choices. Direct arena play keeps its original Blobby setup. The runtime replaces only the visual and character-sized body/hurtbox, preserving scene HUD, input, AI, camera and match references. Items bind to the new hand socket.
 
+The color binding is assigned after the texture finishes its 2D/platform reimport. An empty `_BaseMap` previously produced a white toon surface. Existing completed content with an empty slot is repaired automatically outside Play Mode; **Wobble Brawl → Characters → Repair Sir Noodle Colors** reapplies the atlas without rebuilding the fighter. The toon material's `_BaseMap` points to SirNoodle_Body_Albedo; the legacy `_MainTex` binding is corrected too. The regression test covers recovery of an already-created white material. Unity visual verification of the repair remains pending.
+
 ## Rebuild and verification
 
 Use Blender 4.5 in background mode from the repository root, choosing fresh outputs:
