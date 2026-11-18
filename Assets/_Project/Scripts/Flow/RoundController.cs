@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using WobbleBrawl.Data;
 using WobbleBrawl.Gameplay;
 
 namespace WobbleBrawl.Flow
@@ -22,6 +23,8 @@ namespace WobbleBrawl.Flow
         private int roundIndex;
         private float deadline;
         private bool suddenDeath;
+
+        internal void ConfigurePlayer(CharacterDef fighter) => player.ConfigureCharacter(fighter);
 
         public void Begin()
         {

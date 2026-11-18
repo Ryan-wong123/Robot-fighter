@@ -521,11 +521,15 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 > Create a landscape 3:2 main menu illustration for Wobble Brawl, using first image as Blobby character reference and second as the Bathtub Brawl stage color and prop reference. One original view: Blobby, a lime-green jellybean fighter with small limbs and mischievous expressive face, lunges playfully toward the viewer from atop a pink soap bar at the right, with a giant yellow rubber duck and chrome faucet behind amid pale blue square tiles and water droplets. Thick colored outlines, flat two-tone cel shading, chunky toy shapes, controlled cyan/green/yellow with warm pink accents. Only in the RIGHT 65 percent pack the readable character and action; the LEFT 35 percent shows darker navy-teal bathroom tile and low-detail shadows, dark enough for a game title overlay. Full bleed, no words, no letters, no logos, no UI.
 
+**Owner playtest:** The owner verified the illustrated main menu and its navigation.
+
 ### M3-03 — Fighter select and stage select
 - **Section:** M3 — Game shell (weeks 9-10)
 - **Prerequisites:** M3-02, M1-03
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13; docs/characters.md section 2; docs/maps.md section 5
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `AppFlowTests` verifies that all three arenas are enabled in the build and exercises fighter confirmation, stage selection, back navigation, and a rematch on the selected arena.
+
+**Playtest:** From Boot, choose **Quick Fight**, choose **Blobby**, and select each arena in turn. Confirm the highlighted arena and hazard description match the actual stage after pressing **Start Match**. Check that **Back** goes to fighter selection and then the main menu. Finish a match and select **Rematch** to check that the same arena reloads.
 
 ### M3-04 — Match HUD (event-driven health, guard, special, timer, round pips)
 - **Section:** M3 — Game shell (weeks 9-10)

@@ -9,6 +9,12 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/Boot.unity
     guid: 10de7c31e65e45946a0b917694f51f2e
   - enabled: 1
+    path: Assets/_Project/Scenes/BathtubBrawl.unity
+    guid: 6a3b891d3b384fb4192a0c03ada5ed0a
+  - enabled: 1
+    path: Assets/_Project/Scenes/KitchenCounter.unity
+    guid: b66f8ecaad155b14db7052837ccd2040
+  - enabled: 1
     path: Assets/_Project/Scenes/CombatSandbox.unity
     guid: ce3bdd0607f941047aea3396231ecd6e
   - enabled: 1

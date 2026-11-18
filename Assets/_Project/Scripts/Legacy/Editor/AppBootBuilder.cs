@@ -2,6 +2,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using WobbleBrawl.Data;
 using WobbleBrawl.Flow;
 using WobbleBrawl.UI;
 
@@ -15,14 +16,39 @@ public static class AppBootBuilder
     {
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
             return;
+        UnityEngine.SceneManagement.Scene scene;
         if (AssetDatabase.LoadAssetAtPath<SceneAsset>(BootPath) == null)
         {
-            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             new GameObject("App", typeof(AppStateMachine), typeof(AppFlowView));
-            EditorSceneManager.SaveScene(scene, BootPath);
         }
+        else
+            scene = EditorSceneManager.OpenScene(BootPath, OpenSceneMode.Single);
 
-        string[] appScenes = { BootPath, Scenes + "CombatSandbox.unity" };
+        var app = scene.GetRootGameObjects().Select(root => root.GetComponent<AppStateMachine>())
+            .Single(controller => controller != null);
+        var configuration = new SerializedObject(app);
+        configuration.FindProperty("blobby").objectReferenceValue =
+            AssetDatabase.LoadAssetAtPath<CharacterDef>("Assets/_Project/Data/Combat/SandboxFighter.asset");
+        var stages = configuration.FindProperty("stages");
+        var entries = new[]
+        {
+            new StageChoice { Name = "Bathtub Brawl", Scene = "BathtubBrawl", Hazards = "Rising water · Duck wave" },
+            new StageChoice { Name = "Kitchen Counter", Scene = "KitchenCounter", Hazards = "Flying toast · Mixer belt" },
+            new StageChoice { Name = "Combat Sandbox", Scene = "CombatSandbox", Hazards = "Center-stage test hazard" }
+        };
+        stages.arraySize = entries.Length;
+        for (int index = 0; index < entries.Length; index++)
+        {
+            var entry = stages.GetArrayElementAtIndex(index);
+            entry.FindPropertyRelative("Name").stringValue = entries[index].Name;
+            entry.FindPropertyRelative("Scene").stringValue = entries[index].Scene;
+            entry.FindPropertyRelative("Hazards").stringValue = entries[index].Hazards;
+        }
+        configuration.ApplyModifiedPropertiesWithoutUndo();
+        EditorSceneManager.SaveScene(scene, BootPath);
+
+        string[] appScenes = new[] { BootPath }.Concat(entries.Select(entry => Scenes + entry.Scene + ".unity")).ToArray();
         EditorBuildSettings.scenes = appScenes.Select(path => new EditorBuildSettingsScene(path, true))
             .Concat(EditorBuildSettings.scenes.Where(scene => !appScenes.Contains(scene.path))).ToArray();
     }

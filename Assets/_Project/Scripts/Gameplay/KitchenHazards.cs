@@ -75,15 +75,22 @@ namespace WobbleBrawl.Gameplay
             }
 
             bool warning = phase == HazardPhase.Telegraph;
-            hotCoils.SetActive(warning && !beltCycle);
+            if (hotCoils != null)
+                hotCoils.SetActive(warning && !beltCycle);
             foreach (var marker in landingMarkers)
-                marker.gameObject.SetActive(!beltCycle && (warning || phase == HazardPhase.Active));
-            beltArrows.gameObject.SetActive(beltCycle && (warning || phase == HazardPhase.Active));
-            beltArrows.localRotation = Quaternion.identity;
+                if (marker != null)
+                    marker.gameObject.SetActive(!beltCycle && (warning || phase == HazardPhase.Active));
+            if (beltArrows != null)
+            {
+                beltArrows.gameObject.SetActive(beltCycle && (warning || phase == HazardPhase.Active));
+                beltArrows.localRotation = Quaternion.identity;
+            }
             foreach (var slice in toastSlices)
-                slice.gameObject.SetActive(false);
+                if (slice != null)
+                    slice.gameObject.SetActive(false);
             foreach (var fighter in fighters)
-                fighter.SetConveyorSpeed(0f);
+                if (fighter != null)
+                    fighter.SetConveyorSpeed(0f);
             if (phase == HazardPhase.Inactive && warningAudio != null)
                 warningAudio.Stop();
         }

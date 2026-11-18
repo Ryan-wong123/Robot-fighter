@@ -20,6 +20,8 @@ public sealed class AppFlowTests
         var scenes = EditorBuildSettings.scenes.Where(scene => scene.enabled).ToArray();
         Assert.That(scenes[0].path, Does.EndWith("/Boot.unity"));
         Assert.That(scenes.Any(scene => scene.path.EndsWith("/CombatSandbox.unity")), Is.True);
+        Assert.That(scenes.Any(scene => scene.path.EndsWith("/BathtubBrawl.unity")), Is.True);
+        Assert.That(scenes.Any(scene => scene.path.EndsWith("/KitchenCounter.unity")), Is.True);
     }
 
     [UnityTest]
@@ -47,12 +49,21 @@ public sealed class AppFlowTests
         Assert.That(EventSystem.current.currentSelectedGameObject, Is.SameAs(primary.gameObject));
         primary.onClick.Invoke();
         Assert.That(app.State, Is.EqualTo(AppState.Selection));
+        Assert.That(app.Step, Is.EqualTo(SelectionStep.Fighter));
         Assert.That(artwork.gameObject.activeSelf, Is.False);
         secondary.onClick.Invoke();
         Assert.That(app.State, Is.EqualTo(AppState.MainMenu));
         primary.onClick.Invoke();
         primary.onClick.Invoke();
-        yield return WaitFor(() => !app.IsLoading && SceneManager.GetActiveScene().name == "CombatSandbox" &&
+        Assert.That(app.Step, Is.EqualTo(SelectionStep.Stage));
+        secondary.onClick.Invoke();
+        Assert.That(app.Step, Is.EqualTo(SelectionStep.Fighter));
+        primary.onClick.Invoke();
+        var kitchen = panel.Find("Safe Content/Stage 1").GetComponent<Button>();
+        kitchen.onClick.Invoke();
+        Assert.That(app.GetStage(app.StageIndex).Scene, Is.EqualTo("KitchenCounter"));
+        primary.onClick.Invoke();
+        yield return WaitFor(() => !app.IsLoading && SceneManager.GetActiveScene().name == "KitchenCounter" &&
             Object.FindFirstObjectByType<MatchController>()?.RoundNumber == 1, "first match");
         Assert.That(panel.gameObject.activeSelf, Is.False);
 
@@ -73,6 +84,7 @@ public sealed class AppFlowTests
 
         primary.onClick.Invoke();
         yield return WaitFor(() => !app.IsLoading && app.State == AppState.Match, "rematch");
+        Assert.That(SceneManager.GetActiveScene().name, Is.EqualTo("KitchenCounter"));
         Assert.That(Object.FindFirstObjectByType<MatchController>(), Is.Not.SameAs(match));
         Assert.That(Object.FindFirstObjectByType<MatchController>().RoundNumber, Is.EqualTo(1));
         app.ReturnToMenu();

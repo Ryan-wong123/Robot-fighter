@@ -200,7 +200,7 @@ MatchController:  holds best-of-3 state, creates fighters from CharacterDefs, ow
 RoundController:  Intro -> Fight -> (KO | TimeUp | SuddenDeath) -> RoundEnd
 ```
 - The `Boot` scene is first in the build. Its app root survives scene loads, and the active match registers its `MatchEnded` event with that root. Results wait for the KO presentation and support rematch or a return to Boot. Opening an arena directly still starts its standalone match.
-- The Boot view renders the illustrated Quick Fight menu and keeps its controls within the display safe area. It selects the primary button when a screen opens so keyboard and controller navigation have a starting focus. M3-03 expands the fixed Blobby-versus-AI setup to fighter and stage selection.
+- The Boot view renders the illustrated Quick Fight menu and keeps its controls within the display safe area. Quick Fight confirms the Blobby character definition and offers three authored stage entries. The app passes the selected definition to the player before round one and remembers the arena for rematches. Other roster members require their M4 prefabs and animations.
 - `MatchRules` (`HazardsEnabled`, `ItemsEnabled`; the Classic options, see [`maps.md`](maps.md) section 5) is part of the match setup and is read by `HazardController` and `ItemSpawner`. It must be part of the synchronized match config for online play.
 - Round end is evaluated **on the event** (`OnFighterKO`, `OnTimerExpired`), not by polling once a second.
 - Tie at timeout enters **sudden death**; there is no unresolved state.

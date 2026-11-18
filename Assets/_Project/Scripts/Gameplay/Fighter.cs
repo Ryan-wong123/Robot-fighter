@@ -41,6 +41,12 @@ namespace WobbleBrawl.Gameplay
         private float conveyorSpeed;
         public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
 
+        public void ConfigureCharacter(CharacterDef definition)
+        {
+            if (!roundActive && definition != null)
+                character = definition;
+        }
+
         public int Facing { get; private set; } = 1;
         public int Team => team;
         public bool CanInteractWithItems => roundActive && IsAlive;

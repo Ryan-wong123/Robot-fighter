@@ -2,6 +2,7 @@
   "name": "WobbleBrawl.Flow",
   "references": [
     "WobbleBrawl.Core",
+    "WobbleBrawl.Data",
     "WobbleBrawl.Gameplay"
   ]
 }

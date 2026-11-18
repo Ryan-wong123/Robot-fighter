@@ -2,24 +2,43 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Flow
 {
     public enum AppState { Boot, MainMenu, Selection, Match, Results }
+    public enum SelectionStep { Fighter, Stage }
+
+    [Serializable]
+    public sealed class StageChoice
+    {
+        public string Name;
+        public string Scene;
+        public string Hazards;
+    }
 
     [DefaultExecutionOrder(-100)]
     public sealed class AppStateMachine : MonoBehaviour
     {
         [SerializeField] private string bootScene = "Boot";
-        [SerializeField] private string matchScene = "CombatSandbox";
+        [SerializeField] private CharacterDef blobby;
+        [SerializeField] private StageChoice[] stages;
         [SerializeField, Min(0f)] private float resultsDelay = 1.5f;
 
         private static AppStateMachine running;
         private MatchController match;
         private Coroutine pendingResults;
+        private string matchScene;
+        private CharacterDef selectedFighter;
         public bool IsPrimary => running == this;
         public bool IsLoading { get; private set; }
         public AppState State { get; private set; }
+        public SelectionStep Step { get; private set; }
+        public int StageCount => stages?.Length ?? 0;
+        public int StageIndex { get; private set; }
+        public StageChoice GetStage(int index) => stages[index];
+        public bool CanStartMatch => StageCount > 0 && selectedFighter != null &&
+            Application.CanStreamedLevelBeLoaded(GetStage(StageIndex).Scene);
         public RoundResult Result { get; private set; }
         public event Action Changed;
 
@@ -50,13 +69,41 @@ namespace WobbleBrawl.Flow
         public void OpenSelection()
         {
             if (!IsLoading && State == AppState.MainMenu)
+            {
+                Step = SelectionStep.Fighter;
+                selectedFighter = null;
                 Enter(AppState.Selection);
+            }
+        }
+
+        public void SelectBlobby()
+        {
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || blobby == null)
+                return;
+            selectedFighter = blobby;
+            Step = SelectionStep.Stage;
+            Changed?.Invoke();
+        }
+
+        public void SelectStage(int index)
+        {
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage ||
+                index < 0 || index >= StageCount)
+                return;
+            StageIndex = index;
+            Changed?.Invoke();
         }
 
         public void StartMatch()
         {
-            if (!IsLoading && (State == AppState.Selection || State == AppState.Results) &&
-                Application.CanStreamedLevelBeLoaded(matchScene))
+            if (IsLoading)
+                return;
+            if (State == AppState.Selection && Step == SelectionStep.Stage && CanStartMatch)
+            {
+                matchScene = GetStage(StageIndex).Scene;
+                StartCoroutine(Load(matchScene, AppState.Match));
+            }
+            else if (State == AppState.Results && Application.CanStreamedLevelBeLoaded(matchScene))
                 StartCoroutine(Load(matchScene, AppState.Match));
         }
 
@@ -65,7 +112,15 @@ namespace WobbleBrawl.Flow
             if (IsLoading)
                 return;
             if (State == AppState.Selection)
-                Enter(AppState.MainMenu);
+            {
+                if (Step == SelectionStep.Stage)
+                {
+                    Step = SelectionStep.Fighter;
+                    Changed?.Invoke();
+                }
+                else
+                    Enter(AppState.MainMenu);
+            }
             else if ((State == AppState.Results || State == AppState.Match) &&
                      Application.CanStreamedLevelBeLoaded(bootScene))
                 StartCoroutine(Load(bootScene, AppState.MainMenu));
@@ -78,6 +133,7 @@ namespace WobbleBrawl.Flow
 
             running.DetachMatch();
             running.match = controller;
+            controller.ConfigurePlayer(running.selectedFighter);
             controller.MatchEnded += running.OnMatchEnded;
         }
 

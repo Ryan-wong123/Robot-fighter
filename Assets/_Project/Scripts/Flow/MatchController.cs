@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Flow
 {
@@ -19,6 +20,8 @@ namespace WobbleBrawl.Flow
         public int OpponentWins { get; private set; }
         public int RoundNumber { get; private set; }
         private float nextRoundAt = float.PositiveInfinity;
+
+        internal void ConfigurePlayer(CharacterDef fighter) => round.ConfigurePlayer(fighter);
 
         private void OnEnable() => round.Ended += OnRoundEnded;
         private void OnDisable()

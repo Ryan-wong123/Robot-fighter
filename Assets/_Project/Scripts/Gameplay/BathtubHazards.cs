@@ -77,16 +77,22 @@ namespace WobbleBrawl.Gameplay
                     SetX(duck, waveStartX - .6f);
             }
 
-            waterWarning.SetActive(phase == HazardPhase.Telegraph && !isDuckCycle);
-            duckWarning.SetActive(phase == HazardPhase.Telegraph && isDuckCycle);
-            wave.gameObject.SetActive(phase == HazardPhase.Active && isDuckCycle);
-            waterSurface.gameObject.SetActive(!isDuckCycle &&
-                (phase == HazardPhase.Active || phase == HazardPhase.Cooldown));
+            if (waterWarning != null)
+                waterWarning.SetActive(phase == HazardPhase.Telegraph && !isDuckCycle);
+            if (duckWarning != null)
+                duckWarning.SetActive(phase == HazardPhase.Telegraph && isDuckCycle);
+            if (wave != null)
+                wave.gameObject.SetActive(phase == HazardPhase.Active && isDuckCycle);
+            if (waterSurface != null)
+                waterSurface.gameObject.SetActive(!isDuckCycle &&
+                    (phase == HazardPhase.Active || phase == HazardPhase.Cooldown));
 
             if (phase == HazardPhase.Idle || phase == HazardPhase.Inactive)
             {
-                duck.localPosition = duckHome;
-                SetHeight(waterSurface, 0f);
+                if (duck != null)
+                    duck.localPosition = duckHome;
+                if (waterSurface != null)
+                    SetHeight(waterSurface, 0f);
             }
             if (phase != HazardPhase.Active && phase != HazardPhase.Cooldown)
                 UpdateWetFighters(0f);
@@ -116,6 +122,8 @@ namespace WobbleBrawl.Gameplay
         {
             foreach (var fighter in fighters)
             {
+                if (fighter == null)
+                    continue;
                 bool wet = height > .05f && fighter.transform.position.y < height;
                 fighter.SetWater(wet ? wetMultipliers.x : 1f, wet ? wetMultipliers.y : 1f,
                     wet ? wetMultipliers.z : 1f);

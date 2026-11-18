@@ -162,7 +162,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: WobbleBrawl.Flow::WobbleBrawl.Flow.AppStateMachine
   bootScene: Boot
-  matchScene: CombatSandbox
+  blobby: {fileID: 11400000, guid: 93adc3c2bad15ef4ca1fa8bc1849244b, type: 2}
+  stages:
+  - Name: Bathtub Brawl
+    Scene: BathtubBrawl
+    Hazards: "Rising water \xB7 Duck wave"
+  - Name: Kitchen Counter
+    Scene: KitchenCounter
+    Hazards: "Flying toast \xB7 Mixer belt"
+  - Name: Combat Sandbox
+    Scene: CombatSandbox
+    Hazards: Center-stage test hazard
   resultsDelay: 1.5
 --- !u!4 &1895868205
 Transform:

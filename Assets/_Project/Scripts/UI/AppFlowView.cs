@@ -20,6 +20,7 @@ namespace WobbleBrawl.UI
         private Text description;
         private Button primary;
         private Button secondary;
+        private Button[] stageButtons;
         private Text primaryText;
         private Text secondaryText;
         private Font font;
@@ -51,6 +52,19 @@ namespace WobbleBrawl.UI
             description = Label(safeContent, "Description", 24, 47f);
             primary = CreateButton("Primary Action", -38f, Green, out primaryText);
             secondary = CreateButton("Secondary Action", -114f, Cream, out secondaryText);
+            stageButtons = new Button[app.StageCount];
+            for (int index = 0; index < stageButtons.Length; index++)
+            {
+                int choice = index;
+                var button = CreateButton("Stage " + index, 47f, Cream, out var caption);
+                caption.text = app.GetStage(index).Name;
+                caption.fontSize = 22;
+                button.onClick.AddListener(() => app.SelectStage(choice));
+                var rect = (RectTransform)button.transform;
+                Place(rect, 218f, 62f, 47f);
+                rect.anchoredPosition += Vector2.right * ((index - (stageButtons.Length - 1) * .5f) * 235f);
+                stageButtons[index] = button;
+            }
             primary.onClick.AddListener(PrimaryAction);
             secondary.onClick.AddListener(SecondaryAction);
             var inputObject = new GameObject("App Event System", typeof(EventSystem), typeof(StandaloneInputModule));
@@ -122,6 +136,7 @@ namespace WobbleBrawl.UI
                 return;
 
             bool mainMenu = !app.IsLoading && app.State == AppState.MainMenu;
+            bool stageSelection = !app.IsLoading && app.State == AppState.Selection && app.Step == SelectionStep.Stage;
             menuArt.gameObject.SetActive(mainMenu);
             menuRail.SetActive(mainMenu && menuArt.texture != null);
             if (mainMenu)
@@ -130,6 +145,12 @@ namespace WobbleBrawl.UI
                 LayoutFlowScreen();
             primary.gameObject.SetActive(!app.IsLoading);
             secondary.gameObject.SetActive(!app.IsLoading && app.State != AppState.MainMenu);
+            primary.interactable = !stageSelection || app.CanStartMatch;
+            for (int index = 0; index < stageButtons.Length; index++)
+            {
+                stageButtons[index].gameObject.SetActive(stageSelection);
+                stageButtons[index].targetGraphic.color = index == app.StageIndex ? Green : Cream;
+            }
             if (app.IsLoading)
             {
                 title.text = "Loading";
@@ -145,9 +166,17 @@ namespace WobbleBrawl.UI
                     primaryText.text = "Quick Fight";
                     break;
                 case AppState.Selection:
-                    title.text = "Quick Fight";
-                    description.text = "Blobby vs AI · Combat Sandbox";
-                    primaryText.text = "Start Match";
+                    title.text = stageSelection ? "Choose Arena" : "Choose Fighter";
+                    description.text = stageSelection
+                        ? (app.StageCount > 0 ? app.GetStage(app.StageIndex).Hazards : "")
+                        : "Quick Fight vs AI";
+                    if (stageSelection)
+                    {
+                        Place(description.rectTransform, 640f, 52f, -6f);
+                        Place((RectTransform)primary.transform, 310f, 58f, -70f);
+                        Place((RectTransform)secondary.transform, 310f, 58f, -144f);
+                    }
+                    primaryText.text = stageSelection ? "Start Match" : "Blobby";
                     secondaryText.text = "Back";
                     break;
                 case AppState.Results:
@@ -158,7 +187,8 @@ namespace WobbleBrawl.UI
                     secondaryText.text = "Main Menu";
                     break;
             }
-            input.SetSelectedGameObject(primary.gameObject);
+            input.SetSelectedGameObject(stageSelection && stageButtons.Length > 0
+                ? stageButtons[app.StageIndex].gameObject : primary.gameObject);
         }
 
         private void LayoutMainMenu()
@@ -183,13 +213,17 @@ namespace WobbleBrawl.UI
             title.lineSpacing = 1f;
             title.resizeTextForBestFit = false;
             Place(title.rectTransform, 640f, 78f, 126f);
+            Place(description.rectTransform, 640f, 78f, 47f);
             Place((RectTransform)primary.transform, 310f, 58f, -38f);
+            Place((RectTransform)secondary.transform, 310f, 58f, -114f);
         }
 
         private void PrimaryAction()
         {
             if (app.State == AppState.MainMenu)
                 app.OpenSelection();
+            else if (app.State == AppState.Selection && app.Step == SelectionStep.Fighter)
+                app.SelectBlobby();
             else
                 app.StartMatch();
         }
