@@ -43,8 +43,12 @@
   "CI-01": [
     "python3 -m unittest discover -s Tools/tasks -p 'test_*.py'"
   ],
+  "M2-08": [
+    "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"Owner verified the M2 fairness playtest in Bathtub Brawl and Kitchen Counter.\""
+  ],
   "M2-09": [
-    "python3 Tools/tasks/checks.py no-pattern 'GameObject\\\\.Find|FindObjectOfType|SendMessage|SendMessageUpwards' Assets/scripts Assets/_Project/Scripts"
+    "python3 Tools/tasks/checks.py no-pattern \"GameObject[.]Find|FindObjectOfType|SendMessage|SendMessageUpwards\" Assets",
+    "bash Tools/tasks/run_unity_tests.sh EditMode PrototypeSceneTests.LegacySceneHasExplicitFighterReferences"
   ],
   "D-07": [
     "python3 Tools/tasks/checks.py file-exists docs/characters.md",

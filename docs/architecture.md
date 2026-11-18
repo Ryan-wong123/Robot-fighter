@@ -268,6 +268,8 @@ Prototype classes map onto the new design in small, reviewable steps (details to
 | Joystick Pack | Moved to `ThirdParty/`, wrapped by `TouchInput` |
 | Robot models/animations | Placeholders until Blender fighters land |
 
+Both legacy BattleScene copies serialize their health labels, special gauges, enemy target, and throwable hand socket. Pickup uses the player from the trigger contact to resolve the hand.
+
 ## 18. Monetization Architecture (ads + IAP)
 - A `MonetizationService` interface (`IAdService`, `IPurchaseService`) hides the SDKs. Gameplay and UI never call an SDK directly, so SDKs can be swapped or stubbed (editor/tests use a fake that always succeeds).
 - SDKs: **Unity LevelPlay** (mediation) with **Unity Ads** as a network behind `IAdService`; **Unity IAP** behind `IPurchaseService`. Google Play Billing is reached through Unity IAP. Target store is Google Play only for now; keep store-specific code inside the platform layer so iOS can be added later.

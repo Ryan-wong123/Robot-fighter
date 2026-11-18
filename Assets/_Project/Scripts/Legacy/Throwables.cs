@@ -74,7 +74,8 @@ public class Throwables : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //check if the object that collide with the throwable is the player
-        if (!PickedUp && !AttackMode && other.TryGetComponent(out PlayerBehaviour player))
+        if (!PickedUp && !AttackMode && other.TryGetComponent(out PlayerBehaviour player) &&
+            player.RightHand != null)
         {
             //float newZScale = Mathf.Abs(gameObject.transform.localScale.z);
             //float newYScale = Mathf.Abs(gameObject.transform.localScale.y);
@@ -82,9 +83,9 @@ public class Throwables : MonoBehaviour
             //gameObject.transform.localScale = new Vector3(newXScale, gameObject.transform.localScale.y, newZScale);
 
             //attach the throwable as a child to the player's right hand
-            gameObject.transform.parent = PlayerBehaviour.RightHand.transform;
+            transform.SetParent(player.RightHand);
             //make the position of the throwable to the player's right hand
-            gameObject.transform.position = PlayerBehaviour.RightHand.transform.position;
+            transform.localPosition = Vector3.zero;
 
             //set the pickedup boolean to true
             rb.isKinematic = true;

@@ -6,6 +6,35 @@ using UnityEngine;
 
 public class PrototypeSceneTests
 {
+    [TestCase("BattleScene 1")]
+    [TestCase("BattleScene 2")]
+    public void LegacySceneHasExplicitFighterReferences(string sceneName)
+    {
+        var scene = EditorSceneManager.OpenScene($"Assets/_Project/Scenes/{sceneName}.unity", OpenSceneMode.Additive);
+        try
+        {
+            var scripts = scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<MonoBehaviour>(true))
+                .Where(script => script != null).ToArray();
+            var player = scripts.Single(script => script.GetType().Name == "PlayerBehaviour");
+            var enemy = scripts.Single(script => script.GetType().Name == "EnemyBehaviour");
+            var hand = scripts.Single(script => script.GetType().Name == "RightHandPickup");
+            var playerData = new SerializedObject(player);
+            var enemyData = new SerializedObject(enemy);
+            Assert.That(playerData.FindProperty("rightHand").objectReferenceValue, Is.EqualTo(hand.transform));
+            Assert.That(enemyData.FindProperty("TargetPlayer").objectReferenceValue, Is.EqualTo(player.transform));
+            foreach (var fighter in new[] { playerData, enemyData })
+            {
+                Assert.That(fighter.FindProperty("Health").objectReferenceValue, Is.Not.Null);
+                Assert.That(fighter.FindProperty("AttackGauge").objectReferenceValue, Is.Not.Null);
+            }
+        }
+        finally
+        {
+            EditorSceneManager.CloseScene(scene, true);
+        }
+    }
+
     [Test]
     public void BattleSceneHasRoundReferencesAndInput()
     {

@@ -18,14 +18,8 @@ public class PlayerBehaviour : MonoBehaviour
         Kick2
     }
 
-    //get the object of the right hand of the player
-    public static GameObject RightHand
-    {
-        get
-        {
-            return FindObjectOfType<RightHandPickup>().gameObject;
-        }
-    }
+    [SerializeField] private Transform rightHand;
+    public Transform RightHand => rightHand;
 
     //declare the health of player
     public float MaxHealth = 200f;
@@ -58,7 +52,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     //declare combo gauge
     private float SpecialAttack = 0f;
-    private Image AttackGauge;
+    [SerializeField] private Image AttackGauge;
 
 
     //combo attack attributes
@@ -70,7 +64,7 @@ public class PlayerBehaviour : MonoBehaviour
     //hitbox attributes
     public Collider[] AttackHitBox;
     public LayerMask HitLayer;
-    private Text Health;
+    [SerializeField] private Text Health;
     private float HighDamage = 10f;
     private float LowDamage = 5f;
     private float SpecialAttackDamage = 15f;
@@ -89,8 +83,6 @@ public class PlayerBehaviour : MonoBehaviour
     public void Start()
     {
 
-        Health = GameObject.Find("PlayerHealth").GetComponent<Text>();
-        AttackGauge = GameObject.Find("PlayerAttackGauge").GetComponent<Image>();
         AttackGauge.fillAmount = 0f;
 
         rb = GetComponent<Rigidbody>();

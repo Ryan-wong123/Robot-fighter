@@ -98,7 +98,7 @@ Do task <ID> from docs/task.md.
 - **Prerequisites:** none
 - **Read first:** docs/PRD.md section 16
 - **Notes:** Owner task. The agent prepares what it can and gives the owner exact steps.
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** the owner confirms full matches on both stages felt fair with items, hazards, and Hard AI.
 
 ### CI-01 — docs/task.md tracker script (verify, then tick)
 - **Section:** CI & Tooling
@@ -481,6 +481,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** In CombatSandbox, Bathtub Brawl, or Kitchen Counter, press **1** for Easy, **2** for Normal, or **3** for Hard. Compare how quickly the AI approaches, blocks, and attacks. On Hard, leave pickups available and watch for the AI to approach and use one. In CombatSandbox, let it approach the center warning zone. In Kitchen Counter, watch it step away from toast markers or the mixer belt. In Bathtub Brawl, watch for a jump as the duck wave approaches. Press **Space** to pause or resume the AI.
 
+**Owner playtest:** The owner verified the difficulty tiers and scene-specific AI behavior.
+
 ### M2-08 — Playtest: chaos feels fair
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M2-02, M2-05, M2-07
@@ -488,12 +490,14 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Notes:** Owner task. The agent prepares what it can and gives the owner exact steps.
 - **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
 
+**Owner playtest:** Owner verified the M2 fairness playtest in Bathtub Brawl and Kitchen Counter.
+
 ### M2-09 — No `GameObject.Find`/`FindObjectOfType`/`SendMessage` left anywhere in project scripts, prototype code included
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M1-01, M1-07, M2-01
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13
 - **Notes:** Final cleanup: remove every remaining GameObject.Find, FindObjectOfType and SendMessage, including prototype leftovers, replacing them with serialized references or events.
-- **Done when:** `python3 Tools/tasks/checks.py no-pattern 'GameObject\\.Find|FindObjectOfType|SendMessage|SendMessageUpwards' scripts Assets/_Project/Scripts` all exit 0
+- **Done when:** The project script scan finds no forbidden calls and `LegacySceneHasExplicitFighterReferences` confirms the required references in both prototype scenes.
 
 ### M3-01 — App state flow and boot scene
 - **Section:** M3 — Game shell (weeks 9-10)

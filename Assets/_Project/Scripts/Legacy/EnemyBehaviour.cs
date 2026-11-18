@@ -9,9 +9,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     private Animator animator;
     private Rigidbody rb;
-    private Transform TargetPlayer;
-    private Text Health;
-    private Image AttackGauge;
+    [SerializeField] private Transform TargetPlayer;
+    [SerializeField] private Text Health;
+    [SerializeField] private Image AttackGauge;
 
     //hitbox attributes
     public Collider[] AttackHitBoxOpponent;
@@ -43,9 +43,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        TargetPlayer = GameObject.FindWithTag("Player").transform;
-        Health = GameObject.Find("OpponentHealth").GetComponent<Text>();
-        AttackGauge = GameObject.Find("EnemyAttackGauge").GetComponent<Image>();
         AttackGauge.fillAmount = 0f;
         FollowPlayer = true;
         CurrentAttackTime = DefaultAttackTime;
