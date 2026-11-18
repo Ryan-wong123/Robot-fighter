@@ -1,0 +1,44 @@
+{
+  "id": "blobby_attack_light",
+  "fighter": "Blobby",
+  "event": "attack_light",
+  "text": "Whee!",
+  "style": "Original playful high bouncy cartoon voice, bright and quick",
+  "variants": 2,
+  "max_seconds": 1.5,
+  "candidate": "blobby_attack_light_v02",
+  "seed": 42,
+  "model": "openbmb/VoxCPM2",
+  "model_revision": "7936080b41163874f38610f46f438e2c0757f9fd",
+  "package_version": "0.0.post1+g300e4260b",
+  "generation": {
+    "cfg_value": 2.0,
+    "inference_timesteps": 10,
+    "optimize": false
+  },
+  "generated_utc": "2026-11-18T22:07:41.246291+00:00",
+  "code_license": "Apache-2.0",
+  "weights_license": "Apache-2.0",
+  "license_source": "https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE",
+  "weights_source": "https://huggingface.co/openbmb/VoxCPM2",
+  "reference_audio": null,
+  "license_note": "Voice design; no reference recording. D-08 review remains open.",
+  "review": "audition_required",
+  "sha256": "41aca62dad923f2b2b83157013cddf64e02c159d832155627c74285f71419623",
+  "original_sha256": "5caa4a39b13145f911b8418c5863368872962699bc8c6ef1dc3cbf617433ad89",
+  "manual_edit": {
+    "source": "shortened/blobby_attack_light_v01.wav",
+    "tempo": 1.6,
+    "pitch_preserved": true,
+    "fade_out_seconds": 0.025
+  },
+  "source_sha256": "dfc319219ad6ea41e9bebce4629b10e27f05df7deac581b2ab288baebcef3a8e",
+  "edit": {
+    "pitch_semitones": 0,
+    "sample_rate": 24000,
+    "channels": 1,
+    "normalization_lufs": -18,
+    "trim_threshold_db": -45
+  },
+  "exported_utc": "2026-11-18T22:34:53.830995+00:00"
+}
