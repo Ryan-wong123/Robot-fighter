@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,6 +56,6 @@ public sealed class TouchInput : MonoBehaviour, IFighterInput
 
     public void restart()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("BattleScene 1");
     }
 }

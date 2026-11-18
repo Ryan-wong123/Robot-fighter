@@ -27,7 +27,11 @@ namespace WobbleBrawl.Flow
             nextRoundAt = float.PositiveInfinity;
         }
 
-        private void Start() => BeginRound();
+        private void Start()
+        {
+            AppStateMachine.AttachMatch(this);
+            BeginRound();
+        }
 
         private void Update()
         {
@@ -39,7 +43,8 @@ namespace WobbleBrawl.Flow
         {
             nextRoundAt = float.PositiveInfinity;
             round.Begin();
-            RoundStarted?.Invoke(++RoundNumber);
+            RoundNumber++;
+            RoundStarted?.Invoke(RoundNumber);
         }
 
         private void OnRoundEnded(RoundResult result)

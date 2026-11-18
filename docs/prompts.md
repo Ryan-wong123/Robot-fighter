@@ -503,7 +503,9 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Section:** M3 — Game shell (weeks 9-10)
 - **Prerequisites:** M1-07
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `AppFlowTests` verifies Boot is first in the build and exercises menu, selection, match, results, rematch, and return to menu.
+
+**Playtest:** Open **Boot**, press Play, choose **Quick Fight**, and choose **Start Match**. Complete a best-of-three fight. Watch the last KO presentation, then check that Results shows the outcome. Test **Rematch** to start a fresh fight and **Main Menu** from the next Results screen.
 
 ### M3-02 — Main menu
 - **Section:** M3 — Game shell (weeks 9-10)

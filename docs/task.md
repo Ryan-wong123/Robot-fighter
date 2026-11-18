@@ -86,7 +86,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **M2-10** Model the six combat pickups in Blender and integrate their visuals into the Unity prefabs (after: M2-02)
 
 ## M3 — Game shell (weeks 9-10)
-- [ ] **M3-01** App state flow and boot scene (after: M1-07)
+- [x] **M3-01** App state flow and boot scene (after: M1-07)
 - [ ] **M3-02** Main menu (after: M3-01)
 - [ ] **M3-03** Fighter select and stage select (after: M3-02, M1-03)
 - [ ] **M3-04** Match HUD (event-driven health, guard, special, timer, round pips) (after: M1-07)
