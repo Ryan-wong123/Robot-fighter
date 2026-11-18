@@ -1,0 +1,46 @@
+{
+  "id": "mrjack_win",
+  "fighter": "MrJack",
+  "event": "win",
+  "text": "Ha ha!",
+  "style": "Original mischievous toy jester, raspy playful voice, quick",
+  "variants": 2,
+  "max_seconds": 1.5,
+  "candidate": "mrjack_win_v01",
+  "seed": 3742,
+  "model": "openbmb/VoxCPM2",
+  "model_revision": "7936080b41163874f38610f46f438e2c0757f9fd",
+  "package_version": "0.0.post1+g300e4260b",
+  "generation": {
+    "cfg_value": 2.0,
+    "inference_timesteps": 10,
+    "optimize": false
+  },
+  "generated_utc": "2026-11-18T22:09:30.140764+00:00",
+  "code_license": "Apache-2.0",
+  "weights_license": "Apache-2.0",
+  "license_source": "https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE",
+  "weights_source": "https://huggingface.co/openbmb/VoxCPM2",
+  "reference_audio": null,
+  "license_note": "Voice design; no reference recording. D-08 review remains open.",
+  "review": "audition_required",
+  "sha256": "3d115da5dbc19b879e606b2ad9ea39b9860565b895717d33949d0b116bd9fb27",
+  "original_sha256": "db3abd063295f9ec69a6c60fa959f513890797c1e1d51a020dfbb3888c4b1a55",
+  "manual_edit": {
+    "source": "mrjack_win_v01.wav",
+    "keep_start_seconds": 0,
+    "keep_end_seconds": 3.05,
+    "tempo": 2.5,
+    "fade_in_seconds": 0.005,
+    "fade_out_seconds": 0.025
+  },
+  "source_sha256": "22d241cf3c138f50be6c5022ce699a9720778c95178e90bb1c97d1b94cf129f5",
+  "edit": {
+    "pitch_semitones": 0,
+    "sample_rate": 24000,
+    "channels": 1,
+    "normalization_lufs": -18,
+    "trim_threshold_db": -45
+  },
+  "exported_utc": "2026-11-18T22:33:05.260257+00:00"
+}

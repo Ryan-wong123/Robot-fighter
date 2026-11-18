@@ -208,7 +208,7 @@ Deadline: **5 months (about 20 weeks)**, solo. Dates are relative to the start. 
 15. **Cast, gimmicks and stage hazards:** approved (see [`characters.md`](characters.md), [`maps.md`](maps.md)).
 16. **Boss:** Arcade Ladder needs a **boss fighter** and a **boss stage** (concepts in [`characters.md`](characters.md) 4.5 and [`maps.md`](maps.md) 3.5).
 17. **Voice:** fighters have **voice barks and SFX** where they fit the character, plus an announcer ([`characters.md`](characters.md) 6).
-18. **Voice source:** the clips are generated with the open-source **VoxCPM2** text-to-speech model, then edited (trim, pitch, effects). Its license, output rights and quality still need verifying before we rely on it (task D-08).
+18. **Voice source:** the clips are generated with the open-source **VoxCPM2** text-to-speech model, then edited (trim, pitch, effects). License, output-use and hardware findings are recorded in [the D-08 review](../Tools/Audio/D08_REVIEW.md); owner quality acceptance remains pending. The owner requested shorter Blobby light-attack/heavy-hit and Mr. Jack win auditions; revised exports pass the 1.5-second pipeline limit and await listening approval.
 19. **Mr. Jack:** **AI-only at launch**; making him playable is revisited after release.
 20. **Classic mode:** included at launch as two separate match toggles, **Hazards on/off** and **Items on/off** ([`maps.md`](maps.md) section 5).
 21. **Fight-plane width:** about **14 m** for now (from the prototype arena); confirm in Unity and adjust the camera bounds if fighters look too small. The prototype's jump height and ceiling must be measured and set as data (task M0-19).

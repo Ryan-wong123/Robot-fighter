@@ -589,7 +589,7 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Notes:** Create Tools/Audio/ with voice_lines.json (id, fighter, text, style, variants), a script that renders lines with VoxCPM2 into a staging folder, notes for the manual edit pass (trim, normalize, pitch and effects) and a per-clip license/record file (model, version, settings, seed, date). Do not commit model weights. Non-word sounds (grunts, giggles) come from SFX or edited sources if TTS quality is poor.
 - **Done when:** D-08 is complete and the voice-pipeline unit tests pass.
 
-**Implementation:** The clip list, generation and export tools, provenance, and Unity import instructions are in [Tools/Audio/README.md](../Tools/Audio/README.md). Four tests passed for planning, input validation, provenance, and ffmpeg export. Five real VoxCPM2 samples and the license/policy/hardware review are recorded in [D08_REVIEW.md](../Tools/Audio/D08_REVIEW.md). Two exports passed; three vocalizations exceeded duration limits. Owner listening approval remains pending, so D-08 remains open.
+**Implementation:** The clip list, generation and export tools, provenance, and Unity import instructions are in [Tools/Audio/README.md](../Tools/Audio/README.md). Four tests passed for planning, input validation, provenance, and ffmpeg export. Five real VoxCPM2 samples and the license/policy/hardware review are recorded in [D08_REVIEW.md](../Tools/Audio/D08_REVIEW.md). Two original exports passed; the three overlong vocalizations now have shorter audition edits that also pass duration/format checks. Owner listening approval remains pending, so D-08 remains open.
 
 **Owner playtest:** The owner verified M3-08 music, effects, volume settings, and audio transitions.
 
