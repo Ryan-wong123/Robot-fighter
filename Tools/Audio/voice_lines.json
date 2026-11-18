@@ -1,0 +1,442 @@
+{
+  "schema_version": 1,
+  "model": "openbmb/VoxCPM2",
+  "code_license": "Apache-2.0",
+  "weights_license": "Apache-2.0",
+  "license_source": "https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE",
+  "weights_source": "https://huggingface.co/openbmb/VoxCPM2",
+  "lines": [
+    {
+      "id": "blobby_attack_light",
+      "fighter": "Blobby",
+      "event": "attack_light",
+      "text": "Whee!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "blobby_attack_heavy",
+      "fighter": "Blobby",
+      "event": "attack_heavy",
+      "text": "Boop!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "blobby_hit_light",
+      "fighter": "Blobby",
+      "event": "hit_light",
+      "text": "Uh!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "blobby_hit_heavy",
+      "fighter": "Blobby",
+      "event": "hit_heavy",
+      "text": "Oof!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "blobby_ko",
+      "fighter": "Blobby",
+      "event": "ko",
+      "text": "Whoops!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "blobby_win",
+      "fighter": "Blobby",
+      "event": "win",
+      "text": "Yippee!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "blobby_taunt",
+      "fighter": "Blobby",
+      "event": "taunt",
+      "text": "Wobble time!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "blobby_round_start",
+      "fighter": "Blobby",
+      "event": "round_start",
+      "text": "Boing!",
+      "style": "Original playful high bouncy cartoon voice, bright and quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_attack_light",
+      "fighter": "SirNoodle",
+      "event": "attack_light",
+      "text": "Hah!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_attack_heavy",
+      "fighter": "SirNoodle",
+      "event": "attack_heavy",
+      "text": "Huzzah!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_hit_light",
+      "fighter": "SirNoodle",
+      "event": "hit_light",
+      "text": "Oh!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_hit_heavy",
+      "fighter": "SirNoodle",
+      "event": "hit_heavy",
+      "text": "Ouch!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_ko",
+      "fighter": "SirNoodle",
+      "event": "ko",
+      "text": "Alas!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_win",
+      "fighter": "SirNoodle",
+      "event": "win",
+      "text": "Victory!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_taunt",
+      "fighter": "SirNoodle",
+      "event": "taunt",
+      "text": "Have at thee!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "sirnoodle_round_start",
+      "fighter": "SirNoodle",
+      "event": "round_start",
+      "text": "En garde!",
+      "style": "Original pompous theatrical knight, warm baritone, brisk delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_attack_light",
+      "fighter": "PuffinPete",
+      "event": "attack_light",
+      "text": "Hup!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_attack_heavy",
+      "fighter": "PuffinPete",
+      "event": "attack_heavy",
+      "text": "Puff!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_hit_light",
+      "fighter": "PuffinPete",
+      "event": "hit_light",
+      "text": "Uh!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_hit_heavy",
+      "fighter": "PuffinPete",
+      "event": "hit_heavy",
+      "text": "Oof!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_ko",
+      "fighter": "PuffinPete",
+      "event": "ko",
+      "text": "Oh dear!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_win",
+      "fighter": "PuffinPete",
+      "event": "win",
+      "text": "Heh heh!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_taunt",
+      "fighter": "PuffinPete",
+      "event": "taunt",
+      "text": "Your move!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "puffinpete_round_start",
+      "fighter": "PuffinPete",
+      "event": "round_start",
+      "text": "Hmm!",
+      "style": "Original sleepy round cartoon creature, low soft voice, short delivery",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_attack_light",
+      "fighter": "MadamePlush",
+      "event": "attack_light",
+      "text": "Hah!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_attack_heavy",
+      "fighter": "MadamePlush",
+      "event": "attack_heavy",
+      "text": "Take that!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_hit_light",
+      "fighter": "MadamePlush",
+      "event": "hit_light",
+      "text": "Oh!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_hit_heavy",
+      "fighter": "MadamePlush",
+      "event": "hit_heavy",
+      "text": "Ouch!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_ko",
+      "fighter": "MadamePlush",
+      "event": "ko",
+      "text": "Goodness!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_win",
+      "fighter": "MadamePlush",
+      "event": "win",
+      "text": "Lovely!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_taunt",
+      "fighter": "MadamePlush",
+      "event": "taunt",
+      "text": "Come along!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "madameplush_round_start",
+      "fighter": "MadamePlush",
+      "event": "round_start",
+      "text": "Ready dear!",
+      "style": "Original kindly tough cartoon teddy boxer, warm mature voice, brisk",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_attack_light",
+      "fighter": "MrJack",
+      "event": "attack_light",
+      "text": "Ha!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_attack_heavy",
+      "fighter": "MrJack",
+      "event": "attack_heavy",
+      "text": "Surprise!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_hit_light",
+      "fighter": "MrJack",
+      "event": "hit_light",
+      "text": "Ack!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_hit_heavy",
+      "fighter": "MrJack",
+      "event": "hit_heavy",
+      "text": "Ouch!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_ko",
+      "fighter": "MrJack",
+      "event": "ko",
+      "text": "No fair!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_win",
+      "fighter": "MrJack",
+      "event": "win",
+      "text": "Ha ha!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_taunt",
+      "fighter": "MrJack",
+      "event": "taunt",
+      "text": "Peekaboo!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "mrjack_round_start",
+      "fighter": "MrJack",
+      "event": "round_start",
+      "text": "Pop!",
+      "style": "Original mischievous toy jester, raspy playful voice, quick",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_fight",
+      "fighter": "Announcer",
+      "event": "fight",
+      "text": "Fight!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_round_two",
+      "fighter": "Announcer",
+      "event": "round_two",
+      "text": "Round two!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_round_three",
+      "fighter": "Announcer",
+      "event": "round_three",
+      "text": "Round three!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_ko",
+      "fighter": "Announcer",
+      "event": "ko",
+      "text": "Knockout!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_win",
+      "fighter": "Announcer",
+      "event": "win",
+      "text": "You win!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_draw",
+      "fighter": "Announcer",
+      "event": "draw",
+      "text": "Draw!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_sudden_death",
+      "fighter": "Announcer",
+      "event": "sudden_death",
+      "text": "Sudden death!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    },
+    {
+      "id": "announcer_perfect",
+      "fighter": "Announcer",
+      "event": "perfect",
+      "text": "Perfect!",
+      "style": "Original upbeat cartoon sports announcer, crisp energetic voice",
+      "variants": 2,
+      "max_seconds": 1.5
+    }
+  ]
+}

@@ -275,3 +275,5 @@ Rules: record the source and license of anything you did not create (`SOURCES.md
 CombatSandbox samples the imported Blobby clips directly on the visual hierarchy. Unity entered the Generic controller’s Walk state without changing the rig’s bone rotations, while direct clip sampling moved the intended bones. Hit-stop pauses the visual clip clock.
 
 The sandbox animation set builds on `Art/_Source/Blobby/BlobbyPerformance.blend`. The six revised combat actions are in `Art/_Source/Blobby/BlobbyCombatPerformance.blend`. The punch chain reads as a jab, rear cross, uppercut, and hook. Block uses a braced stance with alternating forearm and knee shifts. The special compresses, launches both fists, and rebounds into recovery. The punches and special reach their main impact poses inside the existing four-frame active window.
+
+The M3-09 tooling is in [Tools/Audio/README.md](../Tools/Audio/README.md). Its manifest includes 48 event lines and two candidate seeds each. Generation keeps raw WAVs in staging with provenance sidecars. Export prepares mono reviewed candidates for Unity. D-08 and actual voice auditions remain pending.

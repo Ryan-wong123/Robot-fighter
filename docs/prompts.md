@@ -587,7 +587,11 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Prerequisites:** D-08, M3-01
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13; docs/characters.md section 6
 - **Notes:** Create Tools/Audio/ with voice_lines.json (id, fighter, text, style, variants), a script that renders lines with VoxCPM2 into a staging folder, notes for the manual edit pass (trim, normalize, pitch and effects) and a per-clip license/record file (model, version, settings, seed, date). Do not commit model weights. Non-word sounds (grunts, giggles) come from SFX or edited sources if TTS quality is poor.
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** D-08 is complete and the voice-pipeline unit tests pass.
+
+**Implementation:** The clip list, generation and export tools, provenance, and Unity import instructions are in [Tools/Audio/README.md](../Tools/Audio/README.md). Four tests passed for planning, input validation, provenance, and ffmpeg export. VoxCPM inference and voice audition are pending because the inference package and a downloaded snapshot are unavailable locally. D-08 remains open.
+
+**Owner playtest:** The owner verified M3-08 music, effects, volume settings, and audio transitions.
 
 ### M3-10 — Match rules: Hazards on/off and Items on/off toggles in match setup (Classic options)
 - **Section:** M3 — Game shell (weeks 9-10)

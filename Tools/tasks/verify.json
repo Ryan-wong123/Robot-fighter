@@ -175,6 +175,9 @@
   "M3-06": [
     "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests"
   ],
+  "M3-09": [
+    "python3 -m unittest discover -s Tools/Audio -p test_voice_pipeline.py"
+  ],
   "M3-08": [
     "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
   ],
