@@ -441,11 +441,15 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **CombatSandbox playtest:** Press **Space** to pause the AI. The center floor shows a yellow warning 15 seconds into the round. Stand inside the zone through its two-second warning. When the zone turns orange for two seconds, expect one damage and knockback reaction. On the next warning, step outside the zone before it turns orange and check that you stay safe. The marker disappears during cooldown. End the round during a warning or activation and confirm the marker clears and the next round starts a new 15-second timer.
 
+**Owner playtest:** The owner verified the CombatSandbox hazard cycle and round reset.
+
 ### M2-04 — Stage 1: Bathtub Brawl (art + hazard)
 - **Section:** M2 — Chaos layer (weeks 6-8)
 - **Prerequisites:** M2-03
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `BathtubStageTests` loads the stage, observes rising water, and confirms the next activation is a duck wave that knocks a fighter back with zero damage.
+
+**Playtest:** Open **BathtubBrawl** and press Play. Press **Space** to pause the AI. At about 15 seconds, look for faucet drips and a blue waterline and listen for the drip cue. Water should rise over three seconds, remain high briefly, then drain. Compare running and jumping before, during, and after the rise. On the next warning, watch for a shadow and left-pointing chevron on the right and listen for the quack. Stand in the wave's path to check for leftward knockback with no health loss. On a later wave, jump above the crest to avoid it. If a round ends during a hazard, verify the visuals and water modifiers clear and the next round starts with the faucet warning again.
 
 ### M2-05 — Stage 2: Kitchen Counter (art + hazard)
 - **Section:** M2 — Chaos layer (weeks 6-8)

@@ -97,7 +97,7 @@ Spawn from the sky/stage on a timer and are picked up by walking over them (repl
 Each stage has 1-2 signature hazards that cycle during the round, always telegraphed.
 | Stage | Hazard |
 |---|---|
-| **Bathtub Brawl** | Rising/draining water changes friction and jump height; rubber duck wave |
+| **Bathtub Brawl** | Rising and draining water slows wet fighters and boosts their jump launch speed. A rubber duck wave knocks fighters back without damage. |
 | **Kitchen Counter** | Toaster ejects pop-up toast; conveyor belt of a stand mixer |
 | **Bouncy Castle Fair** | Trampoline floor sections; inflating/deflating walls |
 | **Giant Sandbox** | Cat-paw (tail) sweep; sinking sand patches |

@@ -141,6 +141,16 @@ namespace WobbleBrawl.Gameplay
             }
         }
 
+        internal void ApplyWaterGravity(float multiplier)
+        {
+            if (multiplier >= 1f)
+                return;
+            Vector3 lift = Physics.gravity * (multiplier - 1f);
+            foreach (var body in bodies)
+                if (!body.isKinematic)
+                    body.AddForce(lift, ForceMode.Acceleration);
+        }
+
         public void Reset()
         {
             EndReaction();

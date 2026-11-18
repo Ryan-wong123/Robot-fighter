@@ -37,6 +37,7 @@ namespace WobbleBrawl.Gameplay
         [SerializeField] private AnimationClip[] visualClips;
         private float clipTime;
         private VisualRagdoll ragdoll;
+        private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
         public int Facing { get; private set; } = 1;
         public int Team => team;
         public bool CanInteractWithItems => roundActive && IsAlive;
@@ -78,6 +79,7 @@ namespace WobbleBrawl.Gameplay
         public void ResetRound(Vector3 position, int facing)
         {
             ragdoll?.Reset();
+            SetWater(1f, 1f, 1f);
             EndFreeze();
             body.position = position;
             body.linearVelocity = Vector3.zero;
@@ -103,6 +105,7 @@ namespace WobbleBrawl.Gameplay
 
         private void FixedUpdate()
         {
+            ragdoll?.ApplyWaterGravity(waterGravity);
             if (frozen)
             {
                 if (frozenAtFrame != Time.frameCount && --freeze == 0)
@@ -183,9 +186,9 @@ namespace WobbleBrawl.Gameplay
             float horizontal = Mathf.Clamp(intent.Move, -1f, 1f);
             if (horizontal != 0f)
                 Facing = horizontal > 0f ? 1 : -1;
-            SetHorizontal(horizontal * character.MoveSpeed);
+            SetHorizontal(horizontal * character.MoveSpeed * waterMove);
             if (intent.Jump && grounded)
-                body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed, 0f);
+                body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump, 0f);
             State = !grounded || intent.Jump ? FighterState.Airborne :
                 horizontal == 0f ? FighterState.Idle : FighterState.Moving;
             PlayClip(State == FighterState.Airborne ? (body.linearVelocity.y > 0f ? "JumpRise" : "JumpFall") :
@@ -270,6 +273,13 @@ namespace WobbleBrawl.Gameplay
         public bool ReceiveHit(HitInfo info) => ResolveHit(info, false);
         internal bool ReceiveItemHit(HitInfo info) => ResolveHit(info, true);
         internal bool ReceiveHazardHit(HitInfo info) => ResolveHit(info, true);
+
+        internal void SetWater(float moveMultiplier, float jumpMultiplier, float gravityMultiplier)
+        {
+            waterMove = moveMultiplier;
+            waterJump = jumpMultiplier;
+            waterGravity = gravityMultiplier;
+        }
 
         private bool ResolveHit(HitInfo info, bool externalHit)
         {

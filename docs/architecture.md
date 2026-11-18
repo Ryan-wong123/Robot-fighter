@@ -187,6 +187,8 @@ A `HazardController` uses fixed-step timing, emits phase events, and enforces a 
 ### 8.3 Stages
 `StageDef` references the scene/prefab, spawn points, item table, hazard list, camera bounds, music.
 
+Bathtub Brawl is a standalone scene wired to the existing match flow. Its `BathtubHazards` component uses the shared hazard clock to alternate water and duck-wave activations. Water sets movement, jump, and ragdoll gravity multipliers on submerged fighters. The moving wave uses the same attacker-less hit resolution as the sandbox hazard.
+
 ## 9. Match Flow
 ```
 AppStateMachine:  Boot -> MainMenu -> Selection -> Match -> Results -> MainMenu

@@ -19,9 +19,11 @@ namespace WobbleBrawl.Gameplay
         private readonly List<Fighter> affected = new List<Fighter>(2);
         private System.Random random;
         private float remaining;
+        private float phaseDuration;
 
         public event Action<HazardPhase> PhaseChanged;
         public HazardPhase Phase { get; private set; }
+        public float PhaseProgress => phaseDuration <= 0f ? 1f : Mathf.Clamp01(1f - remaining / phaseDuration);
 
         public void BeginRound(int roundIndex)
         {
@@ -78,6 +80,7 @@ namespace WobbleBrawl.Gameplay
         private void Enter(HazardPhase phase, float seconds)
         {
             remaining = seconds;
+            phaseDuration = seconds;
             bool changed = Phase != phase;
             Phase = phase;
             if (warningMarker != null)
