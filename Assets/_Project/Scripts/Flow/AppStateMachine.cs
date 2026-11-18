@@ -16,6 +16,7 @@ namespace WobbleBrawl.Flow
         public string Name;
         public string Scene;
         public string Hazards;
+        public bool IsBossStage;
     }
 
     [DefaultExecutionOrder(-100)]
@@ -31,6 +32,12 @@ namespace WobbleBrawl.Flow
         private Coroutine pendingResults;
         private string matchScene;
         private CharacterDef selectedFighter;
+        private MatchRules requestedRules = MatchRules.Default;
+        public MatchMode Mode { get; private set; }
+        public bool RulesLocked => Mode == MatchMode.Arcade ||
+            (StageCount > 0 && GetStage(StageIndex).IsBossStage);
+        public MatchRules Rules => requestedRules.Resolve(Mode,
+            StageCount > 0 && GetStage(StageIndex).IsBossStage);
         public bool IsPrimary => running == this;
         public bool IsLoading { get; private set; }
         public AppState State { get; private set; }
@@ -87,14 +94,29 @@ namespace WobbleBrawl.Flow
             Changed?.Invoke();
         }
 
-        public void OpenSelection()
+        public void OpenSelection() => OpenSelection(MatchMode.QuickFight);
+
+        public void OpenSelection(MatchMode mode)
         {
             if (!IsLoading && State == AppState.MainMenu)
             {
                 Step = SelectionStep.Fighter;
+                Mode = mode;
+                requestedRules = MatchRules.Default;
                 selectedFighter = null;
                 Enter(AppState.Selection);
             }
+        }
+
+        public void SetHazardsEnabled(bool enabled) => SetRules(enabled, Rules.ItemsEnabled);
+        public void SetItemsEnabled(bool enabled) => SetRules(Rules.HazardsEnabled, enabled);
+
+        private void SetRules(bool hazards, bool items)
+        {
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage || RulesLocked)
+                return;
+            requestedRules = new MatchRules(hazards, items);
+            Changed?.Invoke();
         }
 
         public void SelectBlobby()
@@ -155,6 +177,7 @@ namespace WobbleBrawl.Flow
             running.DetachMatch();
             running.match = controller;
             controller.ConfigurePlayer(running.selectedFighter);
+            controller.ConfigureRules(running.Rules);
             controller.MatchEnded += running.OnMatchEnded;
             controller.RoundStarted += running.OnRoundStarted;
             controller.RoundEnded += running.OnRoundEnded;

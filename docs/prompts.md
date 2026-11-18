@@ -598,7 +598,11 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Prerequisites:** M2-01, M2-03, M3-03
 - **Read first:** docs/PRD.md sections 11 and 12; docs/architecture.md sections 9, 12 and 13; docs/maps.md section 5; docs/architecture.md section 9
 - **Notes:** Add MatchRules (HazardsEnabled, ItemsEnabled) to the match setup and expose two toggles in the UI. HazardController and ItemSpawner read the rules. Arcade Ladder and the boss stage force both on. Tests: rules disable spawning and hazard timers.
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `MatchRulesTests` passes independent options, forced Arcade/boss rules, setup UI locking, opening/periodic spawning and disabled hazard-clock checks.
+
+**Implementation:** Boot arena selection has Hazards and Items checkboxes. Effective rules reach every round and survive Rematch. A fresh selection and direct arena play default to both on. Arcade/boss forcing is implemented as setup and scene-authoring hooks; the M4 modes/stages are not added by this task. Runtime assemblies and the new test source compiled against the installed Unity libraries. A standalone .NET run passed all 24 option/mode/boss combinations and default-on rules. Unity Test Runner and Play Mode execution were not performed; those behavior checks remain pending.
+
+**Manual verification:** Start from Boot, choose Quick Fight, Blobby and an arena. Try both on, both off, and each mixed combination. With items off there should be no opening pickups or later spawns. With hazards off, wait at least 25 seconds: no hazard warnings, sounds or effects should activate, while stage art, platforms, music and fighting remain. With the respective option on its system should work normally. Repeat on Bathtub Brawl and Kitchen Counter. Finish a match and Rematch: the options should stay in effect through round resets and the rematch. Return to the main menu and start a fresh setup: both checkboxes should be on. Run EditMode `MatchRulesTests` for the forced Arcade/boss rules, including the UI hooks that do not yet have shipping M4 content.
 
 ### M4-01 — Sir Noodle (model, rig, animations, data)
 - **Section:** M4 — Content (weeks 11-14)

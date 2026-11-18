@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using WobbleBrawl.Core;
 
 namespace WobbleBrawl.Gameplay
 {
@@ -70,13 +71,15 @@ namespace WobbleBrawl.Gameplay
             }
         }
 
-        public void BeginRound(int roundIndex)
+        public void BeginRound(int roundIndex) => BeginRound(roundIndex, MatchRules.Default);
+
+        public void BeginRound(int roundIndex, MatchRules rules)
         {
             EndRound();
+            if (!rules.ItemsEnabled || !isActiveAndEnabled)
+                return;
             random = new System.Random(unchecked(seed + roundIndex));
             remainingFrames = Mathf.Max(1, intervalFrames);
-            if (!isActiveAndEnabled)
-                return;
             if (spawnOpeningLineup && spawnPoints != null)
             {
                 for (int index = 0; index < Mathf.Min(pools.Length, spawnPoints.Length); index++)

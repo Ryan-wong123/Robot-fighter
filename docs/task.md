@@ -95,7 +95,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **M3-07** `SaveService` (versioned JSON, atomic write) + tests (after: M0-16)
 - [x] **M3-08** `AudioManager` with buses; placeholder SFX/music (after: M3-01)
 - [x] **M3-09** Voice pipeline: clip list, VoxCPM2 generation script, edit/export steps and per-clip license record in `Tools/Audio/` (after: D-08, M3-01)
-- [ ] **M3-10** Match rules: Hazards on/off and Items on/off toggles in match setup (Classic options) (after: M2-01, M2-03, M3-03)
+- [~] **M3-10** Match rules: Hazards on/off and Items on/off toggles in match setup (Classic options) (after: M2-01, M2-03, M3-03)
 
 ## M4 — Content (weeks 11-14)
 - [ ] **M4-01** Sir Noodle (model, rig, animations, data) (after: M1-14)

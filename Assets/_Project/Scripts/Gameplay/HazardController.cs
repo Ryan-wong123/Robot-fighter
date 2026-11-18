@@ -56,9 +56,12 @@ namespace WobbleBrawl.Gameplay
             return true;
         }
 
-        public void BeginRound(int roundIndex)
+        public void BeginRound(int roundIndex) => BeginRound(roundIndex, MatchRules.Default);
+
+        public void BeginRound(int roundIndex, MatchRules rules)
         {
-            if (definition == null || !isActiveAndEnabled)
+            EndRound();
+            if (!rules.HazardsEnabled || definition == null || !isActiveAndEnabled)
                 return;
             random = new System.Random(unchecked(seed + roundIndex));
             Enter(HazardPhase.Idle, definition.FirstWarningDelay);
@@ -118,7 +121,7 @@ namespace WobbleBrawl.Gameplay
                 warningMarker.SetActive(phase == HazardPhase.Telegraph);
             if (activeMarker != null)
                 activeMarker.SetActive(phase == HazardPhase.Active);
-            if (changed)
+            if (changed || phase == HazardPhase.Inactive)
                 PhaseChanged?.Invoke(phase);
         }
 

@@ -175,6 +175,7 @@ Per [`architecture.md`](architecture.md) 8.3, each stage defines:
   - Turning hazards off also disables the telegraph VFX/SFX and the hazard timers. Stage art and ambient effects stay.
   - Boss stage and Arcade Ladder always use hazards and items on (the boss fight is designed around them).
   - Both toggles are part of the match setup so online matches can use the same rules (see [`architecture.md`](architecture.md) section 19).
+  - The controls appear on Boot's Quick Fight arena selection. Rematch retains their settings; a fresh selection resets them to on. Direct scene testing keeps both on. Future boss entries set `StageChoice.IsBossStage` and the scene's `MatchController.isBossStage`; Arcade selection uses `MatchMode.Arcade`. Those entries show checked, disabled options. Stage content and Arcade progression remain M4 tasks.
 
 ## 6. Production Checklist (per stage)
 1. Concept + layout sketch; confirm width, bounds and item points

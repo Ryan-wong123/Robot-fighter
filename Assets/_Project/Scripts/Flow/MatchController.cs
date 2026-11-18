@@ -12,6 +12,8 @@ namespace WobbleBrawl.Flow
 
         [SerializeField] private RoundController round;
         [SerializeField, Min(0f)] private float betweenRoundsSeconds = 2f;
+        [SerializeField] private MatchMode mode;
+        [SerializeField] private bool isBossStage;
 
         public event Action<int> RoundStarted;
         public event Action<RoundResult> RoundEnded;
@@ -22,8 +24,18 @@ namespace WobbleBrawl.Flow
         public int RoundNumber { get; private set; }
         public bool IsRoundRunning => round.Running;
         private float nextRoundAt = float.PositiveInfinity;
+        public MatchRules Rules { get; private set; } = MatchRules.Default;
 
         internal void ConfigurePlayer(CharacterDef fighter) => round.ConfigurePlayer(fighter);
+
+        /// <summary>Apply setup before round one; rules stay fixed for the match.</summary>
+        public void ConfigureRules(MatchRules rules)
+        {
+            if (RoundNumber != 0)
+                throw new InvalidOperationException("Match rules cannot change after round one starts.");
+            Rules = rules.Resolve(mode, isBossStage);
+            round.ConfigureRules(Rules);
+        }
 
         private void OnEnable() => round.Ended += OnRoundEnded;
         private void OnDisable()
@@ -34,6 +46,7 @@ namespace WobbleBrawl.Flow
 
         private void Start()
         {
+            ConfigureRules(MatchRules.Default);
             AppStateMachine.AttachMatch(this);
             BeginRound();
         }

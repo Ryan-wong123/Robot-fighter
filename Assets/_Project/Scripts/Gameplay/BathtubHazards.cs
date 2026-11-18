@@ -63,7 +63,11 @@ namespace WobbleBrawl.Gameplay
         private void OnPhaseChanged(HazardPhase phase)
         {
             if (phase == HazardPhase.Inactive)
+            {
                 isDuckCycle = nextIsDuck = false;
+                if (audioSource != null)
+                    audioSource.Stop();
+            }
             else if (phase == HazardPhase.Telegraph)
             {
                 isDuckCycle = nextIsDuck;

@@ -115,6 +115,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - Win/lose screens and the Restart button from the prototype become the Results screen.
 - Pause menu: resume, settings, quit-to-menu.
 - Settings: master/music/SFX volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply immediately and are saved locally between sessions.
+- Quick Fight arena selection includes independent **Hazards** and **Items** checkboxes. Both default on for a fresh setup; choices carry through all rounds and Rematch. Returning to a fresh setup restores both on. With both off, only the core fight runs. Arcade and boss encounters force both on and lock the setup controls. Opening an arena directly uses both on.
 
 ## 12. Progression & Economy [PROPOSED]
 - **Coins** earned per match; unlock new fighters, costumes ("skins" made from alternate materials/textures), and taunts.

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using WobbleBrawl.Data;
 using WobbleBrawl.Gameplay;
+using WobbleBrawl.Core;
 
 namespace WobbleBrawl.Flow
 {
@@ -27,6 +28,9 @@ namespace WobbleBrawl.Flow
         private float deadline;
         private bool suddenDeath;
         private int displayedSeconds = -1;
+        private MatchRules rules = MatchRules.Default;
+
+        internal void ConfigureRules(MatchRules matchRules) => rules = matchRules;
 
         internal void ConfigurePlayer(CharacterDef fighter) => player.ConfigureCharacter(fighter);
 
@@ -48,8 +52,9 @@ namespace WobbleBrawl.Flow
             if (opponent.TryGetComponent<AIInput>(out var ai))
                 ai.ConfigureRound(itemSpawner, hazard, roundIndex);
             if (itemSpawner != null)
-                itemSpawner.BeginRound(roundIndex);
-            hazard?.BeginRound(roundIndex++);
+                itemSpawner.BeginRound(roundIndex, rules);
+            hazard?.BeginRound(roundIndex, rules);
+            roundIndex++;
         }
 
         private void Update()

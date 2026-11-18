@@ -26,6 +26,8 @@ namespace WobbleBrawl.UI
         private GameObject settingsPanel;
         private bool settingsOpen;
         private Button[] stageButtons;
+        private Toggle hazardsToggle;
+        private Toggle itemsToggle;
         private Text primaryText;
         private Text secondaryText;
         private Font font;
@@ -72,6 +74,10 @@ namespace WobbleBrawl.UI
             }
             primary.onClick.AddListener(PrimaryAction);
             secondary.onClick.AddListener(SecondaryAction);
+            hazardsToggle = CreateRuleToggle("Hazards", -160f);
+            itemsToggle = CreateRuleToggle("Items", 160f);
+            hazardsToggle.onValueChanged.AddListener(app.SetHazardsEnabled);
+            itemsToggle.onValueChanged.AddListener(app.SetItemsEnabled);
             settingsButton = CreateButton("Settings Action", -173f, Cream, out var settingsCaption);
             settingsCaption.text = "Settings";
             settingsButton.onClick.AddListener(() => { settingsOpen = true; Render(); });
@@ -172,6 +178,11 @@ namespace WobbleBrawl.UI
                 (app.State == AppState.MainMenu || app.IsPaused));
             bool mainMenu = !settingsOpen && !app.IsLoading && app.State == AppState.MainMenu;
             bool stageSelection = !app.IsLoading && app.State == AppState.Selection && app.Step == SelectionStep.Stage;
+            hazardsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
+            itemsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
+            hazardsToggle.SetIsOnWithoutNotify(app.Rules.HazardsEnabled);
+            itemsToggle.SetIsOnWithoutNotify(app.Rules.ItemsEnabled);
+            hazardsToggle.interactable = itemsToggle.interactable = !app.RulesLocked;
             menuArt.gameObject.SetActive(mainMenu);
             menuRail.SetActive(mainMenu && menuArt.texture != null);
             if (mainMenu)
@@ -218,9 +229,11 @@ namespace WobbleBrawl.UI
                         : "Quick Fight vs AI";
                     if (stageSelection)
                     {
+                        if (app.RulesLocked)
+                            description.text = "Arcade and boss matches always use items and hazards.";
                         Place(description.rectTransform, 640f, 52f, -6f);
-                        Place((RectTransform)primary.transform, 310f, 58f, -70f);
-                        Place((RectTransform)secondary.transform, 310f, 58f, -144f);
+                        Place((RectTransform)primary.transform, 310f, 58f, -144f);
+                        Place((RectTransform)secondary.transform, 310f, 58f, -218f);
                     }
                     primaryText.text = stageSelection ? "Start Match" : "Blobby";
                     secondaryText.text = "Back";
@@ -292,6 +305,31 @@ namespace WobbleBrawl.UI
             }
             else
                 app.ReturnToMenu();
+        }
+
+        private Toggle CreateRuleToggle(string caption, float x)
+        {
+            var node = Child(safeContent, caption + " Toggle", typeof(CanvasRenderer), typeof(Image), typeof(Toggle));
+            var rect = (RectTransform)node.transform;
+            Place(rect, 280f, 54f, -70f);
+            rect.anchoredPosition += Vector2.right * x;
+            var background = node.GetComponent<Image>();
+            background.color = Cream;
+            var label = Label(node.transform, "Caption", 25, 0f);
+            label.text = caption;
+            label.color = Navy;
+            Place(label.rectTransform, 210f, 48f, 0f);
+            label.rectTransform.anchoredPosition += Vector2.right * 20f;
+            var mark = Child(node.transform, "Checkmark", typeof(CanvasRenderer), typeof(Image));
+            var graphic = mark.GetComponent<Image>();
+            graphic.color = Green;
+            graphic.raycastTarget = false;
+            Place(graphic.rectTransform, 24f, 24f, 0f, new Vector2(.1f, .5f));
+            var toggle = node.GetComponent<Toggle>();
+            toggle.targetGraphic = background;
+            toggle.graphic = graphic;
+            toggle.onValueChanged.AddListener(_ => AudioManager.Play(AudioCue.Click));
+            return toggle;
         }
 
         private Button CreateButton(string name, float y, Color background, out Text caption)
