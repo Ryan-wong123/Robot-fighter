@@ -10,10 +10,13 @@ namespace WobbleBrawl.Gameplay
         [SerializeField, Min(1)] private int attackIntervalFrames = 36;
         private int remainingFrames;
         private bool kick;
+        public bool IsPaused { get; private set; }
+
+        public void TogglePause() => IsPaused = !IsPaused;
 
         public FighterIntent ReadIntent()
         {
-            if (opponent == null || !opponent.IsAlive)
+            if (IsPaused || opponent == null || !opponent.IsAlive)
                 return default;
 
             float distance = opponent.transform.position.x - transform.position.x;

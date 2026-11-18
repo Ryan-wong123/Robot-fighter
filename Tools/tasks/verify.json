@@ -138,6 +138,9 @@
   "M2-02": [
     "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests"
   ],
+  "M2-03": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode SandboxHazardTests"
+  ],
   "M2-10": [
     "python3 Tools/tasks/checks.py file-exists Art/_Source/Items/CombatPickups.blend",
     "python3 Tools/tasks/checks.py file-exists Assets/_Project/Art/Items/BananaPeel.fbx",

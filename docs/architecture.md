@@ -164,6 +164,8 @@ The Blobby sandbox temporarily simulates a jointed torso or leg bone on unblocke
 
 The six combat pickups use static meshes from `Art/_Source/Items/CombatPickups.blend`. The Unity prefabs keep their pooled root and trigger collider. An imported FBX child supplies the visuals with shared palette materials driven by `ToonPickupSurface.shadergraph`. The graph uses neutral lighting bands and an albedo-based rim highlight to preserve each pickup's colors.
 
+Hit knockback sets horizontal velocity directly. Hit-stop captures that velocity and restores it after the freeze. The knockback replaces the target's approach velocity so walking toward a trap does not cancel the slide.
+
 ### 8.1 Items
 ```csharp
 [CreateAssetMenu] public class ItemDef : ScriptableObject {
@@ -180,7 +182,7 @@ public abstract class ItemEffect : ScriptableObject { public abstract void Apply
 ```csharp
 [CreateAssetMenu] public class HazardDef : ScriptableObject { /* telegraph time, active time, cooldown, effect */ }
 ```
-A `HazardController` runs a Telegraph -> Active -> Cooldown cycle with events, so UI/audio/VFX can warn the player (>= 1.5 s). Hazards apply effects through the same `HitInfo`/status pipeline as attacks so damage rules remain centralized.
+A `HazardController` uses fixed-step timing, emits phase events, and enforces a warning of at least 1.5 seconds. `RoundController` starts and clears the cycle and suspends it in sudden death unless the hazard data allows it. Between cycles, idle time comes from a round-seeded range. The active volume checks hurtboxes and applies at most one accepted attacker-less `HitInfo` per fighter per activation through the shared damage and status pipeline.
 
 ### 8.3 Stages
 `StageDef` references the scene/prefab, spawn points, item table, hazard list, camera bounds, music.

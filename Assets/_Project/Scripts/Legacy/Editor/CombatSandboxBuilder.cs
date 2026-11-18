@@ -68,6 +68,7 @@ public static partial class CombatSandboxBuilder
         Set(flow.AddComponent<MatchController>(), "round", round);
         ConfigureTestPickup(round);
         ConfigureCombatItems(round);
+        ConfigureHazard(round);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
         AssetDatabase.SaveAssets();

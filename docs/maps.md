@@ -33,6 +33,7 @@
 - Hazard timing is seeded from the match seed for reproducible tests.
 - The first hazard never fires before **15 s (start)** into a round, and never in sudden death unless the stage says so.
 - Hazard damage and status effects go through the normal `HitInfo` pipeline.
+- CombatSandbox has a test zone at center stage. The yellow warning starts after 15 seconds, lasts two seconds, and is followed by two seconds of orange activation. The test hit uses 12 base damage and 5 m/s knockback.
 
 ## 3. Launch Stages
 

@@ -43,7 +43,7 @@ namespace WobbleBrawl.Gameplay
         private const int ItemLaunchFrames = 22;
         private int itemHitCharges;
         private float itemHitPushback;
-        internal Fighter ItemOpponent { get; private set; }
+        public Fighter ItemOpponent { get; private set; }
         public void SetItemOpponent(Fighter opponent) => ItemOpponent = opponent;
         internal ItemHolder Items { get; private set; }
         public int Health { get; private set; }
@@ -126,6 +126,8 @@ namespace WobbleBrawl.Gameplay
             if (comboWindow > 0)
                 comboWindow--;
             FighterIntent intent = input?.ReadIntent() ?? default;
+            if (input is AIInput { IsPaused: true })
+                move = null;
             if (move != null)
             {
                 if (!hit && moveFrame >= move.Startup && moveFrame < move.Startup + move.Active)
@@ -267,14 +269,16 @@ namespace WobbleBrawl.Gameplay
 
         public bool ReceiveHit(HitInfo info) => ResolveHit(info, false);
         internal bool ReceiveItemHit(HitInfo info) => ResolveHit(info, true);
+        internal bool ReceiveHazardHit(HitInfo info) => ResolveHit(info, true);
 
-        private bool ResolveHit(HitInfo info, bool itemHit)
+        private bool ResolveHit(HitInfo info, bool externalHit)
         {
             if (!roundActive || !IsAlive || immunity > 0)
                 return false;
             var result = DamageResolver.Resolve(info.Zone, info.Move.BodyDamage, info.Move.LegDamage,
                 Guard, info.Move.GuardCost, info.Move.StunFrames, comboHits, accumulatedStun,
-                State == FighterState.Blocking, !itemHit && info.Move == info.Attacker.character.Special, false);
+                State == FighterState.Blocking, !externalHit && info.Attacker != null &&
+                info.Move == info.Attacker.character.Special, false);
             Health = Mathf.Max(0, Health - result.Damage);
             Guard = result.Guard;
             move = null;
@@ -284,10 +288,20 @@ namespace WobbleBrawl.Gameplay
             comboHits++;
             State = !IsAlive ? FighterState.KnockedOut : result.GuardBroken ? FighterState.GuardBreak : FighterState.HitStun;
             PlayClip(!IsAlive ? "Knockdown" : result.GuardBroken ? "HitHeavy" : "HitLight");
-            float bonusPushback = itemHit || result.Blocked ? 0f : info.Attacker.ConsumeItemPushback();
-            body.AddForce(info.Direction * (info.Move.Pushback + bonusPushback), ForceMode.VelocityChange);
+            float bonusPushback = externalHit || result.Blocked || info.Attacker == null
+                ? 0f : info.Attacker.ConsumeItemPushback();
+            float pushback = info.Direction.x * (info.Move.Pushback + bonusPushback);
+            if (!Mathf.Approximately(pushback, 0f))
+            {
+                // Hit-stop restores this velocity when the body becomes dynamic again.
+                if (frozen)
+                    velocity.x = pushback;
+                else
+                    SetHorizontal(pushback);
+            }
             Special = Mathf.Min(character.MaxSpecial, Special + info.Move.GaugeGain / 2);
-            info.Attacker.Special = Mathf.Min(info.Attacker.character.MaxSpecial, info.Attacker.Special + info.Move.GaugeGain);
+            if (info.Attacker != null)
+                info.Attacker.Special = Mathf.Min(info.Attacker.character.MaxSpecial, info.Attacker.Special + info.Move.GaugeGain);
             HitStopService.Apply(info.Attacker, this, info.Move.HitStopFrames);
             if (!IsAlive)
                 ragdoll?.Launch(info.Direction);

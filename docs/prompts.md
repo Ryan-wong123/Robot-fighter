@@ -421,7 +421,9 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13
 - **Done when:** `CombatItemTests` confirms the six opening pickups and a chicken pickup and throw in CombatSandbox.
 
-**Playtest:** Open CombatSandbox and press Play. Walk over an item and press **U** to use it. The foam glove activates on contact with the pickup. The opening lineup from left to right is banana peel (yellow), foam glove (red), rubber chicken (orange), rocket plunger (blue), whoopee cushion (pink), and anvil (purple). To see both chicken bounces, throw it along a clear stretch of floor. For the cushion, use it near the opponent. To test the anvil, place it ahead of an approaching opponent and watch the marked spot through the drop.
+**Playtest:** Open CombatSandbox and press Play. Press **Space** to pause the opponent's movement and attacks, and press it again to resume. The paused opponent still reacts to hits. Walk over an item and press **U** to use it. The foam glove activates on contact with the pickup. The opening lineup from left to right is banana peel (yellow), foam glove (red), rubber chicken (orange), rocket plunger (blue), whoopee cushion (pink), and anvil (purple). To see both chicken bounces, throw it along a clear stretch of floor. For the cushion, use it near the opponent. To test the anvil, place it ahead of an approaching opponent and watch the marked spot through the drop.
+
+**Owner playtest:** Rocket plunger, anvil, rubber chicken, and whoopee cushion passed. The owner also verified the banana peel slide and the foam glove's boosted knockback after the horizontal knockback fix.
 
 ### M2-10 — Blender models for the six combat pickups
 
@@ -435,7 +437,9 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Prerequisites:** M1-07
 - **Read first:** docs/PRD.md sections 8 and 9; docs/architecture.md sections 8 and 13; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5
 - **Notes:** HazardDef and HazardController with a Telegraph, Active, Cooldown cycle and events; telegraph at least 1.5 s; damage goes through the same HitInfo pipeline.
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** `SandboxHazardTests` checks the safe warning, one hit per activation, safe space outside the volume, and marker cleanup during cooldown.
+
+**CombatSandbox playtest:** Press **Space** to pause the AI. The center floor shows a yellow warning 15 seconds into the round. Stand inside the zone through its two-second warning. When the zone turns orange for two seconds, expect one damage and knockback reaction. On the next warning, step outside the zone before it turns orange and check that you stay safe. The marker disappears during cooldown. End the round during a warning or activation and confirm the marker clears and the next round starts a new 15-second timer.
 
 ### M2-04 — Stage 1: Bathtub Brawl (art + hazard)
 - **Section:** M2 — Chaos layer (weeks 6-8)
