@@ -144,7 +144,8 @@ namespace WobbleBrawl.UI
         private void Render()
         {
             bool visible = app.State != AppState.Match || app.IsLoading || app.IsPaused;
-            pauseButton.gameObject.SetActive(app.CanPause && !app.IsPaused);
+            pauseButton.gameObject.SetActive(app.State == AppState.Match && !app.IsLoading && !app.IsPaused);
+            pauseButton.interactable = app.CanPause;
             panel.SetActive(visible);
             if (!visible || app.IsLoading)
                 input.SetSelectedGameObject(null);

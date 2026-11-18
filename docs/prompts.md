@@ -551,6 +551,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Playtest:** Start a match from Boot. Press Escape or click Pause, wait, then Resume. Check fighters, timer, and hazard warnings stop and continue correctly. From pause choose Main Menu and start another fight. Finish a match and verify the final score, Rematch, and Main Menu.
 
+**Pause visibility regression:** The app refreshes its controls on round start and round end. Verify Pause is visible immediately on entering a fight and again after Resume.
+
 ### M3-06 — Settings (volume, haptics, control layout)
 - **Section:** M3 — Game shell (weeks 9-10)
 - **Prerequisites:** M3-02

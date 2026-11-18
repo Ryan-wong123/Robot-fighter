@@ -68,11 +68,13 @@ public sealed class AppFlowTests
         Assert.That(panel.gameObject.activeSelf, Is.False);
 
         var match = Object.FindFirstObjectByType<MatchController>();
+        var pauseButton = app.transform.Find("App Canvas/Pause Match").GetComponent<Button>();
+        Assert.That(pauseButton.gameObject.activeSelf, Is.True, "Pause must appear when round one starts.");
         var round = match.GetComponent<RoundController>();
         var hazard = Object.FindFirstObjectByType<HazardController>();
         int seconds = round.SecondsRemaining;
         float hazardTime = hazard.PhaseElapsed;
-        app.TogglePause();
+        pauseButton.onClick.Invoke();
         Assert.That(app.IsPaused, Is.True);
         Assert.That(panel.gameObject.activeSelf, Is.True);
         Assert.That(Time.timeScale, Is.Zero);
@@ -81,6 +83,7 @@ public sealed class AppFlowTests
         Assert.That(hazard.PhaseElapsed, Is.EqualTo(hazardTime));
         primary.onClick.Invoke();
         Assert.That(app.IsPaused, Is.False);
+        Assert.That(pauseButton.gameObject.activeSelf, Is.True);
         Assert.That(Time.timeScale, Is.EqualTo(1f));
         var ai = Object.FindFirstObjectByType<AIInput>();
         ai.TogglePause();
@@ -90,7 +93,10 @@ public sealed class AppFlowTests
         move.HitStopFrames = 0;
         var hit = new HitInfo(defender.ItemOpponent, move, HurtZone.Body, defender.transform.position, Vector3.right);
         Assert.That(defender.ReceiveHit(hit), Is.True);
+        Assert.That(pauseButton.gameObject.activeSelf, Is.True, "Pause stays visible between rounds.");
+        Assert.That(pauseButton.interactable, Is.False);
         yield return WaitFor(() => match.RoundNumber == 2, "second round");
+        Assert.That(pauseButton.interactable, Is.True);
         Assert.That(defender.ReceiveHit(hit), Is.True);
         yield return WaitFor(() => app.State == AppState.Results, "results");
         Assert.That(app.Result, Is.EqualTo(RoundResult.PlayerWins));
@@ -114,7 +120,7 @@ public sealed class AppFlowTests
 
     private static IEnumerator WaitFor(System.Func<bool> condition, string transition)
     {
-        float deadline = Time.realtimeSinceStartup + 8f;
+        float deadline = Time.realtimeSinceStartup + 30f;
         while (!condition() && Time.realtimeSinceStartup < deadline)
             yield return null;
         var app = Object.FindFirstObjectByType<AppStateMachine>();

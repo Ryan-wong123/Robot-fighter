@@ -155,12 +155,21 @@ namespace WobbleBrawl.Flow
             running.match = controller;
             controller.ConfigurePlayer(running.selectedFighter);
             controller.MatchEnded += running.OnMatchEnded;
+            controller.RoundStarted += running.OnRoundStarted;
+            controller.RoundEnded += running.OnRoundEnded;
         }
+
+        private void OnRoundStarted(int _) => Changed?.Invoke();
+        private void OnRoundEnded(RoundResult _) => Changed?.Invoke();
 
         private void DetachMatch()
         {
             if (match != null)
+            {
                 match.MatchEnded -= OnMatchEnded;
+                match.RoundStarted -= OnRoundStarted;
+                match.RoundEnded -= OnRoundEnded;
+            }
             match = null;
         }
 
