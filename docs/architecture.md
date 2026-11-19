@@ -382,3 +382,5 @@ Unity verification runs retain their XML and Editor log under unique `Logs/TaskV
 Toy Chest Showdown is authored by the Editor stage builder. MatchController can apply a stage-owned opponent before round one. A single HazardController drives ToyChestHazards, which alternates Block Rain and Music Box Tilt on warning entry. Phase transitions restore conveyor speed, deck rotation and pooled block visibility. Stage-local music owns tempo and gain for the boss phase and tilt warning. The scene stays outside Quick Fight and is registered for the later Arcade Ladder.
 
 Toy Chest tilt uses Fighter.ApplyGroundDrift for grounded displacement independent of the movement command. MatchController resolves the stage’s Mr. Jack resource before configuring the match if the saved stage opponent is missing. The stage builder repairs that link when reopened.
+
+The Toy Chest deck carries its hidden floor collider. The adapter preserves each grounded fighter’s clearance as the floor rotates and applies slide displacement along the deck tangent. Airborne fighters keep their existing trajectory. Older scenes resolve their original floor on load.

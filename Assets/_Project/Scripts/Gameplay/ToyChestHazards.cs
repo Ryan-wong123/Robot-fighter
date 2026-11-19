@@ -9,6 +9,7 @@ namespace WobbleBrawl.Gameplay
     {
         [SerializeField] private Fighter player, opponent;
         [SerializeField] private Transform deck, tiltWarning;
+        [SerializeField] private BoxCollider deckFloor;
         [SerializeField] private Transform[] blocks, shadows;
         [SerializeField] private AudioSource warning, music;
         [SerializeField] private AudioClip rattle, creak;
@@ -24,6 +25,15 @@ namespace WobbleBrawl.Gameplay
         {
             cycle = GetComponent<HazardController>();
             rest = deck.localRotation;
+            // Older generated scenes kept the hidden floor at the scene root.
+            if (deckFloor == null)
+                foreach (var root in gameObject.scene.GetRootGameObjects())
+                    if (root.layer == 8 && root.TryGetComponent(out deckFloor))
+                        break;
+            if (deckFloor != null)
+                deckFloor.transform.SetParent(deck, true);
+            else
+                Debug.LogError("Toy Chest Showdown is missing its deck collider.", this);
             obstacles = new Collider[blocks.Length];
             for (int i = 0; i < blocks.Length; i++) obstacles[i] = blocks[i].GetComponent<Collider>();
         }
@@ -37,7 +47,7 @@ namespace WobbleBrawl.Gameplay
 
         private void Change(HazardPhase phase)
         {
-            deck.localRotation = rest;
+            SetDeckRotation(rest);
 
             warning.Stop();
             tiltWarning.gameObject.SetActive(false);
@@ -93,10 +103,10 @@ namespace WobbleBrawl.Gameplay
             if (!rain)
             {
                 float amount = Mathf.Sin(cycle.PhaseProgress * Mathf.PI);
-                deck.localRotation = rest * Quaternion.Euler(0, 0, -direction * tiltDegrees * amount);
+                SetDeckRotation(rest * Quaternion.Euler(0, 0, -direction * tiltDegrees * amount));
                 float step = direction * slideSpeed * amount * Time.fixedDeltaTime;
-                player.ApplyGroundDrift(step);
-                opponent.ApplyGroundDrift(step);
+                player.ApplyGroundDrift(deck.right * step);
+                opponent.ApplyGroundDrift(deck.right * step);
                 return;
             }
 
@@ -110,6 +120,19 @@ namespace WobbleBrawl.Gameplay
                 Strike(player, center, ref playerHit);
                 if (cycle.Phase == HazardPhase.Active) Strike(opponent, center, ref opponentHit);
             }
+        }
+
+        private void SetDeckRotation(Quaternion rotation)
+        {
+            if (deck.localRotation == rotation) return;
+            Vector3 oldNormal = deck.up;
+            bool carryPlayer = player.IsSupportedBy(deckFloor);
+            bool carryOpponent = opponent.IsSupportedBy(deckFloor);
+            deck.localRotation = rotation;
+            Vector3 newNormal = deck.up;
+            if (carryPlayer) player.FollowDeckHeight(deck.position, oldNormal, newNormal);
+            if (carryOpponent) opponent.FollowDeckHeight(deck.position, oldNormal, newNormal);
+            Physics.SyncTransforms();
         }
 
         private void Strike(Fighter fighter, Vector3 center, ref bool hit)

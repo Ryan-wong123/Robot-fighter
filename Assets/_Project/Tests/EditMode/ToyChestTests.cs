@@ -66,6 +66,13 @@ public sealed class ToyChestTests
         float playerX = playerBody.position.x;
         float opponentX = opponentBody.position.x;
         tick.Invoke(chest, null);
+        var floor = (BoxCollider)typeof(ToyChestHazards).GetField("deckFloor", flags).GetValue(chest);
+        Assert.That(floor.transform.up, Is.EqualTo(deck.up));
+        foreach (var body in new[] { playerBody, opponentBody })
+        {
+            Assert.That(floor.Raycast(new Ray(body.position + Vector3.up, Vector3.down), out var ground, 2f), Is.True);
+            Assert.That(body.position.y - ground.point.y, Is.EqualTo(.02f).Within(.03f));
+        }
         Assert.That(playerBody.position.x, Is.GreaterThan(playerX));
         Assert.That(opponentBody.position.x, Is.GreaterThan(opponentX));
         Assert.That(round.Player.Health, Is.EqualTo(round.Player.MaxHealth));

@@ -553,16 +553,29 @@ namespace WobbleBrawl.Gameplay
         public bool ReceiveHit(HitInfo info) => ResolveHit(info, false);
         internal bool ReceiveItemHit(HitInfo info) => ResolveHit(info, true);
         internal bool ReceiveHazardHit(HitInfo info) => ResolveHit(info, true);
-        internal void ApplyGroundDrift(float distance)
+        internal bool IsSupportedBy(Collider surface) =>
+            surface != null && CanInteractWithItems && !frozen && body.linearVelocity.y <= .1f &&
+            surface.Raycast(new Ray(body.position + Vector3.up * .15f, Vector3.down), out _, .25f);
+
+        internal void FollowDeckHeight(Vector3 pivot, Vector3 previousNormal, Vector3 currentNormal)
+        {
+            Vector3 offset = body.position - pivot;
+            offset.y = 0;
+            float heightDelta = Vector3.Dot(previousNormal, offset) / previousNormal.y -
+                Vector3.Dot(currentNormal, offset) / currentNormal.y;
+            body.position += Vector3.up * heightDelta;
+        }
+
+        internal void ApplyGroundDrift(Vector3 displacement)
         {
             if (!CanInteractWithItems || frozen || MatchPause.IsPaused ||
-                Mathf.Approximately(distance, 0f) || body.linearVelocity.y > .1f ||
+                displacement.sqrMagnitude < 0.00000001f || body.linearVelocity.y > .1f ||
                 !Physics.Raycast(body.position + Vector3.up * .15f, Vector3.down, .25f,
                     groundLayers, QueryTriggerInteraction.Ignore))
                 return;
 
-            Vector3 direction = Vector3.right * Mathf.Sign(distance);
-            float travel = Mathf.Abs(distance);
+            float travel = displacement.magnitude;
+            Vector3 direction = displacement / travel;
             if (body.SweepTest(direction, out var hit, travel, QueryTriggerInteraction.Ignore))
                 travel = Mathf.Max(0f, hit.distance - .005f);
             body.position += direction * travel;

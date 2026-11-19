@@ -104,6 +104,7 @@ public static partial class CombatSandboxBuilder
         Set(chest, "player", round.Player);
         Set(chest, "opponent", round.Opponent);
         Set(chest, "deck", deck);
+        Set(chest, "deckFloor", floor.GetComponent<BoxCollider>());
         var arrow = Group(node.transform, "Tilt direction", new Vector3(0, .055f, -1.05f));
         StagePart(arrow, "Arrow shaft", PrimitiveType.Cube, Vector3.zero, new Vector3(1.35f, .025f, .14f), trim);
         for (int sign = -1; sign <= 1; sign += 2)
