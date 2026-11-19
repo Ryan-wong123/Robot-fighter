@@ -1,0 +1,20 @@
+{
+  "source": "Original procedural geometry, palette and synthesized audio authored for this project, using the owner-approved reference. No external mesh, texture or sampled audio.",
+  "reference": "docs/images/maps/concept/bouncy_castle_fair_colorkey.png",
+  "blender": "4.5.3 LTS",
+  "hash_format": "SHA-256; Python scripts normalized to LF, binary files exact.",
+  "files": {
+    "Tools/Blender/build_bouncy_castle.py": "94cea90a12ed6a8472fda9f2462049828627755691b1c8a761858938cbcd33b0",
+    "Tools/Blender/verify_bouncy_castle.py": "1c89cf70bfd20c7b3dbd46d57103f6a47a65d0566b597bd14966bfbe9b9bee30",
+    "Tools/Audio/generate_fairground.py": "8e16d8d35075dd1241282e04bf847272bead7c57ee10ba3a6922726ca5a1df1f",
+    "Art/_Source/BouncyCastleFair/BouncyCastleFair.blend": "0c3ed04f62f9419164cae90537c5bac009cec4e0dd4a0311185dfd90e979faf9",
+    "Assets/_Project/Art/BouncyCastleFair/BouncyCastleFair.fbx": "0bc9f258b5f314e3a257b7f725d1e71be033957a37827b3d634335d519627646",
+    "Assets/_Project/Art/BouncyCastleFair/BouncyCastle_Atlas.png": "51837b0179d54ab859e69743a12d10bb3efff4e2dc21ef825151759cc4236d8d",
+    "Assets/_Project/Art/BouncyCastleFair/BouncyCastle_Thumbnail.png": "1a733239990b815f78ce8417936f7771054a4f2d6addcdb0d533092f4441b04a",
+    "Assets/_Project/Art/Audio/Resources/Audio/FairAmbience.wav": "de84887919521b98321d63e62d245c5829a26d1dfe796488d788ed407f23592e",
+    "Assets/_Project/Art/Audio/Resources/Audio/FairBoing.wav": "f3d2d8ce32125e7d98feffc6f9b04434c494111964e67dbecd3ed366b1a603be",
+    "Assets/_Project/Art/Audio/Resources/Audio/FairMusic.wav": "7df3718fc2a4f0e584f5b9a7bca3ee3287447fb8c618a20926f97e56e2d89718",
+    "Assets/_Project/Art/Audio/Resources/Audio/FairPadWarning.wav": "50a888e5d40f3253e88f5afcc8526f50a81052e75908602b655a9ad453195889",
+    "Assets/_Project/Art/Audio/Resources/Audio/FairPump.wav": "ea6a50bc0cd5627ec1e74dbe092517264be4c672047ea5cab9141eb7762278bd"
+  }
+}

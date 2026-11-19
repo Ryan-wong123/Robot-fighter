@@ -55,3 +55,7 @@ Run tests with python -m unittest discover -s Tools/Audio -p test_voice_pipeline
 ## Madame Plush cues
 
 `python Tools/Audio/generate_plush_cues.py --output Logs/PlushAudio` writes a 0.25 s cloth creak and 0.6 s sweet winner bell into a fresh directory. The deterministic generator uses noise/oscillators and no external recording. Committed mono PCM16 24 kHz exports are `PlushCreak.wav` and `PlushWinBell.wav` under `Assets/_Project/Art/Audio/Resources/Audio/`. [Source provenance](../../Art/_Source/MadamePlush/provenance.json) records exact hashes. Both route through SettingsAudioSource SFX volume; winner audio follows the actual winner event. Final voices remain M4-09.
+
+## Bouncy Castle Fair cues
+
+`python Tools/Audio/generate_fairground.py --output Logs/FairAudioNew` writes original FairMusic/FairAmbience loops (8 s each), FairPadWarning/FairPump warnings (2 s each) and FairBoing (0.65 s) into fresh outputs. Synthesized from oscillators/noise with a fixed seed, with no sampled recordings. Mono PCM16 24 kHz exports live under `Assets/_Project/Art/Audio/Resources/Audio/`; [provenance](../../Art/_Source/BouncyCastleFair/provenance.json) records hashes. Music routes through AudioManager's music bus; ambience/warnings/boings respect SFX settings and pause. Final audio polish remains M4-09.

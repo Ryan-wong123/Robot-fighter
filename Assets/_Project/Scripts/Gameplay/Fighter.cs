@@ -70,6 +70,8 @@ namespace WobbleBrawl.Gameplay
         public int AttackDamage(int baseDamage) => character.HasStuffingLoss
             ? StuffingRules.Damage(baseDamage, Health, MaxHealth, character.LowHealthDamageBonus) : baseDamage;
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
+        private float stageJump = 1f;
+        public float CharacterHeight => character.Height;
         private float conveyorSpeed;
         public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
 
@@ -175,6 +177,7 @@ namespace WobbleBrawl.Gameplay
             inflation?.Reset();
             ragdoll?.Reset();
             SetWater(1f, 1f, 1f);
+            stageJump = 1f;
             conveyorSpeed = 0f;
             EndFreeze();
             body.position = position;
@@ -377,7 +380,7 @@ namespace WobbleBrawl.Gameplay
                 Facing = horizontal > 0f ? 1 : -1;
             SetHorizontal(horizontal * character.MoveSpeed * waterMove + (grounded ? conveyorSpeed : 0f));
             if (intent.Jump && grounded)
-                body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump, 0f);
+                body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump * stageJump, 0f);
             if (grounded && State == FighterState.Airborne && !intent.Jump)
                 PlayClip("JumpLand");
             State = !grounded || intent.Jump ? FighterState.Airborne :
@@ -474,6 +477,51 @@ namespace WobbleBrawl.Gameplay
         internal bool ReceiveItemHit(HitInfo info) => ResolveHit(info, true);
         internal bool ReceiveHazardHit(HitInfo info) => ResolveHit(info, true);
         internal void SetConveyorSpeed(float speed) => conveyorSpeed = speed;
+
+        internal void SetStageJumpMultiplier(float multiplier) => stageJump = multiplier;
+
+        internal bool TryBounceFromStage(float multiplier)
+        {
+            if (!roundActive || !IsAlive || frozen || body.linearVelocity.y > .1f ||
+                !Physics.Raycast(body.position + Vector3.up * .15f, Vector3.down, .25f,
+                    groundLayers, QueryTriggerInteraction.Ignore))
+            {
+                return false;
+            }
+            body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * multiplier, 0f);
+            inflation?.SetBlocking(false, false);
+            if (move == null && stun == 0)
+            {
+                State = FighterState.Airborne;
+                PlayClip("JumpRise");
+            }
+            return true;
+        }
+
+        internal void ConstrainToStage(float minimum, float maximum)
+        {
+            if (!roundActive || !IsAlive)
+            {
+                return;
+            }
+            Vector3 position = body.position;
+            float contained = Mathf.Clamp(position.x, minimum + character.BodyWidth * .5f,
+                maximum - character.BodyWidth * .5f);
+            if (Mathf.Approximately(contained, position.x))
+            {
+                return;
+            }
+            position.x = contained;
+            body.position = position;
+            if (frozen)
+            {
+                velocity.x = 0f;
+            }
+            else
+            {
+                SetHorizontal(0f);
+            }
+        }
 
         internal void SetWater(float moveMultiplier, float jumpMultiplier, float gravityMultiplier)
         {

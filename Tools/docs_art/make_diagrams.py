@@ -158,10 +158,10 @@ def castle(layer):
             s += rect(xm, 0, 1.4, 2.8, '#ff7ab0' if side < 0 else '#6ec6ff')
             s += "<polygon points='%.1f,%.1f %.1f,%.1f %.1f,%.1f' fill='#ffd23f' stroke='%s' stroke-width='3'/>\n" % (X(xm), Y(2.8), X(xm + 1.4), Y(2.8), X(xm + 0.7), Y(3.6), INK)
         s += t(X(-6.3), Y(1.4), 'tower', 11, INK, 'middle') + t(X(6.3), Y(1.4), 'tower', 11, INK, 'middle')
-        for px in (-1.9, 0.7):
-            s += rect(px, 0, 1.2, 0.16, '#ff5a36')
-            s += arrow(X(px + 0.6), Y(0.3), X(px + 0.6), Y(2.2), '#ff5a36')
-            s += t(X(px + 0.6), Y(2.45), 'trampoline pad', 10, '#a31', 'middle')
+        for center in (-3, 3):
+            s += rect(center - 1, 0, 2, 0.16, '#ff5a36')
+            s += arrow(X(center), Y(0.3), X(center), Y(2.2), '#ff5a36')
+            s += t(X(center), Y(2.45), 'trampoline pad (jump x1.8)', 10, '#a31', 'middle')
     return s
 
 
@@ -223,6 +223,8 @@ def make_stages():
             extra = ("<line x1='%.1f' y1='70' x2='%.1f' y2='%d' stroke='#ff5a36' stroke-width='3' stroke-dasharray='4 6'/><line x1='%.1f' y1='70' x2='%.1f' y2='%d' stroke='#ff5a36' stroke-width='3' stroke-dasharray='4 6'/>\n" % (
                 X(-5.25), X(-5.25), GY, X(5.25), X(5.25), GY)) + t(X(-5.2), 104, 'squeezed bound -5.25 m', 11, '#ff5a36')
         spawns = (-4.6, -1.4, 1.6) if 'toy_chest' in rel else (-4.5, -1.5, 1.5, 4.5)
+        if 'castle' in rel:
+            spawns = (-3, 0, 3)
         body, h = stage(name, sub, sky, floor, props, legend, spawns=spawns, extra_bounds=extra)
         write(rel, 1200, h, body)
 

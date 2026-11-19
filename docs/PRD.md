@@ -105,6 +105,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 | **Bouncy Castle Fair** | Trampoline floor sections; inflating/deflating walls |
 | **Giant Sandbox** | Cat-paw (tail) sweep; sinking sand patches |
 - Launch target: **4 stages**, each with 1 stage-specific music track.
+- Bouncy Castle Fair starting data: pads at X -3/+3 m, half-width 1 m, auto-bounce at 1.8× normal jump launch speed on grounded contact. Wall Squeeze narrows inner bounds from ±7 to ±5.25 m over one second, holds two seconds and expands over one second. Neither hazard deals damage. Two-second visual/audio warnings precede four-second active windows; hazards alternate from pads after 15 s, then two-second cooldown and seeded 8–14 s idle. Camera framing follows squeezing and high bounces, yielding on KO. Round end/sudden death/Hazards Off clear effects and restore width. Item points are X -3/0/+3 m. Values are **(start)** tuning; stage coin unlock gating remains M4-08.
 
 ## 10. Controls (Mobile)
 - **Left thumb:** virtual joystick (reuse the existing Joystick Pack): left/right = move, up = jump, down = block.

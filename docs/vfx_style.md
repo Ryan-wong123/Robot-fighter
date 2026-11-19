@@ -95,6 +95,7 @@ All of these are triggered by the **same hit event**, so they stay in sync (VFX,
 - A hazard must be understandable **without color alone**: shape/icon plus sound plus motion.
 - Ambient stage particles (bubbles, crumbs, dust motes, confetti) are low-count and background-only; they must never overlap the fight plane's visual center.
 - Per-stage effect detail is in [`maps.md`](maps.md).
+- Bouncy Castle Fair reuses four outlined yellow arrow meshes: upward arrows over the two pads and inward arrows attached to moving walls. Pad warning arrows pulse in scale at 1.5 Hz; wall visuals bulge by up to 5% during their two-second warning. Chime and pump/creak cues provide non-color warnings; each actual pad bounce has a boing. All warning objects are reused, with no hazard particles, extra lights or per-frame allocations. Inactive/cooldown hides warnings, round end also stops audio and restores wall scale. Scenery uses one palette atlas, the shared opaque toon graph and a dark navy outline (0.025 width). Original music and low-volume ambience support the fairground mood.
 
 ## 6. Technical Rules (URP, mobile)
 - **Shaders:** unlit or simple-lit particle shaders; additive and alpha-blended only where needed. No real-time shadows or lights from particles. No grab-pass/refraction. Soft particles off by default.

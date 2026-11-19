@@ -234,5 +234,12 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode PuffinPeteTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode SirNoodleTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests"
+  ],
+  "M4-04": [
+    "python3 Tools/tasks/check_bouncy_castle.py",
+    "bash Tools/tasks/run_unity_tests.sh EditMode BouncyCastleTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode SandboxHazardTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
   ]
 }

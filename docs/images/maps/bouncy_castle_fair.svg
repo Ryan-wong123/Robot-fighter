@@ -12,12 +12,12 @@
 <polygon points='1048.0,226.0 1160.0,226.0 1104.0,162.0' fill='#ffd23f' stroke='#2b2b3a' stroke-width='3'/>
 <text x='96.0' y='338.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>tower</text>
 <text x='1104.0' y='338.0' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>tower</text>
-<rect x='448.0' y='437.2' width='96.0' height='12.8' rx='6' fill='#ff5a36' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
-<line x1='496.0' y1='426.0' x2='496.0' y2='286.0' stroke='#ff5a36' stroke-width='5'/><polygon points='496.0,274.0 488.0,286.0 504.0,286.0' fill='#ff5a36'/>
-<text x='496.0' y='254.0' font-size='10' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>trampoline pad</text>
-<rect x='656.0' y='437.2' width='96.0' height='12.8' rx='6' fill='#ff5a36' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
-<line x1='704.0' y1='426.0' x2='704.0' y2='286.0' stroke='#ff5a36' stroke-width='5'/><polygon points='704.0,274.0 696.0,286.0 712.0,286.0' fill='#ff5a36'/>
-<text x='704.0' y='254.0' font-size='10' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>trampoline pad</text>
+<rect x='280.0' y='437.2' width='160.0' height='12.8' rx='6' fill='#ff5a36' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<line x1='360.0' y1='426.0' x2='360.0' y2='286.0' stroke='#ff5a36' stroke-width='5'/><polygon points='360.0,274.0 352.0,286.0 368.0,286.0' fill='#ff5a36'/>
+<text x='360.0' y='254.0' font-size='10' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>trampoline pad (jump x1.8)</text>
+<rect x='760.0' y='437.2' width='160.0' height='12.8' rx='6' fill='#ff5a36' stroke='#2b2b3a' stroke-width='3' opacity='1'/>
+<line x1='840.0' y1='426.0' x2='840.0' y2='286.0' stroke='#ff5a36' stroke-width='5'/><polygon points='840.0,274.0 832.0,286.0 848.0,286.0' fill='#ff5a36'/>
+<text x='840.0' y='254.0' font-size='10' fill='#a31' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>trampoline pad (jump x1.8)</text>
 <line x1='40.0' y1='70' x2='40.0' y2='520' stroke='#d33' stroke-width='3' stroke-dasharray='10 8'/>
 <line x1='1160.0' y1='70' x2='1160.0' y2='520' stroke='#d33' stroke-width='3' stroke-dasharray='10 8'/>
 <text x='46.0' y='88' font-size='12' fill='#d33' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>bound -7 m</text>
@@ -28,11 +28,10 @@
 <g stroke='#2b2b3a' stroke-width='3' stroke-linejoin='round'><rect x='826.0' y='342.0' width='28.0' height='108.0' rx='10' fill='#ffb3a7'/><circle cx='840.0' cy='326.0' r='17.6' fill='#ffb3a7'/></g>
 <text x='360.0' y='298.0' font-size='12' fill='#2b2b3a' text-anchor='middle' font-weight='bold' font-family='Verdana, Arial, sans-serif'>P1</text>
 <text x='840.0' y='298.0' font-size='12' fill='#2b2b3a' text-anchor='middle' font-weight='bold' font-family='Verdana, Arial, sans-serif'>P2 / AI</text>
-<polygon points='240.0,356.0 244.2,365.8 254.0,370.0 244.2,374.2 240.0,384.0 235.8,374.2 226.0,370.0 235.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
-<polygon points='480.0,356.0 484.2,365.8 494.0,370.0 484.2,374.2 480.0,384.0 475.8,374.2 466.0,370.0 475.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
-<polygon points='720.0,356.0 724.2,365.8 734.0,370.0 724.2,374.2 720.0,384.0 715.8,374.2 706.0,370.0 715.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
-<polygon points='960.0,356.0 964.2,365.8 974.0,370.0 964.2,374.2 960.0,384.0 955.8,374.2 946.0,370.0 955.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
-<text x='240.0' y='488' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>item spawn points</text>
+<polygon points='360.0,356.0 364.2,365.8 374.0,370.0 364.2,374.2 360.0,384.0 355.8,374.2 346.0,370.0 355.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='600.0,356.0 604.2,365.8 614.0,370.0 604.2,374.2 600.0,384.0 595.8,374.2 586.0,370.0 595.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<polygon points='840.0,356.0 844.2,365.8 854.0,370.0 844.2,374.2 840.0,384.0 835.8,374.2 826.0,370.0 835.8,365.8' fill='#ffd23f' stroke='#2b2b3a' stroke-width='2' stroke-linejoin='round'/>
+<text x='360.0' y='488' font-size='11' fill='#2b2b3a' text-anchor='middle' font-weight='normal' font-family='Verdana, Arial, sans-serif'>item spawn points</text>
 <line x1='40' y1='506' x2='120' y2='506' stroke='#2b2b3a' stroke-width='4'/>
 <text x='128.0' y='511' font-size='12' fill='#2b2b3a' text-anchor='start' font-weight='normal' font-family='Verdana, Arial, sans-serif'>1 m (fight plane 14 m wide, fighter 1.8 m)</text>
 <text x='30' y='36' font-size='26' fill='#2b2b3a' text-anchor='start' font-weight='bold' font-family='Verdana, Arial, sans-serif'>Bouncy Castle Fair</text>

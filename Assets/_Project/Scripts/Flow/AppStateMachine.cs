@@ -16,6 +16,7 @@ namespace WobbleBrawl.Flow
         public string Name;
         public string Scene;
         public string Hazards;
+        public Texture2D Thumbnail;
         public bool IsBossStage;
     }
 
@@ -74,8 +75,32 @@ namespace WobbleBrawl.Flow
             sirNoodle = Resources.Load<CharacterDef>("Characters/SirNoodle");
             puffinPete = Resources.Load<CharacterDef>("Characters/PuffinPete");
             madamePlush = Resources.Load<CharacterDef>("Characters/MadamePlush");
+            InstallStages();
             DontDestroyOnLoad(gameObject);
             AudioManager.Ensure(transform);
+        }
+
+        private void InstallStages()
+        {
+            var installed = Resources.LoadAll<StageDef>("Stages");
+            var choices = new System.Collections.Generic.List<StageChoice>(stages ?? System.Array.Empty<StageChoice>());
+            foreach (var stage in installed)
+            {
+                bool exists = false;
+                foreach (var choice in choices)
+                {
+                    exists |= choice.Scene == stage.SceneName;
+                }
+                if (!exists)
+                {
+                    choices.Add(new StageChoice
+                    {
+                        Name = stage.DisplayName, Scene = stage.SceneName, Hazards = stage.HazardHint,
+                        Thumbnail = stage.Thumbnail
+                    });
+                }
+            }
+            stages = choices.ToArray();
         }
 
         private void Start()

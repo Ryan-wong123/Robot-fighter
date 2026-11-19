@@ -76,6 +76,15 @@ namespace WobbleBrawl.UI
                 Place(rect, 218f, 62f, 47f);
                 rect.anchoredPosition += Vector2.right * ((index - (stageButtons.Length - 1) * .5f) * 235f);
                 stageButtons[index] = button;
+                if (app.GetStage(index).Thumbnail != null)
+                {
+                    var thumbnail = Child(button.transform, "Stage thumbnail", typeof(RawImage));
+                    var image = thumbnail.GetComponent<RawImage>();
+                    image.texture = app.GetStage(index).Thumbnail;
+                    image.raycastTarget = false;
+                    var preview = (RectTransform)thumbnail.transform;
+                    Place(preview, 176f, 99f, 92f);
+                }
             }
             primary.onClick.AddListener(PrimaryAction);
             secondary.onClick.AddListener(SecondaryAction);
@@ -253,6 +262,7 @@ namespace WobbleBrawl.UI
                         : "Quick Fight vs AI";
                     if (stageSelection)
                     {
+                        Place(title.rectTransform, 640f, 78f, 250f);
                         if (app.RulesLocked)
                             description.text = "Arcade and boss matches always use items and hazards.";
                         Place(description.rectTransform, 640f, 52f, -6f);

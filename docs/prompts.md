@@ -658,8 +658,21 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 ### M4-04 — Stage 3: Bouncy Castle Fair
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M2-03
-- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5; docs/art_prompts.md stage reference
+- **Done when:** the original toon-shaded castle scene is selectable and both telegraphed hazards, camera/item/AI integration, round resets, rule toggles and Android checks pass.
+
+**Implementation:** [source notes](../Art/_Source/BouncyCastleFair/README.md) record original Blender scenery, 21,160 triangles across three meshes, one packed atlas, two movable walls, thumbnail and five original audio cues. BouncyCastleContent installs the new scene additively without rewriting the open scene. Boot discovers StageDef metadata; coin gating remains M4-08. FairgroundDef stores layout/tuning. FairgroundRules handles pure contact/envelope geometry; FairgroundHazards adapts the existing seeded cycle. FairgroundCamera frames high bounces and squeezing and yields to KO presentation.
+
+**Verification status:** Blender checks passed mesh split, transforms, UVs, wall pivots and budget. Standalone .NET checks passed 1,001 squeeze samples, 25% width cap, symmetric expansion, endpoints and pad contact edges. Runtime/editor/test sources compile against installed Unity libraries. The exact source/export/atlas/thumbnail/audio snapshot passes `Tools/tasks/check_bouncy_castle.py`. Native Unity import/test execution, visual behavior and Android performance remain pending.
+
+**Manual verification:**
+1. Stop Play Mode and allow import/recompile. Boot > Quick Fight > choose fighter > Bouncy Castle Fair should show the thumbnail and trampoline/wall hint. If absent, run **Wobble Brawl > Stages > Build Bouncy Castle Fair** outside Play Mode, then restart Boot. Enter the stage and confirm striped inflatable towers/rails, rainbow arch, bunting/balloons, ticket booth/Ferris wheel, colored padded floor, toon shading/outline and no pink materials. Direct play of the generated BouncyCastleFair scene should also work.
+2. Press Space to pause the AI for observation. At about 15 s, check two seconds of pulsing upward arrows/chime on the pads at X -3/+3. Stand/walk/land on either pad during the four-second activation: a boing and a clearly higher auto-bounce should occur. Each fighter uses 1.8 times its normal launch speed; no repeated midair boosts or health loss. Move off the pad to avoid it. Check both fighters remain visible during high jumps and camera settles after landing.
+3. After cooldown and the next idle, check inward wall arrows, a bulge pulse and pump/creak warning for two seconds. The walls should move inward for one second, hold two seconds, then expand for one second. Stand near each edge: fighters should move inward without damage, escape or clipping through walls, and the camera should narrow. Test an uppercut/rocket launch near an edge while squeezing. The hazards must not overlap.
+4. Pick up/use items from the pads and center; check spawning remains inside reachable bounds. Resume AI and compare Easy/Hard avoidance. Verify normal movement, jump, block, combos and specials for all four fighters.
+5. Pause during a warning/activation: timer, movement, wall/pad effects and SFX should pause and resume together. Test music/SFX volume controls. End a round during each hazard; the next round must restore full width, clear boosts/warnings/audio and restart the opening delay with pads first. Check KO zoom/slow motion and normal control next round.
+6. From a fresh setup, turn Hazards Off: pads must stay passive, walls full-width and warnings absent; Items remains independently configurable. Rematch must retain stage/rules/fighters. Tied-timeout sudden death must stop hazards and restore walls.
+7. Run EditMode BouncyCastleTests, SandboxHazardTests, AppFlowTests and AudioManagerTests. Play a full Android match for safe-area selection/HUD, touch input, visible high bounces, readable warnings, audio, KO/reset and the 60 FPS target.
 
 ### M4-05 — Stage 4: Giant Sandbox
 - **Section:** M4 — Content (weeks 11-14)

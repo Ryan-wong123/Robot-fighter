@@ -1,0 +1,19 @@
+{
+  "triangles": 21160,
+  "meshes": [
+    "SM_Backdrop",
+    "SM_LeftWall",
+    "SM_RightWall"
+  ],
+  "materials": 1,
+  "atlas": [
+    1024,
+    1024
+  ],
+  "half_width": 7,
+  "pad_centers": [
+    -3,
+    3
+  ],
+  "validation_errors": []
+}
