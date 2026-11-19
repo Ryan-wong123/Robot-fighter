@@ -646,6 +646,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 5. Test Plush AI, ordinary partial ragdoll and a round ending with exposed seams. The next round must restore full HP, close seams, clear TOUGH!/cotton/audio and allow movement/attacks. A winner should play the bell once. Win two rounds and confirm the match ends normally.
 6. Run EditMode MadamePlushTests, PuffinPeteTests, SirNoodleTests and AppFlowTests. Play a full Android match for readable UI, touch input, effects, KO/reset and the stable 60 FPS target.
 
+**Owner acceptance (2026-11-19):** The owner confirmed all M4-03 manual checks passed, including the clarified 180/120/60 HP stuffing reveals and low-health TOUGH! bonus. Native automated Unity test execution has not been recorded, so the task retains [~] under the existing verifier.
+
 ### M4-10 — Mr. Jack boss fighter (model, rig, two-phase animations, boss AI profile, voice barks)
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M1-14, M2-07
