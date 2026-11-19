@@ -30,6 +30,7 @@ namespace WobbleBrawl.UI
         private Toggle itemsToggle;
         private Button sirNoodleButton;
         private Button puffinPeteButton;
+        private Button madamePlushButton;
         private Button opponentButton;
         private Text opponentCaption;
         private Text primaryText;
@@ -84,6 +85,9 @@ namespace WobbleBrawl.UI
             puffinPeteButton = CreateButton("Puffin Pete Fighter", -70f, Green, out var peteCaption);
             peteCaption.text = "Puffin Pete";
             puffinPeteButton.onClick.AddListener(app.SelectPuffinPete);
+            madamePlushButton = CreateButton("Madame Plush Fighter", -70f, Green, out var plushCaption);
+            plushCaption.text = "Madame Plush";
+            madamePlushButton.onClick.AddListener(app.SelectMadamePlush);
             opponentButton = CreateButton("AI Fighter", -144f, Cream, out opponentCaption);
             opponentButton.onClick.AddListener(app.ToggleOpponent);
             hazardsToggle = CreateRuleToggle("Hazards", -160f);
@@ -194,7 +198,9 @@ namespace WobbleBrawl.UI
                 app.Step == SelectionStep.Fighter;
             sirNoodleButton.gameObject.SetActive(fighterSelection && app.HasSirNoodle);
             puffinPeteButton.gameObject.SetActive(fighterSelection && app.HasPuffinPete);
-            opponentButton.gameObject.SetActive(fighterSelection && (app.HasSirNoodle || app.HasPuffinPete));
+            madamePlushButton.gameObject.SetActive(fighterSelection && app.HasMadamePlush);
+            opponentButton.gameObject.SetActive(fighterSelection &&
+                (app.HasSirNoodle || app.HasPuffinPete || app.HasMadamePlush));
             opponentCaption.text = "AI: " + app.OpponentName;
             hazardsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             itemsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
@@ -253,7 +259,7 @@ namespace WobbleBrawl.UI
                         Place((RectTransform)primary.transform, 310f, 58f, -144f);
                         Place((RectTransform)secondary.transform, 310f, 58f, -218f);
                     }
-                    else if (app.HasSirNoodle)
+                    else if (app.HasSirNoodle || app.HasPuffinPete || app.HasMadamePlush)
                     {
                         Place(title.rectTransform, 640f, 78f, 190f);
                         Place(description.rectTransform, 640f, 52f, 116f);
@@ -268,6 +274,15 @@ namespace WobbleBrawl.UI
                             ((RectTransform)puffinPeteButton.transform).anchoredPosition += Vector2.right * 300f;
                             Place((RectTransform)opponentButton.transform, 310f, 58f, -84f);
                             Place((RectTransform)secondary.transform, 310f, 58f, -158f);
+                        }
+                        if (app.HasMadamePlush)
+                        {
+                            PlaceFighterChoice(primary, -170f, 4f);
+                            PlaceFighterChoice(sirNoodleButton, 170f, 4f);
+                            PlaceFighterChoice(puffinPeteButton, -170f, -70f);
+                            PlaceFighterChoice(madamePlushButton, 170f, -70f);
+                            Place((RectTransform)opponentButton.transform, 310f, 58f, -144f);
+                            Place((RectTransform)secondary.transform, 310f, 58f, -218f);
                         }
                     }
                     primaryText.text = stageSelection ? "Start Match" : "Blobby";
@@ -340,6 +355,12 @@ namespace WobbleBrawl.UI
             }
             else
                 app.ReturnToMenu();
+        }
+
+        private static void PlaceFighterChoice(Button button, float x, float y)
+        {
+            Place((RectTransform)button.transform, 280f, 58f, y);
+            ((RectTransform)button.transform).anchoredPosition += Vector2.right * x;
         }
 
         private Toggle CreateRuleToggle(string caption, float x)

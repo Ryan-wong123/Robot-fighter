@@ -1,0 +1,18 @@
+{
+  "source": "Original procedural geometry, atlas, animation and synthesized audio authored for this project. No external meshes, textures, motion capture or audio samples.",
+  "reference": "docs/images/characters/concept/madame_plush_turnaround.png",
+  "blender": "4.5.3 LTS",
+  "verification": "Blender skin/budgets, 22 moving actions, four closing loops, independent stuffing morphs and special markers passed. Unity execution remains pending.",
+  "files": {
+    "Tools/Blender/build_madame_plush.py": "e42f13fa21da80f3b7f7252b420a3fdc0697bfebd5b72995ee3dd02384914032",
+    "Tools/Blender/verify_madame_plush.py": "8d18b946091125f66e06f4d3066638bf255e976c82a1ec4144896e93bfbd41cd",
+    "Art/_Source/MadamePlush/MadamePlush.blend": "0808dded45e1b5d3ee18f7be98b46b87687e3d388f091079c84d53b2e3b6f5be",
+    "Art/_Source/MadamePlush/MadamePlush.validation.json": "81e71e6ed9f781e342d070c4550d720f00339626b8432bc8fcd7b03a49fffa7f",
+    "Assets/_Project/Art/Characters/MadamePlush/MadamePlush.fbx": "7e6b4c12bd96226cf7ad8818b916b71238b1a1168180f9f4bd718d6f4c0166b8",
+    "Assets/_Project/Art/Characters/MadamePlush/MadamePlush_Body_Albedo.png": "d8e50104a686b93f5a3122139c3b9b2a080b1a8b6a748a60d4a1cfe4334ee057",
+    "Tools/Audio/generate_plush_cues.py": "7b1acff8a7c2159bec723d5b053535f196d79a8d249b16db875bd19c878925a7",
+    "Assets/_Project/Art/Audio/Resources/Audio/PlushCreak.wav": "3e327e1d5887fb7fbc1775d65dc89797b1cf8e745d66d94f733474bac8f564d6",
+    "Assets/_Project/Art/Audio/Resources/Audio/PlushWinBell.wav": "80091deb3b8b0f6a95d0caa6cb557a82f284873fc611fd5aa5e8f376d8eeadbb"
+  },
+  "hash_format": "SHA-256; Python script line endings normalized to LF, binary files exact."
+}

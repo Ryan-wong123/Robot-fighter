@@ -1,0 +1,39 @@
+{
+  "triangles": 11928,
+  "bones": 17,
+  "deform_bones": 16,
+  "materials": 1,
+  "height_metres": 1.8,
+  "actions": [
+    "MadamePlush_Block",
+    "MadamePlush_GetUp",
+    "MadamePlush_GuardBreak",
+    "MadamePlush_HitHeavy",
+    "MadamePlush_HitLight",
+    "MadamePlush_Idle",
+    "MadamePlush_JumpFall",
+    "MadamePlush_JumpLand",
+    "MadamePlush_JumpRise",
+    "MadamePlush_KO",
+    "MadamePlush_Kick1",
+    "MadamePlush_Kick2",
+    "MadamePlush_Knockdown",
+    "MadamePlush_Punch1",
+    "MadamePlush_Punch2",
+    "MadamePlush_Punch3",
+    "MadamePlush_Punch4",
+    "MadamePlush_Special",
+    "MadamePlush_Taunt",
+    "MadamePlush_Throw",
+    "MadamePlush_Walk",
+    "MadamePlush_Win"
+  ],
+  "shape_keys": [
+    "Basis",
+    "Stuffing75",
+    "Stuffing50",
+    "Stuffing25"
+  ],
+  "validation_errors": [],
+  "reference": "docs/images/characters/concept/madame_plush_turnaround.png"
+}

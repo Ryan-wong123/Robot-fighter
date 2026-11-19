@@ -122,7 +122,7 @@ namespace WobbleBrawl.Gameplay
             reactingBody = null;
         }
 
-        public void Launch(Vector3 direction)
+        public void Launch(Vector3 direction, float horizontalSpeed = 3f, float verticalSpeed = 2f)
         {
             if (bodies.Count == 0 || Full)
                 return;
@@ -141,7 +141,7 @@ namespace WobbleBrawl.Gameplay
             foreach (var body in bodies)
             {
                 body.isKinematic = false;
-                body.AddForce(direction * 3f + Vector3.up * 2f, ForceMode.VelocityChange);
+                body.AddForce(direction * horizontalSpeed + Vector3.up * verticalSpeed, ForceMode.VelocityChange);
             }
         }
 

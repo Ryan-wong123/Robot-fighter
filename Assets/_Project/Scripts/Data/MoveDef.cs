@@ -25,6 +25,9 @@ namespace WobbleBrawl.Data
         public bool HeavyReaction;
         [Min(0)] public float ForwardSpeed;
         [Min(0)] public float HopSpeed;
+        [Min(0)] public float LaunchSpeed;
+        public Vector2 LaunchBounds = new Vector2(-6.2f, 6.2f);
+        [Min(1)] public int LaunchContainmentFrames = 90;
 
         public int Duration => Startup + Active + Recovery;
     }

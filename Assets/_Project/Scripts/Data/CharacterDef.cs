@@ -30,5 +30,7 @@ namespace WobbleBrawl.Data
         [Min(0)] public float DeflateSpeed = 5f;
         [Min(1)] public int DeflateTurnFrames = 12;
         public Vector2 DeflateBounds = new Vector2(-6.2f, 6.2f);
+        public bool HasStuffingLoss;
+        [Range(0, 100)] public int LowHealthDamageBonus = 10;
     }
 }

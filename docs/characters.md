@@ -168,6 +168,7 @@ The procedural Blender blockout uses a 16-bone rig and UV-mapped skinned meshes 
 - **Move flavor:** heavy hooks and cross punches; her kicks are just stubby stomps.
 - **Blender notes:** stuffing via shape keys or a second mesh layer; fabric texture with stitches painted; use the base rig.
 - **Sounds:** soft thud, creak of fabric, a sweet bell on win.
+- **M4-03 implementation:** [source, budgets, frame data and import notes](../Art/_Source/MadamePlush/README.md). Original 1.8 m teddy with 11,928 triangles, 17 bones (16 deform), 1024 cloth atlas, shared toon graph/brown outline, 22 Generic clips and three independent stuffing morphs. Thresholds are inclusive at 180/120/60 HP; seams persist for the round, while the +10% damage bonus follows current living health. Punches 12/6 and kicks 14/7 body/leg; normal reach 1.305 m. Stitch Uppercut uses 24/5/35 frames, 24/12 damage, pushback 8 and unblocked upward speed 7. Surviving launch victims stay within ±6.2 m for 90 simulation frames. Cotton bursts, cloth creaks, TOUGH! HUD and winner bell provide feedback. Available through Boot selection and AI; unlock gating is M4-08. Native Unity/Android verification remains pending.
 
 ### 4.5 Mr. Jack (Boss, Arcade Ladder finale) [PROPOSED concept]
 The owner confirmed a boss fighter is needed. The concept below is a proposal.

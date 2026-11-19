@@ -631,8 +631,20 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 ### M4-03 — Madame Plush (model, rig, animations, data)
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M1-14
-- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/characters.md (fighter sheet and sections 3 and 8)
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/characters.md (fighter sheet and sections 3 and 8); docs/vfx_style.md
+- **Done when:** the textured teddy imports with all 22 animated clips, toon materials, three stuffing reveals, heavy fighter data and Stitch Uppercut; shared player/AI, damage thresholds, reset and Android checks pass.
+
+**Implementation:** [Madame Plush source notes](../Art/_Source/MadamePlush/README.md) record the original model/atlas/rig, 11,928 triangles, three independent morphs, frame data, bounded cotton feedback and original creak/bell provenance. The Editor importer builds missing content outside Play Mode, leaving scenes unchanged. Boot offers all four fighters for player/AI; unlock gating remains M4-08 and final voices M4-09.
+
+**Verification status:** Blender validation passed budgets/skin weights, 22 moving actions, four closing loops, independent morphs and uppercut markers. Standalone .NET checks passed all 241 health values, inclusive boundaries, living/dead bonus and rounding. Runtime/editor/test sources compile against installed Unity libraries. Exact source/export/audio hashes are checked by `Tools/tasks/check_madame_plush.py`. Native Unity execution and Android verification are pending; compilation is not an Editor test pass.
+
+**Manual verification:**
+1. Stop Play Mode and allow import/recompile. Boot > Quick Fight should offer Madame Plush and cycle AI through all four fighters. If absent, run **Wobble Brawl > Characters > Build Madame Plush** outside Play Mode. Select her, enter each stage and check facing, grounded feet, brown fabric, tan muzzle/belly, crossed button eyes, stitched patches, red gloves/sash and toon outline. Rematch must preserve choices.
+2. Verify 240 HP/100 guard, slower movement, jump, S block, four J punches, two K kicks, U pickup/use and T stitch-fix/knuckle-crack taunt. Preview all 22 MadamePlush_ clips with MadamePlushVisual as the preview model, including Win's sash/forward hug. Check that fists/stomps line up with hits, held items sit outside the glove and both directions animate correctly.
+3. Let ordinary hits reduce HP across 180, 120 and 60. At each threshold, a different seam should open with visible cotton, a short puff and cloth creak. Existing seams stay open. At 60 HP or below while alive, TOUGH! should appear and base 24 uppercut body damage should become 26 before combo/block modifiers. Items/hazards retain their normal damage.
+4. Charge and use L close to the opponent: slow crouching wind-up, upward glove strike, one hit, strong upward/backward launch and long punishable recovery. Test both directions, blocking, inflated Pete armor and near both stage edges; surviving targets must land back on the stage. Test a KO uppercut for full ragdoll, slow motion and camera recovery.
+5. Test Plush AI, ordinary partial ragdoll and a round ending with exposed seams. The next round must restore full HP, close seams, clear TOUGH!/cotton/audio and allow movement/attacks. A winner should play the bell once. Win two rounds and confirm the match ends normally.
+6. Run EditMode MadamePlushTests, PuffinPeteTests, SirNoodleTests and AppFlowTests. Play a full Android match for readable UI, touch input, effects, KO/reset and the stable 60 FPS target.
 
 ### M4-10 — Mr. Jack boss fighter (model, rig, two-phase animations, boss AI profile, voice barks)
 - **Section:** M4 — Content (weeks 11-14)

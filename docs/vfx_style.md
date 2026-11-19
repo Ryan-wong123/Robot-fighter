@@ -58,7 +58,7 @@ Each effect is a pooled prefab driven by a `VfxDef` and triggered by gameplay **
 | `VFX_Hazard_Telegraph` | hazard warning | pulsing ground decal + icon + sound cue | >= 1.5 s | decal |
 | `VFX_Hazard_Active` | hazard active | stage-specific burst (see [`maps.md`](maps.md)) | per hazard | <= 40 |
 | `VFX_Pop` | Puffin Pete pops | twenty pale-blue air streaks, PSSSHT! impact text, original hiss cue and flattened body morph | 0.8 s | 20 |
-| `VFX_Stuffing` | Madame Plush thresholds | cotton puffs from the seam | 0.6 s | 16 |
+| `VFX_Stuffing` | Madame Plush thresholds | cream cotton mesh puffs, persistent seam morph, original cloth creak | 0.6 s | 16 |
 | `VFX_Taunt` | taunt | small themed emote burst | 0.8 s | 12 |
 | `VFX_RoundStart` | round begins | "FIGHT!" text pop + camera zoom-out | 1.0 s | text |
 
@@ -180,3 +180,9 @@ Attach `SquashStretch` to a fighter and assign its visual child. Attach `ComicIm
 CombatSandbox wires both Fighter knockout events to `KnockoutPresentation`. It applies 1.4 seconds of unscaled presentation at 35% game speed and holds the orthographic camera at 62% of its normal size near the midpoint and pans toward the defeated fighter. The component restores the original camera and time scale on completion or disable. Ragdoll integration remains tracked separately.
 
 Blobby uses the URP ToonJellySurface Shader Graph for two lighting bands and a view-dependent rim. A front-culled inverted hull draws the outline at 0.018 m. Setting Outline Width to zero disables the visible outline. The owner verified the previous material. The replacement graph and separate outline material were imported and assigned to the shared prefab. The replacement needs a Game view check.
+
+### Madame Plush feedback (M4-03)
+
+The shared toon graph uses a brown cloth atlas and dark brown outline (width 0.012). Stuffing75/50/25 independently open seams at 75/50/25% health, blending at 500 weight units/s and pausing during hit-stop. Seams remain revealed until round reset. Each new threshold event emits one burst of at most sixteen cream cotton octahedra for 0.6 s from the highest newly crossed seam; crossing several at once still emits only sixteen. No blood. Round boundaries clear particles/audio; full-health reset closes all seams. Ordinary partial-ragdoll response uses strength 0.85 and duration 0.4 s.
+
+`PlushCreak.wav` (0.25 s cloth noise) and `PlushWinBell.wav` (0.6 s sweet bell) are original deterministic synthesis from `Tools/Audio/generate_plush_cues.py`, with no sampled recording. Both respect SFX settings. A TOUGH! guard caption identifies the current low-health bonus. Final voice barks and broader sound polish remain M4-09. See [source and provenance](../Art/_Source/MadamePlush/README.md).

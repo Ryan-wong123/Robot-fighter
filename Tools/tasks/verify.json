@@ -227,5 +227,12 @@
   "M1-09": [
     "python3 Tools/tasks/checks.py file-contains docs/prompts.md \"The stronger partial-ragdoll deflection and recovery passed\"",
     "python3 Tools/tasks/checks.py file-exists Assets/_Project/Scripts/Gameplay/VisualRagdoll.cs"
+  ],
+  "M4-03": [
+    "python3 Tools/tasks/check_madame_plush.py",
+    "bash Tools/tasks/run_unity_tests.sh EditMode MadamePlushTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode PuffinPeteTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode SirNoodleTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests"
   ]
 }

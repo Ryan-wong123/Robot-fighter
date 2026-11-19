@@ -51,3 +51,7 @@ The code and weights license, commercial-use statement and Google Play policy we
 [Upstream installation](https://github.com/OpenBMB/VoxCPM) · [Model card](https://huggingface.co/openbmb/VoxCPM2) · [License](https://github.com/OpenBMB/VoxCPM/blob/main/LICENSE)
 
 Run tests with python -m unittest discover -s Tools/Audio -p test_voice_pipeline.py.
+
+## Madame Plush cues
+
+`python Tools/Audio/generate_plush_cues.py --output Logs/PlushAudio` writes a 0.25 s cloth creak and 0.6 s sweet winner bell into a fresh directory. The deterministic generator uses noise/oscillators and no external recording. Committed mono PCM16 24 kHz exports are `PlushCreak.wav` and `PlushWinBell.wav` under `Assets/_Project/Art/Audio/Resources/Audio/`. [Source provenance](../../Art/_Source/MadamePlush/provenance.json) records exact hashes. Both route through SettingsAudioSource SFX volume; winner audio follows the actual winner event. Final voices remain M4-09.

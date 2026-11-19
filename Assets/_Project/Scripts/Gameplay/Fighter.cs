@@ -40,6 +40,8 @@ namespace WobbleBrawl.Gameplay
         private int moveFrame, comboWindow, stun, immunity, comboHits, accumulatedStun, guardRecovery;
         private bool hit, roundActive;
         private int hitPulse = -1;
+        private int launchContainment;
+        private Vector2 launchBounds;
         private int freeze;
         private bool wasKinematic;
         private float animationSpeed;
@@ -61,6 +63,12 @@ namespace WobbleBrawl.Gameplay
         public bool IsBellyBlimp => character.HasInflation && move == character.Special && move != null;
         public event Action InflationPopped;
         public event Action PresentationReset;
+        public event Action VictoryCelebrated;
+        public int StuffingStage => character.HasStuffingLoss ? StuffingRules.Stage(Health, MaxHealth) : 0;
+        public bool IsTough => character.HasStuffingLoss && IsAlive && StuffingStage == 3;
+
+        public int AttackDamage(int baseDamage) => character.HasStuffingLoss
+            ? StuffingRules.Damage(baseDamage, Health, MaxHealth, character.LowHealthDamageBonus) : baseDamage;
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
         private float conveyorSpeed;
         public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
@@ -180,12 +188,14 @@ namespace WobbleBrawl.Gameplay
             playingClip = null;
             PlayClip("Idle");
             roundActive = true;
+            launchContainment = 0;
             PresentationReset?.Invoke();
         }
 
         public void StopRound()
         {
             roundActive = false;
+            launchContainment = 0;
             inflation?.Reset();
             Items?.Clear();
             PresentationReset?.Invoke();
@@ -196,7 +206,10 @@ namespace WobbleBrawl.Gameplay
         public void CelebrateVictory()
         {
             if (!roundActive && IsAlive)
+            {
                 PlayClip("Win");
+                VictoryCelebrated?.Invoke();
+            }
         }
         public void SetSuddenDeath() => SetVitals(1, Guard, Special);
 
@@ -221,6 +234,18 @@ namespace WobbleBrawl.Gameplay
             }
             if (!roundActive || !IsAlive)
                 return;
+            if (launchContainment > 0)
+            {
+                launchContainment--;
+                Vector3 position = body.position;
+                float contained = Mathf.Clamp(position.x, launchBounds.x, launchBounds.y);
+                if (!Mathf.Approximately(contained, position.x))
+                {
+                    position.x = contained;
+                    body.position = position;
+                    SetHorizontal(0f);
+                }
+            }
             int previousMeter = PopMeter;
             bool wasDeflated = IsDeflated;
             inflation?.Advance();
@@ -461,7 +486,10 @@ namespace WobbleBrawl.Gameplay
         {
             if (!roundActive || !IsAlive || immunity > 0)
                 return false;
-            var result = DamageResolver.Resolve(info.Zone, info.Move.BodyDamage, info.Move.LegDamage,
+            bool fighterAttack = !externalHit && info.Attacker != null;
+            int bodyDamage = fighterAttack ? info.Attacker.AttackDamage(info.Move.BodyDamage) : info.Move.BodyDamage;
+            int legDamage = fighterAttack ? info.Attacker.AttackDamage(info.Move.LegDamage) : info.Move.LegDamage;
+            var result = DamageResolver.Resolve(info.Zone, bodyDamage, legDamage,
                 Guard, info.Move.GuardCost, info.Move.StunFrames, comboHits, accumulatedStun,
                 State == FighterState.Blocking, !externalHit && info.Attacker != null &&
                 info.Attacker.IsSpecialMove(info.Move), false);
@@ -500,6 +528,22 @@ namespace WobbleBrawl.Gameplay
                 else
                     SetHorizontal(pushback);
             }
+            if (!armored && info.Move.LaunchSpeed > 0f)
+            {
+                launchContainment = info.Move.LaunchContainmentFrames;
+                launchBounds = info.Move.LaunchBounds;
+            }
+            if (!armored && !result.Blocked && info.Move.LaunchSpeed > 0f)
+            {
+                if (frozen)
+                    velocity.y = Mathf.Max(velocity.y, info.Move.LaunchSpeed);
+                else
+                {
+                    var launched = body.linearVelocity;
+                    launched.y = Mathf.Max(launched.y, info.Move.LaunchSpeed);
+                    body.linearVelocity = launched;
+                }
+            }
             if (info.Attacker != null)
             {
                 var attacker = info.Attacker;
@@ -508,7 +552,12 @@ namespace WobbleBrawl.Gameplay
             }
             HitStopService.Apply(info.Attacker, this, info.Move.HitStopFrames);
             if (!IsAlive)
-                ragdoll?.Launch(info.Direction);
+            {
+                if (info.Move.LaunchSpeed > 0f)
+                    ragdoll?.Launch(info.Direction, info.Move.Pushback, info.Move.LaunchSpeed);
+                else
+                    ragdoll?.Launch(info.Direction);
+            }
             else if (!result.Blocked && !armored)
                 ragdoll?.React(info.Direction, info.Zone);
 
