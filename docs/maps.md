@@ -35,6 +35,8 @@
 - Hazard damage and status effects go through the normal `HitInfo` pipeline.
 - CombatSandbox has a test zone at center stage. The yellow warning starts after 15 seconds, lasts two seconds, and is followed by two seconds of orange activation. The test hit uses 12 base damage and 5 m/s knockback.
 
+Normal arenas append the six M4-06 pickup definitions through the installed item catalog, bringing weighted spawning to all twelve. Authored stage points/timers stay unchanged. CombatSandbox preserves the original opening lineup; NewItemSandbox is a separate hazard-free fixture for the six additions. See [items.md](items.md).
+
 ## 3. Launch Stages
 
 ### 3.1 Bathtub Brawl (Stage 1, default)

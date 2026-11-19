@@ -707,8 +707,25 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 ### M4-06 — Items up to 12
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M2-02
-- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/items.md; docs/vfx_style.md; docs/art_prompts.md
+- **Done when:** six approved additions have original toon-shaded Blender models, data, distinct behavior, pooled spawning/use/cleanup, AI support, tests and a manual/Android pass.
+
+**Owner approval:** On 2026-11-19 the owner approved Cream Pie, Boomerang, Pogo Stick, Bubble Wand, Wind-up Car and Spring Boxing Jack and requested their data in the markdown docs. [items.md](items.md) is the full twelve-item reference, including starting numbers, stable ids, timings, defensive behavior, AI ranges and asset/audio provenance.
+
+**Implementation:** NoveltyItemsContent installs six model-based prefabs, move/data assets, materials, six original SFX, an isolated NewItemSandbox fixture and a resource catalog that extends normal spawn tables to twelve without rewriting arena scenes. PooledItem caches the optional NoveltyItem adapter. Core ItemStatusState and Fighter handle timed slow/trap effects, ownership, hit break and reset. The original six keep their behavior and opening lineup. [Source notes](../Art/_Source/NoveltyItems/README.md) record 8,696 triangles, nine meshes, one atlas and all exports.
+
+**Verification status:** Blender validation and all six FBX round-trips passed mesh/UV/material/budget checks. Standalone .NET checks passed exact 90-frame slow and 120-frame trap durations, strongest/longest refresh, hit break, zero duration and reset. Runtime/editor/test sources compile against installed Unity libraries. Source/export/audio hashes are checked by check_novelty_items.py. Native Unity tests, trajectories/contact timing and Android performance remain pending.
+
+**Manual verification:**
+1. Stop Play Mode and let import finish. If needed run **Wobble Brawl > Items > Build Additional Six Items**. Open **Assets/_Project/Scenes/NewItemSandbox.unity**, press Play and Space to pause AI. The lineup order is Cream Pie, Boomerang, Pogo Stick, Bubble Wand, Wind-up Car, Spring Boxing Jack. Walk into one pickup and press U to use it. Confirm colored Blender models, toon bands/outlines, held socket alignment and sound; bubble transparency must leave the fighter readable.
+2. **Cream Pie:** hit an unblocked target; check light damage and SLOWED, reduced movement, then full recovery. Repeat with S held: reduced damage but no slowdown unless the guard breaks. Reset the round while slowed and confirm no effect leaks.
+3. **Boomerang:** throw right and left. Check outward flight, spin, return toward the moving user and catch/expiry. Place the opponent in its path: at most one hit outward and one returning, with no repeated damage from overlapping hurtboxes.
+4. **Pogo Stick:** use facing each direction. Check a high forward hop with the pogo following below, normal air control after the short launch lock, and one landing knockback pulse when close to the opponent. Landing far away must not affect them. No landing damage or permanent jump change; test platform landing too.
+5. **Bubble Wand:** fire the slow bubble at an unblocked target. It should capture with no damage, show BUBBLED!, suppress movement/jump/block/attacks/use and release after about 2.4 s. Hit the target while captured: normal hit damage applies, the bubble breaks and control returns after ordinary hit recovery. Block/invulnerability prevents capture. End a round during capture and confirm clean release/next-round control.
+6. **Wind-up Car:** use facing both directions. It should face/drive along the ground, hit an opponent once, knock down/get up and disappear. Check blocking reduces damage and prevents knockdown; jumping or moving clear avoids it. A miss expires and the pool can spawn it again.
+7. **Spring Boxing Jack:** place it near the opponent. Enter its trigger range: yellow ring warns for about 1.8 s, then one upward punch/launch and recycle. Leave/jump clear during warning to avoid it. Test blocked, guard-breaking, left/right and edge-of-stage hits. No repeated punches from staying nearby; fresh instances must reset their spring/ring state.
+8. In normal arenas confirm weighted spawns include all twelve, AI uses additions, Items Off prevents them, pickup still allows only one held item, and missed/held/flying/trapping items clear between rounds. Test SFX volume/mute, pause, rematch and a full Android match for readable effects, controls and 60 FPS target.
+9. Run EditMode NoveltyItemTests, CombatItemTests, MatchRulesTests and AudioManagerTests. Controlled adapter tests cover all six effects, hit caps, trap break/recycle and twelve-entry table integration; they do not replace the visual playtest.
 
 ### M4-07 — Arcade Ladder mode
 - **Section:** M4 — Content (weeks 11-14)

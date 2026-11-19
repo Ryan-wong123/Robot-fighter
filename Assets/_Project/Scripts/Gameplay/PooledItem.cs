@@ -19,10 +19,12 @@ namespace WobbleBrawl.Gameplay
         private int bouncesRemaining;
         private float groundHeight;
         private bool falling;
+        private NoveltyItem novelty;
 
         public ItemDef Definition { get; private set; }
         internal bool IsAvailable => state == ItemState.Available;
         internal bool IsPickup => state == ItemState.Pickup;
+        internal void ExtendLifetime(int frames) => remainingFrames = Mathf.Max(remainingFrames, frames);
 
         internal void Initialize(ItemDef definition, Transform root)
         {
@@ -30,6 +32,8 @@ namespace WobbleBrawl.Gameplay
             poolRoot = root;
             body = GetComponent<Rigidbody>();
             sensor = GetComponent<Collider>();
+            novelty = GetComponent<NoveltyItem>();
+            novelty?.Initialize(this, body, sensor);
             sensor.isTrigger = true;
             body.constraints |= RigidbodyConstraints.FreezePositionZ;
             Recycle();
@@ -68,6 +72,11 @@ namespace WobbleBrawl.Gameplay
             telegraphFrames = Definition.TelegraphFrames;
             bouncesRemaining = Definition.GroundBounces;
             falling = false;
+            if (novelty != null)
+            {
+                novelty.Begin(owner, direction, groundHeight);
+                return;
+            }
             bool thrown = Definition.Mode == ItemUseMode.Thrown;
             if (thrown)
             {
@@ -96,6 +105,7 @@ namespace WobbleBrawl.Gameplay
 
         internal void Recycle()
         {
+            novelty?.Clear();
             state = ItemState.Available;
             holder?.Forget(this);
             holder = null;
@@ -120,6 +130,11 @@ namespace WobbleBrawl.Gameplay
             }
             if (state != ItemState.Deployed)
                 return;
+            if (novelty != null)
+            {
+                novelty.Tick();
+                return;
+            }
             if (telegraphFrames > 0)
             {
                 if (--telegraphFrames == 0)
@@ -160,7 +175,10 @@ namespace WobbleBrawl.Gameplay
             if (state == ItemState.Pickup)
                 target.Items?.TryPickup(this);
             else if (target != user && target.Team != user.Team)
-                Consume(user, target, facing);
+            {
+                if (novelty != null) novelty.Contact(target);
+                else Consume(user, target, facing);
+            }
         }
     }
 }

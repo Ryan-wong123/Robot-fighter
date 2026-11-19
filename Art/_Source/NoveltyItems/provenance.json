@@ -1,0 +1,25 @@
+{
+  "source": "Original toy geometry, palette and synthesized audio authored from owner-approved descriptions. No external art or sampled recordings.",
+  "approval": "All six additional item concepts and effects approved by owner on 2026-11-19.",
+  "blender": "4.5.3 LTS",
+  "hash_format": "SHA-256; Python line endings normalized to LF, binary files exact.",
+  "files": {
+    "Tools/Blender/build_novelty_items.py": "e984de972a04e584ecaebf7e6611f9b6efdc881b943e9ebb1fd24f46f8e66cb5",
+    "Tools/Blender/verify_novelty_items.py": "4f2c75db781c634e36fedd5e577298d70aa067ba09df044061d82721d080d09f",
+    "Tools/Audio/generate_novelty_cues.py": "5e0b3b97e65ecc5429d3999264438f5ab03a70190c284be093a53a6a58ec860a",
+    "Art/_Source/NoveltyItems/NoveltyItems.blend": "0adae15ad09327f20e2778aaaf9238450011c0534d9ccbdcb5346fe3ad907989",
+    "Assets/_Project/Art/Items/Novelty/NoveltyItems_Atlas.png": "8af9e5a84edc6d172cbd74a5c5b349109c37025ea7650f6e865ca75145af264c",
+    "Assets/_Project/Art/Items/Novelty/Boomerang.fbx": "05252ddc7cab964521b36fc4cddb799a81f64aaa74044465ada454a1126f47d8",
+    "Assets/_Project/Art/Items/Novelty/BoxingJack.fbx": "a86246032643e90144286d7bc7d944f76016e5e3866386fb3e378e1cf8144b32",
+    "Assets/_Project/Art/Items/Novelty/BubbleWand.fbx": "d60fc1374267fb644f5e3a911cacb8c0b826ec06707d66cd8e1cd83f20d027cf",
+    "Assets/_Project/Art/Items/Novelty/CreamPie.fbx": "8f1a6d90c48159de2faf570956dc4d88b6b54ec8e31b7d799a8aa3eb06f19a45",
+    "Assets/_Project/Art/Items/Novelty/PogoStick.fbx": "9b9f97655a18428c35029599e8e3ed78ba6183a45498905459c490e3d2024c6e",
+    "Assets/_Project/Art/Items/Novelty/WindUpCar.fbx": "6d630dcdd47cfeb63dac831638a582cab6edd52238098f388e3f47f208f59537",
+    "Assets/_Project/Art/Audio/Resources/Audio/ItemBoomerang.wav": "827f47968e0ce40ceb363ad8457beb5ffc550d56e4bbf013aa760b952aa6f3f2",
+    "Assets/_Project/Art/Audio/Resources/Audio/ItemBubble.wav": "eab0cd87a0330fbfecc24422e7ff0aac2a23cc1d1da9e22071a44f2a45f21280",
+    "Assets/_Project/Art/Audio/Resources/Audio/ItemCar.wav": "3eabc716e7c1f3cbda12e6ab549ac077d41f8bc90a0034a4f0b9bd3dd9fa15ec",
+    "Assets/_Project/Art/Audio/Resources/Audio/ItemJack.wav": "73e8ad88a3658f1614bf0d6b06904cd0cd58e7b6dc823bba1995e7399f744e02",
+    "Assets/_Project/Art/Audio/Resources/Audio/ItemPie.wav": "6beab8b21c5b6526d4969d7d971bbd2e4def8b89b953580f2e668a95ec6f79ef",
+    "Assets/_Project/Art/Audio/Resources/Audio/ItemPogo.wav": "73e8ad88a3658f1614bf0d6b06904cd0cd58e7b6dc823bba1995e7399f744e02"
+  }
+}

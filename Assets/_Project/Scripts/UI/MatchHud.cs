@@ -140,7 +140,8 @@ namespace WobbleBrawl.UI
                 side.HealthValue.text = $"{fighter.Health} / {fighter.MaxHealth}";
             }
             side.SpecialLabel.text = fighter.Special >= fighter.MaxSpecial ? "READY" : "SPECIAL";
-            side.GuardLabel.text = fighter.IsTough ? "GUARD · TOUGH!" : "GUARD";
+            side.GuardLabel.text = fighter.IsBubbleTrapped ? "GUARD · BUBBLED!" :
+                fighter.IsItemSlowed ? "GUARD · SLOWED" : fighter.IsTough ? "GUARD · TOUGH!" : "GUARD";
             side.PopLabel.gameObject.SetActive(fighter.HasInflation);
             side.PopTrack.SetActive(fighter.HasInflation);
             var minimum = side.Card.offsetMin;

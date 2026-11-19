@@ -92,7 +92,13 @@ Spawn from the sky/stage on a timer and are picked up by walking over them (repl
 | Rocket plunger | Launches the holder in their facing direction at 9 m/s horizontally and 3.5 m/s upward. |
 | Whoopee cushion | Activates around the holder. Opponents within 2.4 m take 24 frames of base stun and 5 m/s knockback. |
 | Anvil | Marks the floor for 90 physics steps (about 1.8 seconds), then drops and deals a base 18 damage to an opponent it hits. |
-- Each item is a data asset (see [`architecture.md`](architecture.md)). Target at launch: **12 items**.
+| Cream pie | Thrown at 7 m/s; 6 base damage and an unblocked 65% movement-speed effect for 90 frames. |
+| Boomerang | 7 m/s outward for 35 frames, then homes back; 8 base damage once per flight leg. |
+| Pogo stick | Launches forward/up at 4/10 m/s; landing within 1.8 m causes zero-damage stun/5.5 m/s knockback. |
+| Bubble wand | 2.5 m/s bubble traps for up to 120 frames; block/invulnerability prevents capture, any accepted subsequent hit breaks it. |
+| Wind-up car | Drives along ground at 4 m/s; first opponent contact deals 10 base damage and unblocked knockdown. |
+| Spring boxing jack | Proximity-triggered 90-frame warning, then one 12-damage uppercut with 6 m/s unblocked lift. |
+- Each item is a data asset (see [`architecture.md`](architecture.md)). All **12 launch items** are implemented; the owner approved the additional six concepts/effects on 2026-11-19. [Item data and rules](items.md) record modes, stable ids, damage, status/flight timing, defense, AI ranges, pooling, art/audio and cleanup. Values are **(start)** tuning.
 - Spawn logic is deterministic from a seed so Daily Chaos and tests are reproducible.
 
 ## 9. Stage Hazards
@@ -219,6 +225,7 @@ Deadline: **5 months (about 20 weeks)**, solo. Dates are relative to the start. 
 19. **Mr. Jack:** **AI-only at launch**; making him playable is revisited after release.
 20. **Classic mode:** included at launch as two separate match toggles, **Hazards on/off** and **Items on/off** ([`maps.md`](maps.md) section 5).
 21. **Fight-plane width:** about **14 m** for now (from the prototype arena); confirm in Unity and adjust the camera bounds if fighters look too small. The prototype's jump height and ceiling must be measured and set as data (task M0-19).
+22. **Additional items:** owner approved Cream Pie, Boomerang, Pogo Stick, Bubble Wand, Wind-up Car and Spring Boxing Jack and their proposed effects on 2026-11-19; details and starting values are in [items.md](items.md).
 
 ## 17. Out of Scope (for now)
 Story mode/cutscenes, dialogue or story voice acting (short voice barks and the announcer are in scope), console/PC release, user-generated content, 3+ player free-for-all.

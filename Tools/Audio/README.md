@@ -63,3 +63,7 @@ Run tests with python -m unittest discover -s Tools/Audio -p test_voice_pipeline
 ## Giant Sandbox cues
 
 `python Tools/Audio/generate_sandbox.py --output Logs/SandAudioNew` creates original SandMusic (plucked-string/bongo) and SandAmbience loops (8 s), SandPurr and SandSwirl warnings (2 s), and SandThump (0.3 s). Deterministic oscillators/noise, with no sampled recordings. Mono PCM16 24 kHz exports live in `Assets/_Project/Art/Audio/Resources/Audio/`; [provenance](../../Art/_Source/GiantSandbox/provenance.json) records exact hashes. Music uses the music bus, other cues use SettingsAudioSource SFX volume/pause. Final polish remains M4-09.
+
+## Additional item cues (M4-06)
+
+`python Tools/Audio/generate_novelty_cues.py --output Logs/ItemAudioNew` writes six original short toy cues: ItemPie, ItemBoomerang, ItemPogo, ItemBubble, ItemCar and ItemJack. Mono PCM16 24 kHz; boomerang/car last 0.45 s, others 0.3 s. Oscillators/noise only, fixed seed, no sampled recordings. Exports live in `Assets/_Project/Art/Audio/Resources/Audio/`; [provenance](../../Art/_Source/NoveltyItems/provenance.json) records hashes. AudioCue ids use the existing AudioManager SFX pool/settings; final mixing polish remains M4-09. See [item data](../../docs/items.md) for trigger events.

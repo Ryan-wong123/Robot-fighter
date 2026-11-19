@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 namespace WobbleBrawl.Core
 {
-    public enum AudioCue { Click, Hit, Heavy, Block, GuardBreak, Special, Knockout, Round, Win }
+    public enum AudioCue { Click, Hit, Heavy, Block, GuardBreak, Special, Knockout, Round, Win,
+        ItemPie, ItemBoomerang, ItemPogo, ItemBubble, ItemCar, ItemJack }
 
     public sealed class AudioManager : MonoBehaviour
     {

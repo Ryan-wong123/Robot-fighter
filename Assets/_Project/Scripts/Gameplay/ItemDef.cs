@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace WobbleBrawl.Gameplay
 {
+    public enum NoveltyItemKind { CreamPie, Boomerang, PogoStick, BubbleWand, WindUpCar, BoxingJack }
     public enum ItemUseMode { OnPickup, Thrown, Placed, Held }
 
     [CreateAssetMenu(menuName = "Wobble Brawl/Item")]
@@ -20,6 +21,15 @@ namespace WobbleBrawl.Gameplay
         [Min(0)] public int TelegraphFrames;
         [Min(0)] public float DropHeight;
         [Min(1)] public int LifetimeFrames = 300;
+        public NoveltyItemKind NoveltyKind;
+        public WobbleBrawl.Data.MoveDef ContactHit;
+        [Min(1)] public int StatusFrames = 90;
+        [Range(1, 100)] public int SlowPercent = 65;
+        [Min(1)] public int OutboundFrames = 35;
+        [Min(.1f)] public float EffectRadius = 1.8f;
+        public Vector2 UseVelocity = new Vector2(4f, 10f);
+        [Min(1)] public int ActionFrames = 12;
+        public Vector2 AIUseRange;
 
         internal void Apply(Fighter user, Fighter target, Vector3 position, int facing)
         {

@@ -103,3 +103,7 @@ Match [`vfx_style.md`](vfx_style.md): flat fills, dark-tinted outlines, no soft 
 ## 7. Open Questions [OPEN]
 1. Which image tool or illustrator will be used (and its commercial-use terms)?
 2. Is AI-assisted concept art acceptable for the final in-game art, or only for reference? (The Blender models and textures are made by hand in Blender either way.)
+
+## Additional toy pickups (M4-06)
+
+The owner approved these six concepts/effects on 2026-11-19. Original Blender sources and a generated lineup are in [NoveltyItems](../Art/_Source/NoveltyItems/README.md); no extra reference images are required or claimed. Art brief: flat toon fills, dark outlines, chunky toy silhouettes, one shared palette atlas. Cream Pie has a silver plate, cream rosettes and cherry; Boomerang is a broad yellow V with blue bands; Pogo Stick has a yellow shaft, red handle and silver spring; Bubble Wand has a blue handle and pink hoop; Wind-up Car is red with blue cabin and a yellow winding key; Spring Boxing Jack has a pink box, yellow lid and red glove on a silver spring. The separate bubble is transparent cyan so its fighter remains readable. [Item rules/data](items.md) describe their use.

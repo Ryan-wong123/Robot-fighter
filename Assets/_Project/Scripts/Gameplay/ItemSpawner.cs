@@ -53,6 +53,20 @@ namespace WobbleBrawl.Gameplay
 
         private void Awake()
         {
+            var catalog = Resources.Load<LaunchItemCatalog>("Items/LaunchItems");
+            if (catalog != null && catalog.Items != null)
+            {
+                var entries = new System.Collections.Generic.List<Entry>(table ?? Array.Empty<Entry>());
+                foreach (var definition in catalog.Items)
+                {
+                    bool exists = false;
+                    foreach (var entry in entries)
+                        exists |= entry.Item != null && entry.Item.Id == definition.Id;
+                    if (!exists)
+                        entries.Add(new Entry { Item = definition, Weight = 1, Capacity = 1 });
+                }
+                table = entries.ToArray();
+            }
             int count = table?.Length ?? 0;
             pools = new PooledItem[count][];
             weights = new int[count];

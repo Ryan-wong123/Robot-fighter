@@ -1,0 +1,49 @@
+{
+  "materials": 1,
+  "atlas": [
+    1024,
+    1024
+  ],
+  "items": {
+    "CreamPie": {
+      "triangles": 1848,
+      "meshes": [
+        "SM_CreamPie_Body"
+      ]
+    },
+    "Boomerang": {
+      "triangles": 1168,
+      "meshes": [
+        "SM_Boomerang_Body"
+      ]
+    },
+    "PogoStick": {
+      "triangles": 1276,
+      "meshes": [
+        "SM_PogoStick_Body"
+      ]
+    },
+    "BubbleWand": {
+      "triangles": 812,
+      "meshes": [
+        "SM_BubbleWand_Body",
+        "SM_BubbleWand_Action"
+      ]
+    },
+    "WindUpCar": {
+      "triangles": 1360,
+      "meshes": [
+        "SM_WindUpCar_Body"
+      ]
+    },
+    "BoxingJack": {
+      "triangles": 2232,
+      "meshes": [
+        "SM_BoxingJack_Body",
+        "SM_BoxingJack_Action",
+        "SM_BoxingJack_Warning"
+      ]
+    }
+  },
+  "validation_errors": []
+}

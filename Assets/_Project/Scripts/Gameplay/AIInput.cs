@@ -129,6 +129,8 @@ namespace WobbleBrawl.Gameplay
 
         private static bool InItemRange(ItemDef item, float distance)
         {
+            if (item.AIUseRange.y > 0f)
+                return distance >= item.AIUseRange.x && distance <= item.AIUseRange.y;
             if (item.Mode == ItemUseMode.Thrown)
                 return distance <= 4f;
             if (item.Mode == ItemUseMode.Placed)

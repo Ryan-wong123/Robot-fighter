@@ -249,5 +249,12 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode SandboxHazardTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
+  ],
+  "M4-06": [
+    "python3 Tools/tasks/check_novelty_items.py",
+    "bash Tools/tasks/run_unity_tests.sh EditMode NoveltyItemTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
   ]
 }

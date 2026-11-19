@@ -5,7 +5,7 @@ using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Gameplay
 {
-    public enum FighterState { Idle, Moving, Airborne, Blocking, Attacking, HitStun, GuardBreak, KnockedOut, Deflated, KnockedDown }
+    public enum FighterState { Idle, Moving, Airborne, Blocking, Attacking, HitStun, GuardBreak, KnockedOut, Deflated, KnockedDown, Trapped }
 
     [RequireComponent(typeof(Rigidbody), typeof(Hitbox))]
     public sealed class Fighter : MonoBehaviour
@@ -72,6 +72,10 @@ namespace WobbleBrawl.Gameplay
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
         private float stageJump = 1f;
         private float stageMove = 1f;
+        private readonly ItemStatusState itemStatus = new ItemStatusState();
+        private object trapSource;
+        public bool IsItemSlowed => itemStatus.SlowFrames > 0;
+        public bool IsBubbleTrapped => itemStatus.TrapFrames > 0;
         public float CharacterHeight => character.Height;
         private float conveyorSpeed;
         public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
@@ -180,6 +184,8 @@ namespace WobbleBrawl.Gameplay
             SetWater(1f, 1f, 1f);
             stageJump = 1f;
             stageMove = 1f;
+            itemStatus.Reset();
+            trapSource = null;
             conveyorSpeed = 0f;
             EndFreeze();
             body.position = position;
@@ -199,6 +205,9 @@ namespace WobbleBrawl.Gameplay
 
         public void StopRound()
         {
+            itemStatus.Reset();
+            trapSource = null;
+            VitalsChanged?.Invoke(this);
             roundActive = false;
             launchContainment = 0;
             inflation?.Reset();
@@ -239,6 +248,22 @@ namespace WobbleBrawl.Gameplay
             }
             if (!roundActive || !IsAlive)
                 return;
+            bool wasSlowed = IsItemSlowed;
+            bool wasTrapped = IsBubbleTrapped;
+            itemStatus.Advance();
+            if (wasTrapped && !IsBubbleTrapped)
+            {
+                trapSource = null;
+                State = FighterState.Idle;
+            }
+            if (wasSlowed != IsItemSlowed || wasTrapped != IsBubbleTrapped) VitalsChanged?.Invoke(this);
+            if (IsBubbleTrapped)
+            {
+                State = FighterState.Trapped;
+                touchIntent = default;
+                SetHorizontal(0f);
+                return;
+            }
             if (launchContainment > 0)
             {
                 launchContainment--;
@@ -383,7 +408,8 @@ namespace WobbleBrawl.Gameplay
             float horizontal = Mathf.Clamp(intent.Move, -1f, 1f);
             if (horizontal != 0f)
                 Facing = horizontal > 0f ? 1 : -1;
-            SetHorizontal(horizontal * character.MoveSpeed * waterMove * stageMove + (grounded ? conveyorSpeed : 0f));
+            SetHorizontal(horizontal * character.MoveSpeed * waterMove * stageMove * itemStatus.SlowPercent / 100f +
+                (grounded ? conveyorSpeed : 0f));
             if (intent.Jump && grounded)
                 body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump * stageJump, 0f);
             if (grounded && State == FighterState.Airborne && !intent.Jump)
@@ -486,6 +512,38 @@ namespace WobbleBrawl.Gameplay
         internal void SetStageJumpMultiplier(float multiplier) => stageJump = multiplier;
         internal void SetStageMovementMultiplier(float multiplier) => stageMove = multiplier;
 
+        internal void ApplyItemSlow(int frames, int percent)
+        {
+            itemStatus.Slow(frames, percent);
+            VitalsChanged?.Invoke(this);
+        }
+
+        internal bool TryItemTrap(object source, int frames)
+        {
+            if (!roundActive || !IsAlive || immunity > 0 || IsBubbleTrapped || State == FighterState.Blocking)
+                return false;
+            trapSource = source;
+            itemStatus.Trap(frames);
+            move = comboMove = null;
+            stun = 0;
+            inflation?.SetBlocking(false, false);
+            State = FighterState.Trapped;
+            PlayClip("HitLight");
+            VitalsChanged?.Invoke(this);
+            return true;
+        }
+
+        internal bool HasItemTrap(object source) => IsBubbleTrapped && ReferenceEquals(trapSource, source);
+
+        internal void ReleaseItemTrap(object source)
+        {
+            if (source == null || !ReferenceEquals(trapSource, source)) return;
+            itemStatus.BreakTrap();
+            trapSource = null;
+            if (State == FighterState.Trapped) State = FighterState.Idle;
+            VitalsChanged?.Invoke(this);
+        }
+
         internal bool TryBounceFromStage(float multiplier)
         {
             if (!roundActive || !IsAlive || frozen || body.linearVelocity.y > .1f ||
@@ -540,6 +598,7 @@ namespace WobbleBrawl.Gameplay
         {
             if (!roundActive || !IsAlive || immunity > 0)
                 return false;
+            ReleaseItemTrap(trapSource);
             bool fighterAttack = !externalHit && info.Attacker != null;
             int bodyDamage = fighterAttack ? info.Attacker.AttackDamage(info.Move.BodyDamage) : info.Move.BodyDamage;
             int legDamage = fighterAttack ? info.Attacker.AttackDamage(info.Move.LegDamage) : info.Move.LegDamage;
