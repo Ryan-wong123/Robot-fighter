@@ -1,4 +1,4 @@
-param([string]$UnityPath)
+param([string]$UnityPath, [string[]]$Tasks = @('M4-01','M4-02','M4-03','M4-04','M4-05','M4-06','M4-10','M4-12','M4-13','M4-14','M4-15','M4-16'))
 $ErrorActionPreference = 'Stop'
 $projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 Set-Location -LiteralPath $projectRoot
@@ -23,9 +23,8 @@ if (Test-Path -LiteralPath $lockPath) {
 $pythonCommand = Get-Command python -ErrorAction Stop
 $env:UNITY_PATH = [IO.Path]::GetFullPath($UnityPath)
 $env:UNITY_PROJECT_PATH = $projectRoot
-$taskIds = @('M4-01','M4-02','M4-03','M4-04','M4-05','M4-06','M4-10','M4-12','M4-13','M4-14','M4-15','M4-16')
 Write-Host 'Running the configured content checks and Unity suites. This can take several minutes.'
-& $pythonCommand.Source 'Tools/tasks/tick_tasks.py' --complete @taskIds
+& $pythonCommand.Source 'Tools/tasks/tick_tasks.py' --complete @Tasks
 if ($LASTEXITCODE -ne 0) {
     throw 'Some checks failed or prerequisites remain blocked. See the output above; passing tasks were ticked by the verifier.'
 }

@@ -113,7 +113,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 
 - [~] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)
 
-- [~] **M4-14** Bathtub and Kitchen arena selection thumbnails (after: M3-03)
+- [x] **M4-14** Bathtub and Kitchen arena selection thumbnails (after: M3-03)
 
 - [ ] **M4-15** Restrict item lineups to training and randomize normal arena spawn intervals (after: M2-01, M4-06)
 
