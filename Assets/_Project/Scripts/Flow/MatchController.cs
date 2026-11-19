@@ -26,6 +26,8 @@ namespace WobbleBrawl.Flow
         private float nextRoundAt = float.PositiveInfinity;
         public MatchRules Rules { get; private set; } = MatchRules.Default;
 
+        internal void ConfigureDifficulty(AIDifficulty difficulty) => round.ConfigureDifficulty(difficulty);
+
         internal void ConfigurePlayer(CharacterDef fighter) => round.ConfigurePlayer(fighter);
         internal void ConfigureOpponent(CharacterDef fighter) => round.ConfigureOpponent(fighter);
 

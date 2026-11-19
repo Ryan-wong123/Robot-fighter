@@ -262,5 +262,10 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests"
+  ],
+  "M4-13": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode SandboxAITests"
   ]
 }

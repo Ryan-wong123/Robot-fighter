@@ -133,6 +133,47 @@ public sealed class MatchRulesTests
         yield return new ExitPlayMode();
     }
 
+    [UnityTest]
+    public IEnumerator ArenaDifficultyButtonsApplyProfilesAndKeepChoiceAcrossRounds()
+    {
+        EditorSceneManager.OpenScene("Assets/_Project/Scenes/Boot.unity");
+        yield return new EnterPlayMode();
+        yield return null;
+        var app = Object.FindFirstObjectByType<AppStateMachine>();
+        foreach (var tier in new[] { AIDifficulty.Easy, AIDifficulty.Normal, AIDifficulty.Hard })
+        {
+            app.OpenSelection();
+            Assert.That(app.Difficulty, Is.EqualTo(AIDifficulty.Normal));
+            app.SetDifficulty(AIDifficulty.Hard);
+            Assert.That(app.Difficulty, Is.EqualTo(AIDifficulty.Normal), "Only arena setup accepts changes.");
+            app.SelectBlobby();
+            var buttons = app.GetComponentsInChildren<Button>(true)
+                .Where(button => button.name.StartsWith("Difficulty ")).ToArray();
+            Assert.That(buttons.Length, Is.EqualTo(3));
+            buttons.Single(button => button.name == "Difficulty " + tier).onClick.Invoke();
+            Assert.That(app.Difficulty, Is.EqualTo(tier));
+            app.SetDifficulty((AIDifficulty)999);
+            Assert.That(app.Difficulty, Is.EqualTo(tier));
+            app.SelectStage(Enumerable.Range(0, app.StageCount)
+                .First(index => app.GetStage(index).Scene == "BathtubBrawl"));
+            app.StartMatch();
+            yield return WaitFor(() => !app.IsLoading && app.State == AppState.Match);
+            yield return null;
+            var ai = Object.FindFirstObjectByType<AIInput>();
+            var expected = Resources.Load<WobbleBrawl.Data.AIProfile>("AI/" + tier);
+            Assert.That(expected, Is.Not.Null);
+            Assert.That(ai.Profile, Is.SameAs(expected));
+            app.SetDifficulty(AIDifficulty.Normal);
+            Assert.That(app.Difficulty, Is.EqualTo(tier), "In-match setup changes are ignored.");
+            // Round configuration must retain the selected profile instead of restoring Normal.
+            ai.ConfigureRound(null, null, 2);
+            Assert.That(ai.Profile, Is.SameAs(expected));
+            app.ReturnToMenu();
+            yield return WaitFor(() => !app.IsLoading && app.State == AppState.MainMenu);
+        }
+        yield return new ExitPlayMode();
+    }
+
     private static void AssertLocked(AppStateMachine app)
     {
         app.SetHazardsEnabled(false);

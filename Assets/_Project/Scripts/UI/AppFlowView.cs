@@ -26,6 +26,7 @@ namespace WobbleBrawl.UI
         private GameObject settingsPanel;
         private bool settingsOpen;
         private Button[] stageButtons;
+        private Button[] difficultyButtons;
         private Toggle hazardsToggle;
         private Toggle itemsToggle;
         private Button sirNoodleButton;
@@ -104,6 +105,18 @@ namespace WobbleBrawl.UI
             itemsToggle = CreateRuleToggle("Items", 160f);
             hazardsToggle.onValueChanged.AddListener(app.SetHazardsEnabled);
             itemsToggle.onValueChanged.AddListener(app.SetItemsEnabled);
+            difficultyButtons = new Button[3];
+            for (int index = 0; index < difficultyButtons.Length; index++)
+            {
+                var difficulty = (AIDifficulty)index;
+                var button = CreateButton("Difficulty " + difficulty, -136f, Cream, out var caption);
+                caption.text = "AI: " + difficulty;
+                caption.fontSize = 24;
+                Place((RectTransform)button.transform, 190f, 54f, -136f);
+                ((RectTransform)button.transform).anchoredPosition += Vector2.right * ((index - 1) * 206f);
+                button.onClick.AddListener(() => app.SetDifficulty(difficulty));
+                difficultyButtons[index] = button;
+            }
             settingsButton = CreateButton("Settings Action", -173f, Cream, out var settingsCaption);
             settingsCaption.text = "Settings";
             settingsButton.onClick.AddListener(() => { settingsOpen = true; Render(); });
@@ -214,6 +227,11 @@ namespace WobbleBrawl.UI
             opponentCaption.text = "AI: " + app.OpponentName;
             hazardsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             itemsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
+            for (int index = 0; index < difficultyButtons.Length; index++)
+            {
+                difficultyButtons[index].gameObject.SetActive(stageSelection && !settingsOpen);
+                difficultyButtons[index].targetGraphic.color = index == (int)app.Difficulty ? Green : Cream;
+            }
             hazardsToggle.SetIsOnWithoutNotify(app.Rules.HazardsEnabled);
             itemsToggle.SetIsOnWithoutNotify(app.Rules.ItemsEnabled);
             hazardsToggle.interactable = itemsToggle.interactable = !app.RulesLocked;
@@ -267,8 +285,8 @@ namespace WobbleBrawl.UI
                         if (app.RulesLocked)
                             description.text = "Arcade and boss matches always use items and hazards.";
                         Place(description.rectTransform, 640f, 52f, -6f);
-                        Place((RectTransform)primary.transform, 310f, 58f, -144f);
-                        Place((RectTransform)secondary.transform, 310f, 58f, -218f);
+                        Place((RectTransform)primary.transform, 310f, 58f, -204f);
+                        Place((RectTransform)secondary.transform, 310f, 58f, -278f);
                     }
                     else if (app.HasSirNoodle || app.HasPuffinPete || app.HasMadamePlush)
                     {

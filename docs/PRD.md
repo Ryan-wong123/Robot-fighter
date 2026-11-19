@@ -127,6 +127,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - Win/lose screens and the Restart button from the prototype become the Results screen.
 - Pause menu: resume, settings, quit-to-menu.
 - Settings: master/music/SFX volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply immediately and are saved locally between sessions.
+- Arena selection offers **AI: Easy**, **AI: Normal**, and **AI: Hard** buttons, with the active choice highlighted. Fresh setup defaults to Normal; the selection applies to the opponent before round one, stays through all rounds and Rematch, and returns to Normal on a fresh setup. Opening an arena directly still uses its authored profile or Normal fallback. This is match setup, not a saved setting.
 - Quick Fight arena selection includes independent **Hazards** and **Items** checkboxes. Both default on for a fresh setup; choices carry through all rounds and Rematch. Returning to a fresh setup restores both on. With both off, only the core fight runs. Arcade and boss encounters force both on and lock the setup controls. Opening an arena directly uses both on.
 - Fighter selection offers Blobby, Sir Noodle, Puffin Pete and Madame Plush in a two-column menu, with an **AI: ...** button cycling the available opponents. Both fighter choices carry through Rematch. Development keyboard **T** previews a fighter's taunt where available. Inflation-capable fighters have a dedicated Pop bar on the match HUD.
 
@@ -203,6 +204,7 @@ Deadline: **5 months (about 20 weeks)**, solo. Dates are relative to the start. 
 ## 16. Decisions & Open Questions
 
 ### Decided by the owner
+- AI difficulty is chosen on the arena selection page with Easy, Normal and Hard buttons (2026-11-19). CombatSandbox keyboard overrides remain testing-only.
 1. **Unity version:** Unity 6.3 LTS (6000.3.11f1).
 2. **Render pipeline:** **URP** (confirmed by the owner).
 3. **Theme and cast:** approved ("wobble toys": Blobby, Sir Noodle, Puffin Pete, Madame Plush).

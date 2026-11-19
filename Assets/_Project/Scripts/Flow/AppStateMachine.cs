@@ -42,6 +42,7 @@ namespace WobbleBrawl.Flow
         public bool HasSirNoodle => sirNoodle != null;
         public string OpponentName => selectedOpponent != null ? selectedOpponent.DisplayName : "Blobby";
         private MatchRules requestedRules = MatchRules.Default;
+        public AIDifficulty Difficulty { get; private set; } = AIDifficulty.Normal;
         public MatchMode Mode { get; private set; }
         public bool RulesLocked => Mode == MatchMode.Arcade ||
             (StageCount > 0 && GetStage(StageIndex).IsBossStage);
@@ -142,10 +143,20 @@ namespace WobbleBrawl.Flow
                 Step = SelectionStep.Fighter;
                 Mode = mode;
                 requestedRules = MatchRules.Default;
+                Difficulty = AIDifficulty.Normal;
                 selectedFighter = null;
                 selectedOpponent = blobby;
                 Enter(AppState.Selection);
             }
+        }
+
+        public void SetDifficulty(AIDifficulty difficulty)
+        {
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage ||
+                difficulty < AIDifficulty.Easy || difficulty > AIDifficulty.Hard)
+                return;
+            Difficulty = difficulty;
+            Changed?.Invoke();
         }
 
         public void SetHazardsEnabled(bool enabled) => SetRules(enabled, Rules.ItemsEnabled);
@@ -235,6 +246,7 @@ namespace WobbleBrawl.Flow
             controller.ConfigurePlayer(running.selectedFighter);
             controller.ConfigureOpponent(running.selectedOpponent);
             controller.ConfigureRules(running.Rules);
+            controller.ConfigureDifficulty(running.Difficulty);
             controller.MatchEnded += running.OnMatchEnded;
             controller.RoundStarted += running.OnRoundStarted;
             controller.RoundEnded += running.OnRoundEnded;

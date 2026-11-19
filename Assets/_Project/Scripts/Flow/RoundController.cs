@@ -36,6 +36,12 @@ namespace WobbleBrawl.Flow
 
         internal void ConfigureRules(MatchRules matchRules) => rules = matchRules;
 
+        internal void ConfigureDifficulty(AIDifficulty difficulty)
+        {
+            if (opponent.TryGetComponent<AIInput>(out var ai))
+                ai.SelectDifficulty(difficulty.ToString());
+        }
+
         internal void ConfigurePlayer(CharacterDef fighter) => player.ConfigureCharacter(fighter);
         internal void ConfigureOpponent(CharacterDef fighter) => opponent.ConfigureCharacter(fighter);
 

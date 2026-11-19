@@ -111,6 +111,8 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [ ] **M4-09** Music, SFX and fighter voice barks final pass (licenses recorded) (after: M3-08, M3-09)
 - [ ] **M4-12** Unified persistent twelve-item training sandbox; remove test arenas from selection and restrict debug shortcuts (after: M4-06)
 
+- [ ] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)
+
 ## M5 — Monetization & launch (weeks 15-16)
 - [ ] **M5-01** `IAdService` + LevelPlay integration (Unity Ads network), editor fake (after: M3-01)
 - [ ] **M5-02** Rewarded ad placements; capped interstitials on results screen only (after: M5-01, M5-04, M3-05)

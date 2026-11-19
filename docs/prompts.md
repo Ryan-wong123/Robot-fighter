@@ -889,3 +889,13 @@ The CombatSandbox input regression was traced to empty ground and hurtbox masks 
 **M1-09 owner verification:** The stronger partial-ragdoll deflection and recovery passed in CombatSandbox.
 
 M4-12 verification record: standalone scene-policy checks passed; Core, Data, Gameplay, Flow, UI, legacy input adapter, Editor tools and test sources compiled against installed Unity libraries. Documentation links and generated diagrams passed. Native Unity tests and Play Mode were not run. The completion tool refused to tick M4-12 because M4-06 is still `[~]`; no checkbox was changed manually.
+
+### M4-13 — Arena selection AI difficulty buttons and match application
+- **Read:** PRD sections 6, 11, 13; architecture arena difficulty setup; coding guidelines sections 3–5.
+- **Prerequisites:** M2-07, M3-03.
+- **Owner decision:** Place difficulty selection on the arena page, keeping sandbox debug shortcuts isolated.
+- **Implementation:** Easy/Normal/Hard buttons below Classic options; fresh Normal default, selected highlight, setup validation, opponent profile applied before round one and retained across rounds/rematches. No persistent settings change.
+- **Done when:** MatchRulesTests exercises all three UI buttons, actual arena profile application, invalid/state guards and round retention; AppFlowTests and SandboxAITests pass. Native tests and visual layout are pending owner verification.
+- **Manual:** Boot → Quick Fight → choose fighter → arena page. Check all three buttons and selected highlight; start separate Easy, Normal and Hard matches. Compare response/blocking/item/hazard behavior; confirm next rounds and Rematch keep the tier, fresh setup returns to Normal, and Space/1/2/3 remain inactive in real arenas. Verify buttons fit and are tappable on Android and no overlap with Hazards/Items, Start Match or Back.
+
+**M4-13 verification:** Runtime, UI, Editor and test sources compiled against installed Unity libraries. Documentation links and generated diagrams passed. Native test execution could not start (Windows Bash access/launch failure); the completion tool left M4-13 unchecked. Play Mode and Android layout checks remain pending.

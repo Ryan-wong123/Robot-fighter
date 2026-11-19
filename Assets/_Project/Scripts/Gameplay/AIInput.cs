@@ -21,6 +21,7 @@ namespace WobbleBrawl.Gameplay
         private bool kick;
         private FighterIntent sustainedIntent;
         private float EffectiveRange => Mathf.Max(attackRange, self != null ? self.AttackRange - ReachMargin : attackRange);
+        public AIProfile Profile => profile;
         public bool IsPaused { get; private set; }
 
         private void Awake()
