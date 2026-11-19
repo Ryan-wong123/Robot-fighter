@@ -939,3 +939,7 @@ M4-12 verification record: standalone scene-policy checks passed; Core, Data, Ga
 - **Manual:** Save scenes, leave Play, allow script import. If needed run Wobble Brawl → Items → Repair Fighter Hand Grips. Pick up an Anvil with Blobby and Madame Plush; check it sits in the hand while walking, blocking, jumping and turning. Throw/use it and repeat; confirm size, effects and round cleanup stay correct.
 
 **M4-16 verification:** Core/Data/Gameplay/Flow/UI/input, Editor repair/authoring and test sources compiled against installed Unity libraries. Documentation links and diagrams passed. Unity repair execution, native tests and visual checks remain pending. Task completion was blocked by the M4-03 automated-verification prerequisite; no checkbox was changed manually.
+
+### M4 completion audit — 2026-11-20
+
+At the owner's request, the completion tool was run for M4-01 through M4-06 and M4-12. All six configured content snapshot checks passed, as did documentation links and generated-diagram synchronization. Owner acceptance records remain preserved above. Native Unity suites could not run because UNITY_PATH is unset (the equivalent Python availability runner was used for the Bash commands without changing their test filters). M4-01–06 remain `[~]`; M4-12 remains blocked by M4-06. No task checkboxes or verification requirements were bypassed. No current M4 native test results were found in the local Logs artifacts.
