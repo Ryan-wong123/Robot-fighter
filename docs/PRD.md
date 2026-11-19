@@ -38,7 +38,7 @@ A mobile-first, 2.5D brawler in the spirit of Street Fighter, rebuilt around **c
 | Mode | Phase | Description |
 |---|---|---|
 | **Quick Fight** | MVP | 1 player vs AI, best-of-3, selectable fighter/stage/difficulty |
-| **Arcade Ladder** | Alpha | 6-8 escalating AI fights with a final boss, one fighter per run |
+| **Arcade Ladder** | Alpha | Five escalating AI fights ending with Mr. Jack, one fighter per run |
 | **Local Versus** | Beta | 2 players on one device (split touch zones) |
 | **Daily Chaos** | Post-launch | Fixed seed with modifiers (low gravity, giant heads...) |
 | **Online Versus** | Final phase (M6) | In scope, built last, after the single-device game is complete and stable (see [`architecture.md`](architecture.md) section 19) |
@@ -146,7 +146,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - 3 difficulty tiers via data (reaction time, aggression, block probability, mistake rate), not separate code.
 - Initial Easy, Normal, and Hard reaction intervals are 16, 8, and 4 physics steps. Hard also uses items and avoids stage hazards more consistently. Only CombatSandbox supports **1**, **2**, and **3** for live comparison.
 - Mr. Jack is the AI-only boss: HP 320, guard 120, speed 2.8, jump 12, 1.74 m ordinary reach. Living health strictly below 50% (159/320) switches to extended spring/phase-two moves and 4.2 m/s movement; round reset restores phase one. Punches deal 11/6 and spring/crank attacks 13/7 body/leg damage. Surprise! starts charged each round, spends full gauge, warns at a fixed target for 75 steps (1.5 s), then pops with a 22/11 single hit (75/5/20 frames), authored stun 20, hit-stop 6, pushback 6, unblocked knockdown and launch 5. Moving clear or interrupting counters it. Boss requests use a 250-frame cooldown and 1.5–6 m range. Boss AI reaction 3 frames, attack interval 12, aggression .95, block .75, mistake .08, item use .90, hazard avoidance .92 and pickup range 3.8 m. [All move windows, visual feedback and data](../Art/_Source/MrJack/README.md). Values are **(start)** tuning.
-- Selecting Mr. Jack as the test opponent on fighter selection keeps him AI-only, forces the boss profile and Items/Hazards On, and disables normal difficulty changes with an explanation. He uses existing arenas until M4-11; Arcade Ladder integration remains M4-07. Owner requested full M4-10 implementation from the approved reference on 2026-11-19.
+- Selecting Mr. Jack as the test opponent on fighter selection keeps him AI-only, forces the boss profile and Items/Hazards On, and disables normal difficulty changes with an explanation. His Arcade Ladder finale takes place at Toy Chest Showdown. Owner requested full M4-10 implementation from the approved reference on 2026-11-19.
 
 ## 14. Art, Animation & Audio
 
@@ -244,3 +244,5 @@ Story mode/cutscenes, dialogue or story voice acting (short voice barks and the 
 Held pickups follow the character’s animated hand. Blobby and Madame Plush use palm-centered grip sockets; item size is preserved across scaled rigs, use and pool reuse.
 
 Toy Chest Showdown uses alternating Block Rain and Music Box Tilt in Mr. Jack’s stage. Block Rain deals 10 base damage with bounce. Tilt slides fighters without damage. See the [stage rules](maps.md#35-toy-chest-showdown-boss-stage-arcade-finale) for timing and starting values.
+
+Arcade Ladder keeps the chosen fighter for five best-of-three matches. Wins unlock the next fight within the run, losses and draws retry the current fight, and a finale win shows Arcade Cleared. Returning to the menu ends the current run. Items and hazards are always enabled.

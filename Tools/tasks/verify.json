@@ -294,5 +294,10 @@
   ],
   "M4-11": [
     "python3 Tools/tasks/run_unity_tests.py EditMode ToyChestTests"
+  ],
+  "M4-07": [
+    "python3 Tools/tasks/run_unity_tests.py EditMode ArcadeLadderTests",
+    "python3 Tools/tasks/run_unity_tests.py EditMode MatchRulesTests",
+    "python3 Tools/tasks/run_unity_tests.py EditMode AppFlowTests"
   ]
 }

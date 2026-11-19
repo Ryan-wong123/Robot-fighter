@@ -23,6 +23,7 @@ namespace WobbleBrawl.UI
         private Button secondary;
         private Button pauseButton;
         private Button settingsButton;
+        private Button arcadeButton;
         private GameObject settingsPanel;
         private bool settingsOpen;
         private Button[] stageButtons;
@@ -117,6 +118,9 @@ namespace WobbleBrawl.UI
                 button.onClick.AddListener(() => app.SetDifficulty(difficulty));
                 difficultyButtons[index] = button;
             }
+            arcadeButton = CreateButton("Arcade Action", -147f, Cream, out var arcadeCaption);
+            arcadeCaption.text = "Arcade Ladder";
+            arcadeButton.onClick.AddListener(() => app.OpenSelection(MatchMode.Arcade));
             settingsButton = CreateButton("Settings Action", -173f, Cream, out var settingsCaption);
             settingsCaption.text = "Settings";
             settingsButton.onClick.AddListener(() => { settingsOpen = true; Render(); });
@@ -216,20 +220,21 @@ namespace WobbleBrawl.UI
             settingsButton.gameObject.SetActive(!app.IsLoading && !settingsOpen &&
                 (app.State == AppState.MainMenu || app.IsPaused));
             bool mainMenu = !settingsOpen && !app.IsLoading && app.State == AppState.MainMenu;
+            arcadeButton.gameObject.SetActive(mainMenu);
             bool stageSelection = !app.IsLoading && app.State == AppState.Selection && app.Step == SelectionStep.Stage;
             bool fighterSelection = !app.IsLoading && !settingsOpen && app.State == AppState.Selection &&
                 app.Step == SelectionStep.Fighter;
             sirNoodleButton.gameObject.SetActive(fighterSelection && app.HasSirNoodle);
             puffinPeteButton.gameObject.SetActive(fighterSelection && app.HasPuffinPete);
             madamePlushButton.gameObject.SetActive(fighterSelection && app.HasMadamePlush);
-            opponentButton.gameObject.SetActive(fighterSelection &&
+            opponentButton.gameObject.SetActive(fighterSelection && !app.IsArcade &&
                 (app.HasSirNoodle || app.HasPuffinPete || app.HasMadamePlush || app.HasMrJack));
             opponentCaption.text = "AI: " + app.OpponentName;
             hazardsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             itemsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             for (int index = 0; index < difficultyButtons.Length; index++)
             {
-                difficultyButtons[index].gameObject.SetActive(stageSelection && !settingsOpen);
+                difficultyButtons[index].gameObject.SetActive(stageSelection && !settingsOpen && !app.IsArcade);
                 difficultyButtons[index].interactable = !app.BossOpponentSelected;
                 difficultyButtons[index].targetGraphic.color = index == (int)app.Difficulty ? Green : Cream;
             }
@@ -242,12 +247,12 @@ namespace WobbleBrawl.UI
                 LayoutMainMenu();
             else
                 LayoutFlowScreen();
-            primary.gameObject.SetActive(!app.IsLoading && !settingsOpen);
+            primary.gameObject.SetActive(!app.IsLoading && !settingsOpen && !(app.State == AppState.Results && app.ArcadeCleared));
             secondary.gameObject.SetActive(!app.IsLoading && (settingsOpen || app.State != AppState.MainMenu));
             primary.interactable = !stageSelection || app.CanStartMatch;
             for (int index = 0; index < stageButtons.Length; index++)
             {
-                stageButtons[index].gameObject.SetActive(stageSelection && !settingsOpen);
+                stageButtons[index].gameObject.SetActive(stageSelection && !settingsOpen && !app.IsArcade);
                 stageButtons[index].targetGraphic.color = index == app.StageIndex ? Green : Cream;
             }
             if (app.IsLoading)
@@ -273,19 +278,22 @@ namespace WobbleBrawl.UI
                     title.text = "WOBBLE\nBRAWL";
                     description.text = "";
                     primaryText.text = "Quick Fight";
-                    Place((RectTransform)settingsButton.transform, 350f, 58f, -173f, new Vector2(.2f, .5f));
+                    Place((RectTransform)settingsButton.transform, 350f, 58f, -220f, new Vector2(.2f, .5f));
                     break;
                 case AppState.Selection:
-                    title.text = stageSelection ? "Choose Arena" : "Choose Fighter";
+                    title.text = stageSelection ? (app.IsArcade ? "Arcade Ladder" : "Choose Arena") : "Choose Fighter";
                     description.text = stageSelection
                         ? (app.StageCount > 0 ? app.GetStage(app.StageIndex).Hazards : "")
-                        : "Quick Fight vs AI";
+                        : app.IsArcade ? "Choose one fighter for the ladder" : "Quick Fight vs AI";
                     if (stageSelection)
                     {
                         Place(title.rectTransform, 640f, 78f, 250f);
                         if (app.RulesLocked)
                             description.text = app.BossOpponentSelected ? "Mr. Jack uses Boss AI; items and hazards are on." :
                                 "Arcade and boss matches always use items and hazards.";
+                        if (app.IsArcade)
+                            description.text = app.ArcadeContentIssue ??
+                                $"{app.ArcadeProgress}\nOpponent: {app.OpponentName}";
                         Place(description.rectTransform, 640f, 52f, -6f);
                         Place((RectTransform)primary.transform, 310f, 58f, -204f);
                         Place((RectTransform)secondary.transform, 310f, 58f, -278f);
@@ -324,6 +332,12 @@ namespace WobbleBrawl.UI
                         app.Result == RoundResult.OpponentWins ? "Opponent Wins" : "Draw";
                     description.text = app.MatchSummary;
                     primaryText.text = "Rematch";
+                    if (app.IsArcade)
+                    {
+                        title.text = app.ArcadeCleared ? "Arcade Cleared" : title.text;
+                        description.text = $"{app.ArcadeProgress}\n{app.MatchSummary}";
+                        primaryText.text = app.Result == RoundResult.PlayerWins ? "Next Fight" : "Retry Fight";
+                    }
                     secondaryText.text = "Main Menu";
                     break;
                 case AppState.Match:
@@ -334,8 +348,8 @@ namespace WobbleBrawl.UI
                     Place((RectTransform)settingsButton.transform, 310f, 58f, -190f);
                     break;
             }
-            input.SetSelectedGameObject(stageSelection && stageButtons.Length > 0
-                ? stageButtons[app.StageIndex].gameObject : primary.gameObject);
+            input.SetSelectedGameObject(stageSelection && !app.IsArcade && stageButtons.Length > 0
+                ? stageButtons[app.StageIndex].gameObject : primary.gameObject.activeSelf ? primary.gameObject : secondary.gameObject);
         }
 
         private void LayoutMainMenu()
@@ -349,7 +363,8 @@ namespace WobbleBrawl.UI
             title.resizeTextMinSize = 44;
             title.resizeTextMaxSize = 82;
             Place(title.rectTransform, 350f, 205f, 78f, left);
-            Place((RectTransform)primary.transform, 350f, 74f, -89f, left);
+            Place((RectTransform)primary.transform, 350f, 58f, -78f, left);
+            Place((RectTransform)arcadeButton.transform, 350f, 58f, -149f, left);
         }
 
         private void LayoutFlowScreen()

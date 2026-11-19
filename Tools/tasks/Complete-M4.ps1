@@ -1,4 +1,4 @@
-param([string]$UnityPath, [string[]]$Tasks = @('M4-01','M4-02','M4-03','M4-04','M4-05','M4-06','M4-10','M4-11','M4-12','M4-13','M4-14','M4-15','M4-16'))
+param([string]$UnityPath, [string[]]$Tasks = @('M4-01','M4-02','M4-03','M4-04','M4-05','M4-06','M4-07','M4-10','M4-11','M4-12','M4-13','M4-14','M4-15','M4-16'))
 $ErrorActionPreference = 'Stop'
 $projectRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 Set-Location -LiteralPath $projectRoot

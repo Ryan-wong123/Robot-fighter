@@ -30,6 +30,7 @@ namespace WobbleBrawl.Flow
 
         private static AppStateMachine running;
         private MatchController match;
+        private readonly ArcadeLadder ladder = new ArcadeLadder();
         private Coroutine pendingResults;
         private string matchScene;
         private CharacterDef selectedFighter;
@@ -46,6 +47,10 @@ namespace WobbleBrawl.Flow
         private MatchRules requestedRules = MatchRules.Default;
         public AIDifficulty Difficulty { get; private set; } = AIDifficulty.Normal;
         public MatchMode Mode { get; private set; }
+        public bool IsArcade => Mode == MatchMode.Arcade;
+        public bool ArcadeCleared => IsArcade && ladder.IsCleared;
+        public string ArcadeProgress => $"Fight {ladder.Index + 1}/{ArcadeLadder.Count} · {ladder.Arena}";
+        public string ArcadeContentIssue { get; private set; }
         public bool BossOpponentSelected => selectedOpponent != null && selectedOpponent.Boss != null;
         public bool RulesLocked => BossOpponentSelected || Mode == MatchMode.Arcade ||
             (StageCount > 0 && GetStage(StageIndex).IsBossStage);
@@ -58,8 +63,9 @@ namespace WobbleBrawl.Flow
         public int StageCount => stages?.Length ?? 0;
         public int StageIndex { get; private set; }
         public StageChoice GetStage(int index) => stages[index];
-        public bool CanStartMatch => StageCount > 0 && selectedFighter != null &&
-            Application.CanStreamedLevelBeLoaded(GetStage(StageIndex).Scene);
+        public bool CanStartMatch => selectedFighter != null &&
+            (IsArcade ? ArcadeContentIssue == null : StageCount > 0 &&
+                Application.CanStreamedLevelBeLoaded(GetStage(StageIndex).Scene));
         public RoundResult Result { get; private set; }
         public int PlayerWins { get; private set; }
         public int OpponentWins { get; private set; }
@@ -81,6 +87,23 @@ namespace WobbleBrawl.Flow
             madamePlush = Resources.Load<CharacterDef>("Characters/MadamePlush");
             mrJack = Resources.Load<CharacterDef>("Characters/MrJack");
             InstallStages();
+            if (blobby == null || sirNoodle == null || puffinPete == null || madamePlush == null ||
+                mrJack == null || mrJack.Boss == null)
+            {
+                ArcadeContentIssue = "Install the fighters and Mr. Jack to unlock Arcade.";
+            }
+            else
+            {
+                for (int index = 0; index < ArcadeLadder.Count; index++)
+                {
+                    string scene = ArcadeLadder.SceneAt(index);
+                    if (!Application.CanStreamedLevelBeLoaded(scene))
+                    {
+                        ArcadeContentIssue = $"Arena missing from build settings: {scene}";
+                        break;
+                    }
+                }
+            }
             DontDestroyOnLoad(gameObject);
             AudioManager.Ensure(transform);
         }
@@ -90,7 +113,7 @@ namespace WobbleBrawl.Flow
             var installed = Resources.LoadAll<StageDef>("Stages");
             var choices = new System.Collections.Generic.List<StageChoice>();
             foreach (var choice in stages ?? System.Array.Empty<StageChoice>())
-                if (choice != null && TrainingSandboxRules.IsSelectableArena(choice.Scene))
+                if (choice != null && choice.Scene != ArcadeLadder.FinaleScene && TrainingSandboxRules.IsSelectableArena(choice.Scene))
                 {
                     if (choice.Thumbnail == null)
                         choice.Thumbnail = Resources.Load<Texture2D>("StagePreviews/" + choice.Scene);
@@ -98,7 +121,7 @@ namespace WobbleBrawl.Flow
                 }
             foreach (var stage in installed)
             {
-                if (!TrainingSandboxRules.IsSelectableArena(stage.SceneName)) continue;
+                if (stage.SceneName == ArcadeLadder.FinaleScene || !TrainingSandboxRules.IsSelectableArena(stage.SceneName)) continue;
                 bool exists = false;
                 foreach (var choice in choices)
                 {
@@ -151,6 +174,7 @@ namespace WobbleBrawl.Flow
             {
                 Step = SelectionStep.Fighter;
                 Mode = mode;
+                ladder.Reset();
                 requestedRules = MatchRules.Default;
                 Difficulty = AIDifficulty.Normal;
                 selectedFighter = null;
@@ -161,7 +185,7 @@ namespace WobbleBrawl.Flow
 
         public void SetDifficulty(AIDifficulty difficulty)
         {
-            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage || BossOpponentSelected ||
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage || IsArcade || BossOpponentSelected ||
                 difficulty < AIDifficulty.Easy || difficulty > AIDifficulty.Hard)
                 return;
             Difficulty = difficulty;
@@ -186,7 +210,7 @@ namespace WobbleBrawl.Flow
 
         public void ToggleOpponent()
         {
-            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter ||
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || IsArcade ||
                 (sirNoodle == null && puffinPete == null && madamePlush == null && mrJack == null))
                 return;
             selectedOpponent = selectedOpponent == blobby ? (sirNoodle ?? puffinPete ?? madamePlush ?? mrJack ?? blobby) :
@@ -202,13 +226,14 @@ namespace WobbleBrawl.Flow
                 return;
             selectedFighter = definition;
             Step = SelectionStep.Stage;
+            if (IsArcade) PrepareArcadeFight();
             Changed?.Invoke();
         }
 
         public void SelectStage(int index)
         {
             if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage ||
-                index < 0 || index >= StageCount)
+                IsArcade || index < 0 || index >= StageCount)
                 return;
             StageIndex = index;
             Changed?.Invoke();
@@ -220,11 +245,35 @@ namespace WobbleBrawl.Flow
                 return;
             if (State == AppState.Selection && Step == SelectionStep.Stage && CanStartMatch)
             {
-                matchScene = GetStage(StageIndex).Scene;
+                matchScene = IsArcade ? ladder.Scene : GetStage(StageIndex).Scene;
                 StartCoroutine(Load(matchScene, AppState.Match));
             }
-            else if (State == AppState.Results && Application.CanStreamedLevelBeLoaded(matchScene))
-                StartCoroutine(Load(matchScene, AppState.Match));
+            else if (State == AppState.Results && !ArcadeCleared)
+            {
+                if (IsArcade)
+                {
+                    ladder.ContinueAfter(Result == RoundResult.PlayerWins);
+                    PrepareArcadeFight();
+                    matchScene = ladder.Scene;
+                }
+                if (Application.CanStreamedLevelBeLoaded(matchScene))
+                {
+                    StartCoroutine(Load(matchScene, AppState.Match));
+                }
+            }
+        }
+
+        private void PrepareArcadeFight()
+        {
+            selectedOpponent = ladder.Index switch
+            {
+                0 => blobby,
+                1 => sirNoodle,
+                2 => puffinPete,
+                3 => madamePlush,
+                _ => mrJack
+            };
+            Difficulty = ladder.Difficulty;
         }
 
         public void ReturnToMenu()
@@ -282,6 +331,7 @@ namespace WobbleBrawl.Flow
             OpponentWins = match.OpponentWins;
             DetachMatch();
             Result = result;
+            if (IsArcade) ladder.RecordResult(result == RoundResult.PlayerWins);
             pendingResults = StartCoroutine(ShowResults());
         }
 

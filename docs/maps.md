@@ -136,7 +136,7 @@ Normal arenas append the six M4-06 pickup definitions through the installed item
   - **Music Box Tilt:** a direction arrow, creak and slower music warn of a visual deck tilt up to 7°. Grounded fighters slide downhill at up to 1.8 m/s, with no damage. The collision floor rotates with the deck. Grounded fighters follow its height while sliding along the slope. Direction alternates on successive tilt passes.
 - **Boss integration:** direct stage testing uses Mr. Jack and forces Items and Hazards on. His existing attack markers stay active and phase two raises the stage's music pitch and gain. Stage-specific warning markers are separate from the boss's attacks.
 - **Items:** three fixed spawn points at X −4.5/0/+4.5 m, using the standard weighted twelve-item pool. Any defensive weighting remains a balance decision.
-- **Access:** build and open with **Wobble Brawl > Create Toy Chest Showdown**, then press Play for a direct boss match. The builder generates the toon stage and registers it for builds. Quick Fight omits it. Arcade Ladder integration is M4-07.
+- **Access:** build and open with **Wobble Brawl > Create Toy Chest Showdown**, then press Play for a direct boss match. The builder generates the toon stage and registers it for builds. Quick Fight omits it. Arcade Ladder loads it as its finale.
 
 
 ## Reference images
@@ -177,7 +177,7 @@ Per [`architecture.md`](architecture.md) 8.3, each stage defines:
   - Turning hazards off also disables the telegraph VFX/SFX and the hazard timers. Stage art and ambient effects stay.
   - Boss stage and Arcade Ladder always use hazards and items on (the boss fight is designed around them).
   - Both toggles are part of the match setup so online matches can use the same rules (see [`architecture.md`](architecture.md) section 19).
-  - The controls appear on Boot's Quick Fight arena selection. Rematch retains their settings; a fresh selection resets them to on. Direct scene testing keeps both on. Future boss entries set `StageChoice.IsBossStage` and the scene's `MatchController.isBossStage`; Arcade selection uses `MatchMode.Arcade`. Those entries show checked, disabled options. Stage content and Arcade progression remain M4 tasks.
+  - The controls appear on Boot's Quick Fight arena selection. Rematch retains their settings; a fresh selection resets them to on. Direct scene testing keeps both on. Future boss entries set `StageChoice.IsBossStage` and the scene's `MatchController.isBossStage`; Arcade selection uses `MatchMode.Arcade`. Those entries show checked, disabled options. Arcade uses its fixed stage order and locked options.
 
 ## 6. Production Checklist (per stage)
 1. Concept + layout sketch; confirm width, bounds and item points
