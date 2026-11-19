@@ -727,6 +727,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 8. In normal arenas confirm weighted spawns include all twelve, AI uses additions, Items Off prevents them, pickup still allows only one held item, and missed/held/flying/trapping items clear between rounds. Test SFX volume/mute, pause, rematch and a full Android match for readable effects, controls and 60 FPS target.
 9. Run EditMode NoveltyItemTests, CombatItemTests, MatchRulesTests and AudioManagerTests. Controlled adapter tests cover all six effects, hit caps, trap break/recycle and twelve-entry table integration; they do not replace the visual playtest.
 
+**Installer repair:** The owner could not find NewItemSandbox after running the build menu. The Unity log showed BuildPrefab failing on the first single-mesh FBX because its root no longer had the expected _Body suffix. The importer now preserves hierarchy; visual lookup also resolves mesh names, inactive action meshes and collapsed one-mesh roots. Build/import callbacks are guarded against reentrancy and repeated automatic failures. Partial generated assets are reused without changing GUIDs. VisualLookup_HandlesCollapsedRootMeshNamesAndInactiveAction covers the lookup cases; native Editor execution remains pending. Return to Unity outside Play Mode, let it recompile, then run Build Additional Six Items if installation has not retried automatically.
+
 ### M4-07 — Arcade Ladder mode
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M3-03, M1-08, M4-10, M4-11

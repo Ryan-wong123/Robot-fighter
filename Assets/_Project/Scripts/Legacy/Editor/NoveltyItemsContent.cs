@@ -21,6 +21,8 @@ public static class NoveltyItemsContent
     private static readonly string[] Keys = { "CreamPie", "Boomerang", "PogoStick", "BubbleWand", "WindUpCar", "BoxingJack" };
     private static readonly string[] Labels = { "Cream Pie", "Boomerang", "Pogo Stick", "Bubble Wand", "Wind-up Car", "Spring Boxing Jack" };
     private static readonly string[] Ids = { "cream-pie", "boomerang", "pogo-stick", "bubble-wand", "wind-up-car", "boxing-jack" };
+    internal static bool IsBuilding { get; private set; }
+    private static bool automaticBuildFailed;
 
     static NoveltyItemsContent()
     {
@@ -33,6 +35,7 @@ public static class NoveltyItemsContent
 
     internal static void Install()
     {
+        if (IsBuilding || automaticBuildFailed) return;
         if (EditorApplication.isCompiling || EditorApplication.isUpdating)
         {
             EditorApplication.delayCall += Install;
@@ -41,11 +44,29 @@ public static class NoveltyItemsContent
         if (EditorApplication.isPlayingOrWillChangePlaymode || Keys.Any(key =>
             AssetDatabase.LoadAssetAtPath<GameObject>(Art + "/" + key + ".fbx") == null)) return;
         if (AssetDatabase.LoadAssetAtPath<LaunchItemCatalog>(CatalogPath) == null ||
-            AssetDatabase.LoadAssetAtPath<SceneAsset>(TestScene) == null) Build();
+            AssetDatabase.LoadAssetAtPath<SceneAsset>(TestScene) == null)
+        {
+            try { Build(); }
+            catch (Exception error)
+            {
+                automaticBuildFailed = true;
+                Debug.LogException(error);
+            }
+        }
     }
 
     [MenuItem("Wobble Brawl/Items/Build Additional Six Items")]
     public static void Build()
+    {
+        if (IsBuilding) return;
+        IsBuilding = true;
+        automaticBuildFailed = false;
+        try { BuildContent(); }
+        catch { automaticBuildFailed = true; throw; }
+        finally { IsBuilding = false; }
+    }
+
+    private static void BuildContent()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Build outside Play Mode.");
         var installed = AssetDatabase.LoadAssetAtPath<LaunchItemCatalog>(CatalogPath);
@@ -74,6 +95,7 @@ public static class NoveltyItemsContent
             string key = Keys[index];
             var importer = (ModelImporter)AssetImporter.GetAtPath(Art + "/" + key + ".fbx");
             importer.importAnimation = false;
+            importer.preserveHierarchy = true;
             importer.addCollider = false;
             importer.materialImportMode = ModelImporterMaterialImportMode.None;
             importer.SaveAndReimport();
@@ -135,17 +157,16 @@ public static class NoveltyItemsContent
             var novelty = root.AddComponent<NoveltyItem>();
             var model = (GameObject)PrefabUtility.InstantiatePrefab(
                 AssetDatabase.LoadAssetAtPath<GameObject>(Art + "/" + Keys[index] + ".fbx"), root.transform);
-            var transforms = model.GetComponentsInChildren<Transform>();
+            var main = FindVisual(model, "_Body", true);
+            var action = FindVisual(model, "_Action", index == 3 || index == 5);
+            var warning = FindVisual(model, "_Warning", index == 5);
             foreach (var renderer in model.GetComponentsInChildren<MeshRenderer>())
             {
-                bool isBubble = renderer.name.EndsWith("_Action", StringComparison.Ordinal) && index == 3;
+                bool isBubble = index == 3 && action != null && renderer.transform == action;
                 renderer.sharedMaterials = new[] { isBubble ? bubble : body, outline };
                 renderer.shadowCastingMode = ShadowCastingMode.Off;
             }
-            var main = transforms.Single(part => part.name.EndsWith("_Body", StringComparison.Ordinal));
             Set(novelty, "baseVisual", main);
-            var action = transforms.SingleOrDefault(part => part.name.EndsWith("_Action", StringComparison.Ordinal));
-            var warning = transforms.SingleOrDefault(part => part.name.EndsWith("_Warning", StringComparison.Ordinal));
             Set(novelty, "actionVisual", action);
             Set(novelty, "warningVisual", warning);
             if (index == 3) action.gameObject.SetActive(false);
@@ -197,6 +218,19 @@ public static class NoveltyItemsContent
             if (previous.IsValid() && previous.isLoaded) SceneManager.SetActiveScene(previous);
             if (scene.IsValid() && scene.isLoaded) EditorSceneManager.CloseScene(scene, true);
         }
+    }
+
+    // Unity may collapse a one-mesh FBX into its renamed root. Mesh names survive that layout.
+    public static Transform FindVisual(GameObject model, string suffix, bool required)
+    {
+        var filters = model.GetComponentsInChildren<MeshFilter>(true);
+        var matches = filters.Where(filter => filter.transform.name.EndsWith(suffix, StringComparison.Ordinal) ||
+            (filter.sharedMesh != null && filter.sharedMesh.name.EndsWith(suffix, StringComparison.Ordinal))).ToArray();
+        if (matches.Length == 1) return matches[0].transform;
+        if (matches.Length == 0 && suffix == "_Body" && filters.Length == 1) return filters[0].transform;
+        if (!required && matches.Length == 0) return null;
+        throw new InvalidOperationException("Expected one " + suffix + " mesh in " + model.name +
+            "; imported meshes: " + string.Join(", ", filters.Select(filter => filter.name)));
     }
 
     private static Material MakeMaterial(string name, string source)
@@ -254,7 +288,10 @@ internal sealed class NoveltyItemsImportWatcher : AssetPostprocessor
 {
     private static void OnPostprocessAllAssets(string[] imported, string[] deleted, string[] moved, string[] movedFrom)
     {
-        if (imported.Any(path => path.StartsWith(NoveltyItemsContent.Art, StringComparison.Ordinal)))
+        if (!NoveltyItemsContent.IsBuilding && imported.Any(path =>
+            path.StartsWith(NoveltyItemsContent.Art + "/", StringComparison.Ordinal) &&
+            (path.EndsWith(".fbx", StringComparison.OrdinalIgnoreCase) ||
+             path.EndsWith("NoveltyItems_Atlas.png", StringComparison.OrdinalIgnoreCase))))
             EditorApplication.delayCall += NoveltyItemsContent.Install;
     }
 }

@@ -16,6 +16,38 @@ using Object = UnityEngine.Object;
 public sealed class NoveltyItemTests
 {
     [Test]
+    public void VisualLookup_HandlesCollapsedRootMeshNamesAndInactiveAction()
+    {
+        var root = new GameObject("CreamPie");
+        var body = new Mesh { name = "SM_CreamPie_Body" };
+        var actionMesh = new Mesh { name = "SM_BubbleWand_Action" };
+        try
+        {
+            root.AddComponent<MeshFilter>().sharedMesh = body;
+            var lookup = Type.GetType("NoveltyItemsContent, Assembly-CSharp-Editor", true).GetMethod("FindVisual");
+            Assert.That(lookup.Invoke(null, new object[] { root, "_Body", true }), Is.EqualTo(root.transform));
+            body.name = "ImportedMesh";
+            Assert.That(lookup.Invoke(null, new object[] { root, "_Body", true }), Is.EqualTo(root.transform));
+            body.name = "SM_CreamPie_Body";
+            var action = new GameObject("Renamed child", typeof(MeshFilter));
+            action.transform.SetParent(root.transform, false);
+            action.GetComponent<MeshFilter>().sharedMesh = actionMesh;
+            action.SetActive(false);
+            Assert.That(lookup.Invoke(null, new object[] { root, "_Action", true }), Is.EqualTo(action.transform));
+            Assert.That(lookup.Invoke(null, new object[] { root, "_Warning", false }), Is.Null);
+            var error = Assert.Throws<TargetInvocationException>(() =>
+                lookup.Invoke(null, new object[] { root, "_Warning", true }));
+            Assert.That(error.InnerException, Is.TypeOf<InvalidOperationException>());
+        }
+        finally
+        {
+            Object.DestroyImmediate(root);
+            Object.DestroyImmediate(body);
+            Object.DestroyImmediate(actionMesh);
+        }
+    }
+
+    [Test]
     public void StatusTimers_RefreshExpireBreakAndResetWithoutMultiplyingSlow()
     {
         var status = new ItemStatusState();
