@@ -729,6 +729,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Installer repair:** The owner could not find NewItemSandbox after running the build menu. The Unity log showed BuildPrefab failing on the first single-mesh FBX because its root no longer had the expected _Body suffix. The importer now preserves hierarchy; visual lookup also resolves mesh names, inactive action meshes and collapsed one-mesh roots. Build/import callbacks are guarded against reentrancy and repeated automatic failures. Partial generated assets are reused without changing GUIDs. VisualLookup_HandlesCollapsedRootMeshNamesAndInactiveAction covers the lookup cases; native Editor execution remains pending. Return to Unity outside Play Mode, let it recompile, then run Build Additional Six Items if installation has not retried automatically.
 
+**Owner acceptance (2026-11-19):** After the installer repair, the owner confirmed the six additional item behavior checks passed: Cream Pie slowdown, Boomerang return/leg hits, Pogo hop/landing knockback, Bubble trap/hit release, Wind-up Car knockdown and Boxing Jack warning/launch. Automated Unity test execution has not been recorded, so the task retains [~] under the existing verifier.
+
 ### M4-07 — Arcade Ladder mode
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M3-03, M1-08, M4-10, M4-11
