@@ -154,7 +154,11 @@ namespace WobbleBrawl.UI
             }
         }
 
-        private void RenderTime(int seconds) => timer.text = seconds.ToString("00");
+        private void RenderTime(int seconds)
+        {
+            timer.text = round.IsTraining ? "TRAINING" : seconds.ToString("00");
+            if (round.IsTraining) timer.fontSize = 20;
+        }
         private void RenderSuddenDeath() => phase.text = "SUDDEN DEATH";
 
         private void RenderRound(int number)

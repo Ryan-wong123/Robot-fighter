@@ -118,7 +118,14 @@ public static class BouncyCastleContent
             var round = roots.Select(root => root.GetComponent<RoundController>()).Single(value => value != null);
             var floor = roots.Single(root => root.layer == 8 && root.GetComponent<BoxCollider>() != null);
             var camera = roots.Select(root => root.GetComponent<Camera>()).Single(value => value != null);
+            var training = round.GetComponent<TrainingSandbox>();
+            if (training != null) Object.DestroyImmediate(training);
             var properties = new SerializedObject(round);
+            properties.FindProperty("trainingMode").boolValue = false;
+            properties.ApplyModifiedPropertiesWithoutUndo();
+            var floorScale = floor.transform.localScale;
+            floorScale.x = 14f;
+            floor.transform.localScale = floorScale;
             var old = (HazardController)properties.FindProperty("hazard").objectReferenceValue;
             if (old != null)
             {
@@ -217,6 +224,9 @@ public static class BouncyCastleContent
             Set(frame, "hazards", fairground);
             Set(frame, "definition", tuning);
             Set(round, "hazard", hazard);
+            var spawnSettings = new SerializedObject((ItemSpawner)new SerializedObject(round).FindProperty("itemSpawner").objectReferenceValue);
+            spawnSettings.FindProperty("trainingLayout").objectReferenceValue = null;
+            spawnSettings.ApplyModifiedPropertiesWithoutUndo();
             ConfigureItems(properties, tuning);
             EditorSceneManager.SaveScene(scene);
             RegisterScene();

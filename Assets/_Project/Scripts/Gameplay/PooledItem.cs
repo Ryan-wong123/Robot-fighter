@@ -20,10 +20,18 @@ namespace WobbleBrawl.Gameplay
         private float groundHeight;
         private bool falling;
         private NoveltyItem novelty;
+        private ItemSpawner dispenser;
+        private int dispenserIndex;
 
         public ItemDef Definition { get; private set; }
         internal bool IsAvailable => state == ItemState.Available;
         internal bool IsPickup => state == ItemState.Pickup;
+        internal bool IsDeployed => state == ItemState.Deployed;
+        internal void ConfigureDispenser(ItemSpawner source, int index)
+        {
+            dispenser = source;
+            dispenserIndex = index;
+        }
         internal void ExtendLifetime(int frames) => remainingFrames = Mathf.Max(remainingFrames, frames);
 
         internal void Initialize(ItemDef definition, Transform root)
@@ -123,6 +131,7 @@ namespace WobbleBrawl.Gameplay
 
         private void FixedUpdate()
         {
+            if (state == ItemState.Pickup && dispenser != null) return;
             if ((state == ItemState.Pickup || state == ItemState.Deployed) && --remainingFrames <= 0)
             {
                 Recycle();
@@ -173,7 +182,10 @@ namespace WobbleBrawl.Gameplay
             if (!target.CanInteractWithItems)
                 return;
             if (state == ItemState.Pickup)
-                target.Items?.TryPickup(this);
+            {
+                if (dispenser != null) dispenser.TryDispense(dispenserIndex, target);
+                else target.Items?.TryPickup(this);
+            }
             else if (target != user && target.Team != user.Team)
             {
                 if (novelty != null) novelty.Contact(target);

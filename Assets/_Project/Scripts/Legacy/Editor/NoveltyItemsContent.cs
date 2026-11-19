@@ -17,7 +17,7 @@ public static class NoveltyItemsContent
     public const string Art = "Assets/_Project/Art/Items/Novelty";
     public const string Data = "Assets/_Project/Data/Items/Novelty";
     public const string CatalogPath = "Assets/_Project/Resources/Items/LaunchItems.asset";
-    public const string TestScene = "Assets/_Project/Scenes/NewItemSandbox.unity";
+    public const string TestScene = "Assets/_Project/Scenes/CombatSandbox.unity";
     private static readonly string[] Keys = { "CreamPie", "Boomerang", "PogoStick", "BubbleWand", "WindUpCar", "BoxingJack" };
     private static readonly string[] Labels = { "Cream Pie", "Boomerang", "Pogo Stick", "Bubble Wand", "Wind-up Car", "Spring Boxing Jack" };
     private static readonly string[] Ids = { "cream-pie", "boomerang", "pogo-stick", "bubble-wand", "wind-up-car", "boxing-jack" };
@@ -180,44 +180,7 @@ public static class NoveltyItemsContent
 
     private static void BuildTestScene(ItemDef[] definitions)
     {
-        if (AssetDatabase.LoadAssetAtPath<SceneAsset>(TestScene) != null) return;
-        Scene previous = SceneManager.GetActiveScene();
-        Scene scene = default;
-        try
-        {
-            if (!AssetDatabase.CopyAsset("Assets/_Project/Scenes/CombatSandbox.unity", TestScene))
-                throw new InvalidOperationException("Could not copy the combat test scene.");
-            scene = EditorSceneManager.OpenScene(TestScene, OpenSceneMode.Additive);
-            var round = scene.GetRootGameObjects().Select(root => root.GetComponent<RoundController>())
-                .Single(component => component != null);
-            var properties = new SerializedObject(round);
-            var hazard = (HazardController)properties.FindProperty("hazard").objectReferenceValue;
-            if (hazard != null) Object.DestroyImmediate(hazard.gameObject);
-            properties.FindProperty("hazard").objectReferenceValue = null;
-            properties.ApplyModifiedPropertiesWithoutUndo();
-            var spawner = (ItemSpawner)properties.FindProperty("itemSpawner").objectReferenceValue;
-            var spawn = new SerializedObject(spawner);
-            var table = spawn.FindProperty("table");
-            table.arraySize = definitions.Length;
-            for (int index = 0; index < definitions.Length; index++)
-            {
-                var entry = table.GetArrayElementAtIndex(index);
-                entry.FindPropertyRelative("Item").objectReferenceValue = definitions[index];
-                entry.FindPropertyRelative("Weight").intValue = 1;
-                entry.FindPropertyRelative("Capacity").intValue = 1;
-            }
-            spawn.FindProperty("spawnOpeningLineup").boolValue = true;
-            spawn.ApplyModifiedPropertiesWithoutUndo();
-            EditorSceneManager.SaveScene(scene);
-            var scenes = EditorBuildSettings.scenes.ToList();
-            if (!scenes.Any(entry => entry.path == TestScene)) scenes.Add(new EditorBuildSettingsScene(TestScene, true));
-            EditorBuildSettings.scenes = scenes.ToArray();
-        }
-        finally
-        {
-            if (previous.IsValid() && previous.isLoaded) SceneManager.SetActiveScene(previous);
-            if (scene.IsValid() && scene.isLoaded) EditorSceneManager.CloseScene(scene, true);
-        }
+        EditorApplication.delayCall += CombinedSandboxContent.Install;
     }
 
     // Unity may collapse a one-mesh FBX into its renamed root. Mesh names survive that layout.

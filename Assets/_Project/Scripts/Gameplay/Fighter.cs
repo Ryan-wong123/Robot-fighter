@@ -42,6 +42,13 @@ namespace WobbleBrawl.Gameplay
         private int hitPulse = -1;
         private int launchContainment;
         private Vector2 launchBounds;
+        private bool hasTrainingBounds;
+        private Vector2 trainingBounds;
+        internal void SetTrainingBounds(float minimum, float maximum)
+        {
+            hasTrainingBounds = true;
+            trainingBounds = new Vector2(minimum, maximum);
+        }
         private int freeze;
         private bool wasKinematic;
         private float animationSpeed;
@@ -268,7 +275,9 @@ namespace WobbleBrawl.Gameplay
             {
                 launchContainment--;
                 Vector3 position = body.position;
-                float contained = Mathf.Clamp(position.x, launchBounds.x, launchBounds.y);
+                float contained = Mathf.Clamp(position.x,
+                    hasTrainingBounds ? trainingBounds.x + character.BodyWidth * .5f : launchBounds.x,
+                    hasTrainingBounds ? trainingBounds.y - character.BodyWidth * .5f : launchBounds.y);
                 if (!Mathf.Approximately(contained, position.x))
                 {
                     position.x = contained;
@@ -287,8 +296,8 @@ namespace WobbleBrawl.Gameplay
                 touchIntent = default;
                 int phase = inflation.RemainingFrames / character.DeflateTurnFrames;
                 float sign = phase % 2 == 0 ? Facing : -Facing;
-                if (body.position.x < character.DeflateBounds.x) sign = 1f;
-                if (body.position.x > character.DeflateBounds.y) sign = -1f;
+                if (body.position.x < (hasTrainingBounds ? trainingBounds.x + character.BodyWidth : character.DeflateBounds.x)) sign = 1f;
+                if (body.position.x > (hasTrainingBounds ? trainingBounds.y - character.BodyWidth : character.DeflateBounds.y)) sign = -1f;
                 SetHorizontal(sign * character.DeflateSpeed);
                 State = FighterState.Deflated;
                 PlayClip("Deflate");

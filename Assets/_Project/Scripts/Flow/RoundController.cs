@@ -12,6 +12,10 @@ namespace WobbleBrawl.Flow
         [SerializeField] private Fighter opponent;
         [SerializeField] private Transform playerSpawn;
         [SerializeField] private Transform opponentSpawn;
+        [SerializeField] private bool trainingMode;
+        private bool trainingEnabled;
+        public bool IsTraining => trainingEnabled;
+        private void Awake() => trainingEnabled = trainingMode && TrainingSandboxRules.AllowsShortcuts(gameObject.scene.name);
 
         public event Action<RoundResult> Ended;
         public event Action SuddenDeathStarted;
@@ -19,7 +23,7 @@ namespace WobbleBrawl.Flow
         public Fighter Player => player;
         public Fighter Opponent => opponent;
         public bool Running { get; private set; }
-        public int SecondsRemaining => Mathf.Max(0, Mathf.CeilToInt(deadline - Time.time));
+        public int SecondsRemaining => IsTraining ? RoundRules.RoundSeconds : Mathf.Max(0, Mathf.CeilToInt(deadline - Time.time));
 
         [SerializeField] private ItemSpawner itemSpawner;
         [SerializeField] private HazardController hazard;
@@ -63,7 +67,7 @@ namespace WobbleBrawl.Flow
             if (!Running)
                 return;
             PublishTime();
-            if (Time.time >= deadline)
+            if (!IsTraining && Time.time >= deadline)
                 Resolve(true);
         }
 

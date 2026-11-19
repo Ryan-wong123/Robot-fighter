@@ -177,7 +177,31 @@ public static partial class CombatSandboxBuilder
         if (round == null || floor == null)
             throw new InvalidOperationException("Stage template requires the CombatSandbox round and arena floor.");
 
+        var training = round.GetComponent<TrainingSandbox>();
+        if (training != null) Object.DestroyImmediate(training);
         var roundData = new SerializedObject(round);
+        roundData.FindProperty("trainingMode").boolValue = false;
+        roundData.ApplyModifiedPropertiesWithoutUndo();
+        var spawner = (ItemSpawner)roundData.FindProperty("itemSpawner").objectReferenceValue;
+        var spawnerData = new SerializedObject(spawner);
+        spawnerData.FindProperty("trainingLayout").objectReferenceValue = null;
+        spawnerData.FindProperty("spawnOpeningLineup").boolValue = false;
+        spawnerData.FindProperty("spawnAtRoundStart").boolValue = true;
+        var stagePoints = spawnerData.FindProperty("spawnPoints");
+        stagePoints.arraySize = 3;
+        for (int index = 0; index < stagePoints.arraySize; index++)
+            ((Transform)stagePoints.GetArrayElementAtIndex(index).objectReferenceValue).position =
+                new Vector3((index - 1) * 4.5f, .65f, 0f);
+        spawnerData.ApplyModifiedPropertiesWithoutUndo();
+        var floorScale = floor.localScale;
+        floorScale.x = 14f;
+        floor.localScale = floorScale;
+        foreach (var root in scene.GetRootGameObjects())
+            if (root.TryGetComponent<Camera>(out var stageCamera))
+            {
+                stageCamera.orthographicSize = 4.4f;
+                stageCamera.transform.position = new Vector3(0f, 3f, -10f);
+            }
         var prior = (HazardController)roundData.FindProperty("hazard").objectReferenceValue;
         if (prior != null)
             Object.DestroyImmediate(prior.gameObject);

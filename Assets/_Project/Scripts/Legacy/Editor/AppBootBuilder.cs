@@ -34,8 +34,7 @@ public static class AppBootBuilder
         var entries = new[]
         {
             new StageChoice { Name = "Bathtub Brawl", Scene = "BathtubBrawl", Hazards = "Rising water · Duck wave" },
-            new StageChoice { Name = "Kitchen Counter", Scene = "KitchenCounter", Hazards = "Flying toast · Mixer belt" },
-            new StageChoice { Name = "Combat Sandbox", Scene = "CombatSandbox", Hazards = "Center-stage test hazard" }
+            new StageChoice { Name = "Kitchen Counter", Scene = "KitchenCounter", Hazards = "Flying toast · Mixer belt" }
         };
         stages.arraySize = entries.Length;
         for (int index = 0; index < entries.Length; index++)

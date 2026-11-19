@@ -64,7 +64,7 @@ public sealed class MatchRulesTests
             hazardToggle.isOn = hazards;
             itemToggle.isOn = items;
             for (int index = 0; index < app.StageCount; index++)
-                if (app.GetStage(index).Scene == "CombatSandbox")
+                if (app.GetStage(index).Scene == "BathtubBrawl")
                     app.SelectStage(index);
             app.StartMatch();
             yield return WaitFor(() => !app.IsLoading && app.State == AppState.Match);

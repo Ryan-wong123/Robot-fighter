@@ -119,6 +119,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - **Right thumb:** Punch, Kick, Special, Throw/Use-item buttons. Layout is **customizable** (size/position) in settings **[PROPOSED]**.
 - Touch targets >= 9 mm physical size; buttons give pressed-state and haptic feedback.
 - **Dev/Editor:** keyboard and gamepad mapped to the same input abstraction.
+- **Testing scene (owner decision):** CombatSandbox is the only development sandbox; it has a 30 m platform and twelve permanent item dispensers at 2 m spacing. It is not offered in arena selection. NewItemSandbox is retired after backup. Space AI pause and 1/2/3 AI difficulty shortcuts work only in CombatSandbox; actual arenas ignore these debug keys. Training has no timeout/match end, resets after KOs, and keeps displays visible with four pooled usable copies per item and a 25-frame dispensing cooldown. Real arenas retain standard item lifetimes, match rules and widths. See [items.md](items.md#combined-training-sandbox-m4-12).
 
 ## 11. UI / Flow
 `Splash -> Main Menu -> (Quick Fight | Arcade | Versus | Collection | Settings) -> Fighter Select -> Stage Select -> Match -> Results`
@@ -141,7 +142,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - Replaces the prototype's "walk to player, attack every 2 s at random".
 - Behavior-driven: spacing, blocking, punishing whiffs, item use, hazard awareness.
 - 3 difficulty tiers via data (reaction time, aggression, block probability, mistake rate), not separate code.
-- Initial Easy, Normal, and Hard reaction intervals are 16, 8, and 4 physics steps. Hard also uses items and avoids stage hazards more consistently. Sandbox scenes support **1**, **2**, and **3** for live comparison.
+- Initial Easy, Normal, and Hard reaction intervals are 16, 8, and 4 physics steps. Hard also uses items and avoids stage hazards more consistently. Only CombatSandbox supports **1**, **2**, and **3** for live comparison.
 - Bosses (Arcade finale) get unique behavior sets.
 
 ## 14. Art, Animation & Audio

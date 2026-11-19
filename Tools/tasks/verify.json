@@ -256,5 +256,11 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
+  ],
+  "M4-12": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode CombinedSandboxTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests"
   ]
 }

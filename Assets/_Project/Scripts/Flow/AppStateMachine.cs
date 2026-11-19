@@ -83,9 +83,12 @@ namespace WobbleBrawl.Flow
         private void InstallStages()
         {
             var installed = Resources.LoadAll<StageDef>("Stages");
-            var choices = new System.Collections.Generic.List<StageChoice>(stages ?? System.Array.Empty<StageChoice>());
+            var choices = new System.Collections.Generic.List<StageChoice>();
+            foreach (var choice in stages ?? System.Array.Empty<StageChoice>())
+                if (choice != null && TrainingSandboxRules.IsSelectableArena(choice.Scene)) choices.Add(choice);
             foreach (var stage in installed)
             {
+                if (!TrainingSandboxRules.IsSelectableArena(stage.SceneName)) continue;
                 bool exists = false;
                 foreach (var choice in choices)
                 {

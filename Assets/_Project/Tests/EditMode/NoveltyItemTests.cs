@@ -90,7 +90,7 @@ public sealed class NoveltyItemTests
         Assert.That(jack.TelegraphFrames, Is.EqualTo(90));
         Assert.That(jack.ContactHit.LaunchSpeed, Is.EqualTo(6f));
         Assert.That(catalog.Items.Single(item => item.NoveltyKind == NoveltyItemKind.WindUpCar).ContactHit.KnocksDown, Is.True);
-        Assert.That(AssetDatabase.LoadAssetAtPath<SceneAsset>("Assets/_Project/Scenes/NewItemSandbox.unity"), Is.Not.Null);
+        Assert.That(AssetDatabase.LoadAssetAtPath<SceneAsset>("Assets/_Project/Scenes/CombatSandbox.unity"), Is.Not.Null);
     }
 
     [UnityTest]

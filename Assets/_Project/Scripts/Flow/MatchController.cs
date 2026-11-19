@@ -68,6 +68,12 @@ namespace WobbleBrawl.Flow
 
         private void OnRoundEnded(RoundResult result)
         {
+            if (round.IsTraining)
+            {
+                RoundEnded?.Invoke(result);
+                nextRoundAt = Time.unscaledTime + betweenRoundsSeconds;
+                return;
+            }
             if (result == RoundResult.PlayerWins)
                 PlayerWins++;
             else if (result == RoundResult.OpponentWins)
