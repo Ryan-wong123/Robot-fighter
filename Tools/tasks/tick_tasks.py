@@ -14,10 +14,20 @@ All commands must exit 0 for [x]. Exit code 3 from a command means "cannot run h
 no entry can reach [~] at most. A failed check leaves the task untouched and this
 script exits 2. A task never moves backwards.
 """
-import argparse, json, os, re, subprocess, sys
+import argparse, json, os, re, subprocess, sys, shlex
 
 AFTER = re.compile(r'\(after: (?P<ids>[^)]*)\)\s*$')
 TASK_LINE = re.compile(r'^(?P<pre>- \[)(?P<mark>[ x~])(?P<post>\] \*\*)(?P<id>[A-Z][A-Z0-9]*-\d+)(?P<rest>\*\*.*)$')
+
+
+def check_command(command):
+    """Keep checks intact while resolving Python and Unity test launchers on Windows."""
+    parts = shlex.split(command)
+    if parts and parts[0] in ('python3', 'python'):
+        return subprocess.run([sys.executable] + parts[1:]).returncode
+    if os.name == 'nt' and parts[:2] == ['bash', 'Tools/tasks/run_unity_tests.sh']:
+        return subprocess.run([sys.executable, 'Tools/tasks/run_unity_tests.py'] + parts[2:]).returncode
+    return subprocess.run(command, shell=True).returncode
 
 
 def run_always(verify_file):
@@ -29,7 +39,7 @@ def run_always(verify_file):
     except FileNotFoundError:
         return True
     for cmd in cmds:
-        if subprocess.run(cmd, shell=True).returncode != 0:
+        if check_command(cmd) != 0:
             print('GLOBAL CHECK FAILED, nothing was ticked: ' + cmd)
             return False
     return True
@@ -46,7 +56,7 @@ def verify_task(tid, verify_file):
         print('%s: no automated check defined, so it cannot be marked done' % tid)
         return 'unavailable'
     for cmd in cmds:
-        rc = subprocess.run(cmd, shell=True).returncode
+        rc = check_command(cmd)
         if rc == 3:
             print('%s: check could not run here: %s' % (tid, cmd))
             return 'unavailable'

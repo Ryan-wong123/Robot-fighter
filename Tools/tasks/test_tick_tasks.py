@@ -49,8 +49,8 @@ class Always(unittest.TestCase):
         return f.name
 
     def test_always_pass_fail_and_missing(self):
-        self.assertTrue(t.run_always(self._vf({'_always': ['true']})))
-        self.assertFalse(t.run_always(self._vf({'_always': ['true', 'false']})))
+        self.assertTrue(t.run_always(self._vf({'_always': ['python3 -c "raise SystemExit(0)"']})))
+        self.assertFalse(t.run_always(self._vf({'_always': ['python3 -c "raise SystemExit(0)"', 'python3 -c "raise SystemExit(1)"']})))
         self.assertTrue(t.run_always(self._vf({})))
         self.assertTrue(t.run_always('/nonexistent/verify.json'))
 
@@ -58,13 +58,28 @@ class Always(unittest.TestCase):
 class Verify(unittest.TestCase):
     def test_pass_fail_unavailable_missing(self):
         f = tempfile.NamedTemporaryFile('w', suffix='.json', delete=False)
-        json.dump({'A-1': ['true'], 'A-2': ['false'], 'A-3': ['true', 'exit 3']}, f)
+        json.dump({'A-1': ['python3 -c "raise SystemExit(0)"'], 'A-2': ['python3 -c "raise SystemExit(1)"'], 'A-3': ['python3 -c "raise SystemExit(0)"', 'python3 -c "raise SystemExit(3)"']}, f)
         f.close()
         self.addCleanup(os.remove, f.name)
         self.assertEqual(t.verify_task('A-1', f.name), 'pass')
         self.assertEqual(t.verify_task('A-2', f.name), 'fail')
         self.assertEqual(t.verify_task('A-3', f.name), 'unavailable')
         self.assertEqual(t.verify_task('A-9', f.name), 'unavailable')
+
+
+
+class WindowsLaunchers(unittest.TestCase):
+    def test_python_uses_current_interpreter_and_preserves_arguments(self):
+        from unittest.mock import patch, Mock
+        with patch.object(t.subprocess, 'run', return_value=Mock(returncode=0)) as run:
+            self.assertEqual(t.check_command('python3 -c "print(42)"'), 0)
+            run.assert_called_once_with([sys.executable, '-c', 'print(42)'])
+
+    def test_windows_native_suite_filter_is_preserved(self):
+        from unittest.mock import patch, Mock
+        with patch.object(os, 'name', 'nt'), patch.object(t.subprocess, 'run', return_value=Mock(returncode=3)) as run:
+            self.assertEqual(t.check_command('bash Tools/tasks/run_unity_tests.sh EditMode HandGripTests'), 3)
+            run.assert_called_once_with([sys.executable, 'Tools/tasks/run_unity_tests.py', 'EditMode', 'HandGripTests'])
 
 
 if __name__ == '__main__':

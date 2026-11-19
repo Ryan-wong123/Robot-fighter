@@ -947,3 +947,12 @@ At the owner's request, the completion tool was run for M4-01 through M4-06 and 
 ### M4-13–16 implementation audit — 2026-11-20
 
 All four features were deliberately implemented for earlier owner requests: arena difficulty selection, original-arena thumbnails, staggered weighted drops, and Blobby/Plush hand grips. The completion tool moved M4-13 and M4-14 to `[~]` because native Unity checks are unavailable; the preview PNG check passed. M4-15 remains blocked by M4-06 and M4-16 by M4-03. M4-15 owner gameplay acceptance is recorded above; no additional hand-grip acceptance is inferred. These unchecked prerequisites do not mean the features need reimplementation. No configured checks were weakened.
+
+### M4-17 — Windows task-verification launcher for completed M4 content
+- **Prerequisites:** M0-16.
+- **Read:** AGENTS task tracking; architecture tooling; coding guidelines verification.
+- **Request:** Help change implemented M4 tasks from pending verification to checked.
+- **Implementation:** Complete-M4.ps1 resolves the repository and pinned Unity executable, refuses an active project lock, configures UNITY_PATH, and requests M4-01–06, M4-10 and M4-12–16 through tick_tasks.py. The verifier resolves Python through its running interpreter and dispatches Windows Bash Unity checks to the equivalent Python native runner with unchanged mode/filter. Failed/unavailable checks still cannot tick a task. No tests or prerequisites are removed.
+- **Done when:** verifier unit tests pass including Windows dispatch, argument preservation, failure/unavailability and prerequisite rules; PowerShell syntax parses.
+- **Owner run:** Save and close the project in Unity, then run `powershell -NoProfile -ExecutionPolicy Bypass -File Tools/tasks/Complete-M4.ps1`. It runs the native suites and updates task.md only on passing checks. Keep the output for any failures; it never kills the Editor, commits, or pushes.
+- **Verification:** 11 Python verifier tests passed; native Unity completion remains an owner-run action under AGENTS section 7.

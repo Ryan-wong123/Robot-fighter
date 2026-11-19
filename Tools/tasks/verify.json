@@ -287,5 +287,8 @@
     "python3 Tools/tasks/run_unity_tests.py EditMode MrJackTests",
     "python3 Tools/tasks/run_unity_tests.py EditMode SandboxAITests",
     "python3 Tools/tasks/run_unity_tests.py EditMode MatchRulesTests"
+  ],
+  "M4-17": [
+    "python3 Tools/tasks/test_tick_tasks.py"
   ]
 }
