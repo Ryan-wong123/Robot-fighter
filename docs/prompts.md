@@ -695,6 +695,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 6. In a fresh setup turn Hazards Off: no paw, spiral warning or slowdown; Items stays independently configurable. Rematch must retain stage, fighters and rules. Tied-timeout sudden death must stop hazards and clear slowdown.
 7. Run EditMode GiantSandboxTests, BouncyCastleTests, SandboxHazardTests, AppFlowTests and AudioManagerTests. Play a full Android match for safe-area UI, touch controls, clear warnings, recovery, audio, KO/reset and the 60 FPS target.
 
+**Owner acceptance (2026-11-19):** The owner confirmed the M4-05 manual verification checklist passed. Automated Unity test execution has not been recorded, so the existing verifier retains [~].
+
 ### M4-11 — Boss stage: Toy Chest Showdown (art + Block Rain and Music Box Tilt hazards)
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M2-03
