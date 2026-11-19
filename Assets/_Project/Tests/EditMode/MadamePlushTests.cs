@@ -83,6 +83,7 @@ public sealed class MadamePlushTests
         yield return new EnterPlayMode();
         yield return null;
         var app = UnityEngine.Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         app.OpenSelection();
         Assert.That(app.HasMadamePlush, Is.True);
         app.SelectMadamePlush();

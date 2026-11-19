@@ -16,6 +16,7 @@ namespace WobbleBrawl.Core
         public static event Action Changed;
         private static SaveService saves;
         private static SaveData saved;
+        public static EconomyService Economy { get; private set; }
         public static string SaveError => saves?.LastError;
 
         public static void SetMaster(float value) { Master = Mathf.Clamp01(value); Apply(); }
@@ -54,6 +55,7 @@ namespace WobbleBrawl.Core
         {
             saves = new SaveService(System.IO.Path.Combine(Application.persistentDataPath, "save.json"));
             saved = saves.Load();
+            Economy = new EconomyService(saves, saved);
             var settings = saved.Settings;
             Master = settings.Master;
             Music = settings.Music;
@@ -82,6 +84,7 @@ namespace WobbleBrawl.Core
             Changed = null;
             saves = null;
             saved = null;
+            Economy = null;
         }
     }
 

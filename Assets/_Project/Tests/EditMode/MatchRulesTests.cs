@@ -51,6 +51,7 @@ public sealed class MatchRulesTests
         yield return new EnterPlayMode();
         yield return null;
         var app = Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         foreach (bool hazards in new[] { false, true })
         foreach (bool items in new[] { false, true })
         {
@@ -113,6 +114,7 @@ public sealed class MatchRulesTests
         yield return new EnterPlayMode();
         yield return null;
         var app = Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         app.OpenSelection(MatchMode.Arcade);
         app.SelectBlobby();
         AssertLocked(app);
@@ -140,6 +142,7 @@ public sealed class MatchRulesTests
         yield return new EnterPlayMode();
         yield return null;
         var app = Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         foreach (var tier in new[] { AIDifficulty.Easy, AIDifficulty.Normal, AIDifficulty.Hard })
         {
             app.OpenSelection();

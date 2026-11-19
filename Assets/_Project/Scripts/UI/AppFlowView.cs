@@ -24,6 +24,7 @@ namespace WobbleBrawl.UI
         private Button pauseButton;
         private Button settingsButton;
         private Button arcadeButton;
+        private Text balance;
         private GameObject settingsPanel;
         private bool settingsOpen;
         private Button[] stageButtons;
@@ -64,6 +65,8 @@ namespace WobbleBrawl.UI
             Stretch(safeContent, Vector2.zero, Vector2.one);
             title = Label(safeContent, "Title", 60, 126f);
             description = Label(safeContent, "Description", 24, 47f);
+            balance = Label(safeContent, "Coin balance", 23, 0f);
+            Place(balance.rectTransform, 180f, 46f, -32f, new Vector2(.9f, 1f));
             primary = CreateButton("Primary Action", -38f, Green, out primaryText);
             secondary = CreateButton("Secondary Action", -114f, Cream, out secondaryText);
             stageButtons = new Button[app.StageCount];
@@ -217,6 +220,11 @@ namespace WobbleBrawl.UI
                 return;
 
             settingsPanel.SetActive(settingsOpen);
+            balance.gameObject.SetActive(!settingsOpen && !app.IsLoading && app.State != AppState.Match);
+            balance.text = $"Coins: {app.Coins}";
+            SetUnlockCaption(sirNoodleButton, "Sir Noodle", app.FighterCost("SirNoodle"));
+            SetUnlockCaption(puffinPeteButton, "Puffin Pete", app.FighterCost("PuffinPete"));
+            SetUnlockCaption(madamePlushButton, "Madame Plush", app.FighterCost("MadamePlush"));
             settingsButton.gameObject.SetActive(!app.IsLoading && !settingsOpen &&
                 (app.State == AppState.MainMenu || app.IsPaused));
             bool mainMenu = !settingsOpen && !app.IsLoading && app.State == AppState.MainMenu;
@@ -253,6 +261,7 @@ namespace WobbleBrawl.UI
             for (int index = 0; index < stageButtons.Length; index++)
             {
                 stageButtons[index].gameObject.SetActive(stageSelection && !settingsOpen && !app.IsArcade);
+                SetUnlockCaption(stageButtons[index], app.GetStage(index).Name, app.ArenaCost(index));
                 stageButtons[index].targetGraphic.color = index == app.StageIndex ? Green : Cream;
             }
             if (app.IsLoading)
@@ -324,6 +333,7 @@ namespace WobbleBrawl.UI
                             Place((RectTransform)secondary.transform, 310f, 58f, -218f);
                         }
                     }
+                    if (app.UnlockMessage != null) description.text = app.UnlockMessage;
                     primaryText.text = stageSelection ? "Start Match" : "Blobby";
                     secondaryText.text = "Back";
                     break;
@@ -338,6 +348,7 @@ namespace WobbleBrawl.UI
                         description.text = $"{app.ArcadeProgress}\n{app.MatchSummary}";
                         primaryText.text = app.Result == RoundResult.PlayerWins ? "Next Fight" : "Retry Fight";
                     }
+                    description.text += $"\n+{app.CoinsEarned} coins";
                     secondaryText.text = "Main Menu";
                     break;
                 case AppState.Match:
@@ -401,6 +412,16 @@ namespace WobbleBrawl.UI
             }
             else
                 app.ReturnToMenu();
+        }
+
+        private static void SetUnlockCaption(Button button, string name, int cost)
+        {
+            var caption = button.GetComponentInChildren<Text>();
+            Stretch(caption.rectTransform, Vector2.zero, Vector2.one);
+            caption.resizeTextForBestFit = true;
+            caption.resizeTextMinSize = 13;
+            caption.resizeTextMaxSize = caption.fontSize;
+            caption.text = cost > 0 ? $"{name}\n{cost} coins" : name;
         }
 
         private static void PlaceFighterChoice(Button button, float x, float y)

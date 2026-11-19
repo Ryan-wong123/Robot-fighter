@@ -337,7 +337,7 @@ The app pause overlay uses MatchPause to freeze simulation time during a live ro
 
 GameSettings loads volume, haptics, layout and quality before the first scene and saves changes through SaveService. SettingsAudioSource applies a music or SFX multiplier to its original volume. Stage warning sources use SFX. MatchTouchControls mirrors the movement and attack groups within the HUD safe area.
 
-SaveService writes version 2 JSON to persistentDataPath/save.json. It flushes a temporary file before atomically moving or replacing the primary file. The last readable primary becomes a backup. Load falls back to that backup or safe defaults. Version 1 flat settings migrate to nested settings. Newer versions are preserved as read-only. Coins and fighter unlocks round-trip without awarding progression yet.
+SaveService writes version 2 JSON to persistentDataPath/save.json. It flushes a temporary file before atomically moving or replacing the primary file. The last readable primary becomes a backup. Load falls back to that backup or safe defaults. Version 1 flat settings migrate to nested settings. Newer versions are preserved as read-only. Coins, fighter unlocks and arena unlocks share the settings save. Older version 2 files default to an empty arena-unlock list.
 
 ### Combined development sandbox (M4-12)
 
@@ -386,3 +386,5 @@ Toy Chest tilt uses Fighter.ApplyGroundDrift for grounded displacement independe
 The Toy Chest deck carries its hidden floor collider. The adapter preserves each grounded fighter’s clearance as the floor rotates and applies slide displacement along the deck tangent. Airborne fighters keep their existing trajectory. Older scenes resolve their original floor on load.
 
 ArcadeLadder holds the fixed five-scene order and in-memory encounter progression. AppStateMachine retains the chosen fighter across scene loads, selects the encounter opponent and tier, and uses the existing match lifecycle for Next Fight and Retry Fight. The finale uses the stage boss override. Coming back to the menu discards the run on the next selection. Missing installed content disables the Arcade start action with an explanation.
+
+EconomyService operates on the same SaveData instance as GameSettings, with balance and ownership changes written together. Failed writes roll back rewards and purchases. AppStateMachine awards once at the match end event and uses a two-press unlock confirmation at selection. The Arcade opponent roster and route are independent of unlocks. Boot integration tests supply an isolated wallet to keep gameplay fixtures independent of player progression.

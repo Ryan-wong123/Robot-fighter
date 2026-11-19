@@ -80,6 +80,7 @@ public sealed class CombinedSandboxTests
         yield return new EnterPlayMode();
         yield return null;
         var app = Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         Assert.That(app.StageCount, Is.GreaterThanOrEqualTo(2));
         for (int index = 0; index < app.StageCount; index++)
             Assert.That(TrainingSandboxRules.IsSelectableArena(app.GetStage(index).Scene), Is.True);

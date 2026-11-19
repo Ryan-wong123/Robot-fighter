@@ -23,6 +23,7 @@ namespace WobbleBrawl.Core
         public int Version = SaveService.CurrentVersion;
         public SavedSettings Settings = new SavedSettings();
         public int Coins;
+        public List<string> UnlockedArenas = new List<string>();
         public List<string> UnlockedFighters = new List<string> { "Blobby" };
     }
 
@@ -173,6 +174,7 @@ namespace WobbleBrawl.Core
                 settings.Layout = ControlLayout.Standard;
             settings.Quality = Math.Max(-1, settings.Quality);
             data.Coins = Math.Max(0, data.Coins);
+            data.UnlockedArenas ??= new List<string>();
             data.UnlockedFighters ??= new List<string>();
             if (!data.UnlockedFighters.Contains("Blobby"))
                 data.UnlockedFighters.Add("Blobby");

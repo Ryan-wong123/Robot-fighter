@@ -38,6 +38,7 @@ public sealed class AppFlowTests
     private static IEnumerator ExerciseFlow()
     {
         var app = Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         Assert.That(app, Is.Not.Null);
         yield return WaitFor(() => app.State == AppState.MainMenu, "initial menu");
         var panel = app.transform.Find("App Canvas/App Screen");
@@ -143,6 +144,7 @@ public sealed class AppFlowTests
         while (!condition() && Time.realtimeSinceStartup < deadline)
             yield return null;
         var app = Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         var match = Object.FindFirstObjectByType<MatchController>();
         Assert.That(condition(), Is.True, $"{transition} timed out. Scene {SceneManager.GetActiveScene().name}, " +
             $"state {app?.State}, loading {app?.IsLoading}, round {match?.RoundNumber}, wins {match?.PlayerWins}.");

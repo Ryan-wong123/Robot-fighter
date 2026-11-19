@@ -59,6 +59,7 @@ public sealed class GiantSandboxTests
         yield return new EnterPlayMode();
         yield return null;
         var app = UnityEngine.Object.FindFirstObjectByType<AppStateMachine>();
+        TestEconomy.Install(app);
         app.OpenSelection();
         app.SelectBlobby();
         int found = -1;

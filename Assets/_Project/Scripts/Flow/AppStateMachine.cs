@@ -30,6 +30,47 @@ namespace WobbleBrawl.Flow
 
         private static AppStateMachine running;
         private MatchController match;
+        private EconomyService wallet;
+        private string pendingUnlock;
+        public int Coins => wallet.Balance;
+        public int CoinsEarned { get; private set; }
+        public string UnlockMessage { get; private set; }
+        public int FighterCost(string id) => wallet.OwnsFighter(id) ? 0 : EconomyService.FighterPrice(id);
+        public int ArenaCost(int index) => wallet.OwnsArena(GetStage(index).Scene) ? 0 :
+            EconomyService.ArenaPrice(GetStage(index).Scene);
+
+        private void ClearUnlockPrompt()
+        {
+            pendingUnlock = null;
+            UnlockMessage = null;
+        }
+
+        private bool ConfirmUnlock(string id, int cost, Func<string, bool> purchase)
+        {
+            if (cost == 0)
+            {
+                ClearUnlockPrompt();
+                return true;
+            }
+            if (Coins < cost)
+            {
+                pendingUnlock = id;
+                UnlockMessage = $"Need {cost - Coins} more coins.";
+            }
+            else if (pendingUnlock != id)
+            {
+                pendingUnlock = id;
+                UnlockMessage = $"Select again to unlock for {cost} coins.";
+            }
+            else
+            {
+                ClearUnlockPrompt();
+                if (purchase(id)) return true;
+                UnlockMessage = "Could not save the unlock. Your coins were kept.";
+            }
+            Changed?.Invoke();
+            return false;
+        }
         private readonly ArcadeLadder ladder = new ArcadeLadder();
         private Coroutine pendingResults;
         private string matchScene;
@@ -64,7 +105,7 @@ namespace WobbleBrawl.Flow
         public int StageIndex { get; private set; }
         public StageChoice GetStage(int index) => stages[index];
         public bool CanStartMatch => selectedFighter != null &&
-            (IsArcade ? ArcadeContentIssue == null : StageCount > 0 &&
+            (IsArcade ? ArcadeContentIssue == null : StageCount > 0 && pendingUnlock == null && ArenaCost(StageIndex) == 0 &&
                 Application.CanStreamedLevelBeLoaded(GetStage(StageIndex).Scene));
         public RoundResult Result { get; private set; }
         public int PlayerWins { get; private set; }
@@ -82,6 +123,7 @@ namespace WobbleBrawl.Flow
                 return;
             }
             running = this;
+            wallet = GameSettings.Economy;
             sirNoodle = Resources.Load<CharacterDef>("Characters/SirNoodle");
             puffinPete = Resources.Load<CharacterDef>("Characters/PuffinPete");
             madamePlush = Resources.Load<CharacterDef>("Characters/MadamePlush");
@@ -175,6 +217,8 @@ namespace WobbleBrawl.Flow
                 Step = SelectionStep.Fighter;
                 Mode = mode;
                 ladder.Reset();
+                ClearUnlockPrompt();
+                StageIndex = 0;
                 requestedRules = MatchRules.Default;
                 Difficulty = AIDifficulty.Normal;
                 selectedFighter = null;
@@ -224,6 +268,8 @@ namespace WobbleBrawl.Flow
         {
             if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || definition == null || definition.Boss != null)
                 return;
+            if (!ConfirmUnlock(definition.AnimationPrefix, FighterCost(definition.AnimationPrefix), wallet.TryUnlockFighter))
+                return;
             selectedFighter = definition;
             Step = SelectionStep.Stage;
             if (IsArcade) PrepareArcadeFight();
@@ -234,6 +280,15 @@ namespace WobbleBrawl.Flow
         {
             if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage ||
                 IsArcade || index < 0 || index >= StageCount)
+                return;
+            if (!Application.CanStreamedLevelBeLoaded(GetStage(index).Scene))
+            {
+                pendingUnlock = GetStage(index).Scene;
+                UnlockMessage = "This arena is missing from Build Settings.";
+                Changed?.Invoke();
+                return;
+            }
+            if (!ConfirmUnlock(GetStage(index).Scene, ArenaCost(index), wallet.TryUnlockArena))
                 return;
             StageIndex = index;
             Changed?.Invoke();
@@ -282,6 +337,7 @@ namespace WobbleBrawl.Flow
                 return;
             if (State == AppState.Selection)
             {
+                ClearUnlockPrompt();
                 if (Step == SelectionStep.Stage)
                 {
                     Step = SelectionStep.Fighter;
@@ -332,6 +388,7 @@ namespace WobbleBrawl.Flow
             DetachMatch();
             Result = result;
             if (IsArcade) ladder.RecordResult(result == RoundResult.PlayerWins);
+            CoinsEarned = wallet.AwardMatch(result == RoundResult.PlayerWins, result == RoundResult.Draw, ArcadeCleared);
             pendingResults = StartCoroutine(ShowResults());
         }
 
