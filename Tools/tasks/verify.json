@@ -271,5 +271,10 @@
   "M4-14": [
     "python3 Tools/Blender/render_legacy_arena_thumbnails.py --check",
     "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests"
+  ],
+  "M4-15": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode ItemWeightsTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode CombinedSandboxTests"
   ]
 }

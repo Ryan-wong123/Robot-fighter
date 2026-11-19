@@ -19,7 +19,9 @@ namespace WobbleBrawl.Gameplay
         [SerializeField] private bool spawnAtRoundStart;
         [SerializeField] private bool spawnOpeningLineup;
         [SerializeField, Min(1)] private int intervalFrames = 300;
+        [SerializeField, Min(0)] private int intervalJitterFrames = 100;
         [SerializeField] private int seed = 1;
+        private bool allowsTestOpening;
         [SerializeField] private WobbleBrawl.Data.TrainingSandboxLayout trainingLayout;
         private bool persistentRack;
         private int[] dispenseCooldown;
@@ -73,7 +75,8 @@ namespace WobbleBrawl.Gameplay
                 table = entries.ToArray();
             }
             int count = table?.Length ?? 0;
-            persistentRack = trainingLayout != null && TrainingSandboxRules.AllowsShortcuts(gameObject.scene.name);
+            allowsTestOpening = TrainingSandboxRules.AllowsShortcuts(gameObject.scene.name);
+            persistentRack = trainingLayout != null && allowsTestOpening;
             dispenseCooldown = new int[count];
             dispenseCursor = new int[count];
             pools = new PooledItem[count][];
@@ -105,14 +108,14 @@ namespace WobbleBrawl.Gameplay
             random = new System.Random(unchecked(seed + roundIndex));
             Array.Clear(dispenseCooldown, 0, dispenseCooldown.Length);
             Array.Clear(dispenseCursor, 0, dispenseCursor.Length);
-            remainingFrames = Mathf.Max(1, intervalFrames);
-            if ((persistentRack || spawnOpeningLineup) && spawnPoints != null)
+            remainingFrames = NextInterval();
+            if ((persistentRack || (allowsTestOpening && spawnOpeningLineup)) && spawnPoints != null)
             {
                 for (int index = 0; index < Mathf.Min(pools.Length, spawnPoints.Length); index++)
                     if (pools[index].Length > 0 && spawnPoints[index] != null)
                         pools[index][0].Spawn(spawnPoints[index].position);
             }
-            else if (spawnAtRoundStart)
+            else if (allowsTestOpening && spawnAtRoundStart)
                 SpawnNext();
         }
 
@@ -142,8 +145,15 @@ namespace WobbleBrawl.Gameplay
             }
             if (random == null || --remainingFrames > 0)
                 return;
-            remainingFrames = Mathf.Max(1, intervalFrames);
+            remainingFrames = NextInterval();
             SpawnNext();
+        }
+
+        private int NextInterval()
+        {
+            int center = Mathf.Max(1, intervalFrames);
+            int jitter = Mathf.Clamp(intervalJitterFrames, 0, center - 1);
+            return jitter == 0 ? center : random.Next(center - jitter, center + jitter + 1);
         }
 
         private void SpawnNext()

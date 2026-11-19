@@ -99,7 +99,7 @@ Spawn from the sky/stage on a timer and are picked up by walking over them (repl
 | Wind-up car | Drives along ground at 4 m/s; first opponent contact deals 10 base damage and unblocked knockdown. |
 | Spring boxing jack | Proximity-triggered 90-frame warning, then one 12-damage uppercut with 6 m/s unblocked lift. |
 - Each item is a data asset (see [`architecture.md`](architecture.md)). All **12 launch items** are implemented; the owner approved the additional six concepts/effects on 2026-11-19. [Item data and rules](items.md) record modes, stable ids, damage, status/flight timing, defense, AI ranges, pooling, art/audio and cleanup. Values are **(start)** tuning.
-- Spawn logic is deterministic from a seed so Daily Chaos and tests are reproducible.
+- Spawn logic is deterministic from a seed so Daily Chaos and tests are reproducible. Real arenas wait 200–400 physics frames (4–8 seconds at 50 Hz, start tuning) for the first and each subsequent one-item opportunity. All twelve start at equal weight 1 (8.33% each when all pools are available); exhausted types are temporarily excluded. No opening catalog lineup outside CombatSandbox. [Full spawn rates and pooling rules](items.md#normal-arena-spawn-schedule-m4-15).
 
 ## 9. Stage Hazards
 > Full stage sheets, layouts and hazard timings are in [`maps.md`](maps.md).

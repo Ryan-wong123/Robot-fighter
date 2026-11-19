@@ -277,7 +277,7 @@ public static class GiantSandboxContent
         }
         var properties = new SerializedObject(spawner);
         properties.FindProperty("spawnOpeningLineup").boolValue = false;
-        properties.FindProperty("spawnAtRoundStart").boolValue = true;
+        properties.FindProperty("spawnAtRoundStart").boolValue = false;
         var points = properties.FindProperty("spawnPoints");
         points.arraySize = tuning.ItemPoints.Length;
         for (int index = 0; index < points.arraySize; index++)

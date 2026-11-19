@@ -85,3 +85,26 @@ The floor is **30 m wide**, with twelve rack slots **2 m apart** at X -11,-9,-7,
 Each rack display is a non-expiring pickup/dispenser that stays visible when collected or used. It supplies a separate pooled copy, respecting the one-held-item rule and a **25-frame** (about 0.5 s) per-slot dispensing cooldown. The Foam Glove dispenses its pickup effect. Each type prewarms one display plus **four usable copies**: 60 bounded instances for twelve types. If all copies are busy, it recycles a deployed copy, releasing any owned bubble trap, and never steals a held copy. Active copies keep their normal effects, lifetimes and cleanup; displays remain visible across KO round transitions. No item allocations occur during use. Disabling the spawner/unloading the scene cleans up all instances.
 
 Training has no timeout or best-of-three end screen; KOs reset the round after the normal delay for continued testing. HUD timer reads TRAINING. Space pauses/resumes the opponent and 1/2/3 selects Easy/Normal/Hard **only in CombatSandbox**. These shortcuts do nothing in Bathtub Brawl, Kitchen Counter, Bouncy Castle Fair, Giant Sandbox or other real arenas. Normal movement/combat keys and Escape/menu pause retain their behavior. Both development scene ids are filtered from arena selection, including old serialized menu entries. Real matches keep normal timing, item expiry, weighted spawning and stage widths.
+
+## Normal arena spawn schedule (M4-15)
+
+Real arenas spawn **one pickup per scheduled opportunity**, never the whole catalog. The first opportunity and every subsequent interval are sampled uniformly from **200–400 physics frames inclusive**, using `intervalFrames = 300` and `intervalJitterFrames = 100` on ItemSpawner. At the current 50 Hz physics timestep this is **4–8 seconds**, averaging **6 seconds** (about ten opportunities per minute). The clock pauses with simulation pause. New rounds reset the seeded schedule; round end stops it and clears items. Items Off prevents both initial and later drops.
+
+At each opportunity the spawner chooses one item among entries with a free pooled instance, then chooses a spawn point uniformly. Each current type has **weight 1**, so when all twelve are available each has **1/12 ≈ 8.33% per opportunity**. These are relative probabilities, not independent timers, guarantees, or a twelve-item rotation. Held/deployed instances can exhaust a type's pool and temporarily exclude it; remaining weights renormalize. If all pools are exhausted, that opportunity is skipped and the next interval is sampled. No catch-up burst occurs.
+
+| Item | Starting weight | Chance with all twelve available |
+|---|---:|---:|
+| Banana Peel | 1 | 8.33% |
+| Foam Glove | 1 | 8.33% |
+| Rubber Chicken | 1 | 8.33% |
+| Rocket Plunger | 1 | 8.33% |
+| Whoopee Cushion | 1 | 8.33% |
+| Anvil | 1 | 8.33% |
+| Cream Pie | 1 | 8.33% |
+| Boomerang | 1 | 8.33% |
+| Pogo Stick | 1 | 8.33% |
+| Bubble Wand | 1 | 8.33% |
+| Wind-up Car | 1 | 8.33% |
+| Spring Boxing Jack | 1 | 8.33% |
+
+Values are starting tuning. Original-six weights/capacities remain authored in each scene's ItemSpawner table; catalog additions start at weight/capacity 1. Inspector timing fields allow arena tuning; jitter clamps below the center interval so every delay is at least one frame. Old serialized `spawnOpeningLineup` and `spawnAtRoundStart` flags are ignored outside CombatSandbox, correcting existing Bathtub/Kitchen scenes without rewriting YAML. Future arena builders set both flags off. CombatSandbox retains its permanent twelve-item rack and no random drops. This behavior extends M2-01/M4-06 now; there is no later task required to enable it.

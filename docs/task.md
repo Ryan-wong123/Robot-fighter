@@ -115,6 +115,8 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 
 - [ ] **M4-14** Bathtub and Kitchen arena selection thumbnails (after: M3-03)
 
+- [ ] **M4-15** Restrict item lineups to training and randomize normal arena spawn intervals (after: M2-01, M4-06)
+
 ## M5 — Monetization & launch (weeks 15-16)
 - [ ] **M5-01** `IAdService` + LevelPlay integration (Unity Ads network), editor fake (after: M3-01)
 - [ ] **M5-02** Rewarded ad placements; capped interstitials on results screen only (after: M5-01, M5-04, M3-05)

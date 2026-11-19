@@ -909,3 +909,13 @@ M4-12 verification record: standalone scene-policy checks passed; Core, Data, Ga
 - **Manual:** Restart Play from Boot after import, choose fighter and open Choose Arena. Confirm all four cards have images, Bathtub shows the tub/faucet/duck and Kitchen shows the countertop/appliances; select and launch both arenas normally. Check phone landscape layout.
 
 **M4-14 verification:** Both renders completed in background Blender and were visually inspected. Both passed 960 × 540 PNG validation; C# runtime/UI/Editor/test source compilation, docs links and generated-diagram checks passed. Native AppFlowTests could not start because Windows Bash reported access denied; M4-14 remains unchecked pending Unity verification.
+
+### M4-15 — Restrict item lineups to training and randomize normal arena spawn intervals
+- **Read:** PRD section 8, items normal spawn schedule, architecture item pooling, coding guidelines.
+- **Prerequisites:** M2-01, M4-06.
+- **Request:** Actual arenas should spawn items over time at random rates instead of all at once; document the rates.
+- **Implementation:** Runtime scene gate ignores old testing flags outside CombatSandbox. First and later opportunities use seeded inclusive 200–400-frame intervals, one weighted available item and one random spawn point. All twelve retain weight 1; exhausted pools skip, no burst. Future builders disable opening flags. Training rack remains permanent.
+- **Done when:** MatchRulesTests proves no immediate real-arena lineup even with stale flags, one item at the first timer, bounded seeded repeatability, and Items Off; ItemWeightsTests and CombinedSandboxTests pass.
+- **Manual:** Start each real arena with Items On. Begin empty; observe one pickup after 4–8 seconds and subsequent individual drops at varying 4–8-second intervals. Pick up/use items to keep pools available; do not expect every type in one match. Repeat next round/Rematch; test Items Off and pause. CombatSandbox must still display all twelve immediately and permanently.
+
+**M4-15 verification:** Runtime, UI, Editor and test source compilation passed against installed Unity libraries; docs links and generated diagrams passed. Native Unity tests and Play Mode were not run. The completion tool refused M4-15 because prerequisite M4-06 is still pending automated verification; the task checkbox is unchanged.

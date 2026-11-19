@@ -75,14 +75,14 @@ public sealed class MatchRulesTests
             Object.FindFirstObjectByType<AIInput>().TogglePause();
             Assert.That(match.Rules.HazardsEnabled, Is.EqualTo(hazards));
             Assert.That(match.Rules.ItemsEnabled, Is.EqualTo(items));
-            Assert.That(Object.FindObjectsByType<PooledItem>(FindObjectsSortMode.None).Length > 0,
-                Is.EqualTo(items), "Opening lineup obeys item rules.");
+            Assert.That(Object.FindObjectsByType<PooledItem>(FindObjectsSortMode.None), Is.Empty,
+                "Real arenas wait for their first scheduled drop, regardless of Items toggle.");
             yield return new WaitForSeconds(.2f);
             Assert.That(hazard.Phase == HazardPhase.Inactive, Is.EqualTo(!hazards));
             if (!hazards)
                 Assert.That(hazard.PhaseElapsed, Is.Zero, "Disabled timer must not advance.");
 
-            // Exercise the scheduled path separately from the sandbox opening lineup.
+            // Shorten the authored interval to verify enabled/disabled scheduling without a long wait.
             var config = new SerializedObject(spawner);
             config.FindProperty("spawnOpeningLineup").boolValue = false;
             config.FindProperty("spawnAtRoundStart").boolValue = false;
@@ -171,6 +171,48 @@ public sealed class MatchRulesTests
             app.ReturnToMenu();
             yield return WaitFor(() => !app.IsLoading && app.State == AppState.MainMenu);
         }
+        yield return new ExitPlayMode();
+    }
+
+    [UnityTest]
+    public IEnumerator RealArenaIgnoresTestLineupAndSpawnsOneItemPerSeededInterval()
+    {
+        EditorSceneManager.OpenScene("Assets/_Project/Scenes/BathtubBrawl.unity");
+        yield return new EnterPlayMode();
+        yield return null;
+        var spawner = Object.FindFirstObjectByType<ItemSpawner>();
+        var config = new SerializedObject(spawner);
+        config.FindProperty("spawnAtRoundStart").boolValue = true;
+        config.FindProperty("spawnOpeningLineup").boolValue = true;
+        config.ApplyModifiedPropertiesWithoutUndo();
+        var clock = typeof(ItemSpawner).GetField("remainingFrames",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var tick = typeof(ItemSpawner).GetMethod("FixedUpdate",
+            System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        spawner.BeginRound(7);
+        Assert.That(Object.FindObjectsByType<PooledItem>(FindObjectsSortMode.None), Is.Empty);
+        int initial = (int)clock.GetValue(spawner);
+        Assert.That(initial, Is.InRange(200, 400));
+        for (int frame = 1; frame < initial; frame++) tick.Invoke(spawner, null);
+        Assert.That(Object.FindObjectsByType<PooledItem>(FindObjectsSortMode.None), Is.Empty);
+        tick.Invoke(spawner, null);
+        var first = Object.FindObjectsByType<PooledItem>(FindObjectsSortMode.None);
+        Assert.That(first.Length, Is.EqualTo(1));
+        string selected = first[0].Definition.Id;
+        Vector3 position = first[0].transform.position;
+        int next = (int)clock.GetValue(spawner);
+        Assert.That(next, Is.InRange(200, 400));
+        spawner.BeginRound(7);
+        Assert.That((int)clock.GetValue(spawner), Is.EqualTo(initial));
+        for (int frame = 0; frame < initial; frame++) tick.Invoke(spawner, null);
+        var repeated = Object.FindObjectsByType<PooledItem>(FindObjectsSortMode.None);
+        Assert.That(repeated.Length, Is.EqualTo(1));
+        Assert.That(repeated[0].Definition.Id, Is.EqualTo(selected));
+        Assert.That(repeated[0].transform.position, Is.EqualTo(position));
+        Assert.That((int)clock.GetValue(spawner), Is.EqualTo(next));
+        spawner.BeginRound(8, new MatchRules(true, false));
+        for (int frame = 0; frame < 401; frame++) tick.Invoke(spawner, null);
+        Assert.That(Object.FindObjectsByType<PooledItem>(FindObjectsSortMode.None), Is.Empty);
         yield return new ExitPlayMode();
     }
 

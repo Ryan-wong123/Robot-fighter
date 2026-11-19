@@ -186,7 +186,7 @@ public static partial class CombatSandboxBuilder
         var spawnerData = new SerializedObject(spawner);
         spawnerData.FindProperty("trainingLayout").objectReferenceValue = null;
         spawnerData.FindProperty("spawnOpeningLineup").boolValue = false;
-        spawnerData.FindProperty("spawnAtRoundStart").boolValue = true;
+        spawnerData.FindProperty("spawnAtRoundStart").boolValue = false;
         var stagePoints = spawnerData.FindProperty("spawnPoints");
         stagePoints.arraySize = 3;
         for (int index = 0; index < stagePoints.arraySize; index++)
