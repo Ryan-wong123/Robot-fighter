@@ -661,6 +661,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 
 **Verification record:** Blender passed budgets/UVs/weights, 45 moving actions, eight closed loops, in-place root, marked attack windows and hiding until the special pop frame. Pure standalone C# passed all 321 HP values, the strict half boundary, living-only entry and integer-overflow boundary. Runtime/Editor/test source compiled against installed Unity libraries. Exact source/export/atlas/audio snapshot and docs/diagrams passed. The task tool set M4-10 to `[~]` because UNITY_PATH is unset; no native Unity tests, Play Mode or Android performance are claimed.
 
+**Owner acceptance (2026-11-20):** The owner reported the full M4-10 verification checklist passed, covering appearance/animation, strict-half phase change, Surprise warning/escape/interruption, defense, audio/pause, KO/round reset, AI-only selection and Android match checks. This records owner testing; native automated Unity test results remain pending and the verifier-controlled `[~]` status is retained.
+
 ### M4-04 — Stage 3: Bouncy Castle Fair
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M2-03
