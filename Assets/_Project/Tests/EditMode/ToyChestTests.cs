@@ -58,7 +58,18 @@ public sealed class ToyChestTests
         Assert.That(shadows[0].gameObject.activeSelf, Is.False);
         NextPhase();
         remaining.SetValue(cycle, 2f);
+        round.Player.ResetRound(new Vector3(-2f, .02f, 0), 1);
+        round.Opponent.ResetRound(new Vector3(2f, .02f, 0), -1);
+        Physics.SyncTransforms();
+        var playerBody = round.Player.GetComponent<Rigidbody>();
+        var opponentBody = round.Opponent.GetComponent<Rigidbody>();
+        float playerX = playerBody.position.x;
+        float opponentX = opponentBody.position.x;
         tick.Invoke(chest, null);
+        Assert.That(playerBody.position.x, Is.GreaterThan(playerX));
+        Assert.That(opponentBody.position.x, Is.GreaterThan(opponentX));
+        Assert.That(round.Player.Health, Is.EqualTo(round.Player.MaxHealth));
+        Assert.That(round.Opponent.Health, Is.EqualTo(round.Opponent.MaxHealth));
         Assert.That(Quaternion.Angle(deck.localRotation, Quaternion.identity), Is.GreaterThan(5f));
         Assert.That(blocks[0].gameObject.activeSelf, Is.False);
         cycle.BeginSuddenDeath();

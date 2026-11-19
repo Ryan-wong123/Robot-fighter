@@ -38,8 +38,7 @@ namespace WobbleBrawl.Gameplay
         private void Change(HazardPhase phase)
         {
             deck.localRotation = rest;
-            player.SetConveyorSpeed(0);
-            opponent.SetConveyorSpeed(0);
+
             warning.Stop();
             tiltWarning.gameObject.SetActive(false);
             if (phase == HazardPhase.Inactive) { rain = false; direction = -1; }
@@ -95,8 +94,9 @@ namespace WobbleBrawl.Gameplay
             {
                 float amount = Mathf.Sin(cycle.PhaseProgress * Mathf.PI);
                 deck.localRotation = rest * Quaternion.Euler(0, 0, -direction * tiltDegrees * amount);
-                player.SetConveyorSpeed(direction * slideSpeed * amount);
-                opponent.SetConveyorSpeed(direction * slideSpeed * amount);
+                float step = direction * slideSpeed * amount * Time.fixedDeltaTime;
+                player.ApplyGroundDrift(step);
+                opponent.ApplyGroundDrift(step);
                 return;
             }
 

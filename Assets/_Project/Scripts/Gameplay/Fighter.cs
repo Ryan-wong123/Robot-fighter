@@ -553,6 +553,21 @@ namespace WobbleBrawl.Gameplay
         public bool ReceiveHit(HitInfo info) => ResolveHit(info, false);
         internal bool ReceiveItemHit(HitInfo info) => ResolveHit(info, true);
         internal bool ReceiveHazardHit(HitInfo info) => ResolveHit(info, true);
+        internal void ApplyGroundDrift(float distance)
+        {
+            if (!CanInteractWithItems || frozen || MatchPause.IsPaused ||
+                Mathf.Approximately(distance, 0f) || body.linearVelocity.y > .1f ||
+                !Physics.Raycast(body.position + Vector3.up * .15f, Vector3.down, .25f,
+                    groundLayers, QueryTriggerInteraction.Ignore))
+                return;
+
+            Vector3 direction = Vector3.right * Mathf.Sign(distance);
+            float travel = Mathf.Abs(distance);
+            if (body.SweepTest(direction, out var hit, travel, QueryTriggerInteraction.Ignore))
+                travel = Mathf.Max(0f, hit.distance - .005f);
+            body.position += direction * travel;
+        }
+
         internal void SetConveyorSpeed(float speed) => conveyorSpeed = speed;
 
         internal void SetStageJumpMultiplier(float multiplier) => stageJump = multiplier;

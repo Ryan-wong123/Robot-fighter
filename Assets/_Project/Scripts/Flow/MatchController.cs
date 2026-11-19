@@ -50,7 +50,11 @@ namespace WobbleBrawl.Flow
 
         private void Start()
         {
+            if (stageOpponent == null && isBossStage && gameObject.scene.name == "ToyChestShowdown")
+                stageOpponent = Resources.Load<CharacterDef>("Characters/MrJack");
             if (stageOpponent != null) ConfigureOpponent(stageOpponent);
+            else if (isBossStage && gameObject.scene.name == "ToyChestShowdown")
+                Debug.LogError("Toy Chest Showdown requires Mr. Jack. Run Wobble Brawl > Characters > Build Mr. Jack.", this);
             ConfigureRules(MatchRules.Default);
             AppStateMachine.AttachMatch(this);
             BeginRound();

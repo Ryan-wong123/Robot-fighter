@@ -18,16 +18,21 @@ public static partial class CombatSandboxBuilder
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode)
             throw new InvalidOperationException("Build Toy Chest Showdown outside Play Mode.");
-        if (AssetDatabase.LoadAssetAtPath<SceneAsset>(ToyChestPath) != null)
-        {
-            if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
-                EditorSceneManager.OpenScene(ToyChestPath);
-            return;
-        }
-
         var boss = AssetDatabase.LoadAssetAtPath<CharacterDef>(MrJackContent.DefinitionPath);
         if (boss == null || boss.VisualPrefab == null)
             throw new InvalidOperationException("Run Wobble Brawl > Characters > Build Mr. Jack first.");
+        if (AssetDatabase.LoadAssetAtPath<SceneAsset>(ToyChestPath) != null)
+        {
+            if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+                return;
+            var existing = EditorSceneManager.OpenScene(ToyChestPath);
+            var controller = existing.GetRootGameObjects().Select(root => root.GetComponent<MatchController>())
+                .Single(component => component != null);
+            Set(controller, "stageOpponent", boss);
+            EditorSceneManager.MarkSceneDirty(existing);
+            EditorSceneManager.SaveScene(existing);
+            return;
+        }
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
         if (!AssetDatabase.IsValidFolder(ToyChestArt))
             AssetDatabase.CreateFolder("Assets/_Project/Art", "ToyChestShowdown");
