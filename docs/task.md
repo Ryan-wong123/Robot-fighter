@@ -113,6 +113,8 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 
 - [ ] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)
 
+- [ ] **M4-14** Bathtub and Kitchen arena selection thumbnails (after: M3-03)
+
 ## M5 — Monetization & launch (weeks 15-16)
 - [ ] **M5-01** `IAdService` + LevelPlay integration (Unity Ads network), editor fake (after: M3-01)
 - [ ] **M5-02** Rewarded ad placements; capped interstitials on results screen only (after: M5-01, M5-04, M3-05)

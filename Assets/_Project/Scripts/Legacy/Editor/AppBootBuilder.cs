@@ -43,6 +43,10 @@ public static class AppBootBuilder
             entry.FindPropertyRelative("Name").stringValue = entries[index].Name;
             entry.FindPropertyRelative("Scene").stringValue = entries[index].Scene;
             entry.FindPropertyRelative("Hazards").stringValue = entries[index].Hazards;
+            entry.FindPropertyRelative("Thumbnail").objectReferenceValue =
+                Resources.Load<Texture2D>("StagePreviews/" + entries[index].Scene);
+            entry.FindPropertyRelative("Thumbnail").objectReferenceValue =
+                Resources.Load<Texture2D>("StagePreviews/" + entries[index].Scene);
         }
         configuration.ApplyModifiedPropertiesWithoutUndo();
         EditorSceneManager.SaveScene(scene, BootPath);

@@ -899,3 +899,13 @@ M4-12 verification record: standalone scene-policy checks passed; Core, Data, Ga
 - **Manual:** Boot → Quick Fight → choose fighter → arena page. Check all three buttons and selected highlight; start separate Easy, Normal and Hard matches. Compare response/blocking/item/hazard behavior; confirm next rounds and Rematch keep the tier, fresh setup returns to Normal, and Space/1/2/3 remain inactive in real arenas. Verify buttons fit and are tappable on Android and no overlap with Hazards/Items, Start Match or Back.
 
 **M4-13 verification:** Runtime, UI, Editor and test sources compiled against installed Unity libraries. Documentation links and generated diagrams passed. Native test execution could not start (Windows Bash access/launch failure); the completion tool left M4-13 unchecked. Play Mode and Android layout checks remain pending.
+
+### M4-14 — Bathtub and Kitchen arena selection thumbnails
+- **Read:** PRD section 11; architecture Boot flow; maps arena previews; coding guidelines assets; art prompts shared palette.
+- **Prerequisites:** M3-03.
+- **Owner request:** Add images to the first two arena cards like the two newer arenas.
+- **Implementation:** Original static Blender renders from existing scene primitive geometry and palette, resource fallback for existing Boot choices, explicit assignment in Boot builder. Existing scene assets and owner concept images are untouched.
+- **Done when:** Both 960 × 540 previews pass the image check and AppFlowTests pass. Native Unity and visual menu verification remain pending.
+- **Manual:** Restart Play from Boot after import, choose fighter and open Choose Arena. Confirm all four cards have images, Bathtub shows the tub/faucet/duck and Kitchen shows the countertop/appliances; select and launch both arenas normally. Check phone landscape layout.
+
+**M4-14 verification:** Both renders completed in background Blender and were visually inspected. Both passed 960 × 540 PNG validation; C# runtime/UI/Editor/test source compilation, docs links and generated-diagram checks passed. Native AppFlowTests could not start because Windows Bash reported access denied; M4-14 remains unchecked pending Unity verification.

@@ -86,7 +86,12 @@ namespace WobbleBrawl.Flow
             var installed = Resources.LoadAll<StageDef>("Stages");
             var choices = new System.Collections.Generic.List<StageChoice>();
             foreach (var choice in stages ?? System.Array.Empty<StageChoice>())
-                if (choice != null && TrainingSandboxRules.IsSelectableArena(choice.Scene)) choices.Add(choice);
+                if (choice != null && TrainingSandboxRules.IsSelectableArena(choice.Scene))
+                {
+                    if (choice.Thumbnail == null)
+                        choice.Thumbnail = Resources.Load<Texture2D>("StagePreviews/" + choice.Scene);
+                    choices.Add(choice);
+                }
             foreach (var stage in installed)
             {
                 if (!TrainingSandboxRules.IsSelectableArena(stage.SceneName)) continue;
