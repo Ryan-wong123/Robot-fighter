@@ -276,5 +276,10 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode MatchRulesTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode ItemWeightsTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode CombinedSandboxTests"
+  ],
+  "M4-16": [
+    "bash Tools/tasks/run_unity_tests.sh EditMode HandGripTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode NoveltyItemTests"
   ]
 }

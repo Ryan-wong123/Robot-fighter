@@ -10,6 +10,7 @@ namespace WobbleBrawl.Gameplay
         private Rigidbody body;
         private Collider sensor;
         private Transform poolRoot;
+        private Vector3 pooledScale;
         private Fighter user;
         private ItemHolder holder;
         private ItemState state;
@@ -38,6 +39,7 @@ namespace WobbleBrawl.Gameplay
         {
             Definition = definition;
             poolRoot = root;
+            pooledScale = transform.localScale;
             body = GetComponent<Rigidbody>();
             sensor = GetComponent<Collider>();
             novelty = GetComponent<NoveltyItem>();
@@ -63,7 +65,7 @@ namespace WobbleBrawl.Gameplay
             holder = itemHolder;
             sensor.enabled = false;
             body.isKinematic = true;
-            transform.SetParent(socket, false);
+            transform.SetParent(socket, true);
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
 
@@ -75,6 +77,7 @@ namespace WobbleBrawl.Gameplay
             state = ItemState.Deployed;
             remainingFrames = Mathf.Max(1, Definition.LifetimeFrames);
             transform.SetParent(poolRoot, true);
+            transform.localScale = pooledScale;
             Vector3 placement = owner.transform.position + Vector3.right * (direction * Definition.PlacementOffset);
             groundHeight = owner.GetItemGroundHeight(placement) + Definition.GroundClearance;
             telegraphFrames = Definition.TelegraphFrames;
@@ -127,6 +130,7 @@ namespace WobbleBrawl.Gameplay
             sensor.enabled = false;
             gameObject.SetActive(false);
             transform.SetParent(poolRoot, false);
+            transform.localScale = pooledScale;
         }
 
         private void FixedUpdate()

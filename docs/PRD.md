@@ -239,3 +239,5 @@ Story mode/cutscenes, dialogue or story voice acting (short voice barks and the 
 - Average session 5-10 min; median match under 3 min.
 - Crash-free sessions >= 99.5%.
 - Playtest: a first-time player lands a combo and uses an item within their first match.
+
+Held pickups follow the character’s animated hand. Blobby and Madame Plush use palm-centered grip sockets; item size is preserved across scaled rigs, use and pool reuse.

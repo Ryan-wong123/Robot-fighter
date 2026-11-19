@@ -231,11 +231,7 @@ public static class MadamePlushContent
             var animator = visual.GetComponent<Animator>() ?? visual.AddComponent<Animator>();
             animator.runtimeAnimatorController = controller;
             animator.applyRootMotion = false;
-            var hand = visual.GetComponentsInChildren<Transform>().Single(bone => bone.name == "Hand.L");
-            var socket = new GameObject("Item Socket").transform;
-            socket.SetParent(hand, false);
-            socket.position = visual.transform.position + new Vector3(.70f, .65f, .21f);
-            visual.AddComponent<FighterVisual>().ItemSocket = socket;
+            HandGripContent.BindVisual(visual);
             ConfigureStuffing(visual, renderers[0]);
             PrefabUtility.SaveAsPrefabAsset(visual, VisualPath);
         }

@@ -292,6 +292,7 @@ public static partial class CombatSandboxBuilder
             clipsProperty.GetArrayElementAtIndex(clipsProperty.arraySize++).objectReferenceValue = standalone;
         }
         serialized.ApplyModifiedPropertiesWithoutUndo();
+        HandGripContent.BindVisual(visual);
         return visual;
     }
 

@@ -919,3 +919,15 @@ M4-12 verification record: standalone scene-policy checks passed; Core, Data, Ga
 - **Manual:** Start each real arena with Items On. Begin empty; observe one pickup after 4–8 seconds and subsequent individual drops at varying 4–8-second intervals. Pick up/use items to keep pools available; do not expect every type in one match. Repeat next round/Rematch; test Items Off and pause. CombatSandbox must still display all twelve immediately and permanently.
 
 **M4-15 verification:** Runtime, UI, Editor and test source compilation passed against installed Unity libraries; docs links and generated diagrams passed. Native Unity tests and Play Mode were not run. The completion tool refused M4-15 because prerequisite M4-06 is still pending automated verification; the task checkbox is unchanged.
+
+**M4-15 owner verification:** The owner confirmed staggered random drops in actual arenas, Items Off, and the permanent CombatSandbox rack. Native automated verification remains pending; this records the manual result without changing task checkboxes.
+
+### M4-16 — Correct Blobby and Madame Plush held-item grips
+- **Read:** PRD items, architecture ItemHolder/FighterVisual, character rigs, coding guidelines.
+- **Prerequisites:** M2-01, M1-11, M4-03.
+- **Request:** Blobby items appear on the torso; Madame Plush items float away from the glove. Attach both to the hand.
+- **Implementation:** Editor repair binds a serialized socket to the centroid of hand-weighted bind-mesh vertices. Blobby authoring adds FighterVisual; Plush authoring removes the displaced world-space socket. ItemHolder resolves the serialized visual socket; PooledItem preserves world size while parenting and restores pool scale on deployment/recycle. Editor migration repairs existing prefabs and five arena/training scenes, deferring unsaved edits.
+- **Done when:** HandGripTests passes both rigs, hand parenting/following, idempotent grip authoring and scale-safe pooling; CombatItemTests and NoveltyItemTests pass.
+- **Manual:** Save scenes, leave Play, allow script import. If needed run Wobble Brawl → Items → Repair Fighter Hand Grips. Pick up an Anvil with Blobby and Madame Plush; check it sits in the hand while walking, blocking, jumping and turning. Throw/use it and repeat; confirm size, effects and round cleanup stay correct.
+
+**M4-16 verification:** Core/Data/Gameplay/Flow/UI/input, Editor repair/authoring and test sources compiled against installed Unity libraries. Documentation links and diagrams passed. Unity repair execution, native tests and visual checks remain pending. Task completion was blocked by the M4-03 automated-verification prerequisite; no checkbox was changed manually.

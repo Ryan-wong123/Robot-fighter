@@ -12,7 +12,12 @@ namespace WobbleBrawl.Gameplay
         public bool HasItem => held != null;
         internal ItemDef HeldDefinition => held != null ? held.Definition : null;
 
-        private void Awake() => owner = GetComponent<Fighter>();
+        private void Awake()
+        {
+            owner = GetComponent<Fighter>();
+            var visual = GetComponentInChildren<FighterVisual>();
+            if (visual != null && visual.ItemSocket != null) handSocket = visual.ItemSocket;
+        }
         private void OnDisable() => Clear();
 
         internal void SetSocket(Transform socket)
