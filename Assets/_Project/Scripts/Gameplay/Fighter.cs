@@ -5,7 +5,7 @@ using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Gameplay
 {
-    public enum FighterState { Idle, Moving, Airborne, Blocking, Attacking, HitStun, GuardBreak, KnockedOut, Deflated }
+    public enum FighterState { Idle, Moving, Airborne, Blocking, Attacking, HitStun, GuardBreak, KnockedOut, Deflated, KnockedDown }
 
     [RequireComponent(typeof(Rigidbody), typeof(Hitbox))]
     public sealed class Fighter : MonoBehaviour
@@ -71,6 +71,7 @@ namespace WobbleBrawl.Gameplay
             ? StuffingRules.Damage(baseDamage, Health, MaxHealth, character.LowHealthDamageBonus) : baseDamage;
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
         private float stageJump = 1f;
+        private float stageMove = 1f;
         public float CharacterHeight => character.Height;
         private float conveyorSpeed;
         public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
@@ -178,6 +179,7 @@ namespace WobbleBrawl.Gameplay
             ragdoll?.Reset();
             SetWater(1f, 1f, 1f);
             stageJump = 1f;
+            stageMove = 1f;
             conveyorSpeed = 0f;
             EndFreeze();
             body.position = position;
@@ -277,11 +279,14 @@ namespace WobbleBrawl.Gameplay
                 immunity--;
             if (stun > 0)
             {
-                if (--stun == 0 && State == FighterState.GuardBreak)
+                if (--stun == 0 && (State == FighterState.GuardBreak || State == FighterState.KnockedDown))
                 {
-                    SetVitals(Health, MaxGuard, Special);
+                    if (State == FighterState.GuardBreak)
+                    {
+                        SetVitals(Health, MaxGuard, Special);
+                    }
                     immunity = WakeupFrames;
-                    if (playingClip == "GuardBreak")
+                    if (playingClip == "GuardBreak" || State == FighterState.KnockedDown)
                         PlayClip("GetUp");
                 }
                 return;
@@ -378,7 +383,7 @@ namespace WobbleBrawl.Gameplay
             float horizontal = Mathf.Clamp(intent.Move, -1f, 1f);
             if (horizontal != 0f)
                 Facing = horizontal > 0f ? 1 : -1;
-            SetHorizontal(horizontal * character.MoveSpeed * waterMove + (grounded ? conveyorSpeed : 0f));
+            SetHorizontal(horizontal * character.MoveSpeed * waterMove * stageMove + (grounded ? conveyorSpeed : 0f));
             if (intent.Jump && grounded)
                 body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump * stageJump, 0f);
             if (grounded && State == FighterState.Airborne && !intent.Jump)
@@ -479,6 +484,7 @@ namespace WobbleBrawl.Gameplay
         internal void SetConveyorSpeed(float speed) => conveyorSpeed = speed;
 
         internal void SetStageJumpMultiplier(float multiplier) => stageJump = multiplier;
+        internal void SetStageMovementMultiplier(float multiplier) => stageMove = multiplier;
 
         internal bool TryBounceFromStage(float multiplier)
         {
@@ -553,6 +559,10 @@ namespace WobbleBrawl.Gameplay
             accumulatedStun += stun;
             comboHits++;
             State = !IsAlive ? FighterState.KnockedOut : result.GuardBroken ? FighterState.GuardBreak : FighterState.HitStun;
+            if (IsAlive && info.Move.KnocksDown && !result.Blocked)
+            {
+                State = FighterState.KnockedDown;
+            }
             bool popped = IsAlive && inflation != null && inflation.RegisterHit();
             if (result.GuardBroken || !IsAlive)
                 inflation?.SetBlocking(false, false);
@@ -563,7 +573,7 @@ namespace WobbleBrawl.Gameplay
             }
             if (inflation != null)
                 VitalsChanged?.Invoke(this);
-            PlayClip(!IsAlive ? "Knockdown" : popped ? "Deflate" : result.GuardBroken ? "GuardBreak" :
+            PlayClip(!IsAlive || State == FighterState.KnockedDown ? "Knockdown" : popped ? "Deflate" : result.GuardBroken ? "GuardBreak" :
                 info.Move.HeavyReaction ? "HitHeavy" : "HitLight");
             float bonusPushback = externalHit || result.Blocked || info.Attacker == null
                 ? 0f : info.Attacker.ConsumeItemPushback();

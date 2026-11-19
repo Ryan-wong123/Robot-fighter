@@ -59,3 +59,7 @@ Run tests with python -m unittest discover -s Tools/Audio -p test_voice_pipeline
 ## Bouncy Castle Fair cues
 
 `python Tools/Audio/generate_fairground.py --output Logs/FairAudioNew` writes original FairMusic/FairAmbience loops (8 s each), FairPadWarning/FairPump warnings (2 s each) and FairBoing (0.65 s) into fresh outputs. Synthesized from oscillators/noise with a fixed seed, with no sampled recordings. Mono PCM16 24 kHz exports live under `Assets/_Project/Art/Audio/Resources/Audio/`; [provenance](../../Art/_Source/BouncyCastleFair/provenance.json) records hashes. Music routes through AudioManager's music bus; ambience/warnings/boings respect SFX settings and pause. Final audio polish remains M4-09.
+
+## Giant Sandbox cues
+
+`python Tools/Audio/generate_sandbox.py --output Logs/SandAudioNew` creates original SandMusic (plucked-string/bongo) and SandAmbience loops (8 s), SandPurr and SandSwirl warnings (2 s), and SandThump (0.3 s). Deterministic oscillators/noise, with no sampled recordings. Mono PCM16 24 kHz exports live in `Assets/_Project/Art/Audio/Resources/Audio/`; [provenance](../../Art/_Source/GiantSandbox/provenance.json) records exact hashes. Music uses the music bus, other cues use SettingsAudioSource SFX volume/pause. Final polish remains M4-09.

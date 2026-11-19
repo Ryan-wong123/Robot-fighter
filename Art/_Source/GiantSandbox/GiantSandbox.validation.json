@@ -1,0 +1,22 @@
+{
+  "triangles": 24592,
+  "meshes": [
+    "SM_Backdrop",
+    "SM_Paw",
+    "SM_Shadow",
+    "SM_Whiskers",
+    "SM_Spiral"
+  ],
+  "materials": 1,
+  "atlas": [
+    1024,
+    1024
+  ],
+  "half_width": 7,
+  "sand_centers": [
+    -3,
+    0,
+    3
+  ],
+  "validation_errors": []
+}

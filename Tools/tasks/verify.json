@@ -241,5 +241,13 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode SandboxHazardTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
+  ],
+  "M4-05": [
+    "python3 Tools/tasks/check_giant_sandbox.py",
+    "bash Tools/tasks/run_unity_tests.sh EditMode GiantSandboxTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode BouncyCastleTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode SandboxHazardTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
   ]
 }

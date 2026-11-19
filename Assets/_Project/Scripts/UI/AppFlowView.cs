@@ -73,8 +73,9 @@ namespace WobbleBrawl.UI
                 caption.fontSize = 22;
                 button.onClick.AddListener(() => app.SelectStage(choice));
                 var rect = (RectTransform)button.transform;
-                Place(rect, 218f, 62f, 47f);
-                rect.anchoredPosition += Vector2.right * ((index - (stageButtons.Length - 1) * .5f) * 235f);
+                float stageWidth = Mathf.Min(218f, 1080f / Mathf.Max(1, stageButtons.Length) - 12f);
+                Place(rect, stageWidth, 62f, 47f);
+                rect.anchoredPosition += Vector2.right * ((index - (stageButtons.Length - 1) * .5f) * (stageWidth + 12f));
                 stageButtons[index] = button;
                 if (app.GetStage(index).Thumbnail != null)
                 {

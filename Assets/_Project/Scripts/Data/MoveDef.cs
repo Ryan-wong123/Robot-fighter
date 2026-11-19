@@ -23,6 +23,7 @@ namespace WobbleBrawl.Data
         [Min(0)] public int HitIntervalFrames;
         public bool AlternateSides;
         public bool HeavyReaction;
+        public bool KnocksDown;
         [Min(0)] public float ForwardSpeed;
         [Min(0)] public float HopSpeed;
         [Min(0)] public float LaunchSpeed;

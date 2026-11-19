@@ -679,8 +679,21 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 ### M4-05 — Stage 4: Giant Sandbox
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M2-03
-- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5; docs/art_prompts.md stage reference
+- **Done when:** the original toon-shaded sandbox is selectable and both telegraphed hazards, defensive avoidance, knockdown recovery, item/AI integration, rule toggles, resets and Android checks pass.
+
+**Implementation:** [source notes](../Art/_Source/GiantSandbox/README.md) record five original Blender meshes, 24,592 triangles, one packed atlas, thumbnail and five synthesized audio cues. GiantSandboxContent installs a copied scene additively and publishes StageDef metadata last. GiantSandboxDef stores tuning; SandboxRules handles pure swept contact and patch geometry. GiantSandboxHazards alternates a zero-damage knockdown sweep and grounded movement slowdown using the shared seeded clock. The castle remains decorative; the proposed shelter is not active. Coin gating remains M4-08.
+
+**Verification status:** Blender validation passed transforms, UVs, one atlas, mesh separation and budget. FBX round-trip retained five meshes and atlas UVs. Standalone .NET checks passed 1,001 bidirectional sweep samples, swept contact, jump/block avoidance and grounded patch edges. Runtime/editor/test sources compile against installed Unity libraries. Exact source/export/audio hashes are checked by check_giant_sandbox.py. Native Unity tests, gameplay and Android remain pending.
+
+**Manual verification:**
+1. Stop Play Mode, let Unity import/recompile, then Boot > Quick Fight > Giant Sandbox. If missing, run **Wobble Brawl > Stages > Build Giant Sandbox** outside Play Mode and restart Boot. Check colored sand/timber, open red bucket, shovel/rake/blocks, castle, green fence/garden, toon bands/outline, thumbnail and music. No pink/white missing-texture surfaces; all five stage buttons must remain readable and clickable on a phone. Direct play of GiantSandbox should also work.
+2. Press Space to pause the AI. Around 15 s, watch for an approaching paw shadow, twitching whiskers and purr for two seconds. Take an unblocked sweep: health must stay unchanged, the fighter should be pushed, fall into Knockdown and recover through GetUp with normal controls returning. The paw should hit at most once per pass. On later sweeps hold S or jump above the low paw to avoid it; a block must not drain guard. Paw passes should alternate entry sides. The castle does not shelter fighters.
+3. At the next hazard, find the pulsing/swirl warning. The active spiral should halve ground movement inside its patch, with no health loss; leave or jump out to regain normal speed immediately. Jump launch height, block, attacks and incoming knockback should remain normal. Later sand turns should use the other patch centers (-3/0/+3 m), one at a time. Paw and sand must not overlap.
+4. Check items at left/center/right, normal combos/specials for all four fighters, AI guarding/jumping against the paw and leaving sand on Hard, and stage-edge containment during launches. Compare normal ground speed before/after slowdown. Ensure a prior knockdown does not refill guard unexpectedly.
+5. Pause during warnings and hazards: timers, visuals and SFX must pause/resume. Change music/SFX volumes. End rounds during each hazard: no lingering paw/spiral/audio/slowdown next round; paw restarts after the opening delay. Verify KO zoom/slow motion and subsequent movement/attacks.
+6. In a fresh setup turn Hazards Off: no paw, spiral warning or slowdown; Items stays independently configurable. Rematch must retain stage, fighters and rules. Tied-timeout sudden death must stop hazards and clear slowdown.
+7. Run EditMode GiantSandboxTests, BouncyCastleTests, SandboxHazardTests, AppFlowTests and AudioManagerTests. Play a full Android match for safe-area UI, touch controls, clear warnings, recovery, audio, KO/reset and the 60 FPS target.
 
 ### M4-11 — Boss stage: Toy Chest Showdown (art + Block Rain and Music Box Tilt hazards)
 - **Section:** M4 — Content (weeks 11-14)

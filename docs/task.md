@@ -103,7 +103,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [~] **M4-03** Madame Plush (model, rig, animations, data) (after: M1-14)
 - [ ] **M4-10** Mr. Jack boss fighter (model, rig, two-phase animations, boss AI profile, voice barks) (after: M1-14, M2-07)
 - [~] **M4-04** Stage 3: Bouncy Castle Fair (after: M2-03)
-- [ ] **M4-05** Stage 4: Giant Sandbox (after: M2-03)
+- [~] **M4-05** Stage 4: Giant Sandbox (after: M2-03)
 - [ ] **M4-11** Boss stage: Toy Chest Showdown (art + Block Rain and Music Box Tilt hazards) (after: M2-03)
 - [ ] **M4-06** Items up to 12 (after: M2-02)
 - [ ] **M4-07** Arcade Ladder mode (after: M3-03, M1-08, M4-10, M4-11)

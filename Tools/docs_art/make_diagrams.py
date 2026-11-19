@@ -172,14 +172,14 @@ def sandbox(layer):
             s += "<rect x='%.1f' y='%.1f' width='%.1f' height='%.1f' fill='#d9b27a' stroke='%s' stroke-width='3'/>\n" % (X(-7) + i * PX + 6, Y(2.8), PX - 12, 2.4 * PX, INK)
         s += t(X(0), Y(3.1), 'plastic fence + garden', 11, INK, 'middle')
     else:
-        s += rect(-0.9, 0, 1.8, 1.1, '#f3d28b') + t(X(0), Y(1.2), 'sandcastle (safe zone)', 11, INK, 'middle')
+        s += rect(-0.9, 0, 1.8, 1.1, '#f3d28b') + t(X(0), Y(1.2), 'sandcastle (background)', 11, INK, 'middle')
         s += rect(-5.8, 0, 0.9, 0.9, '#ff7a3d') + t(X(-5.35), Y(1.0), 'bucket', 11, INK, 'middle')
         s += "<line x1='%.1f' y1='%.1f' x2='%.1f' y2='%.1f' stroke='#3b8fe0' stroke-width='8' stroke-linecap='round'/>\n" % (X(4.9), Y(0.8), X(5.6), Y(0.1))
         s += t(X(5.2), Y(1.0), 'shovel', 11, INK, 'middle')
-        s += "<ellipse cx='%.1f' cy='%d' rx='55' ry='14' fill='#b78a4d' stroke='%s' stroke-width='3'/><path d='M %.1f %d q 15 -8 30 0 q -15 8 -30 0' fill='none' stroke='%s' stroke-width='3'/>\n" % (X(-1.9), GY + 6, INK, X(-1.9) - 15, GY + 6, INK)
-        s += t(X(-1.9), GY + 40, 'sinking sand (x0.5)', 11, '#a31', 'middle')
+        s += "<ellipse cx='%.1f' cy='%d' rx='55' ry='14' fill='#b78a4d' stroke='%s' stroke-width='3'/><path d='M %.1f %d q 15 -8 30 0 q -15 8 -30 0' fill='none' stroke='%s' stroke-width='3'/>\n" % (X(-3), GY + 6, INK, X(-3) - 15, GY + 6, INK)
+        s += t(X(-3), GY + 40, 'sinking sand (x0.5; cycles -3/0/+3 m)', 11, '#a31', 'middle')
         s += arrow(X(-6.8), Y(0.8), X(5.5), Y(0.8))
-        s += t(X(-1.0), Y(0.8) - 12, 'cat paw sweep path (shadow telegraphs from the left, &gt;= 1.5 s; safe behind the sandcastle)', 11, '#a31', 'middle')
+        s += t(X(-1.0), Y(0.8) - 12, 'cat paw sweep alternates sides (shadow + whiskers warn 2 s; jump or block to avoid)', 11, '#a31', 'middle')
     return s
 
 
@@ -225,6 +225,8 @@ def make_stages():
         spawns = (-4.6, -1.4, 1.6) if 'toy_chest' in rel else (-4.5, -1.5, 1.5, 4.5)
         if 'castle' in rel:
             spawns = (-3, 0, 3)
+        if 'giant_sandbox' in rel:
+            spawns = (-4.5, 0, 4.5)
         body, h = stage(name, sub, sky, floor, props, legend, spawns=spawns, extra_bounds=extra)
         write(rel, 1200, h, body)
 

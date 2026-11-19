@@ -101,6 +101,7 @@ namespace WobbleBrawl.Core
                 "BathtubBrawl" => "BathtubMusic",
                 "KitchenCounter" => "KitchenMusic",
                 "BouncyCastleFair" => "FairMusic",
+                "GiantSandbox" => "SandMusic",
                 "CombatSandbox" => "SandboxMusic",
                 _ => "MenuMusic"
             };

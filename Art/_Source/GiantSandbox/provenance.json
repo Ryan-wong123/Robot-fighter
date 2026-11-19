@@ -1,0 +1,21 @@
+{
+  "source": "Original procedural geometry, palette and synthesized audio, based on the owner-approved reference. No external mesh, texture or sampled audio.",
+  "reference": "docs/images/maps/concept/giant_sandbox_colorkey.png",
+  "blender": "4.5.3 LTS",
+  "hash_format": "SHA-256; Python scripts normalized to LF, binary files exact.",
+  "files": {
+    "Tools/Blender/build_giant_sandbox.py": "13d92da3ea01baaa2ecfca989e15fa6cfbc708daf1da2070fe3f75bf62ea8e1c",
+    "Tools/Blender/verify_giant_sandbox.py": "4d0eaf553957c90dc73754954442231fe5c1a2d9f454015f12af3f356ff5b15f",
+    "Tools/Audio/generate_sandbox.py": "8b39c48c5f9c5da812cc9740dc12ebd45b773f67bf3591a9b3cd767775a45f96",
+    "Art/_Source/GiantSandbox/GiantSandbox.blend": "94cb5080661b24584bf1f79f319d254806d2c72f7e458320a2bd73d7071ba2c3",
+    "Assets/_Project/Art/GiantSandbox/GiantSandbox.fbx": "4de9c428192a3355f9d7547e378b75fd459ae4fe277bab904e476b8a94a4a54e",
+    "Assets/_Project/Art/GiantSandbox/GiantSandbox_Atlas.png": "8af9e5a84edc6d172cbd74a5c5b349109c37025ea7650f6e865ca75145af264c",
+    "Assets/_Project/Art/GiantSandbox/GiantSandbox_Thumbnail.png": "970157d53275fbf64c44ca3248ecdaffa338688fb8c2381ed056a5284139d421",
+    "Assets/_Project/Art/Audio/Resources/Audio/SandAmbience.wav": "6cd40001c0db580e7a1fa26c70085ca5900eea09f875aaff03f898449c58da39",
+    "Assets/_Project/Art/Audio/Resources/Audio/SandboxMusic.wav": "02e83919323135c7a9c8a0c966bd3cade345b0eef1292c92d1cbdf4b8130b599",
+    "Assets/_Project/Art/Audio/Resources/Audio/SandMusic.wav": "cabb231c6ab48f556c6c6cda113269305111c78434cff59ff4044c2227c4f20b",
+    "Assets/_Project/Art/Audio/Resources/Audio/SandPurr.wav": "dd30dc60a48c6989958305c44e591dfde2cf45e387372379bb02e575af7517bf",
+    "Assets/_Project/Art/Audio/Resources/Audio/SandSwirl.wav": "22b82994284a9482408b898e68447cea28b1989661cc51a4f04cfe0270f2070e",
+    "Assets/_Project/Art/Audio/Resources/Audio/SandThump.wav": "771a9337429d4495deeaddb3d2ef5ff2847d1d8ab46bd720d3a1fb8d6fe0d966"
+  }
+}
