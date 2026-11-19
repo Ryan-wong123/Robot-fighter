@@ -710,7 +710,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Prerequisites:** M2-03
 - **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/maps.md (stage sheet and section 2); docs/vfx_style.md section 5
 - **Notes:** Boss stage Toy Chest Showdown (maps.md 3.5): Block Rain and Music Box Tilt as HazardDefs, never active together. If the schedule slips, reuse an existing stage with a recolor.
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+- **Done when:** ToyChestTests verifies the authored boss scene, alternate warnings and active phases, and sudden-death cleanup.
+- **Manual checks:** Outside Play Mode use **Wobble Brawl > Create Toy Chest Showdown** and press Play. Verify the toon chest and Mr. Jack, growing block warnings and rattle, falling blocks and bounce, solid blocks after landing, tilt arrow and slower tune, downhill slide without damage, faster phase-two music, standard item drops, and clean round and sudden-death resets. Check the scene is absent from Quick Fight. Arcade Ladder access follows in M4-07.
 
 ### M4-06 — Items up to 12
 - **Section:** M4 — Content (weeks 11-14)

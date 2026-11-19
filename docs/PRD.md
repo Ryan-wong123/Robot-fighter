@@ -242,3 +242,5 @@ Story mode/cutscenes, dialogue or story voice acting (short voice barks and the 
 - Playtest: a first-time player lands a combo and uses an item within their first match.
 
 Held pickups follow the character’s animated hand. Blobby and Madame Plush use palm-centered grip sockets; item size is preserved across scaled rigs, use and pool reuse.
+
+Toy Chest Showdown uses alternating Block Rain and Music Box Tilt in Mr. Jack’s stage. Block Rain deals 10 base damage with bounce. Tilt slides fighters without damage. See the [stage rules](maps.md#35-toy-chest-showdown-boss-stage-arcade-finale) for timing and starting values.

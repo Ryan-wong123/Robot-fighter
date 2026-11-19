@@ -291,5 +291,8 @@
   "M4-17": [
     "python3 Tools/tasks/test_tick_tasks.py",
     "python3 Tools/tasks/test_run_unity_tests.py"
+  ],
+  "M4-11": [
+    "python3 Tools/tasks/run_unity_tests.py EditMode ToyChestTests"
   ]
 }

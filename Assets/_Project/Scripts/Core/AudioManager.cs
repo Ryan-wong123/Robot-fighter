@@ -103,6 +103,7 @@ namespace WobbleBrawl.Core
                 "KitchenCounter" => "KitchenMusic",
                 "BouncyCastleFair" => "FairMusic",
                 "GiantSandbox" => "SandMusic",
+                "ToyChestShowdown" => "", // The stage controls its own tempo.
                 "CombatSandbox" => "SandboxMusic",
                 _ => "MenuMusic"
             };

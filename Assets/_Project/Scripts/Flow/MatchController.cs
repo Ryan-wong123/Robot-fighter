@@ -14,6 +14,7 @@ namespace WobbleBrawl.Flow
         [SerializeField, Min(0f)] private float betweenRoundsSeconds = 2f;
         [SerializeField] private MatchMode mode;
         [SerializeField] private bool isBossStage;
+        [SerializeField] private CharacterDef stageOpponent;
 
         public event Action<int> RoundStarted;
         public event Action<RoundResult> RoundEnded;
@@ -29,7 +30,7 @@ namespace WobbleBrawl.Flow
         internal void ConfigureDifficulty(AIDifficulty difficulty) => round.ConfigureDifficulty(difficulty);
 
         internal void ConfigurePlayer(CharacterDef fighter) => round.ConfigurePlayer(fighter);
-        internal void ConfigureOpponent(CharacterDef fighter) => round.ConfigureOpponent(fighter);
+        internal void ConfigureOpponent(CharacterDef fighter) => round.ConfigureOpponent(stageOpponent != null ? stageOpponent : fighter);
 
         /// <summary>Apply setup before round one; rules stay fixed for the match.</summary>
         public void ConfigureRules(MatchRules rules)
@@ -49,6 +50,7 @@ namespace WobbleBrawl.Flow
 
         private void Start()
         {
+            if (stageOpponent != null) ConfigureOpponent(stageOpponent);
             ConfigureRules(MatchRules.Default);
             AppStateMachine.AttachMatch(this);
             BeginRound();

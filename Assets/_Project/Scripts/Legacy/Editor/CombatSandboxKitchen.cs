@@ -174,7 +174,7 @@ public static partial class CombatSandboxBuilder
         AssetDatabase.SaveAssets();
     }
 
-    private static void ConfigureKitchenArray(KitchenHazards kitchen, string field, Object[] values)
+    private static void ConfigureKitchenArray(Object kitchen, string field, Object[] values)
     {
         var data = new SerializedObject(kitchen);
         var array = data.FindProperty(field);
