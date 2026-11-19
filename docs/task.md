@@ -111,9 +111,9 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [ ] **M4-09** Music, SFX and fighter voice barks final pass (licenses recorded) (after: M3-08, M3-09)
 - [ ] **M4-12** Unified persistent twelve-item training sandbox; remove test arenas from selection and restrict debug shortcuts (after: M4-06)
 
-- [ ] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)
+- [~] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)
 
-- [ ] **M4-14** Bathtub and Kitchen arena selection thumbnails (after: M3-03)
+- [~] **M4-14** Bathtub and Kitchen arena selection thumbnails (after: M3-03)
 
 - [ ] **M4-15** Restrict item lineups to training and randomize normal arena spawn intervals (after: M2-01, M4-06)
 

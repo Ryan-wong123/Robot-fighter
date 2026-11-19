@@ -943,3 +943,7 @@ M4-12 verification record: standalone scene-policy checks passed; Core, Data, Ga
 ### M4 completion audit — 2026-11-20
 
 At the owner's request, the completion tool was run for M4-01 through M4-06 and M4-12. All six configured content snapshot checks passed, as did documentation links and generated-diagram synchronization. Owner acceptance records remain preserved above. Native Unity suites could not run because UNITY_PATH is unset (the equivalent Python availability runner was used for the Bash commands without changing their test filters). M4-01–06 remain `[~]`; M4-12 remains blocked by M4-06. No task checkboxes or verification requirements were bypassed. No current M4 native test results were found in the local Logs artifacts.
+
+### M4-13–16 implementation audit — 2026-11-20
+
+All four features were deliberately implemented for earlier owner requests: arena difficulty selection, original-arena thumbnails, staggered weighted drops, and Blobby/Plush hand grips. The completion tool moved M4-13 and M4-14 to `[~]` because native Unity checks are unavailable; the preview PNG check passed. M4-15 remains blocked by M4-06 and M4-16 by M4-03. M4-15 owner gameplay acceptance is recorded above; no additional hand-grip acceptance is inferred. These unchecked prerequisites do not mean the features need reimplementation. No configured checks were weakened.
