@@ -24,6 +24,7 @@ namespace WobbleBrawl.Data
         public bool AlternateSides;
         public bool HeavyReaction;
         public bool KnocksDown;
+        public bool GroundShockwave;
         [Min(0)] public float ForwardSpeed;
         [Min(0)] public float HopSpeed;
         [Min(0)] public float LaunchSpeed;

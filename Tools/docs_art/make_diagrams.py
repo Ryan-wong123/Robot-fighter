@@ -240,7 +240,7 @@ PALETTE = {
     'Sir Noodle': dict(base='#FF8FB1', shade='#8FD3FF', ink='#6B2A44', acc='#D9D9E8'),
     'Puffin Pete': dict(base='#3A8DFF', shade='#FFFFFF', ink='#1D4A94', acc='#FFB52E'),
     'Madame Plush': dict(base='#B9794A', shade='#E8C07A', ink='#5A3318', acc='#E8433F'),
-    'Mr. Jack (boss)': dict(base='#7B3FA8', shade='#FFE9C9', ink='#3A1A55', acc='#FFD23F'),
+    'Mr. Jack (boss)': dict(base='#61199E', shade='#FFE8B0', ink='#170524', acc='#FAB814'),
 }
 K = 120.0  # px per metre for the lineup
 LG = 400   # ground y

@@ -66,6 +66,7 @@ namespace WobbleBrawl.Gameplay
         }
 
         private static bool IsPhysicalBone(string name) =>
+            name.StartsWith("Spring", System.StringComparison.Ordinal) ||
             name == "Pelvis" || name == "Spine" || name == "Chest" || name == "Head" ||
             name.StartsWith("Upper_Arm.") || name.StartsWith("Lower_Arm.") ||
             name.StartsWith("Upper_Leg.") || name.StartsWith("Lower_Leg.");

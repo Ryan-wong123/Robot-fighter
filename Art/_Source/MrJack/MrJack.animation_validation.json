@@ -1,0 +1,77 @@
+{
+  "actions": 45,
+  "loops": 8,
+  "frame_data": {
+    "MrJack_Kick1": {
+      "startup": 27,
+      "active": 5,
+      "recovery": 20
+    },
+    "MrJack_Kick2": {
+      "startup": 30,
+      "active": 5,
+      "recovery": 21
+    },
+    "MrJack_OutKick1": {
+      "startup": 20,
+      "active": 5,
+      "recovery": 17
+    },
+    "MrJack_OutKick2": {
+      "startup": 23,
+      "active": 5,
+      "recovery": 18
+    },
+    "MrJack_OutPunch1": {
+      "startup": 14,
+      "active": 5,
+      "recovery": 23
+    },
+    "MrJack_OutPunch2": {
+      "startup": 17,
+      "active": 5,
+      "recovery": 24
+    },
+    "MrJack_OutPunch3": {
+      "startup": 20,
+      "active": 5,
+      "recovery": 25
+    },
+    "MrJack_OutPunch4": {
+      "startup": 23,
+      "active": 5,
+      "recovery": 26
+    },
+    "MrJack_OutSpecial": {
+      "startup": 75,
+      "active": 5,
+      "recovery": 20
+    },
+    "MrJack_Punch1": {
+      "startup": 21,
+      "active": 5,
+      "recovery": 26
+    },
+    "MrJack_Punch2": {
+      "startup": 24,
+      "active": 5,
+      "recovery": 27
+    },
+    "MrJack_Punch3": {
+      "startup": 27,
+      "active": 5,
+      "recovery": 28
+    },
+    "MrJack_Punch4": {
+      "startup": 30,
+      "active": 5,
+      "recovery": 29
+    },
+    "MrJack_Special": {
+      "startup": 75,
+      "active": 5,
+      "recovery": 20
+    }
+  },
+  "errors": []
+}

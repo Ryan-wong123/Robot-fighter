@@ -223,13 +223,14 @@ namespace WobbleBrawl.UI
             puffinPeteButton.gameObject.SetActive(fighterSelection && app.HasPuffinPete);
             madamePlushButton.gameObject.SetActive(fighterSelection && app.HasMadamePlush);
             opponentButton.gameObject.SetActive(fighterSelection &&
-                (app.HasSirNoodle || app.HasPuffinPete || app.HasMadamePlush));
+                (app.HasSirNoodle || app.HasPuffinPete || app.HasMadamePlush || app.HasMrJack));
             opponentCaption.text = "AI: " + app.OpponentName;
             hazardsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             itemsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             for (int index = 0; index < difficultyButtons.Length; index++)
             {
                 difficultyButtons[index].gameObject.SetActive(stageSelection && !settingsOpen);
+                difficultyButtons[index].interactable = !app.BossOpponentSelected;
                 difficultyButtons[index].targetGraphic.color = index == (int)app.Difficulty ? Green : Cream;
             }
             hazardsToggle.SetIsOnWithoutNotify(app.Rules.HazardsEnabled);
@@ -283,7 +284,8 @@ namespace WobbleBrawl.UI
                     {
                         Place(title.rectTransform, 640f, 78f, 250f);
                         if (app.RulesLocked)
-                            description.text = "Arcade and boss matches always use items and hazards.";
+                            description.text = app.BossOpponentSelected ? "Mr. Jack uses Boss AI; items and hazards are on." :
+                                "Arcade and boss matches always use items and hazards.";
                         Place(description.rectTransform, 640f, 52f, -6f);
                         Place((RectTransform)primary.transform, 310f, 58f, -204f);
                         Place((RectTransform)secondary.transform, 310f, 58f, -278f);

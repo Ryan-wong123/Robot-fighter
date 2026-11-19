@@ -170,8 +170,8 @@ The procedural Blender blockout uses a 16-bone rig and UV-mapped skinned meshes 
 - **Sounds:** soft thud, creak of fabric, a sweet bell on win.
 - **M4-03 implementation:** [source, budgets, frame data and import notes](../Art/_Source/MadamePlush/README.md). Original 1.8 m teddy with 11,928 triangles, 17 bones (16 deform), 1024 cloth atlas, shared toon graph/brown outline, 22 Generic clips and three independent stuffing morphs. Thresholds are inclusive at 180/120/60 HP; seams persist for the round, while the +10% damage bonus follows current living health. Punches 12/6 and kicks 14/7 body/leg; normal reach 1.305 m. Stitch Uppercut uses 24/5/35 frames, 24/12 damage, pushback 8 and unblocked upward speed 7. Surviving launch victims stay within ±6.2 m for 90 simulation frames. Cotton bursts, cloth creaks, TOUGH! HUD and winner bell provide feedback. Available through Boot selection and AI; unlock gating is M4-08. Native Unity/Android verification remains pending.
 
-### 4.5 Mr. Jack (Boss, Arcade Ladder finale) [PROPOSED concept]
-The owner confirmed a boss fighter is needed. The concept below is a proposal.
+### 4.5 Mr. Jack (Boss, Arcade Ladder finale)
+The owner requested full M4-10 implementation from the supplied reference sheet and two-phase concept.
 - **Concept:** a jack-in-the-box jester on a coiled spring, with a wide painted grin and a crank handle on his side.
 - **Concept art:** turnaround sheet, expressions and key poses (sources in [`SOURCES.md`](images/characters/concept/SOURCES.md)):
 
@@ -187,7 +187,7 @@ The owner confirmed a boss fighter is needed. The concept below is a proposal.
 - **Stats:** HP 320, speed 2.8, jump 12, guard meter 120, damage x1.1, reach x1.2 **(start)**. AI profile: aggressive, hard tier, uses the stage's items and hazards.
 - **Special:** *Surprise!*: he vanishes into the box and pops out under the player with a loud sproing (telegraphed by a music-box tune and a ground marker).
 - **Rig/ragdoll:** the spring is a chain of 4-6 bones driven by a spring simulation (visual); the 12-body ragdoll covers the jester torso and arms. Generic rig. Stage: Toy Chest Showdown ([`maps.md`](maps.md) 3.5).
-- **Schedule fallback:** if time runs short, the boss becomes a recolored, buffed existing fighter on the boss stage, so Arcade Ladder can still ship (see [`PRD.md`](PRD.md) section 15.1 cut lines).
+- **M4-10 implementation:** [Source, all frame data, rig/import and voice provenance](../Art/_Source/MrJack/README.md). Original 7,256-triangle jester, 18 bones, 1024 palette atlas, shared URP toon/outline, 45 clips (22 per phase plus ejection), twelve-body physics presentation. At 159/320 HP and below while alive he ejects, extends the spring and uses 4.2 m/s movement with faster phase-two moves; exactly half health remains phase one. Phase state resets each round. *Surprise!* gives a fixed-target floor ring/music-box warning for 75 steps (1.5 s), hides the jester in the box and pops at the mark; move away or interrupt to counter. Lid slam has a low ground shockwave, spring dive hops forward and the crank spins. The approved laugh is reused for throttled barks, phase and win. Mr. Jack is selectable only as an AI opponent for testing on existing arenas; he forces Boss AI and both chaos options. Boss arena/ladder remain M4-11/M4-07. Native Unity and Android acceptance are pending.
 
 ## Reference images
 The lineup and ragdoll diagrams are generated schematics (proportions, relative heights, proposed palettes). They are regenerated with `python3 Tools/docs_art/make_diagrams.py`; the palette chips there are the **proposed** colors, so update the generator when the final colors are chosen.
@@ -276,8 +276,8 @@ Rules: record the source and license of anything you did not create (`SOURCES.md
 6. Mr. Jack is AI-only at launch.
 
 **Still open [OPEN]:**
-1. VoxCPM2 license, output rights, hardware needs and clip quality (task D-08).
-2. Boss concept sign-off (Mr. Jack's look, moves and phases).
+1. Final voice production, mixing and per-clip review (M4-09); the approved D-08 audition findings remain recorded in the review document.
+2. Mr. Jack visual/combat/Android acceptance of the implemented M4-10 content; the concept is approved for implementation.
 
 CombatSandbox samples the imported Blobby clips directly on the visual hierarchy. Unity entered the Generic controller’s Walk state without changing the rig’s bone rotations, while direct clip sampling moved the intended bones. Hit-stop pauses the visual clip clock.
 

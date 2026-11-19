@@ -39,15 +39,18 @@ namespace WobbleBrawl.Flow
         public bool HasMadamePlush => madamePlush != null;
         public bool HasPuffinPete => puffinPete != null;
         private CharacterDef selectedOpponent;
+        private CharacterDef mrJack;
+        public bool HasMrJack => mrJack != null;
         public bool HasSirNoodle => sirNoodle != null;
         public string OpponentName => selectedOpponent != null ? selectedOpponent.DisplayName : "Blobby";
         private MatchRules requestedRules = MatchRules.Default;
         public AIDifficulty Difficulty { get; private set; } = AIDifficulty.Normal;
         public MatchMode Mode { get; private set; }
-        public bool RulesLocked => Mode == MatchMode.Arcade ||
+        public bool BossOpponentSelected => selectedOpponent != null && selectedOpponent.Boss != null;
+        public bool RulesLocked => BossOpponentSelected || Mode == MatchMode.Arcade ||
             (StageCount > 0 && GetStage(StageIndex).IsBossStage);
         public MatchRules Rules => requestedRules.Resolve(Mode,
-            StageCount > 0 && GetStage(StageIndex).IsBossStage);
+            (selectedOpponent != null && selectedOpponent.Boss != null) || (StageCount > 0 && GetStage(StageIndex).IsBossStage));
         public bool IsPrimary => running == this;
         public bool IsLoading { get; private set; }
         public AppState State { get; private set; }
@@ -76,6 +79,7 @@ namespace WobbleBrawl.Flow
             sirNoodle = Resources.Load<CharacterDef>("Characters/SirNoodle");
             puffinPete = Resources.Load<CharacterDef>("Characters/PuffinPete");
             madamePlush = Resources.Load<CharacterDef>("Characters/MadamePlush");
+            mrJack = Resources.Load<CharacterDef>("Characters/MrJack");
             InstallStages();
             DontDestroyOnLoad(gameObject);
             AudioManager.Ensure(transform);
@@ -157,7 +161,7 @@ namespace WobbleBrawl.Flow
 
         public void SetDifficulty(AIDifficulty difficulty)
         {
-            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage ||
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Stage || BossOpponentSelected ||
                 difficulty < AIDifficulty.Easy || difficulty > AIDifficulty.Hard)
                 return;
             Difficulty = difficulty;
@@ -183,17 +187,18 @@ namespace WobbleBrawl.Flow
         public void ToggleOpponent()
         {
             if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter ||
-                (sirNoodle == null && puffinPete == null && madamePlush == null))
+                (sirNoodle == null && puffinPete == null && madamePlush == null && mrJack == null))
                 return;
-            selectedOpponent = selectedOpponent == blobby ? (sirNoodle ?? puffinPete ?? madamePlush ?? blobby) :
-                selectedOpponent == sirNoodle ? (puffinPete ?? madamePlush ?? blobby) :
-                selectedOpponent == puffinPete ? (madamePlush ?? blobby) : blobby;
+            selectedOpponent = selectedOpponent == blobby ? (sirNoodle ?? puffinPete ?? madamePlush ?? mrJack ?? blobby) :
+                selectedOpponent == sirNoodle ? (puffinPete ?? madamePlush ?? mrJack ?? blobby) :
+                selectedOpponent == puffinPete ? (madamePlush ?? mrJack ?? blobby) :
+                selectedOpponent == madamePlush ? (mrJack ?? blobby) : blobby;
             Changed?.Invoke();
         }
 
         private void SelectFighter(CharacterDef definition)
         {
-            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || definition == null)
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || definition == null || definition.Boss != null)
                 return;
             selectedFighter = definition;
             Step = SelectionStep.Stage;

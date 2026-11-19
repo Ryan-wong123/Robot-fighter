@@ -1,0 +1,16 @@
+{
+  "source": "Original project-authored content from owner-provided character sheet; no external mesh/texture samples.",
+  "reference": "docs/images/characters/concept/mr_jack_turnaround.png",
+  "files": {
+    "Art/_Source/MrJack/MrJack.blend": "e13a6a8adea4ed153d71d6384fa9d365859e7557bc212f7b42b492f93b33e2eb",
+    "Art/_Source/MrJack/MrJack.validation.json": "3afb1a620025115aa2a84f70d4e58ab9e04c973a5f7055419b19c912cab0e234",
+    "Art/_Source/MrJack/MrJack.animation_validation.json": "043f64ef6a5a301abb91f25210765f2a70ffc55273aa34f5676e7717d420b332",
+    "Assets/_Project/Art/Characters/MrJack/MrJack.fbx": "a0b66109f7404e7542172745ef10424994db3572f3b5fed71e49bad1bd47b5c3",
+    "Assets/_Project/Art/Characters/MrJack/MrJack_Body_Albedo.png": "adcd89b5986851520797c763f52e62c921eceb9e166c23738d013e3494b8ff35",
+    "Assets/_Project/Art/Audio/Resources/Audio/MrJackLaugh.wav": "3d115da5dbc19b879e606b2ad9ea39b9860565b895717d33949d0b116bd9fb27",
+    "Assets/_Project/Art/Audio/Resources/Audio/MrJackMusicBox.wav": "ef612dd636daf1866fbe0a32bca9f14a307f0f6e342080e973e39c5d00a498e9",
+    "Tools/Blender/build_mr_jack.py": "b7bc367798263e28d3d0251af20d387d22b9eb38cae8a7132d1af47b1b7a1b28",
+    "Tools/Blender/verify_mr_jack.py": "57ea8685d078f314a858d6aa9fe6f46e9f06afe4eeb809256668431691a44a2e",
+    "Tools/Audio/generate_jack_cues.py": "a043eb36687d02e6d08b6a07e76055ca9b8b30d5ba60c735d820bbc74857ec11"
+  }
+}

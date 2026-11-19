@@ -1,0 +1,12 @@
+{
+  "laugh": {
+    "source": "Art/_Source/Audio/D08/shortened/mrjack_win_v01.wav",
+    "sha256": "3d115da5dbc19b879e606b2ad9ea39b9860565b895717d33949d0b116bd9fb27",
+    "review": "Owner approved this edited audition; reused for attack/phase/win barks with runtime throttling.",
+    "rights_review": "Tools/Audio/D08_REVIEW.md"
+  },
+  "warning": {
+    "source": "Tools/Audio/generate_jack_cues.py",
+    "license": "Original project-authored synthesis; no external samples."
+  }
+}

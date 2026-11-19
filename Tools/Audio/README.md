@@ -67,3 +67,7 @@ Run tests with python -m unittest discover -s Tools/Audio -p test_voice_pipeline
 ## Additional item cues (M4-06)
 
 `python Tools/Audio/generate_novelty_cues.py --output Logs/ItemAudioNew` writes six original short toy cues: ItemPie, ItemBoomerang, ItemPogo, ItemBubble, ItemCar and ItemJack. Mono PCM16 24 kHz; boomerang/car last 0.45 s, others 0.3 s. Oscillators/noise only, fixed seed, no sampled recordings. Exports live in `Assets/_Project/Art/Audio/Resources/Audio/`; [provenance](../../Art/_Source/NoveltyItems/provenance.json) records hashes. AudioCue ids use the existing AudioManager SFX pool/settings; final mixing polish remains M4-09. See [item data](../../docs/items.md) for trigger events.
+
+## Mr. Jack cues (M4-10)
+
+`python Tools/Audio/generate_jack_cues.py` copies the approved 1.141 s D-08 Mr. Jack laugh unchanged and regenerates an original 1.5 s music-box warning. Both exports are mono PCM16 24 kHz in the Audio resource folder. [Provenance](../../Art/_Source/MrJack/audio_provenance.json) records the retained audition hash, review and rights-review location. Boss attack barks are throttled; ejection/win force one laugh; phase two pitches playback to 1.12. These use the existing SFX gain/pause adapter. Full new phrase generation, independent voice volume and final mixing remain M4-09.

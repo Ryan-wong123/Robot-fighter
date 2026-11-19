@@ -74,6 +74,16 @@ namespace WobbleBrawl.Gameplay
         public int StuffingStage => character.HasStuffingLoss ? StuffingRules.Stage(Health, MaxHealth) : 0;
         public bool IsTough => character.HasStuffingLoss && IsAlive && StuffingStage == 3;
 
+        public BossCombatDef Boss => character.Boss;
+        public bool IsBossSecondPhase => Boss != null && (bossPhaseSeen || BossPhaseRules.IsSecondPhase(Health, MaxHealth));
+        private bool bossPhaseSeen;
+        private float bossTargetX;
+        public bool IsBossSpecialWarning => Boss != null && move != null && IsSpecialMove(move) && moveFrame < move.Startup;
+        public float BossTargetX => bossTargetX;
+        public bool IsBossShockwaveActive => Boss != null && move != null && move.GroundShockwave &&
+            moveFrame >= move.Startup && moveFrame < move.Startup + move.Active;
+        public event Action BossPhaseChanged;
+
         public int AttackDamage(int baseDamage) => character.HasStuffingLoss
             ? StuffingRules.Damage(baseDamage, Health, MaxHealth, character.LowHealthDamageBonus) : baseDamage;
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
@@ -85,7 +95,8 @@ namespace WobbleBrawl.Gameplay
         public bool IsBubbleTrapped => itemStatus.TrapFrames > 0;
         public float CharacterHeight => character.Height;
         private float conveyorSpeed;
-        public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
+        public bool IsSpecialMove(MoveDef attack) => character != null && attack != null &&
+            (attack == character.Special || (Boss != null && attack == Boss.SecondSpecial));
 
         public void ConfigureCharacter(CharacterDef definition)
         {
@@ -186,6 +197,7 @@ namespace WobbleBrawl.Gameplay
 
         public void ResetRound(Vector3 position, int facing)
         {
+            bossPhaseSeen = false;
             inflation?.Reset();
             ragdoll?.Reset();
             SetWater(1f, 1f, 1f);
@@ -199,7 +211,7 @@ namespace WobbleBrawl.Gameplay
             body.linearVelocity = Vector3.zero;
             Facing = facing;
             itemHitCharges = 0;
-            SetVitals(MaxHealth, MaxGuard, 0, true);
+            SetVitals(MaxHealth, MaxGuard, Boss != null ? character.MaxSpecial : 0, true);
             move = comboMove = moveRoot = comboRoot = null;
             moveFrame = comboWindow = stun = immunity = comboHits = accumulatedStun = guardRecovery = 0;
             State = FighterState.Idle;
@@ -239,6 +251,13 @@ namespace WobbleBrawl.Gameplay
             if (!force && Health == health && Guard == guard && Special == special)
                 return;
             Health = health;
+            if (!bossPhaseSeen && IsBossSecondPhase)
+            {
+                bossPhaseSeen = true;
+                playingClip = string.Empty;
+                PlayClip("PhaseChange");
+                BossPhaseChanged?.Invoke();
+            }
             Guard = guard;
             Special = special;
             VitalsChanged?.Invoke(this);
@@ -344,6 +363,13 @@ namespace WobbleBrawl.Gameplay
                 move = null;
             if (move != null)
             {
+                if (Boss != null && IsSpecialMove(move) && moveFrame == move.Startup)
+                {
+                    var destination = new Vector3(bossTargetX, body.position.y, body.position.z);
+                    destination.y = GetItemGroundHeight(destination) + Boss.PopGroundClearance;
+                    body.position = destination;
+                    body.linearVelocity = Vector3.zero;
+                }
                 if (move.ForwardSpeed > 0f)
                 {
                     bool active = moveFrame >= move.Startup && moveFrame < move.Startup + move.Active;
@@ -379,8 +405,11 @@ namespace WobbleBrawl.Gameplay
             bool grounded = Physics.Raycast(body.position + Vector3.up * 0.15f, Vector3.down, 0.25f,
                 groundLayers, QueryTriggerInteraction.Ignore);
             inflation?.SetBlocking(intent.Block && grounded, Guard == MaxGuard);
-            var next = intent.Special && Special == character.MaxSpecial ? character.Special :
-                intent.Punch ? character.Punch : intent.Kick ? character.Kick : null;
+            var punch = IsBossSecondPhase ? Boss.SecondPunch : character.Punch;
+            var kick = IsBossSecondPhase ? Boss.SecondKick : character.Kick;
+            var special = IsBossSecondPhase ? Boss.SecondSpecial : character.Special;
+            var next = intent.Special && Special == character.MaxSpecial ? special :
+                intent.Punch ? punch : intent.Kick ? kick : null;
             if (next != null && grounded)
             {
                 move = comboWindow > 0 && comboMove != null && comboMove.NextInCombo != null &&
@@ -388,8 +417,14 @@ namespace WobbleBrawl.Gameplay
                     ? comboMove.NextInCombo : next;
                 moveRoot = next;
                 inflation?.SetBlocking(false, false);
-                if (next == character.Special)
+                if (IsSpecialMove(next))
+                {
                     SetVitals(Health, Guard, 0);
+                    if (Boss != null && ItemOpponent != null)
+                        bossTargetX = Mathf.Clamp(ItemOpponent.transform.position.x,
+                            hasTrainingBounds ? trainingBounds.x + character.BodyWidth * .5f : Boss.SpecialBounds.x,
+                            hasTrainingBounds ? trainingBounds.y - character.BodyWidth * .5f : Boss.SpecialBounds.y);
+                }
                 moveFrame = 0;
                 hitPulse = -1;
                 hit = false;
@@ -417,7 +452,7 @@ namespace WobbleBrawl.Gameplay
             float horizontal = Mathf.Clamp(intent.Move, -1f, 1f);
             if (horizontal != 0f)
                 Facing = horizontal > 0f ? 1 : -1;
-            SetHorizontal(horizontal * character.MoveSpeed * waterMove * stageMove * itemStatus.SlowPercent / 100f +
+            SetHorizontal(horizontal * (IsBossSecondPhase ? Boss.SecondMoveSpeed : character.MoveSpeed) * waterMove * stageMove * itemStatus.SlowPercent / 100f +
                 (grounded ? conveyorSpeed : 0f));
             if (intent.Jump && grounded)
                 body.linearVelocity = new Vector3(body.linearVelocity.x, character.JumpSpeed * waterJump * stageJump, 0f);
@@ -435,12 +470,14 @@ namespace WobbleBrawl.Gameplay
                 return;
             if ((clip == "Idle" || clip == "Walk") && activeClip != null && clipTime < activeClip.length &&
                 (playingClip == "JumpLand" || playingClip == "Throw" || playingClip == "GetUp" ||
-                 playingClip == "Taunt" || playingClip == "Refill"))
+                 playingClip == "Taunt" || playingClip == "PhaseChange" || playingClip == "Refill"))
                 return;
 
+            string phasePrefix = IsBossSecondPhase && clip != "PhaseChange" && !clip.StartsWith("Out", StringComparison.Ordinal) ? "Out" : "";
+            string clipName = character.AnimationPrefix + "_" + phasePrefix + clip;
             foreach (var candidate in visualClips)
             {
-                if (candidate == null || !candidate.name.EndsWith(character.AnimationPrefix + "_" + clip, StringComparison.Ordinal))
+                if (candidate == null || !candidate.name.EndsWith(clipName, StringComparison.Ordinal))
                     continue;
                 playingClip = clip;
                 activeClip = candidate;

@@ -281,5 +281,11 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode HandGripTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode CombatItemTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode NoveltyItemTests"
+  ],
+  "M4-10": [
+    "python3 Tools/tasks/check_mr_jack.py",
+    "python3 Tools/tasks/run_unity_tests.py EditMode MrJackTests",
+    "python3 Tools/tasks/run_unity_tests.py EditMode SandboxAITests",
+    "python3 Tools/tasks/run_unity_tests.py EditMode MatchRulesTests"
   ]
 }

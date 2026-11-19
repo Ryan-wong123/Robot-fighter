@@ -19,6 +19,8 @@ namespace WobbleBrawl.Gameplay
         private int attackRecovery;
         private int reaction;
         private bool kick;
+        private int bossSpecialCooldown;
+        private int bossAttackIndex;
         private FighterIntent sustainedIntent;
         private float EffectiveRange => Mathf.Max(attackRange, self != null ? self.AttackRange - ReachMargin : attackRange);
         public AIProfile Profile => profile;
@@ -34,11 +36,14 @@ namespace WobbleBrawl.Gameplay
 
         public void ConfigureRound(ItemSpawner spawner, HazardController stageHazard, int roundIndex)
         {
+            if (self.ItemOpponent != null) opponent = self.ItemOpponent;
             items = spawner;
             hazard = stageHazard;
             random = new System.Random(unchecked(17 + roundIndex * 31 + self.Team));
             attackRecovery = reaction = 0;
             kick = false;
+            bossSpecialCooldown = bossAttackIndex = 0;
+            if (self.Boss != null) profile = self.Boss.Profile;
             sustainedIntent = default;
         }
 
@@ -51,7 +56,8 @@ namespace WobbleBrawl.Gameplay
 
         public void SelectDifficulty(string difficulty)
         {
-            var selected = Resources.Load<AIProfile>("AI/" + difficulty);
+            var selected = self != null && self.Boss != null ? self.Boss.Profile :
+                Resources.Load<AIProfile>("AI/" + difficulty);
             if (selected == null)
                 return;
             profile = selected;
@@ -66,6 +72,7 @@ namespace WobbleBrawl.Gameplay
 
             if (attackRecovery > 0)
                 attackRecovery--;
+            if (bossSpecialCooldown > 0) bossSpecialCooldown--;
             if (reaction > 0)
             {
                 reaction--;
@@ -114,6 +121,13 @@ namespace WobbleBrawl.Gameplay
             else if (profile != null)
                 return default;
 
+            if (self.Boss != null && self.State == FighterState.Attacking) return default;
+            if (self.Boss != null && self.Special == self.MaxSpecial && bossSpecialCooldown == 0 &&
+                distance >= self.Boss.SpecialRange.x && distance <= self.Boss.SpecialRange.y)
+            {
+                bossSpecialCooldown = self.Boss.SpecialCooldownFrames;
+                return new FighterIntent { Special = true };
+            }
             if (distance > EffectiveRange)
                 return new FighterIntent { Move = towardOpponent };
             if (attackRecovery > 0 || !Roll(profile != null ? profile.Aggression : 1f))
@@ -122,6 +136,11 @@ namespace WobbleBrawl.Gameplay
                 return new FighterIntent { Move = towardOpponent };
 
             attackRecovery = profile != null ? profile.AttackIntervalFrames : attackIntervalFrames;
+            if (self.Boss != null)
+            {
+                int sequence = bossAttackIndex++ % 6;
+                return new FighterIntent { Punch = sequence < 4, Kick = sequence >= 4 };
+            }
             kick = !kick;
             return new FighterIntent { Kick = kick, Punch = !kick };
         }

@@ -19,6 +19,7 @@ namespace WobbleBrawl.Data
         [Min(1)] public int MaxSpecial = 100;
         [Min(0)] public float MoveSpeed = 4f;
         [Min(0)] public float JumpSpeed = 10f;
+        public BossCombatDef Boss;
         public MoveDef Punch;
         public MoveDef Kick;
         public MoveDef Special;
