@@ -674,6 +674,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 6. From a fresh setup, turn Hazards Off: pads must stay passive, walls full-width and warnings absent; Items remains independently configurable. Rematch must retain stage/rules/fighters. Tied-timeout sudden death must stop hazards and restore walls.
 7. Run EditMode BouncyCastleTests, SandboxHazardTests, AppFlowTests and AudioManagerTests. Play a full Android match for safe-area selection/HUD, touch input, visible high bounces, readable warnings, audio, KO/reset and the 60 FPS target.
 
+**Owner acceptance (2026-11-19):** The owner confirmed the M4-04 manual verification checklist passed. Native automated Unity test execution has not been recorded; the task retains [~] under the existing verifier.
+
 ### M4-05 — Stage 4: Giant Sandbox
 - **Section:** M4 — Content (weeks 11-14)
 - **Prerequisites:** M2-03
