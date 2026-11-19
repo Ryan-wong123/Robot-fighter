@@ -1,0 +1,14 @@
+{
+  "source": "Original procedural geometry, atlas, animation and synthesized audio authored for this project. No external mesh, texture, motion capture or audio samples.",
+  "reference": "docs/images/characters/concept/puffin_pete_turnaround.png",
+  "blender": "4.5.3 LTS",
+  "verification": "Blender skin/budgets, 24 moving actions, five closed loops, morphs and special markers passed. Unity execution remains pending.",
+  "files": {
+    "Tools/Blender/build_puffin_pete.py": "e6c9933337af1da49b8abc7e86965c814902568601f98676083731dd3ee38c5a",
+    "Art/_Source/PuffinPete/PuffinPete.blend": "55e86f5c2e648dbfe8fdc73d2fe4933f411e013d3aa5696ac347b0dbbffd4cf5",
+    "Assets/_Project/Art/Characters/PuffinPete/PuffinPete.fbx": "9a904f9326ddeafa37d904e8494c05d751bb2c132f7fd503c785c217e68d24c9",
+    "Assets/_Project/Art/Characters/PuffinPete/PuffinPete_Body_Albedo.png": "67f8f82fd9546503e135edac74631824683dd9cd575bfe1374d3eff721a33dce",
+    "Tools/Audio/generate_pete_pop.py": "838d7a473b39e66cf3044bd06eb866dda203571068572fcd0b988d1862f47433",
+    "Assets/_Project/Art/Audio/Resources/Audio/PetePop.wav": "978f6aa4a6c6f3c9c1703dd23fe5f2d8af50f2e56475994a448184e4e72cf274"
+  }
+}

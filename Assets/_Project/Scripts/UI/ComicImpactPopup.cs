@@ -69,7 +69,7 @@ namespace WobbleBrawl.UI
             currentKind = kind;
             tint = style.Tint;
             point = hit.Point;
-            label.text = style.text;
+            label.text = fighter.IsDeflated ? "PSSSHT!" : style.text;
             label.color = tint;
             label.rectTransform.localRotation = Quaternion.Euler(0f, 0f, ++popCount % 2 == 0 ? -9f : 9f);
             startedAt = Time.unscaledTime;

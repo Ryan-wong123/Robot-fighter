@@ -27,6 +27,10 @@ namespace WobbleBrawl.UI
             public RectTransform Special;
             public Text HealthValue;
             public Text SpecialLabel;
+            public Text PopLabel;
+            public RectTransform Pop;
+            public RectTransform Card;
+            public GameObject PopTrack;
             public Image FirstWin;
             public Image SecondWin;
             public bool Right;
@@ -135,6 +139,16 @@ namespace WobbleBrawl.UI
                 side.HealthValue.text = $"{fighter.Health} / {fighter.MaxHealth}";
             }
             side.SpecialLabel.text = fighter.Special >= fighter.MaxSpecial ? "READY" : "SPECIAL";
+            side.PopLabel.gameObject.SetActive(fighter.HasInflation);
+            side.PopTrack.SetActive(fighter.HasInflation);
+            var minimum = side.Card.offsetMin;
+            minimum.y = fighter.HasInflation ? -184f : -153f;
+            side.Card.offsetMin = minimum;
+            if (fighter.HasInflation)
+            {
+                Fill(side.Pop, fighter.PopMeter, fighter.PopCapacity, side.Right);
+                side.PopLabel.text = fighter.IsDeflated ? "POPPED!" : "POP";
+            }
         }
 
         private void RenderTime(int seconds) => timer.text = seconds.ToString("00");
@@ -175,10 +189,13 @@ namespace WobbleBrawl.UI
             var special = Bar(card, "Special", Gold, -106f, 9f, out _);
             GaugeCaption(card, "Guard Caption", "GUARD", right, -67f, Cyan);
             var specialLabel = GaugeCaption(card, "Special Caption", "SPECIAL", right, -98f, Gold);
+            var pop = Bar(card, "Pop Meter", Cyan, -137f, 9f, out var popTrack);
+            var popLabel = GaugeCaption(card, "Pop Caption", "POP", right, -129f, Cyan);
             return new Side
             {
                 Health = health, Guard = guard, Special = special, HealthValue = healthValue,
-                SpecialLabel = specialLabel, Right = right, Tint = tint,
+                SpecialLabel = specialLabel, PopLabel = popLabel, Pop = pop, Card = card,
+                PopTrack = popTrack.gameObject, Right = right, Tint = tint,
                 FirstWin = Pip(card, "Win One", right, 14f), SecondWin = Pip(card, "Win Two", right, 37f)
             };
         }

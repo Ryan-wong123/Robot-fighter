@@ -1,0 +1,40 @@
+{
+  "triangles": 8236,
+  "bones": 20,
+  "deform_bones": 19,
+  "materials": 1,
+  "height_metres": 1.555,
+  "actions": [
+    "PuffinPete_Block",
+    "PuffinPete_Deflate",
+    "PuffinPete_GetUp",
+    "PuffinPete_GuardBreak",
+    "PuffinPete_HitHeavy",
+    "PuffinPete_HitLight",
+    "PuffinPete_Idle",
+    "PuffinPete_JumpFall",
+    "PuffinPete_JumpLand",
+    "PuffinPete_JumpRise",
+    "PuffinPete_KO",
+    "PuffinPete_Kick1",
+    "PuffinPete_Kick2",
+    "PuffinPete_Knockdown",
+    "PuffinPete_Punch1",
+    "PuffinPete_Punch2",
+    "PuffinPete_Punch3",
+    "PuffinPete_Punch4",
+    "PuffinPete_Refill",
+    "PuffinPete_Special",
+    "PuffinPete_Taunt",
+    "PuffinPete_Throw",
+    "PuffinPete_Walk",
+    "PuffinPete_Win"
+  ],
+  "shape_keys": [
+    "Basis",
+    "Inflate",
+    "Deflate"
+  ],
+  "validation_errors": [],
+  "reference": "docs/images/characters/concept/puffin_pete_turnaround.png"
+}

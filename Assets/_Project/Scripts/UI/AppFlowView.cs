@@ -29,6 +29,7 @@ namespace WobbleBrawl.UI
         private Toggle hazardsToggle;
         private Toggle itemsToggle;
         private Button sirNoodleButton;
+        private Button puffinPeteButton;
         private Button opponentButton;
         private Text opponentCaption;
         private Text primaryText;
@@ -80,6 +81,9 @@ namespace WobbleBrawl.UI
             sirNoodleButton = CreateButton("Sir Noodle Fighter", -70f, Green, out var noodleCaption);
             noodleCaption.text = "Sir Noodle";
             sirNoodleButton.onClick.AddListener(app.SelectSirNoodle);
+            puffinPeteButton = CreateButton("Puffin Pete Fighter", -70f, Green, out var peteCaption);
+            peteCaption.text = "Puffin Pete";
+            puffinPeteButton.onClick.AddListener(app.SelectPuffinPete);
             opponentButton = CreateButton("AI Fighter", -144f, Cream, out opponentCaption);
             opponentButton.onClick.AddListener(app.ToggleOpponent);
             hazardsToggle = CreateRuleToggle("Hazards", -160f);
@@ -189,7 +193,8 @@ namespace WobbleBrawl.UI
             bool fighterSelection = !app.IsLoading && !settingsOpen && app.State == AppState.Selection &&
                 app.Step == SelectionStep.Fighter;
             sirNoodleButton.gameObject.SetActive(fighterSelection && app.HasSirNoodle);
-            opponentButton.gameObject.SetActive(fighterSelection && app.HasSirNoodle);
+            puffinPeteButton.gameObject.SetActive(fighterSelection && app.HasPuffinPete);
+            opponentButton.gameObject.SetActive(fighterSelection && (app.HasSirNoodle || app.HasPuffinPete));
             opponentCaption.text = "AI: " + app.OpponentName;
             hazardsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
             itemsToggle.gameObject.SetActive(stageSelection && !settingsOpen);
@@ -254,6 +259,16 @@ namespace WobbleBrawl.UI
                         Place(description.rectTransform, 640f, 52f, 116f);
                         Place((RectTransform)primary.transform, 310f, 58f, 4f);
                         Place((RectTransform)secondary.transform, 310f, 58f, -218f);
+                        if (app.HasPuffinPete)
+                        {
+                            Place((RectTransform)primary.transform, 260f, 58f, 4f);
+                            ((RectTransform)primary.transform).anchoredPosition += Vector2.left * 300f;
+                            Place((RectTransform)sirNoodleButton.transform, 260f, 58f, 4f);
+                            Place((RectTransform)puffinPeteButton.transform, 260f, 58f, 4f);
+                            ((RectTransform)puffinPeteButton.transform).anchoredPosition += Vector2.right * 300f;
+                            Place((RectTransform)opponentButton.transform, 310f, 58f, -84f);
+                            Place((RectTransform)secondary.transform, 310f, 58f, -158f);
+                        }
                     }
                     primaryText.text = stageSelection ? "Start Match" : "Blobby";
                     secondaryText.text = "Back";

@@ -33,6 +33,8 @@ namespace WobbleBrawl.Flow
         private string matchScene;
         private CharacterDef selectedFighter;
         private CharacterDef sirNoodle;
+        private CharacterDef puffinPete;
+        public bool HasPuffinPete => puffinPete != null;
         private CharacterDef selectedOpponent;
         public bool HasSirNoodle => sirNoodle != null;
         public string OpponentName => selectedOpponent != null ? selectedOpponent.DisplayName : "Blobby";
@@ -68,6 +70,7 @@ namespace WobbleBrawl.Flow
             }
             running = this;
             sirNoodle = Resources.Load<CharacterDef>("Characters/SirNoodle");
+            puffinPete = Resources.Load<CharacterDef>("Characters/PuffinPete");
             DontDestroyOnLoad(gameObject);
             AudioManager.Ensure(transform);
         }
@@ -127,12 +130,15 @@ namespace WobbleBrawl.Flow
 
         public void SelectBlobby() => SelectFighter(blobby);
         public void SelectSirNoodle() => SelectFighter(sirNoodle);
+        public void SelectPuffinPete() => SelectFighter(puffinPete);
 
         public void ToggleOpponent()
         {
-            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter || sirNoodle == null)
+            if (IsLoading || State != AppState.Selection || Step != SelectionStep.Fighter ||
+                (sirNoodle == null && puffinPete == null))
                 return;
-            selectedOpponent = selectedOpponent == sirNoodle ? blobby : sirNoodle;
+            selectedOpponent = selectedOpponent == blobby ? (sirNoodle != null ? sirNoodle : puffinPete) :
+                selectedOpponent == sirNoodle && puffinPete != null ? puffinPete : blobby;
             Changed?.Invoke();
         }
 

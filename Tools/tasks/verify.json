@@ -189,6 +189,12 @@
     "bash Tools/tasks/run_unity_tests.sh EditMode SirNoodleTests",
     "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests"
   ],
+  "M4-02": [
+    "python3 Tools/tasks/check_puffin_pete.py",
+    "bash Tools/tasks/run_unity_tests.sh EditMode PuffinPeteTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode SirNoodleTests",
+    "bash Tools/tasks/run_unity_tests.sh EditMode AppFlowTests"
+  ],
   "M3-08": [
     "bash Tools/tasks/run_unity_tests.sh EditMode AudioManagerTests"
   ],

@@ -99,7 +99,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 
 ## M4 — Content (weeks 11-14)
 - [~] **M4-01** Sir Noodle (model, rig, animations, data) (after: M1-14)
-- [ ] **M4-02** Puffin Pete (model, rig, animations, data) (after: M1-14)
+- [~] **M4-02** Puffin Pete (model, rig, animations, data) (after: M1-14)
 - [ ] **M4-03** Madame Plush (model, rig, animations, data) (after: M1-14)
 - [ ] **M4-10** Mr. Jack boss fighter (model, rig, two-phase animations, boss AI profile, voice barks) (after: M1-14, M2-07)
 - [ ] **M4-04** Stage 3: Bouncy Castle Fair (after: M2-03)

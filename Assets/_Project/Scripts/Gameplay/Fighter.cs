@@ -5,7 +5,7 @@ using WobbleBrawl.Data;
 
 namespace WobbleBrawl.Gameplay
 {
-    public enum FighterState { Idle, Moving, Airborne, Blocking, Attacking, HitStun, GuardBreak, KnockedOut }
+    public enum FighterState { Idle, Moving, Airborne, Blocking, Attacking, HitStun, GuardBreak, KnockedOut, Deflated }
 
     [RequireComponent(typeof(Rigidbody), typeof(Hitbox))]
     public sealed class Fighter : MonoBehaviour
@@ -51,6 +51,16 @@ namespace WobbleBrawl.Gameplay
         [SerializeField] private AnimationClip[] visualClips;
         private float clipTime;
         private VisualRagdoll ragdoll;
+        private InflationState inflation;
+        public bool IsInflated => inflation != null && inflation.Inflated;
+        public bool IsDeflated => inflation != null && inflation.Deflated;
+        public int PopMeter => inflation?.Meter ?? 0;
+        public int PopCapacity => character.PopCapacity;
+        public bool HasInflation => character.HasInflation;
+        public bool IsHitStopped => frozen;
+        public bool IsBellyBlimp => character.HasInflation && move == character.Special && move != null;
+        public event Action InflationPopped;
+        public event Action PresentationReset;
         private float waterMove = 1f, waterJump = 1f, waterGravity = 1f;
         private float conveyorSpeed;
         public bool IsSpecialMove(MoveDef attack) => character != null && attack != null && attack == character.Special;
@@ -60,6 +70,7 @@ namespace WobbleBrawl.Gameplay
             if (!roundActive && definition != null)
             {
                 character = definition;
+                ConfigureInflation();
                 if (definition.VisualPrefab != null)
                 {
                     ragdoll?.Reset();
@@ -134,6 +145,7 @@ namespace WobbleBrawl.Gameplay
             hitbox = GetComponent<Hitbox>();
             Items = GetComponent<ItemHolder>();
             input = inputSource as IFighterInput;
+            ConfigureInflation();
             if (groundLayers.value == 0)
                 groundLayers = SandboxGroundMask;
             if (animator != null)
@@ -152,6 +164,7 @@ namespace WobbleBrawl.Gameplay
 
         public void ResetRound(Vector3 position, int facing)
         {
+            inflation?.Reset();
             ragdoll?.Reset();
             SetWater(1f, 1f, 1f);
             conveyorSpeed = 0f;
@@ -167,12 +180,17 @@ namespace WobbleBrawl.Gameplay
             playingClip = null;
             PlayClip("Idle");
             roundActive = true;
+            PresentationReset?.Invoke();
         }
 
         public void StopRound()
         {
             roundActive = false;
+            inflation?.Reset();
             Items?.Clear();
+            PresentationReset?.Invoke();
+            if (inflation != null)
+                VitalsChanged?.Invoke(this);
         }
 
         public void CelebrateVictory()
@@ -203,6 +221,30 @@ namespace WobbleBrawl.Gameplay
             }
             if (!roundActive || !IsAlive)
                 return;
+            int previousMeter = PopMeter;
+            bool wasDeflated = IsDeflated;
+            inflation?.Advance();
+            if (previousMeter != PopMeter)
+                VitalsChanged?.Invoke(this);
+            if (IsDeflated)
+            {
+                input?.ReadIntent();
+                touchIntent = default;
+                int phase = inflation.RemainingFrames / character.DeflateTurnFrames;
+                float sign = phase % 2 == 0 ? Facing : -Facing;
+                if (body.position.x < character.DeflateBounds.x) sign = 1f;
+                if (body.position.x > character.DeflateBounds.y) sign = -1f;
+                SetHorizontal(sign * character.DeflateSpeed);
+                State = FighterState.Deflated;
+                PlayClip("Deflate");
+                return;
+            }
+            if (wasDeflated)
+            {
+                stun = 0;
+                State = FighterState.Idle;
+                PlayClip("Refill");
+            }
             if (immunity > 0)
                 immunity--;
             if (stun > 0)
@@ -229,10 +271,19 @@ namespace WobbleBrawl.Gameplay
             intent.Special |= touchIntent.Special;
             intent.Throw |= touchIntent.Throw;
             touchIntent.Jump = touchIntent.Punch = touchIntent.Kick = touchIntent.Special = touchIntent.Throw = false;
+            if (!intent.Block || move != null)
+                inflation?.SetBlocking(false, false);
             if (input is AIInput { IsPaused: true })
                 move = null;
             if (move != null)
             {
+                if (move.ForwardSpeed > 0f)
+                {
+                    bool active = moveFrame >= move.Startup && moveFrame < move.Startup + move.Active;
+                    SetHorizontal((active ? Facing * move.ForwardSpeed : 0f) + conveyorSpeed);
+                }
+                if (move.HopSpeed > 0f && moveFrame == move.Startup)
+                    body.linearVelocity = new Vector3(body.linearVelocity.x, move.HopSpeed * waterJump, 0f);
                 int pulse = MoveHitSchedule.Pulse(moveFrame, move.Startup, move.Active, move.HitIntervalFrames);
                 if (pulse != hitPulse)
                 {
@@ -260,6 +311,7 @@ namespace WobbleBrawl.Gameplay
 
             bool grounded = Physics.Raycast(body.position + Vector3.up * 0.15f, Vector3.down, 0.25f,
                 groundLayers, QueryTriggerInteraction.Ignore);
+            inflation?.SetBlocking(intent.Block && grounded, Guard == MaxGuard);
             var next = intent.Special && Special == character.MaxSpecial ? character.Special :
                 intent.Punch ? character.Punch : intent.Kick ? character.Kick : null;
             if (next != null && grounded)
@@ -268,6 +320,7 @@ namespace WobbleBrawl.Gameplay
                     next == comboRoot
                     ? comboMove.NextInCombo : next;
                 moveRoot = next;
+                inflation?.SetBlocking(false, false);
                 if (next == character.Special)
                     SetVitals(Health, Guard, 0);
                 moveFrame = 0;
@@ -313,7 +366,8 @@ namespace WobbleBrawl.Gameplay
             if (visualClips == null || playingClip == clip)
                 return;
             if ((clip == "Idle" || clip == "Walk") && activeClip != null && clipTime < activeClip.length &&
-                (playingClip == "JumpLand" || playingClip == "Throw" || playingClip == "GetUp" || playingClip == "Taunt"))
+                (playingClip == "JumpLand" || playingClip == "Throw" || playingClip == "GetUp" ||
+                 playingClip == "Taunt" || playingClip == "Refill"))
                 return;
 
             foreach (var candidate in visualClips)
@@ -411,6 +465,10 @@ namespace WobbleBrawl.Gameplay
                 Guard, info.Move.GuardCost, info.Move.StunFrames, comboHits, accumulatedStun,
                 State == FighterState.Blocking, !externalHit && info.Attacker != null &&
                 info.Attacker.IsSpecialMove(info.Move), false);
+            bool armored = IsInflated && !result.GuardBroken;
+            if (armored)
+                result = new DamageResult(inflation.ReduceDamage(result.Damage), result.Guard,
+                    result.StunFrames, result.Blocked, result.GuardBroken);
             SetVitals(Mathf.Max(0, Health - result.Damage), result.Guard,
                 Mathf.Min(MaxSpecial, Special + info.Move.GaugeGain / 2));
             move = null;
@@ -419,11 +477,21 @@ namespace WobbleBrawl.Gameplay
             accumulatedStun += stun;
             comboHits++;
             State = !IsAlive ? FighterState.KnockedOut : result.GuardBroken ? FighterState.GuardBreak : FighterState.HitStun;
-            PlayClip(!IsAlive ? "Knockdown" : result.GuardBroken ? "GuardBreak" :
+            bool popped = IsAlive && inflation != null && inflation.RegisterHit();
+            if (result.GuardBroken || !IsAlive)
+                inflation?.SetBlocking(false, false);
+            if (popped)
+            {
+                State = FighterState.Deflated;
+                InflationPopped?.Invoke();
+            }
+            if (inflation != null)
+                VitalsChanged?.Invoke(this);
+            PlayClip(!IsAlive ? "Knockdown" : popped ? "Deflate" : result.GuardBroken ? "GuardBreak" :
                 info.Move.HeavyReaction ? "HitHeavy" : "HitLight");
             float bonusPushback = externalHit || result.Blocked || info.Attacker == null
                 ? 0f : info.Attacker.ConsumeItemPushback();
-            float pushback = info.Direction.x * (info.Move.Pushback + bonusPushback);
+            float pushback = armored ? 0f : info.Direction.x * (info.Move.Pushback + bonusPushback);
             if (!Mathf.Approximately(pushback, 0f))
             {
                 // Hit-stop restores this velocity when the body becomes dynamic again.
@@ -441,13 +509,20 @@ namespace WobbleBrawl.Gameplay
             HitStopService.Apply(info.Attacker, this, info.Move.HitStopFrames);
             if (!IsAlive)
                 ragdoll?.Launch(info.Direction);
-            else if (!result.Blocked)
+            else if (!result.Blocked && !armored)
                 ragdoll?.React(info.Direction, info.Zone);
 
             HitResolved?.Invoke(info, result);
             if (!IsAlive)
                 KnockedOut?.Invoke(this);
             return true;
+        }
+
+        private void ConfigureInflation()
+        {
+            inflation = character != null && character.HasInflation
+                ? new InflationState(character.PopCapacity, character.PopGainPerHit,
+                    character.DeflateFrames, character.InflationDamageReduction) : null;
         }
 
         internal void Freeze(int frames)

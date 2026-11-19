@@ -22,5 +22,13 @@ namespace WobbleBrawl.Data
         public MoveDef Punch;
         public MoveDef Kick;
         public MoveDef Special;
+        public bool HasInflation;
+        [Min(1)] public int PopCapacity = 100;
+        [Min(1)] public int PopGainPerHit = 25;
+        [Min(1)] public int DeflateFrames = 75;
+        [Range(0, 100)] public int InflationDamageReduction = 30;
+        [Min(0)] public float DeflateSpeed = 5f;
+        [Min(1)] public int DeflateTurnFrames = 12;
+        public Vector2 DeflateBounds = new Vector2(-6.2f, 6.2f);
     }
 }

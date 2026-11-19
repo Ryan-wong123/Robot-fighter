@@ -1,6 +1,8 @@
 # Placeholder audio
 
-The WAV files under Assets/_Project/Art/Audio/Resources/Audio are original synthesized placeholders created by Tools/Audio/generate_placeholders.py. They use mathematical oscillators and seeded noise, with no sampled recordings or external libraries. No third-party sample license is required.
+The base placeholder WAV files under Assets/_Project/Art/Audio/Resources/Audio are created by Tools/Audio/generate_placeholders.py. They use mathematical oscillators and seeded noise, with no sampled recordings or external libraries. PetePop.wav uses the separate generator described below. No third-party sample license is required.
+
+PetePop.wav is the original 0.8-second mono 24 kHz air-pop/hiss cue created by `python Tools/Audio/generate_pete_pop.py`. It uses seeded noise and an oscillator without samples; its source/export hashes are recorded in [Puffin Pete provenance](../../Art/_Source/PuffinPete/provenance.json). The generator refuses an existing output. It accompanies the M4-02 pop mechanic; final audio polish remains M4-09.
 
 Run the generator from the repository root with Python. The four loops provide menu, bathtub, kitchen, and sandbox themes. The other files provide button, impact, block, guard-break, special, KO, round-start, and win cues. M4-09 replaces or polishes these placeholders. Fighter voice generation remains M3-09.
 

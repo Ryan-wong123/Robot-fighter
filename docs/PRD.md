@@ -56,6 +56,7 @@ Carried over from the prototype and generalized into data:
 - **Jump** (single, optional double jump per fighter), **Block**, **Throw item**, **Special**.
 - Damage tiers (start): body hit 10, leg hit 5, special 15, thrown item 10. Each character overrides via data.
 - Sir Noodle's starting overrides: HP 170, guard 60, speed 3.2, jump 10; punches 9/5 body/leg, kicks 11/5 and 1.4x hitbox reach. Helicopter Joust uses four alternating front/back hit windows (two per side) at 7/5 damage each, startup/active/recovery 12/24/30 frames, full gauge cost, and 0.25 pushback. Detailed windows and frame data are in [his source notes](../Art/_Source/SirNoodle/README.md). These overrides follow the approved fighter sheet; Blobby's current sandbox speed remains 4.0 and is not retuned by M4-01.
+- Puffin Pete's starting overrides: HP 220, guard 100, speed 2.6, jump 8, 0.9x reach; punches 10/5 and kicks 12/6 body/leg damage. Full-guard grounded block enters Inflate: additional 30% damage reduction after block (integer floor, minimum one for positive damage), and hit knockback resistance. Every accepted hit adds 25/100 pop pressure. At full pressure he loses armor and control for 75 simulation frames, zipping at 5 m/s with 12-frame turns inside ±6.2 m. Pressure decays one per frame while released. Guard-breaking hits bypass inflated armor; KO always launches. Belly Blimp costs full gauge, uses 18/24/30 startup/active/recovery frames and one 18/10 hit; active speed 2.2 m/s, initial active hop 2.5 m/s, hitbox 2.1 × 1.4 × 1 m at forward 0.6/height 0.75 m, stun 14, hit-stop 6 and pushback 4. Wind-up/recovery remain stationary relative to conveyors. [Detailed source notes](../Art/_Source/PuffinPete/README.md) record frame data and feedback. Values are **(start)** tuning; the current 50 Hz physics step makes 75 frames about 1.5 seconds, excluding hit-stop.
 
 ### 7.3 Block (required)
 - Block is a **held state**, not a one-shot animation.
@@ -117,7 +118,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - Pause menu: resume, settings, quit-to-menu.
 - Settings: master/music/SFX volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply immediately and are saved locally between sessions.
 - Quick Fight arena selection includes independent **Hazards** and **Items** checkboxes. Both default on for a fresh setup; choices carry through all rounds and Rematch. Returning to a fresh setup restores both on. With both off, only the core fight runs. Arcade and boss encounters force both on and lock the setup controls. Opening an arena directly uses both on.
-- Fighter selection offers Blobby and Sir Noodle, with an **AI: ...** button to choose either opponent. Both fighter choices carry through Rematch. Development keyboard **T** previews a fighter's taunt where available.
+- Fighter selection offers Blobby, Sir Noodle and Puffin Pete, with an **AI: ...** button cycling the available opponents. Both fighter choices carry through Rematch. Development keyboard **T** previews a fighter's taunt where available. Inflation-capable fighters have a dedicated Pop bar on the match HUD.
 
 ## 12. Progression & Economy [PROPOSED]
 - **Coins** earned per match; unlock new fighters, costumes ("skins" made from alternate materials/textures), and taunts.
