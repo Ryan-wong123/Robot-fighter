@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4683716907552287414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9019018836386336226}
+  m_Layer: 0
+  m_Name: Item Socket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9019018836386336226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4683716907552287414}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0003806539, y: 0.1428175, z: 0.0012787395}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3557784395695653326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6235950613922853319
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,12 +338,41 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 96bc2d57505474343bf331c31f9652f0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6809147834031868275, guid: 4bb3a8c42eaf4f6e8c1880d8b495390f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9019018836386336226}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -927199367670048503, guid: 4bb3a8c42eaf4f6e8c1880d8b495390f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8158677423120927604}
   m_SourcePrefab: {fileID: 100100000, guid: 4bb3a8c42eaf4f6e8c1880d8b495390f, type: 3}
+--- !u!1 &2017846796092854708 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 4bb3a8c42eaf4f6e8c1880d8b495390f, type: 3}
+  m_PrefabInstance: {fileID: 8007745307784317117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8158677423120927604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2017846796092854708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6d08656ea146e8ba805e28b445017b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.FighterVisual
+  ItemSocket: {fileID: 9019018836386336226}
 --- !u!4 &3052188344203125671 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 4bb3a8c42eaf4f6e8c1880d8b495390f, type: 3}
+  m_PrefabInstance: {fileID: 8007745307784317117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3557784395695653326 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6809147834031868275, guid: 4bb3a8c42eaf4f6e8c1880d8b495390f, type: 3}
   m_PrefabInstance: {fileID: 8007745307784317117}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &4958901762095582941 stripped

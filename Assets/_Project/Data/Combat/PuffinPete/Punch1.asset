@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5e00059fc624c3db854feb24ad4d1e7, type: 3}
+  m_Name: Punch1
+  m_EditorClassIdentifier: WobbleBrawl.Data::WobbleBrawl.Data.MoveDef
+  Clip: {fileID: 7400000, guid: 1724b7e86baf7bc4aa2a6c909aac1737, type: 2}
+  AnimationTrigger: Punch1
+  Startup: 7
+  Active: 4
+  Recovery: 15
+  BodyDamage: 10
+  LegDamage: 5
+  GuardCost: 10
+  StunFrames: 10
+  HitStopFrames: 5
+  GaugeGain: 10
+  Pushback: 2
+  HitboxOffset: {x: 0.63, y: 0.9, z: 0}
+  HitboxSize: {x: 1.35, y: 0.9, z: 1}
+  NextInCombo: {fileID: 11400000, guid: e3bf98578eb1bb445a41828d1c010e84, type: 2}
+  HitIntervalFrames: 0
+  AlternateSides: 0
+  HeavyReaction: 0
+  ForwardSpeed: 0
+  HopSpeed: 0

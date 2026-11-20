@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3659129748480426112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8946069514241435649}
+  - component: {fileID: 2322931280727247030}
+  - component: {fileID: 837381473018451089}
+  - component: {fileID: 2132088311904614841}
+  - component: {fileID: 28300064712192195}
+  - component: {fileID: 6948188171406019089}
+  - component: {fileID: 661087886279115360}
+  m_Layer: 0
+  m_Name: SirNoodleFighter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8946069514241435649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659129748480426112}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5980647326800513684}
+  - {fileID: 3913511837257450186}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2322931280727247030
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659129748480426112}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.24
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &837381473018451089
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659129748480426112}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2132088311904614841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659129748480426112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68b1b0b5cc54b4aa31d190e1e8eec04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.Hitbox
+  hurtLayers:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &28300064712192195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659129748480426112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae2dc22b72b475c8cfd535a2ef02fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.Fighter
+  character: {fileID: 11400000, guid: 266ad924ba6d4cb41be35d86ab657b86, type: 2}
+  inputSource: {fileID: 0}
+  animator: {fileID: 4356534240196765678}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  team: 0
+  visualClips:
+  - {fileID: 7400000, guid: 4df0f03f57a5d5348bd4be57cc49376a, type: 2}
+  - {fileID: 7400000, guid: 664f2de9d131f424fb8ebc3b00e3bfd5, type: 2}
+  - {fileID: 7400000, guid: ee0cb73dc0c015b4780e5d1c08eac3d6, type: 2}
+  - {fileID: 7400000, guid: 480a80c54b5ffd743a3d4bad0a8000ee, type: 2}
+  - {fileID: 7400000, guid: 2949aeb14ac6b27409eb4186a0d01fa8, type: 2}
+  - {fileID: 7400000, guid: d66542dda1c04614db1b91f57d5ee722, type: 2}
+  - {fileID: 7400000, guid: c0ffe90c365babf4eb427850928e2287, type: 2}
+  - {fileID: 7400000, guid: 4a4eced641e008c44a964e2f02245602, type: 2}
+  - {fileID: 7400000, guid: 004fa18364a34d347a9aee65620feefe, type: 2}
+  - {fileID: 7400000, guid: d083022740707b446af3fb5fb07caedc, type: 2}
+  - {fileID: 7400000, guid: a37b910317cfec049bc9ae3bf6040696, type: 2}
+  - {fileID: 7400000, guid: 26728916044378840821f9b5d2d044da, type: 2}
+  - {fileID: 7400000, guid: 810f09798dfa3f343a4922821e677b26, type: 2}
+  - {fileID: 7400000, guid: 33e9e70099f87a04085f375096737645, type: 2}
+  - {fileID: 7400000, guid: 8fe03800d0216024d9b9fe23748b9637, type: 2}
+  - {fileID: 7400000, guid: 58b726837e9e0504da2b8976e2c5c014, type: 2}
+  - {fileID: 7400000, guid: f4e5ddaa2fd81744097fb6a16cfef27c, type: 2}
+  - {fileID: 7400000, guid: 95397221b623b6c4ead0594ab5e5752b, type: 2}
+  - {fileID: 7400000, guid: b32d5cae742a035448ff0b47d8cf0c98, type: 2}
+  - {fileID: 7400000, guid: 37bdfef1366f5c04a878306fc3071f7b, type: 2}
+  - {fileID: 7400000, guid: bfb7163dec96f3349943970aa91ccd14, type: 2}
+  - {fileID: 7400000, guid: 13865f3fec2d6b949aaaa599833f90b8, type: 2}
+--- !u!114 &6948188171406019089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659129748480426112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fcd3fdf6924afebb3896a085906851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.SquashStretch
+  fighter: {fileID: 28300064712192195}
+  visual: {fileID: 5980647326800513684}
+  recoverySeconds: 0.18
+--- !u!114 &661087886279115360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659129748480426112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
+  handSocket: {fileID: 6882744537658901056}
+--- !u!1 &4216053133746949963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3913511837257450186}
+  - component: {fileID: 3260643767628853839}
+  - component: {fileID: 7974992319069339727}
+  m_Layer: 9
+  m_Name: Body Hurtbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3913511837257450186
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216053133746949963}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8946069514241435649}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3260643767628853839
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216053133746949963}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.48, y: 1.8, z: 0.6}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7974992319069339727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4216053133746949963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696bb4b2acc4492a942cbe675aa2c1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.Hurtbox
+  owner: {fileID: 28300064712192195}
+  zone: 0
+--- !u!1001 &7234314397753540052
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8946069514241435649}
+    m_Modifications:
+    - target: {fileID: 54514112399705427, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_Name
+      value: SirNoodleVisual
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+--- !u!95 &4356534240196765678 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6345842709719603770, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+  m_PrefabInstance: {fileID: 7234314397753540052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5980647326800513684 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3934727236426561344, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+  m_PrefabInstance: {fileID: 7234314397753540052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6882744537658901056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4314757600428998548, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+  m_PrefabInstance: {fileID: 7234314397753540052}
+  m_PrefabAsset: {fileID: 0}

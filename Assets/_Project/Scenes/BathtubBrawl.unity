@@ -209,6 +209,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36884077}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &39490299 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9019018836386336226, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+  m_PrefabInstance: {fileID: 716022896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &40267499
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,6 +3424,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 570067859}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &573969994 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9019018836386336226, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+  m_PrefabInstance: {fileID: 1239269661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &607161512
 GameObject:
   m_ObjectHideFlags: 0
@@ -4286,7 +4296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
-  handSocket: {fileID: 224349060}
+  handSocket: {fileID: 39490299}
 --- !u!1 &732437270
 GameObject:
   m_ObjectHideFlags: 0
@@ -4345,7 +4355,9 @@ MonoBehaviour:
   spawnAtRoundStart: 1
   spawnOpeningLineup: 1
   intervalFrames: 300
+  intervalJitterFrames: 100
   seed: 1
+  trainingLayout: {fileID: 0}
 --- !u!4 &732437272
 Transform:
   m_ObjectHideFlags: 0
@@ -6540,7 +6552,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
-  handSocket: {fileID: 530830282}
+  handSocket: {fileID: 573969994}
 --- !u!1 &1240358278
 GameObject:
   m_ObjectHideFlags: 0
@@ -7672,6 +7684,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: WobbleBrawl.Flow::WobbleBrawl.Flow.MatchController
   round: {fileID: 1426010691}
   betweenRoundsSeconds: 2
+  mode: 0
+  isBossStage: 0
 --- !u!114 &1426010691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7688,6 +7702,7 @@ MonoBehaviour:
   opponent: {fileID: 716022897}
   playerSpawn: {fileID: 322341492}
   opponentSpawn: {fileID: 1382847818}
+  trainingMode: 0
   itemSpawner: {fileID: 732437271}
   hazard: {fileID: 651608699}
 --- !u!4 &1426010692

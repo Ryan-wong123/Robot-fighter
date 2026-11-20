@@ -13,6 +13,11 @@ using WobbleBrawl.Gameplay;
 
 public sealed class SirNoodleTests
 {
+    private sealed class NeutralInput : IFighterInput
+    {
+        public FighterIntent ReadIntent() => default;
+    }
+
     private const string Definition = "Assets/_Project/Resources/Characters/SirNoodle.asset";
 
     [Test]
@@ -119,18 +124,54 @@ public sealed class SirNoodleTests
         Assert.That(round.Player.MaxHealth, Is.EqualTo(170));
         Assert.That(round.Opponent.MaxHealth, Is.EqualTo(170));
         Assert.That(round.Player.MaxGuard, Is.EqualTo(60));
-        foreach (var fighter in new[] { round.Player, round.Opponent })
+        Assert.That(round.Opponent.GetComponent<AIInput>(), Is.Not.Null);
+        var actors = new[] { round.Player, round.Opponent };
+        var inputField = typeof(Fighter).GetField("input", System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.NonPublic);
+        var clipField = typeof(Fighter).GetField("playingClip", System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.NonPublic);
+        // This fixture checks both selected rigs. Prevent autonomous commands from consuming or
+        // interrupting the single injected punch; decision behavior is covered by SandboxAITests.
+        for (int index = 0; index < actors.Length; index++)
+        {
+            inputField.SetValue(actors[index], new NeutralInput());
+            actors[index].ResetRound(new Vector3(index == 0 ? -3f : 3f, .02f, 0f), index == 0 ? 1 : -1);
+        }
+        Physics.SyncTransforms();
+        foreach (var fighter in actors)
         {
             Assert.That(fighter.GetComponentInChildren<FighterVisual>(), Is.Not.Null);
             Assert.That(fighter.GetComponentsInChildren<Rigidbody>().Length, Is.EqualTo(13),
                 "Twelve physical bones plus the gameplay motor; follow bones are visual only.");
+            var visual = fighter.GetComponentInChildren<FighterVisual>();
             var spine = fighter.GetComponentsInChildren<Transform>().Single(bone => bone.name == "Spine");
+            float readyDeadline = Time.realtimeSinceStartup + 2f;
+            while (!Physics.Raycast(fighter.transform.position + Vector3.up * .15f, Vector3.down, .25f,
+                       1 << 8, QueryTriggerInteraction.Ignore) && Time.realtimeSinceStartup < readyDeadline)
+                yield return new WaitForFixedUpdate();
+            Assert.That(Physics.Raycast(fighter.transform.position + Vector3.up * .15f, Vector3.down, .25f,
+                1 << 8, QueryTriggerInteraction.Ignore), Is.True, "Rig probe needs a grounded fighter.");
             var rotation = spine.localRotation;
             fighter.SubmitTouchIntent(new FighterIntent { Punch = true });
-            yield return new WaitForSeconds(.15f);
-            Assert.That(Quaternion.Angle(rotation, spine.localRotation), Is.GreaterThan(.1f));
+            float attackDeadline = Time.realtimeSinceStartup + 1f;
+            while (fighter.State != FighterState.Attacking && Time.realtimeSinceStartup < attackDeadline)
+                yield return new WaitForFixedUpdate();
+            Assert.That(fighter.State, Is.EqualTo(FighterState.Attacking),
+                $"Punch was not accepted: team {fighter.Team}, clip {clipField.GetValue(fighter)}.");
+            Assert.That(clipField.GetValue(fighter), Is.EqualTo("Punch1"));
+            float greatestRotation = 0f;
+            float motionDeadline = Time.realtimeSinceStartup + 1.5f;
+            while (fighter.State == FighterState.Attacking && Time.realtimeSinceStartup < motionDeadline)
+            {
+                yield return null;
+                greatestRotation = Mathf.Max(greatestRotation, Quaternion.Angle(rotation, spine.localRotation));
+            }
+            Assert.That(greatestRotation, Is.GreaterThan(.1f),
+                $"Accepted Punch1 did not animate the spine: team {fighter.Team}, final clip {clipField.GetValue(fighter)}.");
             fighter.ResetRound(fighter.transform.position, fighter.Facing);
             Assert.That(fighter.Health, Is.EqualTo(170));
+            Assert.That(fighter.GetComponentInChildren<FighterVisual>(), Is.SameAs(visual),
+                "Reset must preserve the selected visual rig.");
         }
         yield return new ExitPlayMode();
     }

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39863873ad2344ceaad3aa3b83875a1a, type: 3}
+  m_Name: SandboxTuning
+  m_EditorClassIdentifier: WobbleBrawl.Data::WobbleBrawl.Data.GiantSandboxDef
+  HalfWidth: 7
+  PawTravelHalfWidth: 8.5
+  PawHalfWidth: 0.95
+  JumpClearance: 0.85
+  SweepSeconds: 3
+  SandCenters:
+  - -3
+  - 0
+  - 3
+  SandHalfWidth: 1.35
+  GroundContactHeight: 0.15
+  MovementMultiplier: 0.5
+  WarningPulseHz: 1.5
+  SpiralDegreesPerSecond: 90
+  ItemPoints:
+  - {x: -4.5, y: 0.65, z: 0}
+  - {x: 0, y: 0.65, z: 0}
+  - {x: 4.5, y: 0.65, z: 0}

@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0c15fe649e40de903ca1cc7e85ef57, type: 3}
+  m_Name: SirNoodle
+  m_EditorClassIdentifier: WobbleBrawl.Data::WobbleBrawl.Data.CharacterDef
+  Prefab: {fileID: 3659129748480426112, guid: bb9099a2af605494e97ffdb4a7d2b4ff, type: 3}
+  VisualPrefab: {fileID: 54514112399705427, guid: 2d0b8fda8b37e2f478dd2e4c0a3a23b5, type: 3}
+  DisplayName: Sir Noodle
+  AnimationPrefix: SirNoodle
+  VisualClips:
+  - {fileID: 7400000, guid: 4df0f03f57a5d5348bd4be57cc49376a, type: 2}
+  - {fileID: 7400000, guid: 664f2de9d131f424fb8ebc3b00e3bfd5, type: 2}
+  - {fileID: 7400000, guid: ee0cb73dc0c015b4780e5d1c08eac3d6, type: 2}
+  - {fileID: 7400000, guid: 480a80c54b5ffd743a3d4bad0a8000ee, type: 2}
+  - {fileID: 7400000, guid: 2949aeb14ac6b27409eb4186a0d01fa8, type: 2}
+  - {fileID: 7400000, guid: d66542dda1c04614db1b91f57d5ee722, type: 2}
+  - {fileID: 7400000, guid: c0ffe90c365babf4eb427850928e2287, type: 2}
+  - {fileID: 7400000, guid: 4a4eced641e008c44a964e2f02245602, type: 2}
+  - {fileID: 7400000, guid: 004fa18364a34d347a9aee65620feefe, type: 2}
+  - {fileID: 7400000, guid: d083022740707b446af3fb5fb07caedc, type: 2}
+  - {fileID: 7400000, guid: a37b910317cfec049bc9ae3bf6040696, type: 2}
+  - {fileID: 7400000, guid: 26728916044378840821f9b5d2d044da, type: 2}
+  - {fileID: 7400000, guid: 810f09798dfa3f343a4922821e677b26, type: 2}
+  - {fileID: 7400000, guid: 33e9e70099f87a04085f375096737645, type: 2}
+  - {fileID: 7400000, guid: 8fe03800d0216024d9b9fe23748b9637, type: 2}
+  - {fileID: 7400000, guid: 58b726837e9e0504da2b8976e2c5c014, type: 2}
+  - {fileID: 7400000, guid: f4e5ddaa2fd81744097fb6a16cfef27c, type: 2}
+  - {fileID: 7400000, guid: 95397221b623b6c4ead0594ab5e5752b, type: 2}
+  - {fileID: 7400000, guid: b32d5cae742a035448ff0b47d8cf0c98, type: 2}
+  - {fileID: 7400000, guid: 37bdfef1366f5c04a878306fc3071f7b, type: 2}
+  - {fileID: 7400000, guid: bfb7163dec96f3349943970aa91ccd14, type: 2}
+  - {fileID: 7400000, guid: 13865f3fec2d6b949aaaa599833f90b8, type: 2}
+  Height: 2
+  BodyWidth: 0.48
+  RagdollReactionScale: 1.25
+  PartialRagdollSeconds: 0.6
+  MaxHealth: 170
+  MaxGuard: 60
+  MaxSpecial: 100
+  MoveSpeed: 3.2
+  JumpSpeed: 10
+  Punch: {fileID: 11400000, guid: 13eef0c2a7c4a024ba90a8db4c591ff8, type: 2}
+  Kick: {fileID: 11400000, guid: 2fcf3dd0d32264344989b187921932dc, type: 2}
+  Special: {fileID: 11400000, guid: 517bf6ee2421c8b479aef92b1fc8ee40, type: 2}

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17b6e67fd57e4a399b8c4acfe898092d, type: 3}
+  m_Name: PogoStick
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemDef
+  Id: pogo-stick
+  Prefab: {fileID: 3362061064637894144, guid: 0968de692f178834a89006d1f0146592, type: 3}
+  Mode: 2
+  Effects: []
+  ThrowSpeed: 7
+  PlacementOffset: 0
+  ThrowLift: 0
+  GroundBounces: 0
+  BounceSpeed: 0
+  GroundClearance: 0.18
+  TelegraphFrames: 0
+  DropHeight: 0
+  LifetimeFrames: 300
+  NoveltyKind: 2
+  ContactHit: {fileID: 11400000, guid: 45f71a15be2477b4a9b9092b91234415, type: 2}
+  StatusFrames: 90
+  SlowPercent: 65
+  OutboundFrames: 35
+  EffectRadius: 1.8
+  UseVelocity: {x: 4, y: 10}
+  ActionFrames: 12
+  AIUseRange: {x: 1.5, y: 4.5}

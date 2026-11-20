@@ -4585,7 +4585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
-  handSocket: {fileID: 224349060}
+  handSocket: {fileID: 1762419495}
 --- !u!1 &722162654
 GameObject:
   m_ObjectHideFlags: 0
@@ -4824,7 +4824,9 @@ MonoBehaviour:
   spawnAtRoundStart: 1
   spawnOpeningLineup: 1
   intervalFrames: 300
+  intervalJitterFrames: 100
   seed: 1
+  trainingLayout: {fileID: 0}
 --- !u!4 &732437272
 Transform:
   m_ObjectHideFlags: 0
@@ -8848,7 +8850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
-  handSocket: {fileID: 530830282}
+  handSocket: {fileID: 2022027208}
 --- !u!1 &1252978888
 GameObject:
   m_ObjectHideFlags: 0
@@ -10122,6 +10124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: WobbleBrawl.Flow::WobbleBrawl.Flow.MatchController
   round: {fileID: 1426010691}
   betweenRoundsSeconds: 2
+  mode: 0
+  isBossStage: 0
 --- !u!114 &1426010691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10138,6 +10142,7 @@ MonoBehaviour:
   opponent: {fileID: 716022897}
   playerSpawn: {fileID: 322341492}
   opponentSpawn: {fileID: 1382847818}
+  trainingMode: 0
   itemSpawner: {fileID: 732437271}
   hazard: {fileID: 2125795663}
 --- !u!4 &1426010692
@@ -11704,6 +11709,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723630205}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1762419495 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9019018836386336226, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+  m_PrefabInstance: {fileID: 716022896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1772753797
 GameObject:
   m_ObjectHideFlags: 0
@@ -13627,6 +13637,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020692596}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2022027208 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9019018836386336226, guid: f64957660585fc348ad4a78ee8dac291, type: 3}
+  m_PrefabInstance: {fileID: 1239269661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2029746538
 GameObject:
   m_ObjectHideFlags: 0

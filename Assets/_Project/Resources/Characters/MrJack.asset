@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0c15fe649e40de903ca1cc7e85ef57, type: 3}
+  m_Name: MrJack
+  m_EditorClassIdentifier: WobbleBrawl.Data::WobbleBrawl.Data.CharacterDef
+  Prefab: {fileID: 6436453400395551101, guid: a8810b606e40d624ca8c24f58bfee27b, type: 3}
+  VisualPrefab: {fileID: 7418851396810606845, guid: 524bc5851cc041640815de16039877df, type: 3}
+  DisplayName: Mr. Jack
+  AnimationPrefix: MrJack
+  VisualClips:
+  - {fileID: 7400000, guid: 1f5f4ea1d75b4974cbaf255c03fc9d4a, type: 2}
+  - {fileID: 7400000, guid: 58c149d45ecde6b4295e14e7ebc17929, type: 2}
+  - {fileID: 7400000, guid: 899e4b3d089479949a199293d9a46744, type: 2}
+  - {fileID: 7400000, guid: 159f3eb573aaf314fa976bcc706b60ce, type: 2}
+  - {fileID: 7400000, guid: 87c9428f24f2dab469581facbc1ecf3d, type: 2}
+  - {fileID: 7400000, guid: 257b94f5ccf888d42a8ff4bece10f481, type: 2}
+  - {fileID: 7400000, guid: 929b5796a702d944d8ea45821bd3cba5, type: 2}
+  - {fileID: 7400000, guid: 57c3d3211cae17b448fd782b9489eb99, type: 2}
+  - {fileID: 7400000, guid: 28f20acba0b0d5f4793da0573166a4b7, type: 2}
+  - {fileID: 7400000, guid: ccf50f8bf3316484882613a8c546e8a3, type: 2}
+  - {fileID: 7400000, guid: a5cf434af98b85641b27c1563e9f32fa, type: 2}
+  - {fileID: 7400000, guid: f18e936728028e34c8000f5dced7f7dd, type: 2}
+  - {fileID: 7400000, guid: 0116faab3d421b547a0640906bc61780, type: 2}
+  - {fileID: 7400000, guid: 484cb48546c7032428b4fcc82fc73561, type: 2}
+  - {fileID: 7400000, guid: 2bda13b7eb65bb74ea38343c9a90f26d, type: 2}
+  - {fileID: 7400000, guid: 86f62c66552c35046a31e9ac44e5a8d7, type: 2}
+  - {fileID: 7400000, guid: 1962165a66113984e966c345e938c773, type: 2}
+  - {fileID: 7400000, guid: 6f78c8178fb22714a8dccc97dd7682bc, type: 2}
+  - {fileID: 7400000, guid: 810a4474bb8e07d459bd7ce9da94af4c, type: 2}
+  - {fileID: 7400000, guid: a0136b6eb838684448e66954ac77fa3e, type: 2}
+  - {fileID: 7400000, guid: 4649cfc9d6488f34e88699280c630dab, type: 2}
+  - {fileID: 7400000, guid: fa6474bc096ea1144b5c6e613348ff4b, type: 2}
+  - {fileID: 7400000, guid: 1a48c3133b3be1c4587658f6f693f346, type: 2}
+  - {fileID: 7400000, guid: 32005f79627ae2c44bc6505577106e08, type: 2}
+  - {fileID: 7400000, guid: 95b53cd4dde598647ad43e8d6b2cef9a, type: 2}
+  - {fileID: 7400000, guid: 333040a3f5aaff24bab819e3f0a73106, type: 2}
+  - {fileID: 7400000, guid: 40b7ec23b1f28024f8a34022efe3077f, type: 2}
+  - {fileID: 7400000, guid: 2cc0509d7b91ad145a5c702341fd0325, type: 2}
+  - {fileID: 7400000, guid: 559f44ff478033943851f09dff3a58d0, type: 2}
+  - {fileID: 7400000, guid: 5237c3288997f5c49a8898e27af760a8, type: 2}
+  - {fileID: 7400000, guid: e7d9f232f11478b46b3839216b96d73a, type: 2}
+  - {fileID: 7400000, guid: 880dbc22f1e3fb64aba7af969d0d6424, type: 2}
+  - {fileID: 7400000, guid: 4d7f70a27f8f3ac4d997f0a309507e35, type: 2}
+  - {fileID: 7400000, guid: 756a6e4ec387d9048807d3ae494b82a6, type: 2}
+  - {fileID: 7400000, guid: ccb3d7b11eae97d49b0073d9e7c48b08, type: 2}
+  - {fileID: 7400000, guid: f6fbba49d62fc964bb7320bf823e2c18, type: 2}
+  - {fileID: 7400000, guid: 8f9152fff73c35a4a989368f2531adba, type: 2}
+  - {fileID: 7400000, guid: da7c750d8d662f84fa813df4b9a3f848, type: 2}
+  - {fileID: 7400000, guid: f56c096fc6fb5534e9bed339d0d1010b, type: 2}
+  - {fileID: 7400000, guid: 0a1fef838aea65e4ba48c87b48be4b27, type: 2}
+  - {fileID: 7400000, guid: 0b03f58831ac2534cb4f24c4071f7cec, type: 2}
+  - {fileID: 7400000, guid: 9c5fe605301fdf2408145dcc78e4d6ba, type: 2}
+  - {fileID: 7400000, guid: 1e566563b6d5f9842897ed7baf788ad5, type: 2}
+  - {fileID: 7400000, guid: e4a8a2ac9b137f842bfb169681623ac2, type: 2}
+  - {fileID: 7400000, guid: 8afaf34e8142a6a4d9d117b00ed95c52, type: 2}
+  Height: 2.3
+  BodyWidth: 1.05
+  RagdollReactionScale: 0.85
+  PartialRagdollSeconds: 0.4
+  MaxHealth: 320
+  MaxGuard: 120
+  MaxSpecial: 100
+  MoveSpeed: 2.8
+  JumpSpeed: 12
+  Boss: {fileID: 11400000, guid: 304023bffc7bb0a4eafbfc575dc51d13, type: 2}
+  Punch: {fileID: 11400000, guid: cf85dc2e6bb299a42b6831793553a374, type: 2}
+  Kick: {fileID: 11400000, guid: 5b1a9071c99005e40bedf04456579886, type: 2}
+  Special: {fileID: 11400000, guid: 3ba5e3e2261ae60429dea2d36ab19d49, type: 2}
+  HasInflation: 0
+  PopCapacity: 100
+  PopGainPerHit: 25
+  DeflateFrames: 75
+  InflationDamageReduction: 30
+  DeflateSpeed: 5
+  DeflateTurnFrames: 12
+  DeflateBounds: {x: -6.2, y: 6.2}
+  HasStuffingLoss: 0
+  LowHealthDamageBonus: 10

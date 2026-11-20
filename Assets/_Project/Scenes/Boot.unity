@@ -167,12 +167,18 @@ MonoBehaviour:
   - Name: Bathtub Brawl
     Scene: BathtubBrawl
     Hazards: "Rising water \xB7 Duck wave"
+    Thumbnail: {fileID: 0}
+    IsBossStage: 0
   - Name: Kitchen Counter
     Scene: KitchenCounter
     Hazards: "Flying toast \xB7 Mixer belt"
+    Thumbnail: {fileID: 0}
+    IsBossStage: 0
   - Name: Combat Sandbox
     Scene: CombatSandbox
     Hazards: Center-stage test hazard
+    Thumbnail: {fileID: 0}
+    IsBossStage: 0
   resultsDelay: 1.5
 --- !u!4 &1895868205
 Transform:

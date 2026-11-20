@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2064202347736447338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 343473695265769758}
+  - component: {fileID: 4376400194308175582}
+  - component: {fileID: 490576808203616764}
+  - component: {fileID: 6351117807245473954}
+  - component: {fileID: 770414745757121258}
+  - component: {fileID: 7451910394830120546}
+  - component: {fileID: 3409748180608004301}
+  m_Layer: 0
+  m_Name: MadamePlushFighter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &343473695265769758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064202347736447338}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3924588986383305628}
+  - {fileID: 1015406003784371046}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4376400194308175582
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064202347736447338}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.43
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!54 &490576808203616764
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064202347736447338}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6351117807245473954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064202347736447338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c68b1b0b5cc54b4aa31d190e1e8eec04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.Hitbox
+  hurtLayers:
+    serializedVersion: 2
+    m_Bits: 512
+--- !u!114 &770414745757121258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064202347736447338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ae2dc22b72b475c8cfd535a2ef02fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.Fighter
+  character: {fileID: 11400000, guid: 01e070e970a1eae45a84fcb5527198f8, type: 2}
+  inputSource: {fileID: 0}
+  animator: {fileID: 6412267298582505190}
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  team: 0
+  visualClips:
+  - {fileID: 7400000, guid: 60b6a5e3beedc364ba18577f10c8c1b5, type: 2}
+  - {fileID: 7400000, guid: 0d87fb6289f6f1841a1a8cc241739e61, type: 2}
+  - {fileID: 7400000, guid: 5ca5ed9e80e023046b485496858cf635, type: 2}
+  - {fileID: 7400000, guid: ce44529c02f881846adcd2c53e24f90c, type: 2}
+  - {fileID: 7400000, guid: 847d412a2afc2f9448f61c490f25a8db, type: 2}
+  - {fileID: 7400000, guid: b0afbc5a2c163054d806bd09e5c6c885, type: 2}
+  - {fileID: 7400000, guid: 6d79190f629980548a142374c17189fc, type: 2}
+  - {fileID: 7400000, guid: d0b4ffa5aecf7684ab618499431ae805, type: 2}
+  - {fileID: 7400000, guid: fc34c14197fcceb4fbf495edd79dce7b, type: 2}
+  - {fileID: 7400000, guid: 8f53ef712f9a7bd44915dcf6dda1d2f7, type: 2}
+  - {fileID: 7400000, guid: 97383ea8001118142b7f4407aa654d18, type: 2}
+  - {fileID: 7400000, guid: 4d5a8a5be450a1840890509ad04041fd, type: 2}
+  - {fileID: 7400000, guid: 2b2e07b6e9afb4a4ca58365fda93b933, type: 2}
+  - {fileID: 7400000, guid: b215c88985ec4f046a76aac1cacf2d90, type: 2}
+  - {fileID: 7400000, guid: 82d4810a21b830f4492ac444f263989c, type: 2}
+  - {fileID: 7400000, guid: 2bea73e057bc7c645859594b8a5a406b, type: 2}
+  - {fileID: 7400000, guid: e2f69d076e8bbd347a723fec1e7af3f2, type: 2}
+  - {fileID: 7400000, guid: 7c9e9d7727815c94096ca103fb11639c, type: 2}
+  - {fileID: 7400000, guid: 5a3a7987e8b25db4087507aaf540dbfd, type: 2}
+  - {fileID: 7400000, guid: 8639688008be8e74bb8b959056ffc4ee, type: 2}
+  - {fileID: 7400000, guid: 36eb7514892caf940be6969efc33d5eb, type: 2}
+  - {fileID: 7400000, guid: f43181609af0e5b4cb5236d0190f9b28, type: 2}
+--- !u!114 &7451910394830120546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064202347736447338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fcd3fdf6924afebb3896a085906851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.SquashStretch
+  fighter: {fileID: 770414745757121258}
+  visual: {fileID: 3924588986383305628}
+  recoverySeconds: 0.18
+--- !u!114 &3409748180608004301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2064202347736447338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe9198a43a624d7291e7b513b83cdb6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.ItemHolder
+  handSocket: {fileID: 2552446319455363479}
+--- !u!1 &8410592958281787762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1015406003784371046}
+  - component: {fileID: 6431042013663856335}
+  - component: {fileID: 6754825315014083583}
+  m_Layer: 9
+  m_Name: Body Hurtbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1015406003784371046
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8410592958281787762}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 343473695265769758}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6431042013663856335
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8410592958281787762}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.86, y: 1.6, z: 0.6}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6754825315014083583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8410592958281787762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696bb4b2acc4492a942cbe675aa2c1aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.Hurtbox
+  owner: {fileID: 770414745757121258}
+  zone: 0
+--- !u!1001 &8725069269498853334
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 343473695265769758}
+    m_Modifications:
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8734737519640874585, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+      propertyPath: m_Name
+      value: MadamePlushVisual
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+--- !u!4 &2552446319455363479 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6519435597856380481, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+  m_PrefabInstance: {fileID: 8725069269498853334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3924588986383305628 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5720517820663364682, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+  m_PrefabInstance: {fileID: 8725069269498853334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6412267298582505190 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2443589171394826544, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+  m_PrefabInstance: {fileID: 8725069269498853334}
+  m_PrefabAsset: {fileID: 0}

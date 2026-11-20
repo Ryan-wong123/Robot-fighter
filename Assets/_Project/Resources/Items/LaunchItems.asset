@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17ff892322c8420da2f9d7c485b7614d, type: 3}
+  m_Name: LaunchItems
+  m_EditorClassIdentifier: WobbleBrawl.Gameplay::WobbleBrawl.Gameplay.LaunchItemCatalog
+  Items:
+  - {fileID: 11400000, guid: 76166db4f11bac048b294585876cfc14, type: 2}
+  - {fileID: 11400000, guid: de225eaf9485ea64dbd7fcd0a2d1ecf0, type: 2}
+  - {fileID: 11400000, guid: 49f410bad2742fa469a3d4caff7c1ff1, type: 2}
+  - {fileID: 11400000, guid: 4143d92f7309f4b4b89cc5bffaf4d530, type: 2}
+  - {fileID: 11400000, guid: 9c8dcd398dfd3fd42b04e3691b06d5d6, type: 2}
+  - {fileID: 11400000, guid: f2616b3e9a586054cb4676c64a29a11e, type: 2}

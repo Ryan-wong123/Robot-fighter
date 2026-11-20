@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0c15fe649e40de903ca1cc7e85ef57, type: 3}
+  m_Name: MadamePlush
+  m_EditorClassIdentifier: WobbleBrawl.Data::WobbleBrawl.Data.CharacterDef
+  Prefab: {fileID: 2064202347736447338, guid: 437a512097a6f20458e354dfdd71d33b, type: 3}
+  VisualPrefab: {fileID: 8734737519640874585, guid: e1ae55b842ce9ce43bec13b0b4a3b72c, type: 3}
+  DisplayName: Madame Plush
+  AnimationPrefix: MadamePlush
+  VisualClips:
+  - {fileID: 7400000, guid: 60b6a5e3beedc364ba18577f10c8c1b5, type: 2}
+  - {fileID: 7400000, guid: 0d87fb6289f6f1841a1a8cc241739e61, type: 2}
+  - {fileID: 7400000, guid: 5ca5ed9e80e023046b485496858cf635, type: 2}
+  - {fileID: 7400000, guid: ce44529c02f881846adcd2c53e24f90c, type: 2}
+  - {fileID: 7400000, guid: 847d412a2afc2f9448f61c490f25a8db, type: 2}
+  - {fileID: 7400000, guid: b0afbc5a2c163054d806bd09e5c6c885, type: 2}
+  - {fileID: 7400000, guid: 6d79190f629980548a142374c17189fc, type: 2}
+  - {fileID: 7400000, guid: d0b4ffa5aecf7684ab618499431ae805, type: 2}
+  - {fileID: 7400000, guid: fc34c14197fcceb4fbf495edd79dce7b, type: 2}
+  - {fileID: 7400000, guid: 8f53ef712f9a7bd44915dcf6dda1d2f7, type: 2}
+  - {fileID: 7400000, guid: 97383ea8001118142b7f4407aa654d18, type: 2}
+  - {fileID: 7400000, guid: 4d5a8a5be450a1840890509ad04041fd, type: 2}
+  - {fileID: 7400000, guid: 2b2e07b6e9afb4a4ca58365fda93b933, type: 2}
+  - {fileID: 7400000, guid: b215c88985ec4f046a76aac1cacf2d90, type: 2}
+  - {fileID: 7400000, guid: 82d4810a21b830f4492ac444f263989c, type: 2}
+  - {fileID: 7400000, guid: 2bea73e057bc7c645859594b8a5a406b, type: 2}
+  - {fileID: 7400000, guid: e2f69d076e8bbd347a723fec1e7af3f2, type: 2}
+  - {fileID: 7400000, guid: 7c9e9d7727815c94096ca103fb11639c, type: 2}
+  - {fileID: 7400000, guid: 5a3a7987e8b25db4087507aaf540dbfd, type: 2}
+  - {fileID: 7400000, guid: 8639688008be8e74bb8b959056ffc4ee, type: 2}
+  - {fileID: 7400000, guid: 36eb7514892caf940be6969efc33d5eb, type: 2}
+  - {fileID: 7400000, guid: f43181609af0e5b4cb5236d0190f9b28, type: 2}
+  Height: 1.8
+  BodyWidth: 0.86
+  RagdollReactionScale: 0.85
+  PartialRagdollSeconds: 0.4
+  MaxHealth: 240
+  MaxGuard: 100
+  MaxSpecial: 100
+  MoveSpeed: 2.4
+  JumpSpeed: 9
+  Punch: {fileID: 11400000, guid: ba654d83b40fbd5448516aae30c5139c, type: 2}
+  Kick: {fileID: 11400000, guid: e8f118f82e465c24eb022a37ec84995c, type: 2}
+  Special: {fileID: 11400000, guid: fd67373b96c8c4e4fa027efffe64a5c1, type: 2}
+  HasInflation: 0
+  PopCapacity: 100
+  PopGainPerHit: 25
+  DeflateFrames: 75
+  InflationDamageReduction: 30
+  DeflateSpeed: 5
+  DeflateTurnFrames: 12
+  DeflateBounds: {x: -6.2, y: 6.2}
+  HasStuffingLoss: 1
+  LowHealthDamageBonus: 10

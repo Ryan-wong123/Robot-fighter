@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa7851ed25f403886df7294ba6de53d, type: 3}
+  m_Name: BossCombat
+  m_EditorClassIdentifier: WobbleBrawl.Data::WobbleBrawl.Data.BossCombatDef
+  InstalledRevision: 4
+  SecondPunch: {fileID: 11400000, guid: ce50d92b79ebce64db929e0b3fe668a9, type: 2}
+  SecondKick: {fileID: 11400000, guid: 2a9bafd78a761ec43b8686e4d6c22555, type: 2}
+  SecondSpecial: {fileID: 11400000, guid: e557a79ac2ff85949b30b0a3e375ef6e, type: 2}
+  Profile: {fileID: 11400000, guid: 967c03e1eb7ccc2469f738f1a2839a92, type: 2}
+  SecondMoveSpeed: 4.2
+  SpecialCooldownFrames: 250
+  SpecialRange: {x: 1.5, y: 6}
+  PopGroundClearance: 0.02
+  SpecialBounds: {x: -5.7, y: 5.7}
