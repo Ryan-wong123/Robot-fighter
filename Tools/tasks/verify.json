@@ -304,5 +304,10 @@
     "python3 Tools/tasks/run_unity_tests.py EditMode EconomyServiceTests",
     "python3 Tools/tasks/run_unity_tests.py EditMode SaveServiceTests",
     "python3 Tools/tasks/run_unity_tests.py EditMode AppFlowTests"
+  ],
+  "M4-09": [
+    "python3 Tools/Audio/check_final_audio.py",
+    "python3 Tools/tasks/run_unity_tests.py EditMode AudioManagerTests",
+    "python3 Tools/tasks/run_unity_tests.py EditMode SaveServiceTests"
   ]
 }

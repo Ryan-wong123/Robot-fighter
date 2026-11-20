@@ -23,6 +23,7 @@ public sealed class SaveServiceTests
     public void SaveServiceRoundTripsSettingsAndProgress()
     {
         var data = new SaveData { Coins = 123 };
+        data.Settings.Voice = .37f;
         data.UnlockedFighters.Add("Sir Noodle");
         data.Settings.Master = .27f;
         data.Settings.Haptics = false;
@@ -34,6 +35,7 @@ public sealed class SaveServiceTests
         Assert.That(loaded.Settings.Haptics, Is.False);
         Assert.That(loaded.Settings.Layout, Is.EqualTo(ControlLayout.Mirrored));
         Assert.That(loaded.Coins, Is.EqualTo(123));
+        Assert.That(loaded.Settings.Voice, Is.EqualTo(.37f).Within(.001f));
         Assert.That(loaded.UnlockedFighters, Does.Contain("Sir Noodle"));
         Assert.That(File.Exists(path + ".tmp"), Is.False);
     }
@@ -43,7 +45,7 @@ public sealed class SaveServiceTests
     {
         File.WriteAllText(path, "{\"Version\":1,\"Master\":0.35,\"Haptics\":false,\"Coins\":45}");
         var loaded = new SaveService(path).Load();
-        Assert.That(loaded.Version, Is.EqualTo(2));
+        Assert.That(loaded.Version, Is.EqualTo(SaveService.CurrentVersion));
         Assert.That(loaded.Settings.Master, Is.EqualTo(.35f));
         Assert.That(loaded.Settings.Haptics, Is.False);
         Assert.That(loaded.Coins, Is.EqualTo(45));

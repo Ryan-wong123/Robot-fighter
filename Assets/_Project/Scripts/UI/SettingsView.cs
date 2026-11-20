@@ -13,17 +13,19 @@ namespace WobbleBrawl.UI
         private Text masterValue;
         private Text musicValue;
         private Text sfxValue;
+        private Text voiceValue;
 
         public void Build(Font uiFont)
         {
             font = uiFont;
-            SliderRow("Master", 150f, GameSettings.Master, GameSettings.SetMaster, out masterValue);
-            SliderRow("Music", 88f, GameSettings.Music, GameSettings.SetMusic, out musicValue);
-            SliderRow("SFX", 26f, GameSettings.Sfx, GameSettings.SetSfx, out sfxValue);
-            haptics = ButtonRow("Haptics", -42f, () => { GameSettings.SetHaptics(!GameSettings.Haptics); GameSettings.Vibrate(); });
-            layout = ButtonRow("Controls", -104f, () => GameSettings.SetLayout(
+            SliderRow("Master", 156f, GameSettings.Master, GameSettings.SetMaster, out masterValue);
+            SliderRow("Music", 104f, GameSettings.Music, GameSettings.SetMusic, out musicValue);
+            SliderRow("SFX", 52f, GameSettings.Sfx, GameSettings.SetSfx, out sfxValue);
+            SliderRow("Voice", 0f, GameSettings.Voice, GameSettings.SetVoice, out voiceValue);
+            haptics = ButtonRow("Haptics", -55f, () => { GameSettings.SetHaptics(!GameSettings.Haptics); GameSettings.Vibrate(); });
+            layout = ButtonRow("Controls", -110f, () => GameSettings.SetLayout(
                 GameSettings.Layout == ControlLayout.Standard ? ControlLayout.Mirrored : ControlLayout.Standard));
-            quality = ButtonRow("Graphics", -166f, () => GameSettings.SetQuality(
+            quality = ButtonRow("Graphics", -165f, () => GameSettings.SetQuality(
                 (QualitySettings.GetQualityLevel() + 1) % Mathf.Max(1, QualitySettings.names.Length)));
             GameSettings.Changed += Render;
             Render();
@@ -35,6 +37,7 @@ namespace WobbleBrawl.UI
         {
             masterValue.text = $"{Mathf.RoundToInt(GameSettings.Master * 100f)}%";
             musicValue.text = $"{Mathf.RoundToInt(GameSettings.Music * 100f)}%";
+            voiceValue.text = $"{Mathf.RoundToInt(GameSettings.Voice * 100f)}%";
             sfxValue.text = $"{Mathf.RoundToInt(GameSettings.Sfx * 100f)}%";
             haptics.text = GameSettings.Haptics ? "Haptics   On" : "Haptics   Off";
             layout.text = "Controls   " + GameSettings.Layout;

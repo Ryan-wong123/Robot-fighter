@@ -16,6 +16,12 @@ namespace WobbleBrawl.Core
         private AudioClip[] clips;
         private AudioSource music;
         private AudioSource menuVoice;
+        private AudioSource bark;
+        private AudioSource announcer;
+        private AudioClip queuedAnnouncement;
+        private readonly System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<AudioClip>> voiceClips =
+            new System.Collections.Generic.Dictionary<string, System.Collections.Generic.List<AudioClip>>(System.StringComparer.Ordinal);
+        public static float MusicDucking => running != null && Time.unscaledTime < running.duckUntil ? .4f : 1f;
         private AudioListener fallbackListener;
         private bool wasPaused;
         private float duckUntil;
@@ -43,6 +49,17 @@ namespace WobbleBrawl.Core
             music = NewSource("Music");
             music.loop = true;
             music.ignoreListenerPause = true;
+            bark = NewSource("Fighter Voice");
+            announcer = NewSource("Announcer");
+            foreach (var clip in Resources.LoadAll<AudioClip>("Voices"))
+            {
+                int separator = clip.name.LastIndexOf("_v", System.StringComparison.Ordinal);
+                if (separator < 0) continue;
+                string key = clip.name.Substring(0, separator);
+                if (!voiceClips.TryGetValue(key, out var variants))
+                    voiceClips.Add(key, variants = new System.Collections.Generic.List<AudioClip>());
+                variants.Add(clip);
+            }
             menuVoice = NewSource("Menu SFX");
             menuVoice.ignoreListenerPause = true;
             for (int index = 0; index < voices.Length; index++)
@@ -78,6 +95,9 @@ namespace WobbleBrawl.Core
             SelectListener(scene);
             foreach (var voice in voices)
                 voice.Stop();
+            bark.Stop();
+            announcer.Stop();
+            queuedAnnouncement = null;
             duckUntil = 0f;
             PlayMusic(scene.name);
             ApplyLevels();
@@ -117,7 +137,9 @@ namespace WobbleBrawl.Core
 
         private void ApplyLevels()
         {
-            music.volume = MusicGain * GameSettings.Music * (Time.unscaledTime < duckUntil ? .4f : 1f);
+            music.volume = MusicGain * GameSettings.Music * MusicDucking;
+            bark.volume = .75f * GameSettings.Voice;
+            announcer.volume = .88f * GameSettings.Voice;
             menuVoice.volume = SfxGain * GameSettings.Sfx;
             foreach (var voice in voices)
                 voice.volume = SfxGain * GameSettings.Sfx;
@@ -128,17 +150,61 @@ namespace WobbleBrawl.Core
             if (MatchPause.IsPaused != wasPaused)
             {
                 wasPaused = MatchPause.IsPaused;
+                if (wasPaused) { bark.Pause(); announcer.Pause(); }
+                else { bark.UnPause(); announcer.UnPause(); }
                 foreach (var voice in voices)
                 {
                     if (wasPaused) voice.Pause();
                     else voice.UnPause();
                 }
             }
+            if (!wasPaused && queuedAnnouncement != null && !announcer.isPlaying)
+            {
+                var clip = queuedAnnouncement;
+                queuedAnnouncement = null;
+                if (GameSettings.Voice > 0f) StartAnnouncement(clip);
+            }
             if (duckUntil > 0f && Time.unscaledTime >= duckUntil)
             {
                 duckUntil = 0f;
                 ApplyLevels();
             }
+        }
+
+        public static bool PlayVoice(string key, bool priority = false)
+        {
+            if (running == null || MatchPause.IsPaused || GameSettings.Voice <= 0f ||
+                !running.voiceClips.TryGetValue(key, out var variants))
+                return false;
+            if (!priority && (running.announcer.isPlaying || running.bark.isPlaying))
+                return false;
+            var source = priority ? running.announcer : running.bark;
+
+            int index = Random.Range(0, variants.Count);
+            if (variants.Count > 1 && variants[index] == source.clip)
+                index = (index + 1) % variants.Count;
+            if (priority)
+            {
+                running.bark.Stop();
+                if (running.announcer.isPlaying)
+                    running.queuedAnnouncement = variants[index];
+                else
+                    running.StartAnnouncement(variants[index]);
+            }
+            else
+            {
+                source.clip = variants[index];
+                source.Play();
+            }
+            return true;
+        }
+
+        private void StartAnnouncement(AudioClip clip)
+        {
+            announcer.clip = clip;
+            announcer.Play();
+            duckUntil = Mathf.Max(duckUntil, Time.unscaledTime + clip.length);
+            ApplyLevels();
         }
 
         public static bool Play(AudioCue cue)
@@ -160,6 +226,8 @@ namespace WobbleBrawl.Core
             {
                 if (voice.isPlaying)
                     continue;
+                voice.pitch = cue == AudioCue.Hit || cue == AudioCue.Heavy || cue == AudioCue.Block
+                    ? Random.Range(.94f, 1.06f) : 1f;
                 voice.clip = clip;
                 voice.Play();
                 if (cue == AudioCue.Knockout || cue == AudioCue.Win)

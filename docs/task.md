@@ -108,7 +108,7 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [~] **M4-06** Items up to 12 (after: M2-02)
 - [ ] **M4-07** Arcade Ladder mode (after: M3-03, M1-08, M4-10, M4-11)
 - [~] **M4-08** Unlocks and coin economy (`EconomyService`) (after: M3-07)
-- [ ] **M4-09** Music, SFX and fighter voice barks final pass (licenses recorded) (after: M3-08, M3-09)
+- [~] **M4-09** Music, SFX and fighter voice barks final pass (licenses recorded) (after: M3-08, M3-09)
 - [ ] **M4-12** Unified persistent twelve-item training sandbox; remove test arenas from selection and restrict debug shortcuts (after: M4-06)
 
 - [~] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)

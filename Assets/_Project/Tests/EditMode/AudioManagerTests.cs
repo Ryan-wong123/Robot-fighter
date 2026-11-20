@@ -10,7 +10,7 @@ using WobbleBrawl.Core;
 public sealed class AudioManagerTests
 {
     [Test]
-    public void PlaceholderClipsArePresentAndNonempty()
+    public void FinalClipsArePresentAndNonempty()
     {
         foreach (string key in new[] { "MenuMusic", "BathtubMusic", "KitchenMusic", "SandboxMusic",
             "Click", "Hit", "Heavy", "Block", "GuardBreak", "Special", "Knockout", "Round", "Win" })
@@ -42,10 +42,23 @@ public sealed class AudioManagerTests
         GameSettings.SetMusic(.25f);
         Assert.That(manager.MusicSource.volume, Is.EqualTo(.0875f).Within(.001f));
         int sources = manager.GetComponentsInChildren<AudioSource>().Length;
-        Assert.That(sources, Is.EqualTo(manager.VoiceCapacity + 2));
+        Assert.That(sources, Is.EqualTo(manager.VoiceCapacity + 4));
         for (int index = 0; index < 30; index++)
             AudioManager.Play(AudioCue.Hit);
         Assert.That(manager.GetComponentsInChildren<AudioSource>().Length, Is.EqualTo(sources));
+        float voice = GameSettings.Voice;
+        try
+        {
+            GameSettings.SetVoice(0f);
+            Assert.That(AudioManager.PlayVoice("announcer_fight", true), Is.False);
+            GameSettings.SetVoice(1f);
+            Assert.That(AudioManager.PlayVoice("announcer_fight", true), Is.True);
+            Assert.That(AudioManager.PlayVoice("blobby_attack_light"), Is.False);
+        }
+        finally
+        {
+            GameSettings.SetVoice(voice);
+        }
         MatchPause.Pause();
         Assert.That(AudioManager.Play(AudioCue.Hit), Is.False);
         Assert.That(AudioManager.Play(AudioCue.Click), Is.True);

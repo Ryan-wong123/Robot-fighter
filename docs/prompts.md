@@ -766,12 +766,14 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Manual:** With a fresh profile, confirm starter entries and locked prices. Check insufficient funds and one-time confirmation. Complete matches, verify result amounts, buy a fighter and arena, restart Unity or the Android app and verify ownership, balance and existing settings. Quit mid-match and verify no reward. Verify the Arcade finale bonus and confirm locked content can still appear as an Arcade encounter.
 - **Automated:** EconomyServiceTests, SaveServiceTests and AppFlowTests. Native verification is pending.
 
-### M4-09 — Music, SFX and fighter voice barks final pass (licenses recorded)
-- **Section:** M4 — Content (weeks 11-14)
-- **Prerequisites:** M3-08, M3-09
-- **Read first:** docs/PRD.md sections 4 and 14; docs/coding_guidelines.md section 9; docs/characters.md section 6
-- **Notes:** Final pass on music, SFX and fighter voice barks (characters.md 6): short clips with random variants, throttled, voice bus with its own volume, licenses and VoxCPM2 generation records kept for every clip.
-- **Done when:** the M0-01 checks in `Tools/tasks/verify.json` confirm the pinned editor version, package manifest and prototype asset layout.
+**Owner verification (2026-11-20):** The owner confirmed the M4-08 gameplay checklist passed. Native automated verification remains pending.
+
+### M4-09 — Final music, SFX and fighter voices
+- **Prerequisites:** M3-08, M3-09.
+- **Implementation:** Original replacement core loops/effects, recorded voice variants, bounded playback, priority announcer, ducking, separate saved Voice control and per-clip provenance. The imported voice bank is mono Vorbis at quality 0.6. Existing saved profiles migrate to full Voice volume.
+- **Verify:** Run the audio catalog check, AudioManagerTests and SaveServiceTests. In Boot, listen to menu and arena tracks. Play each fighter and check attacks, hits and taunts. Verify the announcer remains clear over combat, pause resumes correctly, and Voice mute leaves music and SFX audible. Restart and confirm the slider persists. Check Toy Chest tempo changes and phone-speaker readability.
+- **Offline verification:** 94 short voice clips across 47 two-variant groups, 13 replacement loops/effects, and 131 catalog entries passed the hash/format checks. The uncompressed voice bank is approximately 3.26 MB. Some alternate takes use a documented pitch edit of a valid take.
+- **Review:** The five D-08 exports retain their owner approval. New clips require listening acceptance and native Unity verification.
 
 ### M5-01 — `IAdService` + LevelPlay integration (Unity Ads network), editor fake
 - **Section:** M5 — Monetization & launch (weeks 15-16)

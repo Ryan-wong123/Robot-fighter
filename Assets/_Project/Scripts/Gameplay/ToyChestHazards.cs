@@ -87,7 +87,7 @@ namespace WobbleBrawl.Gameplay
         private void Update()
         {
             float pace = opponent.IsBossSecondPhase ? 1.25f : 1f;
-            music.volume = (opponent.IsBossSecondPhase ? .44f : .35f) * GameSettings.Music;
+            music.volume = (opponent.IsBossSecondPhase ? .44f : .35f) * GameSettings.Music * AudioManager.MusicDucking;
             music.pitch = !rain && cycle.Phase == HazardPhase.Telegraph ? pace * .68f : pace;
         }
 

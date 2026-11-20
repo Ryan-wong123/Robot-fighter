@@ -71,3 +71,9 @@ Run tests with python -m unittest discover -s Tools/Audio -p test_voice_pipeline
 ## Mr. Jack cues (M4-10)
 
 `python Tools/Audio/generate_jack_cues.py` copies the approved 1.141 s D-08 Mr. Jack laugh unchanged and regenerates an original 1.5 s music-box warning. Both exports are mono PCM16 24 kHz in the Audio resource folder. [Provenance](../../Art/_Source/MrJack/audio_provenance.json) records the retained audition hash, review and rights-review location. Boss attack barks are throttled; ejection/win force one laugh; phase two pitches playback to 1.12. These use the existing SFX gain/pause adapter. Full new phrase generation, independent voice volume and final mixing remain M4-09.
+
+## Final in-game mix (M4-09)
+
+[Clip catalog](final_audio_catalog.json) records hashes, clip source and license provenance. New VoxCPM2 variants retain generation and edit records and are marked audition_required until heard in-game. The five approved D-08 clips retain their original approvals. Reproduce base music and combat effects with `python Tools/Audio/generate_final_mix.py Logs/MixReview`. The final voice publisher accepts raw staging folders and writes edited mono 24 kHz exports plus a JSON report. It rejects unusable lengths and can apply a pitch-preserving tempo edit without truncating dialogue.
+
+In Unity, check attacks, hits, taunts, boss phase and results, the announcer during round start, KO and sudden death, and playback under pause and scene changes. Move Voice to zero and confirm music and effects continue. Restart and verify Voice is saved. Confirm the fighter voices are clear and correctly cast on a phone speaker before approving the new clips.

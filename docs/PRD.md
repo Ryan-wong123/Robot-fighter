@@ -126,7 +126,7 @@ Each stage has 1-2 signature hazards that cycle during the round, always telegra
 - In-match HUD: health bars, special gauge, guard meter, round timer, round pips, pause button.
 - Win/lose screens and the Restart button from the prototype become the Results screen.
 - Pause menu: resume, settings, quit-to-menu.
-- Settings: master/music/SFX volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply immediately and are saved locally between sessions.
+- Settings: master/music/SFX/voice volume, haptics on/off, Standard or Mirrored touch control layout, graphics quality, language **(later)**. Settings apply immediately and are saved locally between sessions.
 - All four arena selection cards show 16:9 arena previews, including Bathtub Brawl and Kitchen Counter.
 - Arena selection offers **AI: Easy**, **AI: Normal**, and **AI: Hard** buttons, with the active choice highlighted. Fresh setup defaults to Normal; the selection applies to the opponent before round one, stays through all rounds and Rematch, and returns to Normal on a fresh setup. Opening an arena directly still uses its authored profile or Normal fallback. This is match setup, not a saved setting.
 - Quick Fight arena selection includes independent **Hazards** and **Items** checkboxes. Both default on for a fresh setup; choices carry through all rounds and Rematch. Returning to a fresh setup restores both on. With both off, only the core fight runs. Arcade and boss encounters force both on and lock the setup controls. Opening an arena directly uses both on.
@@ -247,3 +247,5 @@ Held pickups follow the character’s animated hand. Blobby and Madame Plush use
 Toy Chest Showdown uses alternating Block Rain and Music Box Tilt in Mr. Jack’s stage. Block Rain deals 10 base damage with bounce. Tilt slides fighters without damage. See the [stage rules](maps.md#35-toy-chest-showdown-boss-stage-arcade-finale) for timing and starting values.
 
 Arcade Ladder keeps the chosen fighter for five best-of-three matches. Wins unlock the next fight within the run, losses and draws retry the current fight, and a finale win shows Arcade Cleared. Returning to the menu ends the current run. Items and hazards are always enabled.
+
+The final audio mix uses original arena themes and combat cues, short fighter voice variants, and priority announcer calls. The Voice slider controls both barks and announcer calls independently of music and effects.

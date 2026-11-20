@@ -10,6 +10,7 @@ namespace WobbleBrawl.Core
     {
         public static float Master { get; private set; } = 1f;
         public static float Music { get; private set; } = 1f;
+        public static float Voice { get; private set; } = 1f;
         public static float Sfx { get; private set; } = 1f;
         public static bool Haptics { get; private set; } = true;
         public static ControlLayout Layout { get; private set; }
@@ -21,6 +22,7 @@ namespace WobbleBrawl.Core
 
         public static void SetMaster(float value) { Master = Mathf.Clamp01(value); Apply(); }
         public static void SetMusic(float value) { Music = Mathf.Clamp01(value); Apply(); }
+        public static void SetVoice(float value) { Voice = Mathf.Clamp01(value); Apply(); }
         public static void SetSfx(float value) { Sfx = Mathf.Clamp01(value); Apply(); }
         public static void SetHaptics(bool value) { Haptics = value; Apply(); }
         public static void SetLayout(ControlLayout value) { Layout = value; Apply(); }
@@ -44,7 +46,7 @@ namespace WobbleBrawl.Core
                 return;
             saved.Settings = new SavedSettings
             {
-                Master = Master, Music = Music, Sfx = Sfx, Haptics = Haptics,
+                Master = Master, Music = Music, Sfx = Sfx, Voice = Voice, Haptics = Haptics,
                 Layout = Layout, Quality = QualitySettings.GetQualityLevel()
             };
             saves.Save(saved);
@@ -60,6 +62,7 @@ namespace WobbleBrawl.Core
             Master = settings.Master;
             Music = settings.Music;
             Sfx = settings.Sfx;
+            Voice = settings.Voice;
             Haptics = settings.Haptics;
             Layout = settings.Layout;
             if (settings.Quality >= 0)
@@ -78,7 +81,7 @@ namespace WobbleBrawl.Core
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void Reset()
         {
-            Master = Music = Sfx = 1f;
+            Master = Music = Sfx = Voice = 1f;
             Haptics = true;
             Layout = ControlLayout.Standard;
             Changed = null;

@@ -12,6 +12,7 @@ namespace WobbleBrawl.Core
         public float Master = 1f;
         public float Music = 1f;
         public float Sfx = 1f;
+        public float Voice = 1f;
         public bool Haptics = true;
         public ControlLayout Layout;
         public int Quality = -1;
@@ -29,7 +30,7 @@ namespace WobbleBrawl.Core
 
     public sealed class SaveService
     {
-        public const int CurrentVersion = 2;
+        public const int CurrentVersion = 3;
         private static readonly object FileGate = new object();
         private readonly string path;
         public bool IsReadOnly { get; private set; }
@@ -147,7 +148,11 @@ namespace WobbleBrawl.Core
                     };
                 }
                 else
+                {
                     data = JsonUtility.FromJson<SaveData>(json);
+                    if (header.Version == 2 && data?.Settings != null)
+                        data.Settings.Voice = 1f;
+                }
                 if (data == null)
                     return null;
                 Normalize(data);
@@ -170,6 +175,7 @@ namespace WobbleBrawl.Core
             settings.Master = Volume(settings.Master);
             settings.Music = Volume(settings.Music);
             settings.Sfx = Volume(settings.Sfx);
+            settings.Voice = Volume(settings.Voice);
             if (!Enum.IsDefined(typeof(ControlLayout), settings.Layout))
                 settings.Layout = ControlLayout.Standard;
             settings.Quality = Math.Max(-1, settings.Quality);

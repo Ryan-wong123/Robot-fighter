@@ -71,6 +71,8 @@ namespace WobbleBrawl.Gameplay
         public event Action InflationPopped;
         public event Action PresentationReset;
         public event Action VictoryCelebrated;
+        public event Action<Fighter, string> VoiceRequested;
+        public string VoiceId => character.AnimationPrefix.ToLowerInvariant();
         public int StuffingStage => character.HasStuffingLoss ? StuffingRules.Stage(Health, MaxHealth) : 0;
         public bool IsTough => character.HasStuffingLoss && IsAlive && StuffingStage == 3;
 
@@ -148,7 +150,10 @@ namespace WobbleBrawl.Gameplay
         public void PlayTaunt()
         {
             if (roundActive && (State == FighterState.Idle || State == FighterState.Moving))
+            {
                 PlayClip("Taunt");
+                VoiceRequested?.Invoke(this, "taunt");
+            }
         }
 
         public int Facing { get; private set; } = 1;
@@ -242,6 +247,7 @@ namespace WobbleBrawl.Gameplay
             {
                 PlayClip("Win");
                 VictoryCelebrated?.Invoke();
+                VoiceRequested?.Invoke(this, "win");
             }
         }
         public void SetSuddenDeath() => SetVitals(1, Guard, Special);
@@ -429,6 +435,7 @@ namespace WobbleBrawl.Gameplay
                 hitPulse = -1;
                 hit = false;
                 State = FighterState.Attacking;
+                VoiceRequested?.Invoke(this, move.HeavyReaction || IsSpecialMove(move) ? "attack_heavy" : "attack_light");
                 SetHorizontal(conveyorSpeed);
                 if (animator != null && !string.IsNullOrEmpty(move.AnimationTrigger))
                     PlayClip(move.AnimationTrigger);

@@ -267,7 +267,6 @@ public static class MrJackContent
         wave.enabled = false;
         Set(feedback, "shockwaveRing", wave);
         Set(feedback, "warningAudio", MakeAudio(visual, "MrJackMusicBox"));
-        Set(feedback, "voice", MakeAudio(visual, "MrJackLaugh"));
     }
 
     private static AudioSource MakeAudio(GameObject root, string clip)
