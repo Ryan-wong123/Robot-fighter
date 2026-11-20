@@ -124,7 +124,7 @@ namespace WobbleBrawl.Core
                 "BouncyCastleFair" => "FairMusic",
                 "GiantSandbox" => "SandMusic",
                 "ToyChestShowdown" => "", // The stage controls its own tempo.
-                "CombatSandbox" => "SandboxMusic",
+                "CombatSandbox" => "TrainingMusic",
                 _ => "MenuMusic"
             };
             var clip = Resources.Load<AudioClip>("Audio/" + key);

@@ -28,4 +28,10 @@ Write-Host 'Running the configured content checks and Unity suites. This can tak
 if ($LASTEXITCODE -ne 0) {
     throw 'Some checks failed or prerequisites remain blocked. See the output above; passing tasks were ticked by the verifier.'
 }
+$checked = Select-String -LiteralPath 'docs/task.md' -Pattern '^- \[x\] \*\*(M4-\d+)\*\*' |
+    ForEach-Object { $_.Matches[0].Groups[1].Value }
+$remaining = $Tasks | Where-Object { $_ -notin $checked }
+if ($remaining) {
+    throw "Still awaiting verification: $($remaining -join ', ')."
+}
 Write-Host 'All requested M4 tasks passed and are checked off in docs/task.md.'

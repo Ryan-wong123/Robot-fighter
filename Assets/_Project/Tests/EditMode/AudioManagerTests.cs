@@ -12,7 +12,7 @@ public sealed class AudioManagerTests
     [Test]
     public void FinalClipsArePresentAndNonempty()
     {
-        foreach (string key in new[] { "MenuMusic", "BathtubMusic", "KitchenMusic", "SandboxMusic",
+        foreach (string key in new[] { "MenuMusic", "BathtubMusic", "KitchenMusic", "TrainingMusic",
             "Click", "Hit", "Heavy", "Block", "GuardBreak", "Special", "Knockout", "Round", "Win" })
         {
             var clip = Resources.Load<AudioClip>("Audio/" + key);

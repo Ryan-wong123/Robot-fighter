@@ -775,6 +775,8 @@ The owner verified pickup, throws in both directions, recycling, respawn, and cl
 - **Offline verification:** 94 short voice clips across 47 two-variant groups, 13 replacement loops/effects, and 131 catalog entries passed the hash/format checks. The uncompressed voice bank is approximately 3.26 MB. Some alternate takes use a documented pitch edit of a valid take.
 - **Review:** The five D-08 exports retain their owner approval. New clips require listening acceptance and native Unity verification.
 
+**Owner verification (2026-11-20):** The owner confirmed the M4-09 in-game audio checklist passed. Native automated Unity verification remains pending.
+
 ### M5-01 — `IAdService` + LevelPlay integration (Unity Ads network), editor fake
 - **Section:** M5 — Monetization & launch (weeks 15-16)
 - **Prerequisites:** M3-01
@@ -969,3 +971,5 @@ M4-11 follow-up: owner observed no slide and a wrong opponent. The saved stage h
 M4-11 tilt follow-up: the visible deck and collision floor now rotate together. The regression test checks both fighters remain at floor height during downhill motion. Native Unity verification is pending.
 
 **M4-11 owner verification (2026-11-20):** The owner confirmed the Toy Chest tilt fix during gameplay. Native automated verification remains pending.
+
+**M4 verification follow-up:** M4-09’s new training theme was moved to its own asset so M4-05 can continue verifying the original audio snapshot. The Windows launcher checks actual tracker marks before reporting completion. Native suites still need to pass.

@@ -199,8 +199,8 @@
   },
   "Audio/SandboxMusic.wav": {
     "license_note": "Original project synthesis, no external samples.",
-    "sha256": "3b95b907cfad8a8b7cabd4db038752c4eaa5791c255f649f8e4eee016821d92f",
-    "source": "Tools/Audio/generate_final_mix.py"
+    "sha256": "02e83919323135c7a9c8a0c966bd3cade345b0eef1292c92d1cbdf4b8130b599",
+    "source": "Tools/Audio/generate_sandbox.py"
   },
   "Audio/Special.wav": {
     "license_note": "Original project synthesis, no external samples.",
@@ -221,6 +221,11 @@
     "license_note": "Original project synthesis, no external samples.",
     "sha256": "a30318c2213db6354277fd08e49a6b6c73d2cfb8f63e3463590b0df37977f1bb",
     "source": "Original synthesized stage cue from M4-11 (555d200)"
+  },
+  "Audio/TrainingMusic.wav": {
+    "license_note": "Original project synthesis, no external samples.",
+    "sha256": "3b95b907cfad8a8b7cabd4db038752c4eaa5791c255f649f8e4eee016821d92f",
+    "source": "Tools/Audio/generate_final_mix.py"
   },
   "Audio/Win.wav": {
     "license_note": "Original project synthesis, no external samples.",
