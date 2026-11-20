@@ -973,3 +973,5 @@ M4-11 tilt follow-up: the visible deck and collision floor now rotate together. 
 **M4-11 owner verification (2026-11-20):** The owner confirmed the Toy Chest tilt fix during gameplay. Native automated verification remains pending.
 
 **M4 verification follow-up:** M4-09’s new training theme was moved to its own asset so M4-05 can continue verifying the original audio snapshot. The Windows launcher checks actual tracker marks before reporting completion. Native suites still need to pass.
+
+**M4 owner sign-off (2026-11-20):** The owner confirmed manual verification of all M4 tasks and explicitly directed that the entire milestone be checked off on that basis. The native Unity rerun stalled before producing results. This sign-off records manual acceptance and does not represent an automated test pass. Configured checks remain in place.

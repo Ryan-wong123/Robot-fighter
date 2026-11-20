@@ -98,26 +98,26 @@ Legend: `[ ]` open, `[~]` code done but not verified here, `[x]` done and verifi
 - [x] **M3-10** Match rules: Hazards on/off and Items on/off toggles in match setup (Classic options) (after: M2-01, M2-03, M3-03)
 
 ## M4 — Content (weeks 11-14)
-- [~] **M4-01** Sir Noodle (model, rig, animations, data) (after: M1-14)
-- [~] **M4-02** Puffin Pete (model, rig, animations, data) (after: M1-14)
-- [~] **M4-03** Madame Plush (model, rig, animations, data) (after: M1-14)
-- [~] **M4-10** Mr. Jack boss fighter (model, rig, two-phase animations, boss AI profile, voice barks) (after: M1-14, M2-07)
-- [~] **M4-04** Stage 3: Bouncy Castle Fair (after: M2-03)
-- [~] **M4-05** Stage 4: Giant Sandbox (after: M2-03)
-- [~] **M4-11** Boss stage: Toy Chest Showdown (art + Block Rain and Music Box Tilt hazards) (after: M2-03)
-- [~] **M4-06** Items up to 12 (after: M2-02)
-- [ ] **M4-07** Arcade Ladder mode (after: M3-03, M1-08, M4-10, M4-11)
-- [~] **M4-08** Unlocks and coin economy (`EconomyService`) (after: M3-07)
-- [~] **M4-09** Music, SFX and fighter voice barks final pass (licenses recorded) (after: M3-08, M3-09)
-- [ ] **M4-12** Unified persistent twelve-item training sandbox; remove test arenas from selection and restrict debug shortcuts (after: M4-06)
+- [x] **M4-01** Sir Noodle (model, rig, animations, data) (after: M1-14)
+- [x] **M4-02** Puffin Pete (model, rig, animations, data) (after: M1-14)
+- [x] **M4-03** Madame Plush (model, rig, animations, data) (after: M1-14)
+- [x] **M4-10** Mr. Jack boss fighter (model, rig, two-phase animations, boss AI profile, voice barks) (after: M1-14, M2-07)
+- [x] **M4-04** Stage 3: Bouncy Castle Fair (after: M2-03)
+- [x] **M4-05** Stage 4: Giant Sandbox (after: M2-03)
+- [x] **M4-11** Boss stage: Toy Chest Showdown (art + Block Rain and Music Box Tilt hazards) (after: M2-03)
+- [x] **M4-06** Items up to 12 (after: M2-02)
+- [x] **M4-07** Arcade Ladder mode (after: M3-03, M1-08, M4-10, M4-11)
+- [x] **M4-08** Unlocks and coin economy (`EconomyService`) (after: M3-07)
+- [x] **M4-09** Music, SFX and fighter voice barks final pass (licenses recorded) (after: M3-08, M3-09)
+- [x] **M4-12** Unified persistent twelve-item training sandbox; remove test arenas from selection and restrict debug shortcuts (after: M4-06)
 
-- [~] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)
+- [x] **M4-13** Arena selection AI difficulty buttons and match application (after: M2-07, M3-03)
 
 - [x] **M4-14** Bathtub and Kitchen arena selection thumbnails (after: M3-03)
 
-- [ ] **M4-15** Restrict item lineups to training and randomize normal arena spawn intervals (after: M2-01, M4-06)
+- [x] **M4-15** Restrict item lineups to training and randomize normal arena spawn intervals (after: M2-01, M4-06)
 
-- [ ] **M4-16** Correct Blobby and Madame Plush held-item hand grips and pooled scale (after: M2-01, M1-11, M4-03)
+- [x] **M4-16** Correct Blobby and Madame Plush held-item hand grips and pooled scale (after: M2-01, M1-11, M4-03)
 
 - [x] **M4-17** Windows task-verification launcher for completed M4 content (after: M0-16)
 
